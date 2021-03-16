@@ -1,0 +1,1072 @@
+div.Meal_plan_container {
+  -webkit-box-shadow: 1px -1px 10px 0px rgba(0, 0, 0, 0.54);
+  -moz-box-shadow: 1px -1px 10px 0px rgba(0, 0, 0, 0.54);
+  box-shadow: 1px -4px 9px 1px rgba(0, 0, 0, 0.54);
+  box-shadow: 1px 0px 7px -2px rgba(0, 0, 0, 0.54);
+  margin: 1rem 1rem 1rem 1rem;
+  border-radius: 0.4rem;
+  padding: 1rem;
+  background: #fbfbfb;
+}
+
+/* left side card */
+div.mealpayment_plan_container {
+  display: grid;
+  place-items: end;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+}
+input.payment_plan_input {
+  border-radius: 5px;
+}
+
+p.title_your_plan {
+  color: #303960;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+p.title_menu_pkg {
+  color: #303960;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+h6.subtitle_immnue_booster {
+  margin-left: 10px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+h6.subtitle_weekends {
+  margin-left: 10px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+h6.subtitle_category {
+  margin-left: 10px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+p.title_date {
+  color: #303960;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+h6.subtitle_date_detail {
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+p.title_sub_days {
+  color: #303960;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+}
+div.week_data_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* week data style */
+
+div.week_data {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  color: #000;
+  background-color: #fff;
+  border-color: 1px solid #fbfbfb;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+/* right side card */
+
+div.Immune_booster_container {
+  display: flex;
+  justify-content: space-between;
+}
+div.grandtotal_container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+span.total_text {
+  color: #303960;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+div.pay_now_btn_container {
+  display: flex;
+  justify-content: flex-end;
+}
+button.pay_now_btn {
+  background-color: rgb(139, 196, 65);
+  color: #fff;
+  border-radius: 0.4rem;
+  outline: none;
+}
+h6.change_text_master_card {
+  color: rgb(139, 196, 65);
+  cursor: pointer;
+}
+h6.change_text_master_card:hover {
+  color: #6e9a34;
+}
+
+/* vertical line */
+div.vertical_line_mealplan {
+  border-left: 6px solid green;
+  height: 500px;
+}
+
+/* horizontal line */
+
+hr.horizontal_line_mealplan {
+  width: 10rem;
+  border-block-color: #000;
+}
+button.pay_now_btn:hover {
+  background-color: #6e9a34;
+}
+
+button.coupon_btn_payment_plan:hover {
+  background-color: #6e9a34;
+}
+button.coupon_btn_payment_plan_2:hover {
+  background-color: #6e9a34;
+}
+
+/* media query */
+
+@media screen and (max-width: 767px) {
+  div.coupon_container {
+    padding: 2%;
+  }
+  h6.add_coupon_title {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  div.payment_plan_coupon {
+  }
+  input.payment_plan_input {
+    width: 90%;
+    margin: 5%;
+    padding: 1%;
+    border: 1px solid #0000007d;
+    border-radius: 5px;
+  }
+  button.coupon_btn_payment_plan {
+    margin: 5%;
+    margin-top: 0;
+    border: none;
+    /* border: 1px solid #4e494969; */
+    padding: 2%;
+    font-size: 13px;
+    background: #8bc441;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    outline: none;
+  }
+  button.coupon_btn_payment_plan_2 {
+    margin: 5%;
+    margin-top: 0;
+    border: none;
+    /* border: 1px solid #4e494969; */
+    padding: 2%;
+    font-size: 13px;
+    background: #8bc441;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    outline: none;
+  }
+  img.master_card {
+    width: 90px;
+    height: 68px;
+  }
+  h6.master_card_number {
+    margin-top: 14px;
+  }
+  div.mastercard_container {
+    width: 68%;
+  }
+  h6.change_text_master_card {
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  p.title_menu_pkg {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0px;
+  }
+  p.title_your_plan {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  h6.subtitle_immnue_booster {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0.8;
+  }
+  h6.subtitle_weekends {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0.8;
+  }
+  h6.subtitle_category {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0.8;
+  }
+  p.title_date {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0px;
+  }
+  h6.subtitle_date_detail {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0.8;
+  }
+  p.title_sub_days {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0px;
+  }
+  div.Meal_plan_container_payment {
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%);
+    margin: 1rem;
+    border-radius: 14px;
+    padding: 17px;
+    border: none;
+    height: auto;
+    margin-top: 2.1rem;
+    width: 90%;
+  }
+  p.title_your_plan {
+    color: #303960;
+    text-align: center;
+  }
+  div.week_data_container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  div.week_data {
+    height: 35px;
+    width: 35px;
+    font-size: 0.7rem;
+    margin: 3px;
+  }
+  div.vertical_line_mealplan {
+    height: 22rem;
+    border: 1px solid #9f9f9f;
+    opacity: 0.4;
+  }
+  div.Immune_booster_container {
+    display: flex;
+    justify-content: space-between;
+  }
+  div.grandtotal_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  h5.cost_title {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: 2rem;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.1px;
+  }
+  p.immune_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 16px;
+    margin-bottom: 1rem;
+  }
+  p.gb_plan_text {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: -1rem;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  p.extra_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 16px;
+  }
+  p.gb_plan_text {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: -1rem;
+  }
+  p.tax_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 16px;
+  }
+  span.total_text {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 1.4rem;
+  }
+  span.grand_total_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  div.vertical_line_mealplan {
+    display: none;
+  }
+  div.pay_now_btn_container {
+    display: flex;
+    justify-content: center;
+  }
+  button.pay_now_btn {
+    border: none;
+    background-color: rgb(139, 196, 65);
+    color: #fff;
+    margin-top: 1rem;
+    padding: 0.7rem;
+    width: 16rem;
+    font-size: 0.8rem;
+    border: none;
+    padding-top: 11px;
+    border-radius: 0.4rem;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  div.coupon_container {
+    padding: 2%;
+    margin: 0%;
+    margin-top: 7px;
+  }
+  h6.add_coupon_title {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  div.payment_plan_coupon {
+  }
+  input.payment_plan_input {
+    width: 50%;
+    margin: 0%;
+    padding: 2%;
+    border: 1px solid #0000007d;
+    margin-left: 14px;
+    height: 30px;
+  }
+  button.coupon_btn_payment_plan {
+    margin: 0%;
+    margin-top: 0;
+    border: none;
+    padding: 0%;
+    font-size: 11px;
+    background: #8bc441;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    width: 96%;
+    height: 30px;
+    margin-left: 12px;
+
+    outline: none;
+  }
+  button.coupon_btn_payment_plan_2 {
+    margin: 0%;
+    margin-top: 0;
+    border: none;
+    padding: 0%;
+    font-size: 11px;
+    background: #8bc441;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    width: 36%;
+    height: 30px;
+    margin-left: 12px;
+
+    outline: none;
+  }
+  img.master_card {
+    width: 90px;
+    height: 68px;
+  }
+  h6.master_card_number {
+    margin-top: 16px;
+    font-size: 12px;
+  }
+  div.mastercard_container {
+    width: 71%;
+  }
+  h6.change_text_master_card {
+    font-size: 14px;
+    margin-left: 9px;
+  }
+  p.title_your_plan {
+    color: #303960;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  p.title_menu_pkg {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0px;
+  }
+  h6.subtitle_immnue_booster {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0.8;
+  }
+  h6.subtitle_weekends {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0.8;
+  }
+  h6.subtitle_category {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0.8;
+  }
+  p.title_date {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0px;
+  }
+  h6.subtitle_date_detail {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: 0.8;
+  }
+  p.title_sub_days {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0px;
+  }
+  div.Meal_plan_container_payment {
+    /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    margin: 13%;
+    border-radius: 14px;
+    padding: 3%;
+    border: none;
+    height: auto;
+    margin-top: 3.1rem;
+  }
+  div.week_data {
+    height: 30px;
+    width: 30px;
+    font-size: 12px;
+  }
+  div.vertical_line_mealplan {
+    height: auto;
+    border: 1px solid #9f9f9f;
+    opacity: 0.4;
+  }
+  div.Immune_booster_container {
+    display: flex;
+    justify-content: space-between;
+  }
+  div.grandtotal_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  h5.cost_title {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: 2rem;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.1px;
+  }
+  p.immune_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 16px;
+    margin-bottom: 1rem;
+  }
+  p.gb_plan_text {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: -1rem;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  p.extra_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 16px;
+  }
+  p.tax_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 16px;
+  }
+  span.total_text {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 1.4rem;
+  }
+  span.grand_total_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  hr.horizontal_line_mealplan {
+    width: 18rem;
+    margin-left: 6rem;
+    border-block-color: #000;
+  }
+  div.vertical_line_mealplan {
+    border-left: 1px solid grey;
+    height: "100%";
+    margin-left: 1rem;
+  }
+  h3.payment_title {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    margin-top: 5px;
+    font-size: 21px;
+    margin-bottom: 16px;
+  }
+  div.payment_plan_container_rightside {
+    margin-left: 1rem;
+  }
+  div.pay_now_btn_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  button.pay_now_btn {
+    border: none;
+    background-color: rgb(139, 196, 65);
+    color: #fff;
+    padding: 0.3rem;
+    width: 10.2rem;
+    padding-top: 5px;
+    font-size: 0.8rem;
+    border-radius: 0.4rem;
+    letter-spacing: 2px;
+    height: 30px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  div.coupon_container {
+    padding: 2%;
+    margin: 0%;
+    margin-top: 7px;
+  }
+  h6.add_coupon_title {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  div.payment_plan_coupon {
+  }
+  input.payment_plan_input {
+    width: 50%;
+    margin: 0%;
+    padding: 2%;
+    border: 1px solid #0000007d;
+    margin-left: 14px;
+    height: 31px;
+  }
+  button.coupon_btn_payment_plan {
+    margin: 0%;
+    margin-top: 0;
+    border: none;
+    padding: 0%;
+    font-size: 14px;
+    background: #8bc441;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    width: 96%;
+    height: 30px;
+    margin-left: 21px;
+    outline: none;
+  }
+  button.coupon_btn_payment_plan_2 {
+    margin: 0%;
+    margin-top: 0;
+    border: none;
+    padding: 0%;
+    font-size: 14px;
+    background: #8bc441;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    width: 36%;
+    height: 30px;
+    margin-left: 21px;
+    outline: none;
+  }
+  img.master_card {
+    width: 90px;
+    height: 68px;
+  }
+  h6.master_card_number {
+    margin-top: 26px;
+    font-size: 12px;
+  }
+  div.mastercard_container {
+    width: 67%;
+  }
+  h6.change_text_master_card {
+  }
+  div.left_side_container_paymeant_plan {
+    margin-left: 11px;
+  }
+  div.Meal_plan_container_payment {
+    /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    margin: 0;
+    border-radius: 14px;
+    padding: 2%;
+    height: auto;
+    border: none;
+    margin-top: -11px;
+    width: 74%;
+    margin-bottom: 30px;
+  }
+  div.week_data {
+    height: 30px;
+    width: 30px;
+    font-size: 0.85rem;
+  }
+  div.vertical_line_mealplan {
+    height: auto;
+    border: 1px solid #9f9f9f;
+    opacity: 0.4;
+  }
+  div.Immune_booster_container {
+    display: flex;
+    justify-content: space-between;
+  }
+  div.grandtotal_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  h5.cost_title {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: 2rem;
+    font-size: 20px;
+    letter-spacing: -0.1px;
+  }
+  p.gb_plan_text {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: -1rem;
+  }
+  span.total_text {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 1.4rem;
+  }
+  span.grand_total_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  hr.horizontal_line_mealplan {
+    width: 18rem;
+    margin-left: 6rem;
+    border-block-color: #000;
+  }
+  div.vertical_line_mealplan {
+    border-left: 1px solid grey;
+    height: auto;
+    margin-left: 1rem;
+  }
+  h3.payment_title {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    margin-top: -2px;
+  }
+  div.payment_plan_container_rightside {
+    margin-left: 1rem;
+  }
+  div.pay_now_btn_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  button.pay_now_btn {
+    border: none;
+    background-color: rgb(139, 196, 65);
+    color: #fff;
+    padding: 0.3rem;
+    width: 9.2rem;
+    height: 39px;
+    padding-top: 6px;
+    text-align: center;
+    font-size: 17px;
+    border-radius: 0.4rem;
+    letter-spacing: 2px;
+  }
+}
+@media only screen and (min-width: 800px) {
+  button.pay_now_btn {
+    border: none;
+    width: 11rem;
+  }
+  div.week_data {
+    height: 35px;
+    width: 35px;
+    font-size: 0.85rem;
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  div.coupon_container {
+    padding: 2%;
+    margin: 0%;
+    margin-top: 7px;
+  }
+  h6.add_coupon_title {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  div.payment_plan_coupon {
+  }
+  input.payment_plan_input {
+    width: 52%;
+    margin: 0%;
+    padding: 2%;
+    border: 1px solid #0000007d;
+    margin-left: 14px;
+    border-radius: 3px;
+    height: 31px;
+  }
+  button.coupon_btn_payment_plan {
+    text-transform: uppercase;
+    margin: 0%;
+    margin-top: 0;
+    border: none;
+    padding: 0%;
+    font-size: 14px;
+    background: #8bc441;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    width: 36%;
+    height: 30px;
+    margin-left: 24px;
+    outline: none;
+  }
+  img.master_card {
+    width: 90px;
+    height: 68px;
+  }
+  h6.master_card_number {
+    margin-top: 22px;
+  }
+  div.mastercard_container {
+    width: 62%;
+  }
+  h6.change_text_master_card {
+  }
+  div.Meal_plan_container_payment {
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
+    margin: 7%;
+    border-radius: 14px;
+    padding: 3%;
+    width: 70%;
+    height: auto;
+    border: none;
+    margin-top: 0.1rem;
+  }
+
+  div.week_data {
+    height: 30px;
+    width: 30px;
+    font-size: 0.85rem;
+  }
+  div.vertical_line_mealplan {
+    height: auto;
+    border: 1px solid #9f9f9f;
+    opacity: 0.4;
+  }
+  div.Immune_booster_container {
+    display: flex;
+    justify-content: space-between;
+  }
+  div.grandtotal_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  h5.cost_title {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: 2rem;
+    font-size: 18px;
+    letter-spacing: 0.9px;
+  }
+  p.gb_plan_text {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: -1rem;
+  }
+  span.total_text {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 1.4rem;
+  }
+  span.grand_total_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  hr.horizontal_line_mealplan {
+    width: 18rem;
+    margin-left: 6rem;
+    border-block-color: #000;
+  }
+  div.vertical_line_mealplan {
+    border-left: 1px solid grey;
+    height: auto;
+    margin-left: 2rem;
+  }
+
+  h3.payment_title {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    margin-top: -2px;
+    font-size: 21px;
+  }
+  div.payment_plan_container_rightside {
+    margin-left: 2rem;
+  }
+  div.pay_now_btn_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  p.immune_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 18px;
+  }
+  span.price_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 19px;
+    letter-spacing: 1px;
+  }
+  button.pay_now_btn {
+    background-color: rgb(139, 196, 65);
+    color: #fff;
+    padding: 0.3rem;
+    width: 13.2rem;
+    height: 35px;
+    border: none;
+    padding-top: 4px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 0.4rem;
+    letter-spacing: 2px;
+  }
+
+  div.week_data {
+    height: 43px;
+    width: 42px;
+    font-size: 1rem;
+  }
+}
+@media only screen and (min-width: 2000px) {
+  div.Meal_plan_container_payment {
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
+    margin: 8rem;
+    border-radius: 14px;
+    padding: 26px;
+    width: 70%;
+    height: auto;
+    margin-top: 3.1rem;
+  }
+  h6.change_text_master_card {
+  }
+  /* div.Meal_plan_container{
+        display: flex;
+        justify-content: space-between;
+        margin: 7rem;
+    } */
+  div.week_data {
+    height: 30px;
+    width: 30px;
+    font-size: 0.85rem;
+  }
+  div.vertical_line_mealplan {
+    height: auto;
+    border: 1px solid #9f9f9f;
+    opacity: 0.4;
+  }
+  div.Immune_booster_container {
+    display: flex;
+    justify-content: space-between;
+  }
+  div.grandtotal_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  h5.cost_title {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: 2rem;
+    font-size: 18px;
+    letter-spacing: 0.9px;
+  }
+  p.gb_plan_text {
+    color: #303960;
+    font-family: sans-serif;
+    margin-top: -1rem;
+  }
+  span.total_text {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 1.4rem;
+  }
+  span.grand_total_subtitle {
+    color: #303960;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  hr.horizontal_line_mealplan {
+    width: 18rem;
+    margin-left: 6rem;
+    border-block-color: #000;
+  }
+  div.vertical_line_mealplan {
+    border-left: 1px solid grey;
+    height: 22rem;
+    margin-left: 1rem;
+  }
+  h3.payment_title {
+    color: #303960;
+    font-family: sans-serif;
+    font-weight: 700;
+    margin-top: -2px;
+  }
+  div.payment_plan_container_rightside {
+    margin-left: 1rem;
+  }
+  div.pay_now_btn_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  button.pay_now_btn {
+    background-color: rgb(139, 196, 65);
+    color: #fff;
+    padding: 0.3rem;
+    width: 13.2rem;
+    height: 35px;
+    border: none;
+    padding-top: 4px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 0.4rem;
+    letter-spacing: 2px;
+  }
+
+  div.week_data {
+    height: 43px;
+    width: 42px;
+    font-size: 1rem;
+  }
+  /* hr.horizontal_line_mealplan{
+        margin-left: 64rem;
+    } */
+}

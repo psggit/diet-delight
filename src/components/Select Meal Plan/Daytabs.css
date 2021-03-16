@@ -1,0 +1,188 @@
+.tabsH-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  flex-shrink: 0;
+  align-items: stretch;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  overflow-x: scroll;
+  margin: 1rem;
+  border-radius: 1rem;
+  user-select: none;
+  -webkit-user-select: none;
+  box-shadow: -1px 3px 9px -4px rgb(61 61 61 / 59%);
+  margin-top: -31px;
+}
+.tabsH-wrapper::-webkit-scrollbar {
+  display: none;
+}
+.tabsH-wrapper.active,
+.tabsH-wrapper.active div {
+  cursor: grabbing !important;
+  cursor: -webkit-grabbing !important;
+  user-select: none;
+  -webkit-user-select: none;
+  font-weight: 600;
+}
+.tabsH-wrapper span {
+  padding: 10px;
+}
+p.day_text{
+  width: 4rem;
+  margin: 1.5rem .8rem 1rem 2.5rem;
+  font-weight: 400;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+p.day_text:hover{
+  color:#000;
+  font-weight: 600 ;
+  opacity: .9;
+  
+}
+p.day_text:focus{
+  color:#000;
+  font-weight: 600 ;
+  opacity: .9;
+}
+div.daytab_container{
+  margin: 26px;
+  width: 100%;
+}
+div.day_text_container{
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .tabsH-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: stretch;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overflow-x: scroll;
+    border-radius: 1rem;
+    margin: 20px;
+    user-select: none;
+    -webkit-user-select: none;
+    box-shadow: -1px 3px 9px -4px rgb(61 61 61 / 59%);
+    margin-top: -31px;
+  }
+  .tabsH-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .tabsH-wrapper.active,
+  .tabsH-wrapper.active div {
+    cursor: grabbing !important;
+    cursor: -webkit-grabbing !important;
+    user-select: none;
+    -webkit-user-select: none;
+    font-weight: 600;
+  }
+  .tabsH-wrapper span {
+    padding: 10px;
+  }
+  p.day_text{
+    width: 4rem;
+    margin: 1.5rem -1.2rem 1rem 0.5rem;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  p.day_text:hover{
+    color:#000;
+    font-weight: 700 ;
+    opacity: .9;
+    
+  }
+  p.day_text:focus{
+    color:#000;
+    font-weight: 600 ;
+    opacity: .9;
+  }
+  div.daytab_container{
+    margin: 26px;
+    width: 100%;
+  }
+  div.day_text_container{
+    margin: 1rem 1rem 1rem 1rem;
+  }
+  
+}
+
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .tabsH-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: stretch;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overflow-x: scroll;
+    margin: 1rem;
+    border-radius: 1rem;
+    user-select: none;
+    -webkit-user-select: none;
+    box-shadow: -1px 3px 9px -4px rgb(61 61 61 / 59%);
+    margin-top: -31px;
+  }
+  .tabsH-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .tabsH-wrapper.active,
+  .tabsH-wrapper.active div {
+    cursor: grabbing !important;
+    cursor: -webkit-grabbing !important;
+    user-select: none;
+    -webkit-user-select: none;
+    font-weight: 600;
+  }
+  .tabsH-wrapper span {
+    padding: 10px;
+  }
+  p.day_text{
+    width: 62px;
+    margin: 6px 22px 1px 22px;
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+  p.day_text:hover{
+    color:#000;
+    font-weight: 600 ;
+    opacity: .9;
+    
+  }
+  p.day_text:focus{
+    color:#000;
+    font-weight: 600 ;
+    opacity: .9;
+  }
+  div.daytab_container{
+    margin: 26px;
+    width: 100%;
+  }
+  div.day_text_container{
+    margin: 1rem 1rem 1rem 1rem;
+  }
+  
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  
+}

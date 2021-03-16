@@ -1,0 +1,151 @@
+button.time_Afternoon_title{
+    box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
+    text-align: center;
+    border-radius: 7px;
+    border: 1px solid #2121213b;
+    margin: 3px;
+    padding: 2px;
+    background: white;
+    font-weight: 400;
+    font-size: 11px;
+    width: 52px;
+}
+button.time_Afternoon_title:hover{
+    background-color:#8BC441;
+    color: #fff;
+}
+h4.aftrnoon_title_time{
+    
+    font-size: 14px;
+    
+    
+}
+
+/* 
+
+@media only screen and (max-width: 320px) {
+    
+    div.afternoon_col{
+        margin-left: -2rem;
+    }
+    h4.aftrnoon_title_time {
+        font-size: 16px;
+        width: 4rem;
+        margin: 0rem;
+        text-align: center;
+    }
+    button.time_Afternoon_title {
+        box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
+        text-align: center;
+        border-radius: 7px;
+        border: 1px solid #2121213b;
+        margin: 6px;
+        padding: 2px;
+        background: white;
+        font-weight: 400;
+        font-size: 11px;
+        width: 52px;
+        margin-left: 6px;
+    }
+    
+} */
+
+
+@media only screen and (max-width: 767px) {
+    div.aftenoon_tab_container{
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+    }
+    div.afternoon_col{
+        margin-left: -2rem;
+    }
+    h4.aftrnoon_title_time {
+        
+        font-size: 14px;
+        margin-left: 0;
+        margin-top: 8px;
+        
+    }
+    button.time_Afternoon_title {
+        box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
+        text-align: center;
+        border-radius: 7px;
+        border: 1px solid #2121213b;
+        margin: 7px;
+        padding: 2px;
+        background: white;
+        font-weight: 400;
+        font-size: 11px;
+        width: 63px;
+    }
+    
+    
+}
+
+
+@media only screen and (min-width: 768px) {
+    
+    div.afternoon_col{
+        margin-left: 0;
+    }
+    h4.aftrnoon_title_time {
+        font-size: 15px;
+        margin-left: 0px;
+        width: 44px;
+        margin-top: 6px;
+        margin: 2px;
+    }
+    button.time_Afternoon_title {
+        box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
+        text-align: center;
+        border-radius: 7px;
+        border: 1px solid #2121213b;
+        margin: 7px;
+        margin-left: -7px;
+        margin-right: 2px;
+        padding: 2px;
+        background: white;
+        font-size: 13px;
+        width: 57px;
+    }
+    
+    
+}
+
+
+@media only screen and (min-width: 992px) {
+    
+    
+    div.afternoon_col{
+        margin-left: 0;
+    }
+    h4.aftrnoon_title_time {
+        font-size: 19px;
+        margin-left: 0px;
+        width: 49px;
+        margin-top: 6px;
+        margin: 2px;
+    }
+    button.time_Afternoon_title {
+        box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
+        text-align: center;
+        border-radius: 7px;
+        border: 1px solid #2121213b;
+        margin: 7px;
+        margin-left: 9px;
+        margin-right: 2px;
+        padding: 2px;
+        background: white;
+        font-size: 15px;
+        width: 84px;
+    }
+    div.aftrnoon_title_time_container{
+        margin-top: 14px;
+        margin-left: 27px;
+    }
+    
+    
+    
+}
+

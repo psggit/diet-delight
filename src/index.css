@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: "Andale Mono";
+  src: url("./fonts/Andale\ Mono.ttf") format("opentype"); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-Regular.ttf") format("opentype"); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: "Open Sans Semibold";
+  src: url("./fonts/OpenSans-Semibold.ttf") format("opentype"); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: "Open Sans Bold";
+  src: url("./fonts/OpenSans-Bold.ttf") format("opentype"); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("./fonts/Roboto-Regular.ttf") format("truetype"); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: "Roboto Bold";
+  src: url("./fonts/Roboto-Bold.ttf") format("truetype"); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: "Roboto Condensed Regular";
+  src: url("./fonts/RobotoCondensed-Regular.ttf") format("truetype"); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: "Roboto Condensed Bold";
+  src: url("./fonts/RobotoCondensed-Bold.ttf") format("truetype"); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: "Seravek";
+  src: url("./fonts/Seravek.ttc") format("truetype"); /* IE9 Compat Modes */
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

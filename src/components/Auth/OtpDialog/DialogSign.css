@@ -1,0 +1,362 @@
+ .otp_bg{
+    background-image: url(../../../assets/mealplan.jpg);
+    height: 5   00px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    
+}
+div.img_container_dialog{
+    text-align: center;
+}
+img.logo_dialog_signup{
+    width: 72%;
+}
+div.container_dialog_icon_img{
+    
+}
+i.left_icon_dialog{
+    
+}
+input.input_dialog_signup{
+    letter-spacing: 32px;
+    
+    width: 100%;
+    padding: 1%;
+    margin: 3%;
+    height: 48px;
+    border: none;
+    border-bottom: 2px solid #212121;
+    opacity: .8;
+    background: transparent;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+
+
+@media only screen and (max-width: 767px) {
+    div.dialog_signup_new{
+        margin-top: 15px;
+    }
+    .otp_bg{
+        background-image: url(../../../assets/mealplan.jpg);
+        height: 500px; /* You must set a specified height */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+        
+    }
+    div.img_container_dialog{
+        text-align: center;
+        margin-top: -15px;
+        margin-left: 0px;
+    }
+    img.logo_dialog_signup{
+        width: 54%;
+    }
+    div.container_dialog_icon_img{
+        
+    }
+    i.left_icon_dialog{
+        font-size: 18px;
+        color: #8BC53F;
+    }
+    input.input_dialog_signup{
+        letter-spacing: 28px;
+        width: 100%;
+        padding: 1%;
+        margin: 3%;
+        height: 35px;
+        border: none;
+        border-bottom: 2px solid #21212166;
+        opacity: .8;
+        background: transparent;
+        color: #2121219c;
+    }
+    input:focus{
+        border:none;
+        outline:none;
+        border-bottom: 2px solid #21212166;
+
+    }
+    h6.your_phone_text{
+        font-size: 14px;
+        margin-top: 2rem;
+        color: #8BC53F;
+    }
+    h6.received_text{
+        font-size: 11px;
+        margin-top: 8px;
+        color: #8BC53F;
+    }
+    h6.enter_otp_text{
+        font-size: 12px;
+        margin-top: 27px;
+        color: #8BC53F;
+        letter-spacing: .4px;
+    }
+    h6.resend_otp_text{
+        font-size: 10px;
+        text-align: end;
+        margin: 4%;
+        color: #000000b5;
+    }
+    button.verify_btn_dialog{
+        width: 100%;
+        background: #8BC53F;
+        font-size: 11px;
+        color: #fff;
+        letter-spacing: 2px;
+        border-radius: 15px;
+        margin-top: 22px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    div.dialog_signup_new{
+        margin-top: 15px;
+    }
+    .otp_bg{
+        background-image: url(../../../assets/mealplan.jpg);
+        height: 500px; /* You must set a specified height */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+        
+    }
+    div.img_container_dialog{
+        text-align: center;
+        margin-top: -15px;
+        margin-left: 0px;
+    }
+    img.logo_dialog_signup{
+        width: 54%;
+    }
+    div.container_dialog_icon_img{
+        
+    }
+    i.left_icon_dialog{
+        font-size: 18px;
+        color: #8BC53F;
+    }
+    input.input_dialog_signup{
+        letter-spacing: 32px;
+        width: 100%;
+        padding: 1%;
+        margin: 3%;
+        height: 35px;
+        border: none;
+        border-bottom: 2px solid #21212166;
+        opacity: .8;
+        background: transparent;
+        color: #2121219c;
+    }
+    input:focus{
+        border:none;
+        outline:none;
+        border-bottom: 2px solid #21212166;
+
+    }
+    h6.your_phone_text{
+        font-size: 14px;
+        margin-top: 2rem;
+        color: #8BC53F;
+    }
+    h6.received_text{
+        font-size: 11px;
+        margin-top: 8px;
+        color: #8BC53F;
+    }
+    h6.enter_otp_text{
+        font-size: 12px;
+        margin-top: 27px;
+        color: #8BC53F;
+        letter-spacing: .4px;
+    }
+    h6.resend_otp_text{
+        font-size: 10px;
+        text-align: end;
+        margin: 4%;
+        color: #000000b5;
+    }
+    button.verify_btn_dialog{
+        width: 100%;
+        background: #8BC53F;
+        font-size: 11px;
+        color: #fff;
+        letter-spacing: 2px;
+        border-radius: 15px;
+        margin-top: 22px;
+    }
+    
+}
+
+@media only screen and (min-width: 992px) {
+    div.dialog_signup_new{
+        margin-top: 15px;
+    }
+    .otp_bg{
+        background-image: url(../../../assets/mealplan.jpg);
+        height: 500px; /* You must set a specified height */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+        
+    }
+    div.img_container_dialog{
+        text-align: center;
+        margin-top: -15px;
+        margin-left: 0px;
+    }
+    img.logo_dialog_signup{
+        width: 54%;
+    }
+    div.container_dialog_icon_img{
+        
+    }
+    i.left_icon_dialog{
+        font-size: 18px;
+        color: #8BC53F;
+    }
+    input.input_dialog_signup{
+        letter-spacing: 32px;
+        width: 100%;
+        padding: 1%;
+        margin: 3%;
+        height: 35px;
+        border: none;
+        border-bottom: 2px solid #21212166;
+        opacity: .8;
+        background: transparent;
+        color: #2121219c;
+    }
+    input:focus{
+        border:none;
+        outline:none;
+        border-bottom: 2px solid #21212166;
+
+    }
+    h6.your_phone_text{
+        font-size: 14px;
+        margin-top: 2rem;
+        color: #8BC53F;
+    }
+    h6.received_text{
+        font-size: 11px;
+        margin-top: 8px;
+        color: #8BC53F;
+    }
+    h6.enter_otp_text{
+        font-size: 12px;
+        margin-top: 27px;
+        color: #8BC53F;
+        letter-spacing: .4px;
+    }
+    h6.resend_otp_text{
+        font-size: 10px;
+        text-align: end;
+        margin: 4%;
+        color: #000000b5;
+    }
+    button.verify_btn_dialog{
+        width: 100%;
+        background: #8BC53F;
+        font-size: 11px;
+        color: #fff;
+        letter-spacing: 2px;
+        border-radius: 15px;
+        margin-top: 22px;
+    }
+    
+    
+}
+
+@media only screen and (min-width: 1200px) {
+    div.dialog_signup_new{
+        margin-top: 15px;
+    }
+    .otp_bg{
+        background-image: url(../../../assets/mealplan.jpg);
+        height: 500px; /* You must set a specified height */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+        
+    }
+    div.img_container_dialog{
+        text-align: center;
+        margin-top: -15px;
+        margin-left: 0px;
+    }
+    img.logo_dialog_signup{
+        width: 54%;
+    }
+    div.container_dialog_icon_img{
+        
+    }
+    i.left_icon_dialog{
+        font-size: 18px;
+        color: #8BC53F;
+    }
+    input.input_dialog_signup{
+        letter-spacing: 32px;
+        width: 100%;
+        padding: 1%;
+        margin: 3%;
+        height: 35px;
+        border: none;
+        border-bottom: 2px solid #21212166;
+        opacity: .8;
+        background: transparent;
+        color: #2121219c;
+    }
+    input:focus{
+        border:none;
+        outline:none;
+        border-bottom: 2px solid #21212166;
+
+    }
+    h6.your_phone_text{
+        font-size: 14px;
+        margin-top: 2rem;
+        color: #8BC53F;
+    }
+    h6.received_text{
+        font-size: 11px;
+        margin-top: 8px;
+        color: #8BC53F;
+    }
+    h6.enter_otp_text{
+        font-size: 12px;
+        margin-top: 27px;
+        color: #8BC53F;
+        letter-spacing: .4px;
+    }
+    h6.resend_otp_text{
+        font-size: 10px;
+        text-align: end;
+        margin: 4%;
+        color: #000000b5;
+    }
+    button.verify_btn_dialog{
+        width: 100%;
+        background: #8BC53F;
+        font-size: 11px;
+        color: #fff;
+        letter-spacing: 2px;
+        border-radius: 15px;
+        margin-top: 22px;
+    }
+    
+    
+}

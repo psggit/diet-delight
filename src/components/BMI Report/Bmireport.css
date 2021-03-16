@@ -1,0 +1,364 @@
+div.outerer {
+    background: #fff;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border:8px solid #8BC441;
+}
+h6.ten_number{
+    text-align: center;
+    font-size: 36px;
+    margin-top: 7px;
+    font-weight: 900;
+}
+div.bmi_report_container{
+    display: grid;
+    place-items: center;
+    position: absolute;
+    width: 100%;
+    height:100%;
+    top:25%;
+    z-index: 5;
+
+}
+h6.recommm_text{
+    color: #fff; 
+}
+
+h6.normal_text{
+    color: #fff;   
+}
+
+@media only screen and (max-width: 765px) {
+    
+    div.outerer {
+        background: #fff;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        border: 8px solid #8BC441;
+    }
+    h6.ten_number{
+        text-align: center;
+        font-size: 88px;
+        margin-top: 12px;
+        font-weight: 900;
+        color: #8BC441;
+    }
+    div.bmi_report_card{
+        background: #78288B;
+        margin: 1%;
+        padding: 4%;
+    }
+    h6.title_bmi_report{
+        text-align: center;
+        color: #fff;
+        font-size: 27px;
+        font-family: "Roboto Condensed Regular";
+        letter-spacing: 3px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    h6.recommm_text{
+        text-align: center;
+        font-size: 18px;
+        letter-spacing: 2px; 
+    }
+    h6.day_text_bmireport{
+        color: #fff;
+        font-size: 26px;
+        text-align: center;
+        letter-spacing: 3px;
+        font-weight: 600;
+        margin-bottom: 17px;
+    }
+    h6.normal_text{
+        text-align: center;
+        font-size: 22px;
+        margin-top: 20px;
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+    div.number_text_container{
+        display: flex;
+        justify-content: center; 
+    }
+    h6.text_bmi_report{
+        margin-top: 10px;
+        color: #fff;
+        font-size: 15px;
+        opacity: .8;
+    }
+    button.btn_next_bmireport{
+        background:#8BC441;
+        color: #fff;
+        margin-top: 15px;
+        width: 50%;
+    }
+    h6.please_bmi_report{
+       
+    margin-top: 8px;
+    color: #fff;
+    font-size: 15px;
+    opacity: .9;
+
+    }
+    
+}
+
+
+@media only screen and (min-width: 766px) {
+    div.bmi_report_row{
+        margin: 3%;
+    }
+    div.outerer {
+        background: #fff;
+        border-radius: 50%;
+        width: 94px;
+        height: 94px;
+        border: 8px solid #8BC441;
+        margin-top: -12px;
+        
+    }
+    h6.ten_number{
+        text-align: center;
+        font-size: 45px;
+        margin-top: 11px;
+        font-weight: 900;
+        color: #8BC441;
+    }
+    div.bmi_report_card{
+        background: #78288B;
+        margin: 1%;
+        padding: 3%;
+        width: 90%;
+    }
+    h6.title_bmi_report{
+        text-align: center;
+        color: #fff;
+        font-size: 30px;
+        font-family: "Roboto Condensed Regular";
+        letter-spacing: 3px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    h6.recommm_text{
+        text-align: right;
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+    h6.day_text_bmireport{
+        color: #fff;
+        font-size: 14px;
+        text-align: right;
+        letter-spacing: 1.2px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    h6.normal_text{
+        text-align: left;
+        font-size: 14px;
+        margin-top: 16px;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+    }
+    div.number_text_container{
+        display: flex;
+        justify-content: center; 
+    }
+    h6.text_bmi_report{
+        margin-top: -2px;
+        color: #fff;
+        font-size: 12px;
+        opacity: .7;
+        letter-spacing: .2px;
+        width: 100%;
+    }
+    button.btn_next_bmireport{
+        background: #8BC441;
+        color: #fff;
+        margin-top: 15px;
+        width: 19%;
+        height: 35px;
+        font-size: 14px;
+    }
+    h6.please_bmi_report{
+        margin-top: 8px;
+        color: #fff;
+        font-size: 14px;
+        opacity: .9;
+        letter-spacing: .8px;
+    
+        }
+    
+}
+
+@media only screen and (min-width: 992px) {
+    div.bmi_report_row{
+        margin: 3%;
+    }
+    div.outerer {
+        background: #fff;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        border: 10px solid #8BC441;
+        margin-top: -16px;
+    }
+    h6.ten_number{
+        text-align: center;
+        font-size: 61px;
+        margin-top: 11px;
+        font-weight: 900;
+        color: #8BC441;
+    }
+    div.bmi_report_card{
+        background: #78288B;
+        margin: 1%;
+        padding: 3%;
+        width: 90%;
+    }
+    h6.title_bmi_report{
+        text-align: center;
+        color: #fff;
+        font-size: 33px;
+        font-family: "Roboto Condensed Regular";
+        letter-spacing: 3px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    h6.recommm_text{
+        text-align: right;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    h6.day_text_bmireport{
+        color: #fff;
+        font-size: 18px;
+        text-align: right;
+        letter-spacing: 1.2px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    h6.normal_text{
+        
+        text-align: left;
+        font-size: 16px;
+        margin-top: 16px;
+        letter-spacing: 2.5px;
+        font-weight: 600;
+        
+    }
+    div.number_text_container{
+        display: flex;
+        justify-content: center; 
+    }
+    h6.text_bmi_report{
+        margin-top: -2px;
+        color: #fff;
+        font-size: 14px;
+        opacity: .7;
+        letter-spacing: .2px;
+        width: 100%;
+    }
+    button.btn_next_bmireport{
+        background: #8BC441;
+        color: #fff;
+        margin-top: 15px;
+        width: 19%;
+        height: 35px;
+        font-size: 14px;
+    }
+    h6.please_bmi_report{
+        margin-top: 4px;
+        color: #fff;
+        font-size: 15px;
+        opacity: .9;
+        letter-spacing: .8px;
+        margin-bottom: 17px;
+    
+        }
+    
+    
+}
+
+@media only screen and (min-width: 1200px) {
+    div.bmi_report_row{
+        margin: 3%;
+    }
+    div.outerer {
+        
+        background: #fff;
+        border-radius: 50%;
+        width: 135px;
+        height: 135px;
+        border: 10px solid #8BC441;
+        margin-top: -22px;
+        
+    }
+    h6.ten_number{
+        text-align: center;
+        font-size: 72px;
+        margin-top: 10px;
+        font-weight: 900;
+        color: #8BC441;
+    }
+    div.bmi_report_card{
+        background: #78288B;
+        margin: 1%;
+        padding: 3%;
+        width: 90%;
+    }
+    h6.title_bmi_report{
+        text-align: center;
+        color: #fff;
+        font-size: 35px;
+        font-family: "Roboto Condensed Regular";
+        letter-spacing: 3px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    h6.recommm_text{
+        text-align: right;
+        font-size: 19px;
+        letter-spacing: 1px;
+    }
+    h6.day_text_bmireport{
+        color: #fff;
+        font-size: 22px;
+        text-align: right;
+        letter-spacing: 2.2px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    h6.normal_text{
+        text-align: left;
+        font-size: 22px;
+        margin-top: 16px;
+        letter-spacing: 2.5px;
+        font-weight: 600;
+        
+    }
+    div.number_text_container{
+        display: flex;
+        justify-content: center; 
+    }
+    button.btn_next_bmireport{
+        background: #8BC441;
+        color: #fff;
+        margin-top: 20px;
+        width: 19%;
+        height: 35px;
+        font-size: 14px;
+    }
+    h6.please_bmi_report {
+        margin-top: 4px;
+        color: #fff;
+        font-size: 16px;
+        opacity: 1;
+        letter-spacing: 0.8px;
+        margin-bottom: 13px;
+    }
+    
+}
+

@@ -1,0 +1,7 @@
+.pagination .page-item.active .page-link {
+	background-color: #1266f1 !important;
+}
+div.main_blog_archive_div{
+	background-image: url('https://mdbootstrap.c0om/img/Photos/Others/clothes(3)-crop.jpg');
+	height: 400px;
+}

@@ -1,0 +1,87 @@
+ul.tab_container_menupkg{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+li.tab_title_container_menupkg:hover{
+    border-bottom: 3px solid  #8AC442;
+}
+li.tab_title_container_menupkg:active{
+    border-bottom: 3px solid  #8AC442;
+}
+li.tab_title_container_menupkg:focus{
+    border-bottom: 3px solid  #8AC442;
+}
+li.tab_title_container_menupkg:checked{
+    border-bottom: 3px solid  #8AC442;
+}
+a.tab_title_menupkg{
+    color: #8AC442;
+    font-size: 2rem;
+}
+a.tab_title_menupkg:hover{
+    color: #74aa32;
+    
+    
+}
+
+
+
+@media only screen and (max-width: 767px) {
+    a.tab_title_menupkg{
+        
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        line-height: 2;
+    }
+    
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    a.tab_title_menupkg{
+        
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        line-height: 2;
+    }
+    
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    a.tab_title_menupkg{
+        
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        line-height: 2;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    a.tab_title_menupkg{
+        
+        font-size: 1.3rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        line-height: 2;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    a.tab_title_menupkg{
+        
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        line-height: 2;
+    }
+}
+
+
+

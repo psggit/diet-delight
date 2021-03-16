@@ -1,0 +1,474 @@
+div.bmi_main_container{
+    display: grid;
+    place-items: center;
+    position: absolute;
+    z-index: 5;
+    
+}
+div.card_bmi{
+    background-image: url('../../assets/choosemealplan.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    
+}
+h6.title_bmi{
+    font-size: 16px;
+    color: #303960;
+    font-family: "Roboto Condensed bold";
+    letter-spacing: 1px;
+}
+input.bmi_que_textfiled{
+    border-radius: 6px;
+    outline: none;
+    border: none;
+} 
+i.icon_bmi{
+    color:#303960;
+}
+div.icon_container_bmi:hover{
+    color:#fff;
+    background: #8BC441;
+    cursor: pointer;
+    
+}
+div.card_bmi {
+    border-radius: 7px;
+}
+div.row_bmi{
+    box-shadow: 15px 19px 15px -6px rgb(0 0 0 / 75%);
+    border-radius: 7px; 
+}
+div.icon_container_remove{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+i.icon_remove_icon{
+    font-size: 16px;
+}
+h6.ques_title_bmi{
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 767px) {
+    div.card_bmi{
+        background-image: url('../../assets/choosemealplan.jpg');
+        background-position: initial;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        
+    }
+    div.icon_container_remove{
+        display: flex;
+        justify-content: flex-end;
+    }
+    i.icon_remove_icon{
+        font-size: 29px;
+        color: #303960;
+        cursor: pointer;
+    }
+    div.text_field_container_bmi{
+        align-self: center;
+    }
+    div.row_bmi{
+        margin:4%;
+    }
+    div.bmi_main_container{
+        display: grid;
+        place-items: center;
+        position: absolute;
+        /* position: relative; */
+        width: 100%;
+        height: 100%;
+    }
+    div.card_bmi{ 
+        width: 100%;
+        padding: 3%
+    }
+    h6.title_bmi{
+        font-size: 26px;
+        text-align: center;
+        margin: 3%;
+    }
+    input.bmi_que_textfiled{
+        outline: none;
+        padding: 2%;
+        font-size: 15px;
+        width: 80%;
+    }
+    h6.ques_title_bmi{
+        color: #303960;
+        text-align: center;
+        font-size: 17px;
+        letter-spacing: 1px;
+        margin: 5%;
+    }
+    div.icon_container_bmi{
+        padding: 2%;
+        width: 65px;
+        text-align: center;
+        background: #fff;
+        border-radius: 8px;
+    }
+    i.icon_bmi{
+        font-size: 19px;
+    }
+    div.icon_container_main_bmi{
+        justify-content: space-evenly;
+    }
+    div.col_container{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    div.text_field_container_bmi{
+        display: flex;
+        justify-content: center;
+    }
+    button.btn_next_bmi{
+        color:#fff;
+        background: #8BC441;
+        margin: 4%;
+        margin-top: 40px;
+    }
+    div.btn_next_container{
+        display: flex;
+        justify-content: center;
+    }
+    
+}
+
+
+@media screen and (min-width: 768px) {
+    div.row_bmi_bmi{
+        
+        width: 64%;
+        position: relative;
+        left: 16%;
+        
+    }
+    div.que_text_container_div{
+        position: relative;
+        left: 8%;
+    }
+    div.col_container{
+        position: relative;
+        left: 8%;
+    }
+    div.icon_container_remove{
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+        top: 0px;
+    }
+    i.icon_remove_icon{
+        font-size: 23px;
+        color: #303960;
+        cursor: pointer;
+    }
+    div.text_field_container_bmi{
+        align-self: center;
+    }
+    div.row_bmi{
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    div.bmi_main_container{
+        /* display: grid;
+        place-items: center;
+        position: absolute; */
+        display: grid;
+        place-items: center;
+        position: absolute;
+        top: 22%;
+        bottom: 50%;
+        left: 6%;
+    }
+    div.card_bmi{ 
+        width: 100%;
+        padding: 3%;
+        height: 34vh;
+    }
+    h6.title_bmi{
+        font-size: 27px;
+        text-align: center;
+        margin: 1%;
+        margin-bottom: 48px;
+        letter-spacing: 4px;
+    }
+    input.bmi_que_textfiled{
+        outline: none;
+        padding: 1%;
+        font-size: 14px;
+        width: 52%;
+    }
+    h6.ques_title_bmi{
+        color: #303960;
+        text-align: center;
+        font-size: 12px;
+        letter-spacing: .1px;
+        margin-bottom: 20px;
+    }
+    div.icon_container_bmi{
+        padding: 3%;
+        width: 45px;
+        height: 47px;
+        text-align: center;
+        background: #fff;
+        border-radius: 8px;
+        margin-right: 18px;
+        margin-bottom: 11px;
+    }
+    h6.male_text_btn_bmi{
+        font-size: 7px;
+    }
+    i.icon_bmi{
+        margin-top: 4px;
+        font-size: 19px;
+    }
+    div.icon_container_main_bmi{
+        display: flex;
+        justify-content: center;
+    }
+    div.text_field_container_bmi{
+        display: flex;
+        justify-content: center;
+    }
+    button.btn_next_bmi{
+        color: #fff;
+        background: #8BC441;
+        margin-top: 21px;
+        font-size: 10px;
+    }
+    div.btn_next_container{
+        display: flex;
+        justify-content: center;
+    }
+    
+    
+}
+
+
+@media screen and (min-width: 992px) {
+    div.col_container{
+        position: relative;
+        left: 8%;
+    }
+    div.icon_container_remove{
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+        top: -30px;
+    }
+    i.icon_remove_icon{
+        font-size: 23px;
+        color: #303960;
+        cursor: pointer;
+    }
+    div.text_field_container_bmi{
+        align-self: center;
+    }
+    div.row_bmi{
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    div.bmi_main_container{
+        display: grid;
+        place-items: center;
+        position: absolute;
+        top: 30%;
+        left: 15%;
+    }
+    div.card_bmi{ 
+        width: 100%;
+        padding: 6%;
+        height: 350px;
+        
+    }
+    h6.title_bmi{
+        font-size: 28px;
+        text-align: center;
+        margin: 0%;
+        margin-top: -30px;
+        margin-bottom: 52px;
+        letter-spacing: 3px;
+    }
+    input.bmi_que_textfiled{
+        outline: none;
+        padding: 2%;
+        font-size: 14px;
+        width: 80%;
+        letter-spacing: .8px;
+    }
+    h6.ques_title_bmi{
+        color: #303960;
+        text-align: center;
+        font-size: 11px;
+        letter-spacing: .2px;
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+    div.icon_container_bmi{
+        padding: 3%;
+        width: 47px;
+        height: 46px;
+        text-align: center;
+        background: #fff;
+        border-radius: 8px;
+    }
+    i.icon_bmi{
+        margin-top: 2px;
+        font-size: 16px;
+    }
+    h6.male_text_btn_bmi {
+        font-size: 9px;
+        font-weight: bold;
+        letter-spacing: .5px;
+    }    
+    div.icon_container_main_bmi{
+        display: flex;
+        justify-content: center;
+    }
+    div.text_field_container_bmi{
+        display: flex;
+        justify-content: center;
+    }
+    button.btn_next_bmi{
+        color: #fff;
+        background: #8BC441;
+        margin-top: 20px;
+        font-size: 14px;
+        width: 14%;
+        height: 64%;
+        position: relative;
+        top: -13px;
+    }
+    div.btn_next_container{
+        display: flex;
+        justify-content: center;
+        margin-top: 14px;
+    }
+    
+    
+}
+
+
+@media screen and (min-width: 1200px) {
+    div.col_container{
+        position: relative;
+        left: 7%;
+    }
+    div.icon_container_remove{
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+        top: -30px;
+    }
+    i.icon_remove_icon{
+        font-size: 23px;
+        color: #303960;
+        cursor: pointer;
+    }
+    div.text_field_container_bmi{
+        align-self: center;
+    }
+    div.row_bmi{
+        width: 114%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    div.bmi_main_container{
+        display: grid;
+        place-items: center;
+        position: absolute;
+        top: 38%;
+        left: 25%;
+    }
+    div.card_bmi{
+        width: 100%;
+        padding: 7%;
+        height: 410px;
+    }
+    h6.title_bmi{
+        font-size: 28px;
+        text-align: center;
+        margin: 0%;
+        margin-top: -30px;
+        margin-bottom: 52px;
+        letter-spacing: 3px;
+    }
+    input.bmi_que_textfiled{
+        outline: none;
+        padding: 2%;
+        font-size: 14px;
+        width: 63%;
+        letter-spacing: .8px;
+    }
+    h6.ques_title_bmi{
+        color: #303960;
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: .2px;
+        margin-bottom: 20px;
+    }
+    div.icon_container_bmi{
+        padding: 2.5%;
+        width: 58px;
+        height: 62px;
+        text-align: center;
+        background: #fff;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        margin-right: 15px;
+        
+    }
+    i.icon_bmi{
+        
+        margin-top: 0px;
+        font-size: 25px;
+        
+    }
+    div.icon_container_main_bmi{
+        display: flex;
+        justify-content: center;
+    }
+    div.text_field_container_bmi{
+        display: flex;
+        justify-content: center;
+    }
+    button.btn_next_bmi{
+        color: #fff;
+        background: #8BC441;
+        margin-top: 25px;
+        font-size: 14px;
+        width: 15%;
+    }
+    div.btn_next_container{
+        display: flex;
+        justify-content: center;
+    }
+    h6.male_text_btn_bmi{
+        font-size: 12px;
+        margin-top: 8px;
+    }
+    div.row_bmi_bmi{
+        width: 80%;
+        position: relative;
+        left: 9%;
+    }
+    div.que_text_container_div{
+        
+        position: relative;
+        left: 35px;
+        
+    }
+    
+    
+}

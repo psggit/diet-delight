@@ -1,0 +1,15 @@
+import React from 'react'
+
+export default function SelectItem(){
+    return(
+        <div>
+            <select id="Select option">
+              <option value="N/A">select option</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+    )
+} 

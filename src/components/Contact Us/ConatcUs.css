@@ -1,0 +1,428 @@
+div.conatct_us_main_container{
+    display: grid;
+    place-items: center; 
+}
+button.btn_submit_contact{
+    
+}
+h6.header_conatc_us{
+    
+}
+h6.number_conact{
+    
+}
+h6.email_conatct{
+    
+}
+img.email_img_conatc_us{
+    
+}
+p.map_conatainer{
+    
+}
+div.right_side_conat_us{
+    
+}
+h6.title_contact{
+    
+}
+input.first_name_input{
+    
+}
+textarea.msg_textarea{
+    
+}
+button.btn_submit_contact{
+    
+}
+div.contact_card{
+    border:none;    
+}
+
+@media screen and (max-width: 765px) {
+    div.conatct_us_main_container{
+        
+        display: grid;
+        place-items: center;
+        
+    }
+    div.contact_card{
+        
+    }
+    div.conatc_row{
+        padding: 2%;
+    }
+    button.btn_submit_contact{
+        
+    }
+    h6.header_conatc_us{
+        
+        text-align: center;
+        margin: 4%;
+        font-weight: bold;
+        font-size: 23px;
+        letter-spacing: 1px;  
+    }
+    h6.number_conact{
+        margin: 4%;
+        font-size: 18px;
+        letter-spacing: 1px;
+        margin-top: 30px;
+    }
+    img.call_icon_contact_us{
+        width: 22px;
+        margin-right: 12px; 
+    }
+    h6.email_conatct{
+        margin: 4%;
+        font-size: 17px;
+        letter-spacing: 1px;
+        margin-top: 30px;
+    }
+    img.email_img_conatc_us{
+        width: 22px;
+        margin-right: 12px; 
+    }
+    p.map_conatainer{
+        text-align: center;  
+    }
+    div.right_side_conat_us{
+        background: #F3F3F3;
+    }
+    h6.title_contact{
+        margin: 4%;
+        font-weight: bold;
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+    input.first_name_input{
+        width: 90%;
+        margin: 3%;
+        border: none;
+        border-radius: 2px;
+        font-size: 18px;
+        padding: 2%;
+        
+    }
+    textarea.msg_textarea{
+        width: 90%;
+        margin: 3%;
+        border: none;
+        border-radius: 2px;
+        font-size: 18px;
+        padding: 2%;
+    }
+    button.btn_submit_contact{
+        
+        border: none;
+        background: #8BC441;
+        font-size: 17px;
+        letter-spacing: 1px;
+        
+        color: #fff;
+    }
+    div.btn_submit_conact{
+        display: flex;
+        justify-content: center;
+    }
+    
+}
+
+
+@media screen and (min-width: 767px) {
+    div.conatct_us_main_container{
+        display: grid;
+        place-items: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    div.contact_card{
+        border: none;
+        width: 86%;
+    }
+    div.conatc_row{
+       
+    }
+    button.btn_submit_contact{
+        
+    }
+    h6.header_conatc_us{
+        
+        font-size: 21px;
+        font-weight: bold;
+        
+    }
+    h6.number_conact{
+        font-size: 15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        letter-spacing: .5px;
+    }
+    img.call_icon_contact_us{
+        width: 17px;
+        margin-right: 5px; 
+    }
+    h6.email_conatct{
+        font-size: 15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        letter-spacing: .5px;
+    }
+    img.email_img_conatc_us{
+        width: 17px;
+        margin-right: 5px; 
+    }
+    p.map_conatainer{
+        text-align: center;
+        /* margin-top: 20px; */
+        position: absolute;
+        bottom: 0px;
+    }
+    div.right_side_conat_us{
+        background: #F3F3F3;
+        padding-left: 27px;
+    }
+    h6.title_contact{
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+    input.first_name_input{
+       
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 1%;
+    width: 94%;
+
+    }
+    textarea.msg_textarea{
+        
+        width: 94%;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px; 
+    }
+    button.btn_submit_contact{
+        border: none;
+        background: #8BC441;
+        font-size: 9px;
+        letter-spacing: 1px;
+        color: #fff;
+        margin: -12px;
+        height: 23px;
+        margin-bottom: -5px;
+    }
+    div.btn_submit_conact{
+        
+    }
+    iframe.map_conatc_us{
+        width: 100%;
+    }
+    
+}
+
+
+@media screen and (min-width: 992px) {
+    div.conatct_us_main_container{
+        display: grid;
+        place-items: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    div.contact_card{
+        border: none;
+        width: 86%;
+    }
+    div.conatc_row{
+       
+    }
+    button.btn_submit_contact{
+        
+    }
+    h6.header_conatc_us{
+        
+        font-size: 21px;
+        font-weight: bold;
+        
+    }
+    h6.number_conact{
+        font-size: 15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        letter-spacing: .5px;
+    }
+    img.call_icon_contact_us{
+        width: 17px;
+        margin-right: 5px; 
+    }
+    h6.email_conatct{
+        font-size: 15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        letter-spacing: .5px;
+    }
+    img.email_img_conatc_us{
+        width: 17px;
+        margin-right: 5px; 
+    }
+    p.map_conatainer{
+        position: static;
+        text-align: left;
+    }
+    div.right_side_conat_us{
+        background: #F3F3F3;
+        padding-left: 35px;
+    }
+    h6.title_contact{
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-top: 18px;
+        margin-bottom: 9px;
+    }
+    input.first_name_input{
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        padding: 1%;
+    }
+    textarea.msg_textarea{
+       
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 94%;
+
+    }
+    button.btn_submit_contact{
+        border: none;
+        background: #8BC441;
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: #fff;
+        margin: -12px;
+        margin-top: 0px;
+        padding-top: 5px;
+        height: 30px;
+    }
+    div.btn_submit_conact{
+        
+    }
+    iframe.map_conatc_us{
+        border: 0px;
+        width: 80%;
+        height: 14rem;
+    }
+    
+}
+
+@media screen and (min-width: 1200px) {
+    div.conatct_us_main_container{
+        display: grid;
+        place-items: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    div.contact_card{
+        border: none;
+        width: 86%;
+    }
+    div.conatc_row{
+       
+    }
+    button.btn_submit_contact{
+        
+    }
+    h6.header_conatc_us{
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        margin-top: 13px;
+    }
+    h6.number_conact{
+        font-size: 19px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        letter-spacing: .5px;
+    }
+    img.call_icon_contact_us{
+        width: 20px;
+        margin-right: 12px;
+    }
+    h6.email_conatct{
+        font-size: 19px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        letter-spacing: .5px;
+    }
+    img.email_img_conatc_us{
+        width: 20px;
+        margin-right:12px;
+    }
+    p.map_conatainer{
+        position: static;
+        display: flex;
+        justify-content: flex-start;
+    }
+    div.right_side_conat_us{
+        background: #F3F3F3;
+        padding-left: 35px;
+    }
+    h6.title_contact{
+      
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 14px;
+    margin-bottom: 17px;
+
+    }
+    input.first_name_input{
+      
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        padding: 1%;
+        width: 94%;
+        height: 40px;
+
+    }
+    textarea.msg_textarea{
+        width: 94%;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        height: 68px;
+        padding: 1%;
+    }
+    button.btn_submit_contact{
+        border: none;
+        background: #8BC441;
+        font-size: 17px;
+        letter-spacing: 1px;
+        color: #fff;
+        margin: -12px;
+        margin-top: 5px;
+        width: 8rem;
+        height: 2.5rem;
+    }
+    div.btn_submit_conact{
+        
+    }
+    iframe.map_conatc_us{
+        border: 0px;
+        width: 88%;
+        height: 19rem;
+    }
+    
+}
+
+
+
+
+
+
+

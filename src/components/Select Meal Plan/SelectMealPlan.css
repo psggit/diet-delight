@@ -1,0 +1,638 @@
+div.container_card{
+    box-shadow: 1px 1px 4px -1px rgba(61,61,61,0.66);
+    margin: 1rem 1rem 1rem 1rem;
+    border-radius: .5rem;
+}
+div.fullcard_container_selectedmeal {
+    background: #f2f2f2ad;
+}
+a.text_tab{
+    font-size: 1.1rem;;
+}
+a.text_tab:focus{
+    font-weight: bold;
+}
+.horizontal-scroll-container{
+    box-shadow: 1px 1px 4px -1px rgba(61,61,61,0.66);
+    margin: 1rem 1rem 1rem 1rem;
+    border-radius: .5rem;
+    height: 60px;
+    padding: 10px;
+}
+ul.horizontal-scroll-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.horizontal-scroll-wrapper > li{
+    height: 30px;
+    width: 100px;
+}
+.horizontal-scroll-wrapper > li > a{
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* card component */
+div.content_media_SelectedMeal{
+    margin-top: .5rem;
+    margin-left: .5rem;
+}
+img.veg_icon{
+    width: 25px;
+    height: 25px;
+}
+h5.salad_text{
+    color: purple;
+    font-weight: 700;
+    font-size: 1.65rem;
+}
+h5.salad_details_text{
+    color: #212121;
+    font-weight: 500;
+    font-size: .9rem;
+}
+img.card_img_rounded_SelectedMeal{
+    width: 120px;
+    box-shadow: 0px 0px 16px -2px rgba(61,61,61,0.66);
+}
+div.vertical_line_Selectedmeal{
+    border-left: 4px solid #BDBDBD;
+    height: 145px;
+    margin-top: 1.1rem;
+    border-radius: 9rem;
+}
+p.breakfast_text{
+    letter-spacing: .5px;
+    margin-bottom: 0;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+p.breakfast_paragrapgh_content{
+    margin-bottom: 1.1rem;
+    margin-top: 1.3rem;
+    font-size: .64rem;
+    letter-spacing: .2px;
+    font-weight: 600;
+}
+.heart_icon_meal{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+button.select_btn{
+    color: #8BC441;
+    margin-top: 3.5rem;
+    width: 10rem;
+    margin-left: 5rem;
+    border-radius: .3rem;
+    border: 1px solid #8BC441;
+}
+button.select_btn:hover{
+    color: #fff;
+    background: #8BC441;
+    
+}
+button.select_btn:focus{
+    outline: none !important;
+    border:none;
+}
+div.select_meal_plan_main_container{
+    display: grid;
+    place-items: center;
+}
+h5.salad_text{
+    color: purple;
+    font-weight: 700;
+    font-family: "Roboto Condensed Regular";
+}
+i.heart_border_selectedMeal{
+    font-size: 20px;
+    cursor: pointer;
+}
+i.heart_submodule_selectMeal_fill{
+    font-size: 20px;
+    cursor: pointer;
+}
+i.heart_border_selectedMeal:hover{
+}
+i.heart_submodule_selectMeal_fill:hover{
+    color:red;
+} 
+i.heart_submodule_selectMeal_fill::after{
+    color:red;
+}
+div.select_meal_bg{
+    background-image: url(../../assets/flat-lay-assortment-fresh-vegetables-with-copy-space.jpg);
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
+
+@media screen and (max-width: 767px) {
+    div.select_meal_bg{
+        width: 100%;
+        height: 100%;
+        background-position: bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    div.col_grid_selectmeal{
+        margin-top: 8px;
+    }
+    textarea.textarea_container_selectmeal{
+        margin: 1rem;
+        width: 87%;
+        border: 1px solid #80808061;
+        padding: 2%;
+        border-radius: 3%;
+        font-size: 14px;
+    }
+    h5.breakfast_title_selectmeal{
+        font-size: 24px;
+        text-align: left;
+        margin-left: 10px;
+        margin-top: 32px;
+    }
+    div.fullcard_container_selectedmeal{
+        box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%);
+        margin-top: 2rem;
+        border-radius: .5rem;
+        /* background: #fbfbfb; */
+        padding: 5%;
+        margin: 3%;
+        border: none;
+        width: auto;
+        text-align: center;
+    }
+    div.left_side_container_selectMeal{
+        margin-top: 11px;
+    }
+    div.content_media_SelectedMeal{
+        margin-top: .3rem;
+        margin-left: .5rem;
+    }
+    img.veg_icon{
+        width: 20px;
+        height: 20px;
+    }
+    h5.salad_text{
+        color: purple;
+        font-weight: 700;
+        font-size: 29px;
+        letter-spacing: 1px;
+        font-family: "Roboto Condensed Regular";
+    }
+    h5.salad_details_text{
+        color: #212121;
+        font-weight: 600;
+        font-size: 13px;
+        opacity: .9;
+    }
+    img.card_img_rounded_SelectedMeal{
+        width: 108px;
+        box-shadow: 0px 0px 16px -2px rgba(61,61,61,0.66);
+    }
+    div.vertical_line_Selectedmeal{
+        display: none;
+    }
+    p.breakfast_text{
+        letter-spacing: .5px;
+        margin-bottom: 0;
+        margin-top: 1rem;
+        font-weight: 400;
+        font-size: 15px;
+    }
+    p.breakfast_paragrapgh_content{
+        margin-bottom: 0;
+        margin-top: 1.3rem;
+        font-size: 11px;
+        text-align: justify;
+        font-weight: 600;
+        opacity: .9;
+        
+    }
+    .heart_icon_meal{
+        display: flex;
+        justify-content: flex-start;
+    }
+    button.mealbtn_selectmeal {
+        margin-top: -2rem;
+        width: 9rem;
+        float: right;
+        color: #8BC53F;
+        border: 1px solid  #8BC53F;
+    }
+    button.mealbtn_selectmeal {
+        color: #fff;
+        background: #8BC53F;
+        border: 1px solid  #8BC53F;
+    }
+    h5.breakfast_paragrapgh_content{
+        font-size: 11px;
+        margin-top: 10px;
+        font-weight: 600;
+    }
+    
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    div.select_meal_bg{
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    h5.breakfast_paragrapgh_content{
+        font-size: 11px;
+        margin-top: 0px;
+        margin-bottom: 13px;
+    }
+    textarea.textarea_container_selectmeal{
+        width: 87%;
+        border: 1px solid #80808061;
+        padding: 2%;
+        border-radius: 3%;
+        font-size: 11px;
+        line-height: 16px;
+    }
+    button.mealbtn_selectmeal {
+        width: 5rem;
+        position: absolute;
+        font-size: 13px;
+        border: 1px solid #8BC53F;
+        bottom: 0;
+        right: -21px;
+        color: #8bc53f;
+    }
+    h5.breakfast_title_selectmeal{
+        font-size: 20px;
+        margin-left: 64px;
+        margin-top: 35px;
+        font-weight: 700;
+    }
+    div.media_meal_selected_meal {
+        margin-top: 2rem;
+    }
+    div.content_media_SelectedMeal{
+        margin-top: .5rem;
+        margin-left: .5rem;
+    }
+    img.veg_icon{
+        width: 20px;
+        height: 20px;
+        margin-left: 25px;
+    }
+    h5.salad_text{
+        
+        font-weight: 700;
+        font-size: 20px;
+        margin-left: 25px;
+        text-transform: capitalize;
+        
+    }
+    h5.salad_details_text{
+        font-weight: 500;
+        font-size: 10px;
+        margin-left: 5px;
+    }
+    img.card_img_rounded_SelectedMeal{
+        
+        width: 103px;
+        height: 103px;
+        box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+        margin-top: 13px;
+        
+    }
+    div.left_side_container_selectMeal{
+        margin-top: 30px;
+        margin-left: 0;
+    }
+    div.vertical_line_Selectedmeal{
+        border-left: 2px solid #BDBDBD;
+        height: auto;
+        margin-top: 0px;
+        border-radius: 9rem;
+    }
+    div.fullcard_container_selectedmeal{
+        padding: 3%;
+        height: auto;
+        width: 85%;
+        margin-top: 5px;
+        border-radius: 15px;
+        box-shadow: -1px 3px 9px -4px rgb(61 61 61 / 59%);
+        margin-bottom: 30px;
+    }
+    
+    p.breakfast_text{
+        letter-spacing: .5px;
+        margin-bottom: 0;
+        margin-top: 0;
+        font-weight: 600;
+        font-size: 1.15rem;
+    }
+    p.breakfast_paragrapgh_content{
+        
+        margin-bottom: 0;
+        margin-top: 2px;
+        font-size: 11px;
+        margin-bottom: 14px;
+        text-align: justify;
+        letter-spacing: 0;
+        font-weight: 500;
+        line-height: 15px;
+        
+    }
+    .heart_icon_meal{
+        margin-left: 74px;
+        margin-top: 4px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    button.select_btn{
+        
+        margin-top: 3.5rem;
+        width: 8rem;
+        margin-left: 2rem;
+    }  
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    div.select_meal_bg{
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    h5.breakfast_paragrapgh_content{
+        font-size: 11px;
+        margin-top: 0px;
+        margin-bottom: 13px;
+    }
+    textarea.textarea_container_selectmeal{
+        width: 95%;
+        border: 1px solid #80808061;
+        padding: 2%;
+        border-radius: 3%;
+        font-size: 11px;
+        line-height: 16px;
+    }
+    button.mealbtn_selectmeal {
+        width: 6rem;
+        position: absolute;
+        font-size: 13px;
+        border: 1px solid #8BC53F;
+        bottom: 0;
+        right: -35px;
+        color: #8bc53f;
+    }
+    button.mealbtn_selectmeal:hover{
+        
+        border: 1px solid #8BC53F;
+        background: #8bc53f;
+        color:#fff;
+    }
+    h5.breakfast_title_selectmeal{
+        font-size: 20px;
+        margin-left: 159px;
+        margin-top: 35px;
+        font-weight: 700;
+    }
+    div.media_meal_selected_meal {
+        margin-top: 2rem;
+    }
+    div.content_media_SelectedMeal{
+        margin-top: .5rem;
+        margin-left: .5rem;
+    }
+    img.veg_icon{
+        width: 20px;
+        height: 20px;
+        margin-left: 20px;
+    }
+    h5.salad_text{
+        font-weight: 700;
+        font-size: 26px;
+        margin-left: 18px;
+        margin-top: -9px;
+        text-transform: capitalize;
+    }
+    h5.salad_details_text{
+        font-weight: 500;
+        font-size: 11px;
+        margin-left: 11px;
+    }
+    img.card_img_rounded_SelectedMeal{
+        width: 112px;
+        height: 116px;
+        box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+        margin-top: 8px;
+    }
+    div.left_side_container_selectMeal{
+        margin-top: 39px;
+        margin-left: 0px;
+        
+    }
+    div.vertical_line_Selectedmeal{
+        border-left: 2px solid #BDBDBD;
+        height: auto;
+        margin-top: 0px;
+        border-radius: 9rem;
+    }
+    div.fullcard_container_selectedmeal{
+        padding: 3%;
+        height: auto;
+        width: 70%;
+        margin-top: 5px;
+        border-radius: 15px;
+        box-shadow: -1px 3px 9px -4px rgb(61 61 61 / 59%);
+    }
+    div.col_grid_selectmeal{
+        margin-left: 0px;
+    }
+    p.breakfast_text{
+        letter-spacing: .5px;
+        margin-bottom: 0;
+        margin-top: 0;
+        font-weight: 600;
+        font-size: 1.15rem;
+    }
+    p.breakfast_paragrapgh_content{
+        
+        margin-bottom: 0;
+        margin-top: 2px;
+        font-size: 11px;
+        margin-bottom: 14px;
+        text-align: justify;
+        letter-spacing: 0;
+        font-weight: 500;
+        line-height: 15px;
+        
+    }
+    .heart_icon_meal{
+        margin-left: 87px;
+        margin-top: 1px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    button.select_btn{
+        
+        margin-top: 3.5rem;
+        width: 8rem;
+        margin-left: 2rem;
+    }  
+}
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    div.select_meal_plan_main_container {
+        display: grid;
+        place-items: center;
+        margin-bottom: 40px;
+    }
+    h5.breakfast_paragrapgh_content{
+        font-size: 13px;
+        margin-top: 0px;
+        font-weight: 600;
+        margin-bottom: 13px;
+        opacity: .9;
+    }
+    textarea.textarea_container_selectmeal{
+        
+        width: 97%;
+        border: 1px solid #80808061;
+        padding: 2%;
+        border-radius: 3%;
+        font-size: 13px;
+        line-height: 16px;
+        height: 58%;
+        
+    }
+    button.mealbtn_selectmeal {
+        width: 8rem;
+        position: absolute;
+        font-size: 13px;
+        border: 1px solid #8BC53F;
+        bottom: 0;
+        right: -62px;
+        color: #8bc53f;
+    }
+    button.mealbtn_selectmeal:hover{
+        
+        border: 1px solid #8BC53F;
+        background: #8bc53f;
+        color:#fff;
+    }
+    h5.breakfast_title_selectmeal{
+        font-size: 20px;
+        margin-left: 211px;
+        margin-top: 35px;
+        font-weight: 700;
+    }
+    div.media_meal_selected_meal {
+        margin-top: 2rem;
+    }
+    div.content_media_SelectedMeal{
+        margin-top: .5rem;
+        margin-left: .5rem;
+    }
+    img.veg_icon{
+        width: 25px;
+        height: 25px;
+        margin-top: 14px;
+        margin-left: 4px;
+    }
+    h5.salad_text{
+        font-weight: 700;
+        font-size: 30px;
+        margin-left: 3px;
+        margin-top: -21px;
+        text-transform: capitalize;
+    }
+    h5.salad_details_text{
+        opacity: .9;
+        font-size: 13px;
+        font-weight: 600;
+        margin-left: 6px;
+        
+    }
+    img.card_img_rounded_SelectedMeal{
+        width: 144px;
+        height: 144px;
+        box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+        margin-top: -1px;
+    }
+    div.left_side_container_selectMeal{
+        margin-top: 41px;
+        margin-left: 0px;
+        
+    }
+    div.vertical_line_Selectedmeal{
+        border-left: 2px solid #BDBDBD;
+        height: auto;
+        margin-top: 0px;
+        border-radius: 9rem;
+    }
+    div.fullcard_container_selectedmeal{
+        padding: 2%;
+        height: auto;
+        width: 70%;
+        margin-top: 5px;
+        border-radius: 15px;
+        box-shadow: -1px 3px 9px -4px rgb(61 61 61 / 59%);
+    }
+    div.col_grid_selectmeal{
+        margin-left: 0px;
+    }
+    p.breakfast_text{
+        letter-spacing: .5px;
+        margin-bottom: 0;
+        margin-top: 0;
+        font-weight: 600;
+        font-size: 1.15rem;
+    }
+    p.breakfast_paragrapgh_content{
+        
+        margin-bottom: 0;
+        margin-top: 2px;
+        font-size: 11px;
+        margin-bottom: 14px;
+        text-align: justify;
+        letter-spacing: 0;
+        font-weight: 500;
+        line-height: 15px;
+        
+    }
+    .heart_icon_meal{
+        margin-left: 146px;
+        margin-top: 1px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    button.select_btn{
+        
+        margin-top: 3.5rem;
+        width: 8rem;
+        margin-left: 2rem;
+    }  
+    
+}

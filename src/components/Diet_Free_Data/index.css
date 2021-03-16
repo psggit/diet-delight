@@ -1,0 +1,952 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+div.main_container{
+    height:fit-content;
+    width:80%;
+    background-image: url("../../assets/border-from-tasty-dishes.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 1rem 1rem 1rem 1rem;
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    right: 10%;
+    min-height: 500px;
+    z-index: 5;
+    /* display: flex; */
+    padding: 5%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: -2px 1px 44px 9px rgb(0 0 0 / 52%);
+}
+div.container_main{
+    opacity:.9;
+}
+h3.title_text{
+    text-align: "center";
+    opacity:.8;
+    margin-left: auto;
+    margin-right: auto;
+    color:#800080;
+}
+hr.line_green{
+    color: #8BC441;
+    width: 8rem;
+    border: .3rem solid #8BC441;
+    margin-left: auto;
+    margin-right: auto;
+}
+p.gender_question{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #800080;
+    margin-left: auto;
+    margin-right: auto;
+}
+div.btn_container_gender{
+    justify-content: space-evenly;
+    display: flex;
+    margin-top: 3rem;
+}
+button.male_btn{
+    width: 5rem;
+    opacity: 0.8;
+    border-color: #800080;
+    color: #800080;
+}
+button.female_btn{
+    width: 5rem;
+    border-color: #800080;
+    color: #800080;
+}
+
+/* 2 */
+
+
+p.second_que_title{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #800080;
+}
+div.dropdown_container{
+    margin-left: -1rem;
+}
+button.dropdown_btn{
+    width: 12rem;
+    background: aliceblue;
+    margin-top: 1rem;
+    height: 2.2rem;
+}
+span.caret_icon{
+    margin-left: 4rem;
+}
+
+/* 3 */
+
+p.third_que_title{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+}
+div.dropdown_container{
+    margin-left:-1rem;
+}
+button.btn_title_third{
+    background: aliceblue;
+    margin-top: .9rem;
+    height: 2.2rem;
+}
+
+/* 4 */
+
+p.four_que_title{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-right: auto;
+}
+div.btn_container_four{
+    display: flex;
+    margin-top: .3rem;
+    justify-content: space-evenly;
+}
+button.btn_yes_four{
+    opacity: 0.8;
+}
+
+/* 5 */
+
+p.fifth_title{
+    
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+}
+button.btn_fifth_dropdown{
+    background: aliceblue;
+}
+
+
+/* 6 */
+
+
+span.six_title{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);   
+}
+div.six_btn_container{
+    display: flex;
+    justify-content: space-evenly;
+}
+button.six_btn_yes{
+    width: 5rem;
+    opacity: 0.8;
+}
+button.six_btn_no{
+    width: 5rem; 
+}
+input.textfield_six{
+    margin-left: 0.6rem;
+    border-block-color: rgb(255, 255, 255);
+    padding-left: 1rem;
+    border: 1px solid white;
+    border-radius: .5rem;
+}
+
+
+/* 7 */
+
+p.seven_que_title{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+}
+input.textfield_seven{
+    margin-left: 0.6rem;
+    border-block-color: rgb(255, 255, 255);
+    padding-left: 1rem;
+    border: 1px solid white;
+    border-radius: .5rem;
+}
+
+/* 8 */
+
+p.eight_que_title{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+}
+input.eight_textfield{
+    margin-left: 0.6rem;
+    border-block-color: rgb(255, 255, 255);
+    padding-left: 1rem;
+    border: 1px solid white;
+    border-radius: .5rem;
+}
+
+/* submit */
+
+div.submit_btn_container{
+    margin-left: auto;
+    margin-right: auto;
+}
+button.btn_submit{
+    width: 14rem;
+    border-radius: 0.6rem;
+    background-color: rgb(100, 221, 23);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    margin-top: 2rem;
+}
+div.btn_eight_container{
+    display: flex;
+    justify-content: space-around;    
+}
+button.six_btn_yes{
+    border:1px solid #fff;
+    color: #fff;
+    opacity: 1;
+}
+button.six_btn_yes:hover{
+    background: #fff;
+    color: #000;
+    opacity: 1;
+}
+button.six_btn_no{
+    border:1px solid #fff;
+    color: #fff;
+    opacity: 1;
+}
+button.six_btn_no:hover{
+    background: #fff;
+    color: #000;
+    opacity: 1;
+}
+button.male_btn{
+    border:1px solid #800080;
+    color: #800080;
+    opacity: 1;
+}
+button.male_btn:hover{
+    background: #800080;
+    color: #fff;
+    font-weight: 700;
+    opacity: 1;
+}
+button.female_btn{
+    border:1px solid #800080;
+    color: #800080;
+    opacity: 1;
+}
+button.female_btn:hover{
+    background: #800080;
+    color: #fff;
+    font-weight: 700;
+    opacity: 1;
+}
+
+
+
+
+
+
+@media screen and (max-width: 767px) {
+    button.next_diet_free_btn{
+        
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        outline: none;
+        border: 1px solid #8080809e;
+        width: 41%;
+        height: auto;
+        justify-content: center;
+        background: #8BC441;
+        color: #fff;
+        
+    }
+    img.cancel_icon{
+        width: 16px;
+        float: right;
+        margin-top: 0px;
+        cursor: pointer;
+    }
+    h3.title_text{
+        font-size: 20px;
+        font-weight: bolder;
+        margin-top: 31px;
+        letter-spacing: 1px;
+        opacity: 1;
+        color:#800080;
+    }
+    hr.line_green {
+        color: #8BC441;
+        width: 50%;
+        border: 1px solid #8BC441;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+    }
+    p.gender_question{
+        font-size: 19px;
+        margin-top: 21px;
+        color: #800080;
+    }
+    div.btn_container_gender {
+        margin-top: 1rem;
+    }
+    button.male_btn{
+        width: 4rem;
+        opacity: 0.8;
+        color:#800080;
+    }
+    button.female_btn{
+        width: 4rem;
+        opacity: 0.8;
+        color:#800080;
+    }
+    p.second_que_title{
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+        color: #800080;
+    }
+    select.select_menu_diet{
+        width: 70%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 2%;
+        color: #800080;
+        font-size: 13px;
+        border: 1px solid #800080;
+    }
+    div.dropdown_container{
+        text-align: center;
+        margin-top: -.9rem;
+    }
+    button.dropdown_btn{
+        width: 9rem;
+    }
+    span.caret_icon{
+        margin-left: 1rem;
+    }
+    p.third_que_title{
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-top: 1.6rem;
+    }
+    p.four_que_title {
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-top: 1.6rem;
+    }
+    div.btn_container_four {
+        justify-content: space-evenly;
+    }
+    button.btn_yes_four{
+        width: 3.5rem;
+    }
+    button.btn_no_four{
+        width: 3.5rem;
+    }
+    p.fifth_title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+        color: #ffff;
+        text-align: center;
+    }
+    select.select_menu_diet_age{
+        width: 70%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 2%;
+        color: #800080;
+        border: 1px solid #800080;
+    }
+    div.select_container{
+        display: flex;
+        justify-content: center; 
+    }
+    
+    div.dropdown_age{
+        text-align: center;
+    }
+    p.six_title{
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+        color: #ffff;
+        text-align: center;
+    }
+    input.textfield_six {
+        width: 86%;
+        font-size: 15px;
+        margin-left: 0;
+        margin-top: 20px;
+        margin-bottom: 13px;
+    }
+    div.six_btn_container{
+        margin-top: .8rem;
+        margin-left: -1rem;
+    }
+    p.seven_que_title {
+        margin-top: 1rem;
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+    input.textfield_seven{
+        width: 13rem;
+        font-size: .8rem;
+        margin-left: -.1rem;
+    }
+    p.eight_que_title{
+        margin-top: 1rem;
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+    input.eight_textfield{
+        width: 13rem;
+        font-size: .8rem;
+        margin-left: -.1rem;
+    }
+    p.text_fifth_subtitle{
+        text-align: center;
+        font-size: 17px;
+        margin-top: 5px;
+    }
+    div.input_container{
+        text-align: center;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 766px) {
+    button.next_diet_free_btn{
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        outline: none;
+        border: 1px solid #8080809e;
+        width: 13%;
+        height: auto;
+        justify-content: center;
+        background: #8BC441;
+        color: #fff;
+        font-size: 11px;
+        border-radius: 6px;
+    }
+    button.male_btn {
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+        color:#800080;
+    }
+    button.six_btn_yes {
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+    }
+    button.six_btn_no{
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+    }
+    div.dropdown_container {
+        margin-left: 0px;
+    }
+    img.cancel_icon{
+        width: 16px;
+        float: right;
+        margin-top: 0px;
+        cursor: pointer;
+    }
+    h3.title_text{
+        font-size: 22px;
+        font-weight: bolder;
+        margin-top: 31px;
+        letter-spacing: 1px;
+        opacity: 1;
+        color:#800080;
+    }
+    hr.line_green {
+        color: #8BC441;
+        width: 50%;
+        border: 1px solid #8BC441;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+    }
+    p.gender_question{
+        font-size: 12px;
+        margin-top: 0px;
+        color: #800080;
+    }
+    div.btn_container_gender {
+        margin-top: 1rem;
+    }
+    button.female_btn{
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+        color:#800080;
+    }
+    p.second_que_title{
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        letter-spacing: .5px;
+        color: #800080;
+    }
+    select.select_menu_diet{
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 3%;
+        color: #800080;
+        font-size: 13px;
+        border: 1px solid #800080;
+    }
+    p.third_que_title{
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-top: 1.6rem;
+    }
+    p.four_que_title {
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-top: 1.6rem;
+    }
+    div.btn_container_four {
+        justify-content: space-evenly;
+    }
+    button.btn_yes_four{
+        width: 3.5rem;
+    }
+    button.btn_no_four{
+        width: 3.5rem;
+    }
+    p.fifth_title {
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        letter-spacing: 0px;
+        color: #ffff;
+        text-align: center;
+    }
+    select.select_menu_diet_age{
+        width: 69%;
+        margin-top: 9px;
+        margin-bottom: 5px;
+        padding: 2%;
+        border-radius: 7px;
+        color: #800080;
+        border: 1px solid #800080;
+    }
+    div.select_container{
+        display: flex;
+        justify-content: center; 
+    }
+    
+    div.dropdown_age{
+        text-align: center;
+    }
+    p.six_title{
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        color: #ffff;
+        text-align: center;
+    }
+    input.textfield_six {
+        width: 93%;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-top: 13px;
+        margin-bottom: 12px;
+        padding-left: 11px;
+    }
+    div.six_btn_container {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+    
+    
+    p.text_fifth_subtitle{
+        text-align: center;
+        font-size: 12px;
+        margin-top: 5px;
+        letter-spacing: .8px;
+    }
+    div.input_container{
+        text-align: center;
+    }
+    
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    button.next_diet_free_btn{
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        outline: none;
+        border: 1px solid #8080809e;
+        width: 13%;
+        height: auto;
+        justify-content: center;
+        background: #8BC441;
+        color: #fff;
+        font-size: 15px;
+        border-radius: 6px;
+    }
+    button.male_btn {
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+        color:#800080;
+    }
+    button.six_btn_yes {
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+    }
+    button.six_btn_no{
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+    }
+    div.dropdown_container {
+        margin-left: 0px;
+    }
+    img.cancel_icon{
+        width: 16px;
+        float: right;
+        margin-top: 0px;
+        cursor: pointer;
+    }
+    h3.title_text{
+        font-size: 27px;
+        font-weight: bolder;
+        margin-top: 31px;
+        letter-spacing: 1px;
+        opacity: 1;
+        color:#800080;
+    }
+    hr.line_green {
+        color: #8BC441;
+        width: 18%;
+        border: 2px solid #8BC441;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+        border-radius: 4px;
+    }
+    p.gender_question{
+        font-size: 12px;
+        margin-top: 0px;
+        color: #800080;
+    }
+    div.btn_container_gender {
+        margin-top: 1rem;
+    }
+    button.female_btn{
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+        color:#800080;
+    }
+    p.second_que_title{
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        letter-spacing: .5px;
+        color: #800080;
+    }
+    select.select_menu_diet{
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 3%;
+        color: #800080;
+        font-size: 13px;
+        border: 1px solid #800080;
+    }
+    p.third_que_title{
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-top: 1.6rem;
+    }
+    p.four_que_title {
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-top: 1.6rem;
+    }
+    div.btn_container_four {
+        justify-content: space-evenly;
+    }
+    button.btn_yes_four{
+        width: 3.5rem;
+    }
+    button.btn_no_four{
+        width: 3.5rem;
+    }
+    p.fifth_title {
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        letter-spacing: 0px;
+        color: #ffff;
+        text-align: center;
+    }
+    select.select_menu_diet_age{
+        width: 69%;
+        margin-top: 9px;
+        margin-bottom: 5px;
+        padding: 2%;
+        border-radius: 7px;
+        color: #800080;
+        font-size: 13px;
+        border: 1px solid #800080;
+    }
+    div.select_container{
+        display: flex;
+        justify-content: center; 
+    }
+    
+    div.dropdown_age{
+        text-align: center;
+    }
+    p.six_title{
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        color: #ffff;
+        text-align: center;
+    }
+    input.textfield_six {
+        width: 93%;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-top: 13px;
+        margin-bottom: 12px;
+        padding-left: 11px;
+        height: 25px;
+    }
+    div.six_btn_container {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+    
+    
+    p.text_fifth_subtitle{
+        text-align: center;
+        font-size: 12px;
+        margin-top: 5px;
+        letter-spacing: .8px;
+    }
+    div.input_container{
+        text-align: center;
+    }
+    
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    button.next_diet_free_btn{
+        margin-left: auto;
+        margin-right: auto;
+       
+        outline: none;
+        border: 1px solid #8080809e;
+        width: 13%;
+        height: auto;
+        justify-content: center;
+        background: #8BC441;
+        color: #fff;
+        font-size: 15px;
+        border-radius: 6px;
+    }
+    button.male_btn {
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+        color:#800080;
+    }
+    button.six_btn_yes {
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+    }
+    button.six_btn_no{
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+    }
+    div.dropdown_container {
+        margin-left: 0px;
+    }
+    img.cancel_icon{
+        width: 16px;
+        float: right;
+        margin-top: 0px;
+        cursor: pointer;
+    }
+    h3.title_text{
+        font-size: 32px;
+        font-weight: bolder;
+        margin-top: 31px;
+        letter-spacing: 1px;
+        opacity: 1;
+        color:#800080;
+    }
+    hr.line_green {
+        color: #8BC441;
+        width: 19%;
+        border: 3px solid #8BC441;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+    }
+    p.gender_question{
+        font-size: 14px;
+        margin-top: 0px;
+        color: #800080;
+    }
+    div.btn_container_gender {
+        margin-top: 1rem;
+    }
+    button.female_btn{
+        width: 35%;
+        opacity: 0.8;
+        font-size: 12px;
+        height: 29px;
+        border-color: #800080;
+        color: #800080;
+    }
+    p.second_que_title{
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        letter-spacing: .5px;
+        color: #800080;
+    }
+    select.select_menu_diet{
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 3%;
+        color: #800080;
+        font-size: 13px;
+        border: 1px solid #800080;
+    }
+    
+    div.btn_container_four {
+        justify-content: space-evenly;
+    }
+    button.btn_yes_four{
+        width: 3.5rem;
+    }
+    button.btn_no_four{
+        width: 3.5rem;
+    }
+    p.fifth_title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        letter-spacing: 0px;
+        color: #ffff;
+        text-align: center;
+    }
+    select.select_menu_diet_age{
+        width: 69%;
+        margin-top: 9px;
+        margin-bottom: 5px;
+        padding: 2%;
+        border-radius: 7px;
+        color: #800080;
+        font-size: 13px;
+        border: 1px solid #800080;
+    }
+    div.select_container{
+        display: flex;
+        justify-content: center; 
+    }
+    
+    div.dropdown_age{
+        text-align: center;
+    }
+    p.six_title{
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        color: #ffff;
+        text-align: center;
+    }
+    input.textfield_six {
+        width: 93%;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-top: 13px;
+        margin-bottom: 12px;
+        padding-left: 11px;
+        height: 25px;
+    }
+    div.six_btn_container {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+    
+    
+    p.text_fifth_subtitle{
+        text-align: center;
+        font-size: 12px;
+        margin-top: 5px;
+        letter-spacing: .8px;
+    }
+    div.input_container{
+        text-align: center;
+    }
+    
+}

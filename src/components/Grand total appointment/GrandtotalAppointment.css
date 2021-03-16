@@ -1,0 +1,888 @@
+/* vertical line */
+.grand_total_appointment_main {
+  background-image: url("../../assets/consultation.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+div.vertical_line_appointment_grandtotal {
+  border-left: 1px solid grey;
+  height: 252px;
+}
+
+div.card_user_grandtotalAppointment {
+  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  margin-top: 1rem;
+  padding: 2rem;
+  /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
+  border-radius: 1rem;
+  /* background: #fafafa5e; */
+}
+div.main_container_grandtotalAppointment {
+  display: grid;
+  place-items: center;
+}
+/* left side  */
+
+img.silver_img_grandTotalAppointment {
+  width: 14rem;
+  height: 3rem;
+}
+h5.appointmentdate_subtitle_grandtotal {
+  box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
+  margin: 0px;
+  width: 9rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+p.silver_subtitle_grandAppointment {
+  font-family: Roboto;
+  color: #303960;
+  font-size: 12px;
+  margin-top: 12px;
+  text-align: justify;
+}
+h6.grandTotal_appointmentdate_title {
+  font-family: Roboto;
+  color: #303960;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+a.edit_title_grandtotal {
+  text-decoration: none;
+  cursor: pointer;
+  color: #8bc441;
+}
+a.edit_title_grandtotal:hover {
+  color: #000;
+}
+
+/* right side  */
+
+h6.cost_breakdown_totalappointment_title {
+  font-family: Roboto;
+  color: #303960;
+  font-size: 23px;
+  font-weight: 700;
+}
+div.silverConsultancy_container {
+  font-family: Roboto;
+  color: #303960;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+p.silverConsultancy_totalappointment_title {
+}
+h5.silverConsultancy_totalappointment_subtitle {
+}
+div.extra_totalappointment_container {
+  font-family: Roboto;
+  color: #303960;
+  display: flex;
+  justify-content: space-between;
+}
+p.extra_totalappointment_title {
+}
+h5.extra_totalappointment_subtitle {
+}
+
+div.taxes_totalappointment_container {
+  display: flex;
+  justify-content: space-between;
+}
+p.taxes_totalappointment_title {
+}
+h5.taxes_totalappointment_subtitle {
+}
+hr.horizontal_line_grandtotalappointment {
+  width: 13rem;
+}
+
+div.grandtotal_totalappointment_container {
+  display: flex;
+  justify-content: flex-end;
+}
+p.grandtotal_totalappointment_title {
+  font-family: Roboto;
+  color: #303960;
+}
+h5.grandtotal_totalappointment_subtitle {
+  font-family: Roboto;
+  color: #303960;
+}
+div.btn_payonline_container {
+  display: flex;
+  justify-content: flex-end;
+}
+button.payOnline_btn {
+  border: none;
+  font-family: Roboto;
+  padding: 7px;
+  font-size: 15px;
+  color: white;
+  background: #8bc441;
+  border-radius: 3px;
+  width: 173px;
+  justify-content: center;
+  letter-spacing: 2px;
+  font-weight: 600;
+  outline: none;
+}
+button.payOnline_btn:hover {
+  color: #fff;
+  background: #6e9a34;
+}
+
+@media only screen and (max-width: 767px) {
+  /* vertical line */
+  div.vertical_line_appointment_grandtotal {
+    display: none;
+  }
+
+  div.card_user_grandtotalAppointment {
+    margin: 4%;
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    margin-top: 16%;
+    padding: 8%;
+    /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
+    border-radius: 15px;
+    /* background: #fafafa5e; */
+    border: none;
+  }
+
+  /* left side  */
+
+  img.silver_img_grandTotalAppointment {
+    width: 100%;
+    height: 22%;
+  }
+  h5.appointmentdate_subtitle_grandtotal {
+    box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
+    margin: 3px;
+    width: 9rem;
+    font-size: 13px;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    padding-top: 5px;
+  }
+  p.silver_subtitle_grandAppointment {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 13px;
+    margin-top: 12px;
+    font-weight: 600;
+    text-align: justify;
+    letter-spacing: 0.8px;
+    opacity: 0.8;
+  }
+  h6.grandTotal_appointmentdate_title {
+    font-family: Roboto;
+    color: #303960;
+
+    font-size: 16px;
+    font-weight: 700;
+  }
+  a.edit_title_grandtotal {
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #8bc441;
+  }
+  a.edit_title_grandtotal:hover {
+    color: #000;
+  }
+
+  /* right side  */
+  div.right_side_container {
+    display: flex;
+    justify-content: center;
+  }
+
+  h6.cost_breakdown_totalappointment_title {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 11px;
+    text-align: left;
+    opacity: 0.9;
+  }
+  div.silverConsultancy_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  p.silverConsultancy_totalappointment_title {
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  h5.silverConsultancy_totalappointment_subtitle {
+    font-size: 17px;
+    margin-top: 3px;
+    font-weight: 800;
+    opacity: 0.8;
+  }
+  div.extra_totalappointment_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+  }
+  p.extra_totalappointment_title {
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  h5.extra_totalappointment_subtitle {
+    font-size: 17px;
+    margin-top: 3px;
+    font-weight: 800;
+    opacity: 0.8;
+  }
+
+  div.taxes_totalappointment_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+  }
+  p.taxes_totalappointment_title {
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  h5.taxes_totalappointment_subtitle {
+    font-size: 17px;
+    margin-top: 3px;
+    font-weight: 800;
+    opacity: 0.8;
+  }
+  hr.horizontal_line_grandtotalappointment {
+    font-family: Roboto;
+    color: #303960;
+    width: 13rem;
+  }
+
+  div.grandtotal_totalappointment_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  p.grandtotal_totalappointment_title {
+    font-family: Roboto;
+    color: #303960;
+    margin-right: 17px;
+    font-weight: 600;
+    margin-top: 2px;
+    font-size: 18px;
+    opacity: 0.9;
+  }
+  h5.fifteen_text {
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  h5.grandtotal_totalappointment_subtitle {
+    font-family: Roboto;
+    color: #303960;
+    font-weight: 600;
+    font-size: 17px;
+  }
+  div.btn_payonline_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  span.fifteen_text {
+    font-size: 22px;
+  }
+  button.payOnline_btn {
+    font-family: Roboto;
+    padding: 7px;
+    font-size: 15px;
+    border-radius: 3px;
+    width: 151%;
+    margin-left: -45%;
+    justify-content: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  /* vertical line */
+  div.vertical_line_appointment_grandtotal {
+    border-left: 1px solid grey;
+    height: auto;
+    margin-left: 5%;
+  }
+  div.grand_total_appointment_main {
+    min-height: 130vh;
+  }
+  input.Grandtotal_Appointmentdate_subtitle {
+    border: 1px solid #c4c4c433;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 6%;
+    width: 130%;
+    height: 35px;
+    box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
+  }
+  div.card_user_grandtotalAppointment {
+    margin-top: 8%;
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    padding: 3%;
+    width: 83%;
+    /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
+    border-radius: 1rem;
+    /* background: #fafafa9c; */
+    border: none;
+  }
+
+  /* left side  */
+
+  img.silver_img_grandTotalAppointment {
+    width: 79%;
+    height: 3rem;
+  }
+  h5.appointmentdate_subtitle_grandtotal {
+    box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
+    margin: -4px;
+    width: 7rem;
+    padding: 1rem;
+    font-size: 14px;
+    border-radius: 1rem;
+  }
+  p.silver_subtitle_grandAppointment {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 13px;
+    margin-top: 12px;
+    font-weight: 600;
+    text-align: justify;
+    opacity: 0.9;
+  }
+  h6.grandTotal_appointmentdate_title {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  a.edit_title_grandtotal {
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #8bc441;
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+    margin-top: -4rem;
+  }
+  a.edit_title_grandtotal:hover {
+    color: #000;
+  }
+
+  /* right side  */
+
+  h6.cost_breakdown_totalappointment_title {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  div.silverConsultancy_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  p.silverConsultancy_totalappointment_title {
+    font-size: 17px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.silverConsultancy_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 17px;
+    margin-top: 3px;
+    opacity: 0.9;
+  }
+  div.extra_totalappointment_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+  }
+  p.extra_totalappointment_title {
+    font-size: 17px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.extra_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 17px;
+    margin-top: 3px;
+    opacity: 0.9;
+  }
+
+  div.taxes_totalappointment_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+  }
+  p.taxes_totalappointment_title {
+    font-size: 17px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.taxes_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 17px;
+    margin-top: 3px;
+    opacity: 0.9;
+  }
+  hr.horizontal_line_grandtotalappointment {
+    font-family: Roboto;
+    color: #303960;
+    width: 13rem;
+  }
+
+  div.grandtotal_totalappointment_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  p.grandtotal_totalappointment_title {
+    font-family: Roboto;
+    color: #303960;
+    margin-right: 13px;
+    font-size: 17px;
+    margin-top: 6px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.grandtotal_totalappointment_subtitle {
+    font-family: Roboto;
+    color: #303960;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  div.btn_payonline_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  button.payOnline_btn {
+    font-family: Roboto;
+    padding: 7px;
+    font-size: 15px;
+    border-radius: 3px;
+    width: 129%;
+    margin-left: -28%;
+    justify-content: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+  span.fifteen_text {
+    font-size: 27px;
+    font-weight: 600;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  /* vertical line */
+  div.vertical_line_appointment_grandtotal {
+    border-left: 1px solid grey;
+    height: auto;
+    margin-left: 5%;
+  }
+  div.grand_total_appointment_main {
+    min-height: 130vh;
+  }
+  input.Grandtotal_Appointmentdate_subtitle {
+    border: 1px solid #c4c4c433;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 6%;
+    width: 130%;
+    height: 35px;
+    box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
+  }
+  div.card_user_grandtotalAppointment {
+    margin-top: 8%;
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    padding: 3%;
+    width: 83%;
+    /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
+    border-radius: 1rem;
+    /* background: #fafafa9c; */
+    border: none;
+    height: auto;
+    margin-bottom: 50px;
+  }
+
+  /* left side  */
+
+  img.silver_img_grandTotalAppointment {
+    width: 79%;
+    height: 3rem;
+  }
+  h5.appointmentdate_subtitle_grandtotal {
+    box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
+    margin: -4px;
+    width: 7rem;
+    padding: 1rem;
+    font-size: 14px;
+    border-radius: 1rem;
+  }
+  p.silver_subtitle_grandAppointment {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 13px;
+    margin-top: 12px;
+    font-weight: 600;
+    text-align: justify;
+    opacity: 0.9;
+  }
+  h6.grandTotal_appointmentdate_title {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  a.edit_title_grandtotal {
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #8bc441;
+    position: absolute;
+    top: 4rem;
+    left: 6rem;
+    margin-top: -4rem;
+  }
+  a.edit_title_grandtotal:hover {
+    color: #000;
+  }
+
+  /* right side  */
+
+  h6.cost_breakdown_totalappointment_title {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  div.silverConsultancy_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  p.silverConsultancy_totalappointment_title {
+    font-size: 17px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.silverConsultancy_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 17px;
+    margin-top: 3px;
+    opacity: 0.9;
+  }
+  div.extra_totalappointment_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+  }
+  p.extra_totalappointment_title {
+    font-size: 17px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.extra_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 17px;
+    margin-top: 3px;
+    opacity: 0.9;
+  }
+
+  div.taxes_totalappointment_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+  }
+  p.taxes_totalappointment_title {
+    font-size: 17px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.taxes_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 17px;
+    margin-top: 3px;
+    opacity: 0.9;
+  }
+  hr.horizontal_line_grandtotalappointment {
+    font-family: Roboto;
+    color: #303960;
+    width: 13rem;
+  }
+
+  div.grandtotal_totalappointment_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  p.grandtotal_totalappointment_title {
+    font-family: Roboto;
+    color: #303960;
+    margin-right: 13px;
+    font-size: 17px;
+    margin-top: 6px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.grandtotal_totalappointment_subtitle {
+    font-family: Roboto;
+    color: #303960;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  div.btn_payonline_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  button.payOnline_btn {
+    font-family: Roboto;
+    padding: 7px;
+    font-size: 15px;
+    border-radius: 3px;
+    width: 191%;
+    margin-left: -76%;
+    justify-content: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+  span.fifteen_text {
+    font-size: 27px;
+    font-weight: 600;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  /* vertical line */
+  div.vertical_line_appointment_grandtotal {
+    border-left: 1px solid grey;
+    height: auto;
+    margin-left: 3%;
+  }
+  input.Grandtotal_Appointmentdate_subtitle {
+    border: 1px solid #c4c4c433;
+    border-radius: 5px;
+    font-size: 21px;
+    background-color: #fff;
+    margin-top: 8px;
+    width: 130%;
+    height: 35px;
+    box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
+  }
+  div.card_user_grandtotalAppointment {
+    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    margin-top: 5%;
+    padding: 3%;
+    width: 70%;
+    /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
+    border-radius: 1rem;
+    /* background: #fafafa9c; */
+    border: none;
+    height: auto;
+    margin-bottom: 50px;
+  }
+
+  /* left side  */
+
+  img.silver_img_grandTotalAppointment {
+    width: 79%;
+    height: 4rem;
+  }
+  h5.appointmentdate_subtitle_grandtotal {
+    box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
+    margin: -4px;
+    width: 7rem;
+    padding: 1rem;
+    font-size: 14px;
+    border-radius: 1rem;
+  }
+  p.silver_subtitle_grandAppointment {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 14px;
+    margin-top: 12px;
+    font-weight: 600;
+    text-align: justify;
+    opacity: 0.7;
+  }
+  h6.grandTotal_appointmentdate_title {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 20px;
+    letter-spacing: 0;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  a.edit_title_grandtotal {
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #8bc441;
+    position: absolute;
+    top: 11%;
+    left: 6rem;
+    margin-left: -20px;
+    margin-top: -2px;
+  }
+  a.edit_title_grandtotal:hover {
+    color: #000;
+  }
+
+  /* right side  */
+
+  h6.cost_breakdown_totalappointment_title {
+    font-family: Roboto;
+    color: #303960;
+    font-size: 20px;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  div.silverConsultancy_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    opacity: 0.8;
+  }
+  p.silverConsultancy_totalappointment_title {
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 0.9;
+    letter-spacing: 1px;
+  }
+  h5.silverConsultancy_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 7px;
+    opacity: 0.9;
+  }
+  div.extra_totalappointment_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0.8;
+  }
+  p.extra_totalappointment_title {
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 0.9;
+    letter-spacing: 1px;
+  }
+  h5.extra_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 7px;
+    opacity: 0.9;
+  }
+
+  div.taxes_totalappointment_container {
+    font-family: Roboto;
+    color: #303960;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0.8;
+  }
+  p.taxes_totalappointment_title {
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 0.9;
+    letter-spacing: 1px;
+  }
+  h5.taxes_totalappointment_subtitle {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 7px;
+    opacity: 0.9;
+  }
+  hr.horizontal_line_grandtotalappointment {
+    font-family: Roboto;
+    color: #303960;
+    width: 13rem;
+  }
+
+  div.grandtotal_totalappointment_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  p.grandtotal_totalappointment_title {
+    font-family: Roboto;
+    color: #303960;
+    margin-right: 13px;
+    font-size: 18px;
+    margin-top: 4px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  h5.grandtotal_totalappointment_subtitle {
+    font-family: Roboto;
+    color: #303960;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  div.btn_payonline_container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  button.payOnline_btn {
+    font-family: Roboto;
+    padding: 7px;
+    font-size: 15px;
+    border-radius: 3px;
+    width: 175%;
+    margin-left: -63%;
+    justify-content: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+  span.fifteen_text {
+    font-size: 27px;
+    font-weight: 600;
+  }
+  div.rightSide_grandtotal {
+    margin-left: 2.5%;
+  }
+}

@@ -1,0 +1,134 @@
+div.shipping_address_container{
+    background-color:white;
+    height: 80%;
+    width: 40%;
+    border-radius:30px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position:absolute;
+    z-index: 1;
+    top: 20%;
+    bottom: 20%;
+   left:40%;
+   right: 20%;
+  
+}
+div.add_button{
+    margin-right: 15%;
+    color:#8BC53F;
+}
+
+div.primary_address{ 
+
+   align-self: flex-start;
+   margin-left: 10%;
+    align-items:flex-start;
+    margin-top: -15%;
+    color:#8BC53F;
+    
+}
+div.secondary_address__Button{
+    flex-direction: row;
+    display: flex;
+    justify-content:space-between;
+    margin-top: 10%;
+    width: 100%;
+
+}
+div.secondary_address{ 
+  margin-left: 10%;
+    color:black;
+}
+p.txtarea_primary_address{
+    height:25%;
+    width:80%;
+    margin-top: 10px;
+    background-color: #8BC53F;
+    border-radius:10px;
+    border-color: transparent;
+}
+p.txtarea_secondary_address{
+    height:25%;
+    width:80%;
+    margin-top: 10px;
+    border-radius:10px;
+    border-color:black;
+    border-width: 2;
+    background-color: #fbfbfb;
+
+
+    
+}
+button.btn_done{
+    background-color:#8BC53F;
+    color:white;
+    font-weight: 500;
+    width:100%;
+    height: 12%;
+    position: absolute;
+    bottom: 0;
+   
+    
+}
+
+
+
+div.shipping_address_container_data{
+    background-color:white;
+    height: 80%;
+    width: 40%;
+    border-radius:30px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position:absolute; 
+    z-index: 1;
+    top: 20%;
+    bottom: 20%;
+   left:30%;
+   right: 20%;
+
+}
+select.select_address{
+    margin-top: -15%;
+    height: 20%;
+    width: 90%;
+    
+}
+
+textarea.txtarea_house_address{
+
+    height:40%;
+    width:90%;
+    margin-top: 5%;
+    background-color: white;
+    border-radius:5px;
+  
+
+
+}
+
+div.textarea_data{
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items:center;
+    
+   
+    
+}
+button.btn_add{
+    background-color:#8BC53F;
+    color:white;
+    font-weight: 500;
+    width:100%;
+    height: 15%;
+    position: absolute;
+    bottom: 0;
+ 
+
+}
