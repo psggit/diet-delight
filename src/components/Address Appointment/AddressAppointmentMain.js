@@ -6,6 +6,7 @@ import payment_img from "../../assets/master.jpg";
 import axios from "../../axiosInstance";
 import { Link, useHistory } from "react-router-dom";
 import Mealchoose from "../Mealchoose.js";
+import AddressDialogBox from '../Address Appointment/AddressDialogBox'
 
 export default function AddressAppointmentMain(props) {
   let history = useHistory();
@@ -19,6 +20,31 @@ export default function AddressAppointmentMain(props) {
   const [extraCharge, setExtraCharge] = useState(0);
   const [toggleTextarea, setToggleTextarea] = useState(true);
   const [dateTime, setDateTime] = useState([]);
+      
+  const [changeAddressData,setChangeAddressData] = useState(false) 
+  const [selectAddress,setSelectedAddress] = useState("")
+
+  function handleAdrress(data){
+    console.log(data)
+    setSelectedAddress(data)
+
+  } 
+
+  function handleChangeAdrress(data){
+      if(data === true){
+          setChangeAddressData(true)
+          }else{
+          setChangeAddressData(false) 
+      }
+       
+  }  
+
+  function handleUserData(){
+      setChangeAddressData(true)
+      console.log("meet")
+  
+
+  }
 
   console.log(props);
   useEffect(() => {
@@ -160,6 +186,13 @@ export default function AddressAppointmentMain(props) {
   return (
     <div className="address_appointment_container">
       {/* <img src={logo_web} alt="logo" className="logo_web"></img> */}
+      <AddressDialogBox
+                          changeAddressBox={changeAddressData} 
+                         makeAddressBox={handleChangeAdrress}
+                         userData ={user}
+                         makeChangeAdderess={handleAdrress}
+
+                        />
 
       <Mealchoose name="Book an Appointment" />
 
@@ -173,23 +206,21 @@ export default function AddressAppointmentMain(props) {
                 <div className="col-md-8 col-sm-12">
                   <textarea
                     id="w3review"
-                    disabled={toggleTextarea}
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setAddress(e.target.value);
-                    }}
+                  
+                    defaultValue={user.primary_address_line1}
                     placeholder="Enter Address"
-                    value={address}
+                  
                     name="w3review"
                     rows="2"
                     cols="20"
                     className="textarea_addressAppoinment"
-                  ></textarea>
+                  >{selectAddress === "primary_address" ? user.primary_address_line1 : user.secondary_address_line2}</textarea>
                 </div>
                 <div className="col-md-4 col-sm-12">
                   <h6
                     className="change_text_adressAppointment"
-                    onClick={() => setToggleTextarea(!toggleTextarea)}
+                    // onClick={() => setToggleTextarea(!toggleTextarea)}
+                    onClick={handleUserData}
                   >
                     Change
                   </h6>

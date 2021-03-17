@@ -1,12 +1,14 @@
 import React from 'react'
-import './Termcondition.css'
+import './Termcondition.css' 
+import Footer from '../Landing_Page/Footer/index'
+import Navbar from '../Navbar/index'
 
-export default function Tc(){
+export default function Termcondition(){
     return(
 
         <div>
 
-
+        <Navbar/>
         <header>
         <div className="jumbotron color-grey-light mt-70">
         <div className="d-flex align-items-center h-100">
@@ -139,7 +141,7 @@ export default function Tc(){
        
 
         
-        
+        <Footer/>
         
         
         </div> 

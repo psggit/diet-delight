@@ -31,11 +31,11 @@ const Home = () => {
                     </Containerup>
                     <Icons>
                         <Icon>
-                            <Link to='/OngoingMain'>
-                            <button style={{backgroundColor:"transparent"}}>
+                            
+                            
                             <Message />
-                            </button>
-                            </Link>
+          
+                           
                         </Icon>
                         
                         <Icon>

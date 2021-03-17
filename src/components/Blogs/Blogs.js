@@ -1,16 +1,18 @@
 import React from 'react'
 import './Blogs.css'
+import Footer from '../Landing_Page/Footer/index'
+import Navbar from '../Navbar/index'
 
 export default function Blogs(){
     return(
 
         <div>
-   
+        <Navbar/>
         <header>
         <div className="jumbotron jumbotron-image color-grey-light main_blog_archive_div">
         <div className="mask rgba-black-strong d-flex align-items-center h-100">
         <div className="container text-center white-text py-5">
-        <h1 className="mb-3">Fashion Blog</h1>
+        <h1 className="mb-3">Blogs</h1>
         <p className="mb-0"><i className="fas fa-quote-left mr-2"></i>Style is something each of us already has, all we need to do is find it</p>
         </div>
         </div>
@@ -240,7 +242,7 @@ export default function Blogs(){
 
         
         
-        
+        <Footer />
         </div> 
         
         

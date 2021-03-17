@@ -6,6 +6,7 @@ import { Subheading, Line, Para, Image } from '../../MainComponents'
 import pay1 from '../../../assets/pay1.png';
 import pay2 from '../../../assets/pay2.png';
 import pay3 from '../../../assets/pay3.jpeg';
+import { Link } from "react-router-dom";
 
 const Footer = () => {
 
@@ -22,8 +23,12 @@ const Footer = () => {
                             <Items>Our Story</Items>
                             <Items>How It Works</Items>
                             <Items>Consultation Packages</Items>
+                            <Link to="/Termconditioncontent">
                             <Items>Terms and Conditions</Items>
+                            </Link>
+                            <Link to="/Termcondition">
                             <Items>Privacy Policy</Items>
+                            </Link>
                             <Items>Carrers</Items>
                         </Lists>
                     </Container>
@@ -64,7 +69,9 @@ const Footer = () => {
                             <Items>Secured Payemnt Methods</Items>
                             <Items>Exchanges & Returns</Items>
                             <Items>Order Status</Items>
+                            <Link to="/ConatctUsMain">
                             <Items>Contact Us</Items>
+                            </Link>
                         </Lists>
                     </Container>
                     <Container>

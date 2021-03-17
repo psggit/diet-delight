@@ -1,12 +1,14 @@
 import React from 'react'
 import './ConatcUs.css'
-import call from '../../assets/phone.png'
+import call from '../../assets/phone.png' 
 import envelop from '../../assets/envelope.png'
+import Footer from '../Landing_Page/Footer/index'
+import Navbar from '../Navbar/index'
 
 export default function ConatctUsMain(){
     return(
         <>
-        
+        <Navbar/>
         <div className="conatct_us_main_container">
         <div className="card contact_card">
         <div className="row conatc_row">
@@ -49,7 +51,7 @@ export default function ConatctUsMain(){
         </div>
         </div>
         </div>
-        
+        <Footer/>
         </>
         
         )
