@@ -9,26 +9,35 @@ import { Link, useHistory } from "react-router-dom";
 export default function OngoingMain() {
   let history = useHistory();
   const [meals, setMeal] = useState([]);
+ 
   useEffect(() => {
-    axios
-      .get(`meal-plans`, {
+      axios
+      .get(`my-meal-purchases`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data.data);
         setMeal(res.data.data);
       });
   }, []);
 
-  function pushScreen() {
-    history.push("/");
+  function pushScreen(meal) {
+    history.push({pathname:"/SelectMealPlan",
+    state:{
+      recentPurchase:meal
+    }
   }
+    );
+   
+  }
+
+  
 
   const renderMeal = meals.map((meal) => {
     return (
-      <div onClick={pushScreen}>
+      <div onClick={() =>pushScreen(meal)}>
         <div className="main_container_mealpkg">
           <div className="card fullcard_container_ongoing">
             <div className="row">
@@ -37,7 +46,7 @@ export default function OngoingMain() {
                   <div className="col-md-4 col-sm-12">
                     <div className="img_container_ongoing">
                       <img
-                        src={meal.picture}
+                        src={meal.meal_plan.picture}
                         alt="rounded_img"
                         className="rounded-circle card_img_rounded_mealpkgsub"
                       ></img>
@@ -45,9 +54,9 @@ export default function OngoingMain() {
                   </div>
 
                   <div className="col-md-8 col-sm-12 meal_ongoing">
-                    <h5 className="title_ongoing">{meal.name}</h5>
-                    <h5 className="subtitle_ongoing">{meal.duration} Day</h5>
-                    <h6 className="calories_text_ongoing">2564 Calories</h6>
+                    <h5 className="title_ongoing">{meal.meal_plan_name}</h5>
+                    <h5 className="subtitle_ongoing">{meal.meal_plan_duration} Day</h5>
+                    <h6 className="calories_text_ongoing">{meal.kcal} Calories</h6>
                   </div>
                 </div>
               </div>
@@ -58,13 +67,13 @@ export default function OngoingMain() {
 
                   <div className="col-md-11 col-sm-12">
                     <h6 className="date_content_ongoing">
-                      Start date 22-oct-2021
+                     {meal.start_date}
                     </h6>
                     <h6 className="date_content_ongoing_subtext">
-                      {meal.details}
+                      {meal.meal_plan.details}
                     </h6>
                     <h6 className="weekend_content_text">
-                      {meal.type == 0 ? "With Weekend" : "Without Weekend"}
+                      {meal.meal_plan.type == 0 ? "With Weekend" : "Without Weekend"}
                     </h6>
                   </div>
                 </div>

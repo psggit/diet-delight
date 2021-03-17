@@ -17,10 +17,10 @@ export default function AddressDialogBox(props){
             }
         }
 
-    }
+    } 
 
     console.log(props)
-    if(props.changeAddressBox === true)
+    if(props.changeAddressBox === true) 
     {
         return(
  

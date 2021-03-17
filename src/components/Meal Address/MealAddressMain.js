@@ -2,12 +2,12 @@ import React from 'react'
 import logo_web from '../../assets/logoweb.png'
 import Mealchoose from '../Mealchoose'
 import SubMealAddress from './SubMealAddress'
-import './MealAddressMain.css'
+import './MealAddressMain.css' 
 
 export default function AddressAppointmentMain(props){
     console.log(props)
     return(
-        
+         
         <div className="address_screen_bg">
         
         {/* <img src={logo_web} alt="logo" className="logo_web"></img> */}
@@ -25,7 +25,7 @@ export default function AddressAppointmentMain(props){
         </div>
        
         </div>
-        
+          
       
         )
     }

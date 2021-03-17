@@ -1,36 +1,31 @@
 import React,{useEffect,useState} from 'react'
 import './SelectMealPlan.css'
-import card_img_rounded from '../../assets/food1.jpg'
-
-import axios from '../../axiosInstance';
-
 import './Submodulessecond.css' 
-
-// import AddressDialogBoxDropDown from '../Address Appointment/AddressDialogBoxDropDown'
-// import AddressDialogBox from '../Address Appointment/AddressDialogBox'
+import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog';
  
 export default function Submodulesecond(props){ 
-    // const [addressDialog,setAddressDialog] = useState(false) 
+    const [addressDialog,setAddressDialog] = useState(false) 
 
-    // function handleAdrress(data){
-    //     if(data === true){
-    //         setAddressDialog(true)
-    //     }else{
-    //         setAddressDialog(false) 
-    //     }
+    function handleAdrress(data){
+        if(data === true){
+            setAddressDialog(true)
+        }else{
+            setAddressDialog(false) 
+        }
          
-    // } 
+    } 
   
 
     return(
          
         <div> 
-           
+            <PrimaryaddDialog changeAddress={addressDialog} makeAddress={handleAdrress} />
 {/* 
         <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}/>
         <AddressDialogBox/> */}
         
         <div className="submodule_second_container">
+           
         <div className="card submodule_second_card">
         <div className="row">
         
@@ -53,19 +48,20 @@ export default function Submodulesecond(props){
         
         </div>
         
-        <div className="col-md-2 col-sm-12">
+        <div className="col-md-2 col-sm-12"> 
      
-        <button className="btn btn-default address_btn_submodule_second"
+        <button className="btn btn-default address_btn_submodule_second" 
         //  onClick={() => setAddressDialog(true)}
         >
         Address
         
         </button>
-      
-        <button className="btn btn-default breaks_btn_submodule_second_">
+        
+        <button className="btn btn-default breaks_btn_submodule_second_" onClick={() => setAddressDialog(true)}>
         Breaks
         
         </button>
+    
         
         </div>
         

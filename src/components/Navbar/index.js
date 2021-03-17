@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavBtnlink, NavButton, NavMenuUp, NavMenuDown } from './NavbarElement';
 
-import { FaBars, FaUserCircle,FaShoppingBag,FaRegHeart} from 'react-icons/fa'
+import { FaBars, FaUserCircle,FaShoppingBag,FaRegHeart, FaRegClock} from 'react-icons/fa'
 import logo from "../../assets/logo.png"
 
 import axios from '../../axiosInstance'
@@ -118,7 +118,7 @@ const Navbar = ({ toggle }) => {
                     width: "23px",
                     margin: "0px 10px 0 5px"
                     
-                }} />
+                }} /> 
                   </Link>
                   <Link to="/FavouriteMain">
                  <FaRegHeart style={{
@@ -138,8 +138,8 @@ const Navbar = ({ toggle }) => {
                     
                 }} />
                 </Link>
-                <Link to="/OrderHistory">
-                 <FaShoppingBag style={{
+                <Link to="/OngoingMain">
+                 <FaRegClock style={{
                     color: "purple",
                     height: "23px",
                     width: "23px",
