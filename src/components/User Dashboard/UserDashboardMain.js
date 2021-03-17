@@ -34,7 +34,9 @@ export default function UserDashboardMain() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [primaryAddress, setPrimaryAddress] = useState("");
+  const [primaryAddressLine2, setPrimaryAddressLine2] = useState("");
   const [secondaryAddress, setSecondaryAddress] = useState("");
+  const [secondaryAddressLine2, setSecondaryAddressLine2] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [toggleBMI, setToggleBMI] = useState(false);
@@ -42,6 +44,10 @@ export default function UserDashboardMain() {
   const [toggleChangePassword, setToggleChangePassword] = useState(false);
   const [editProfile, setEditProfile] = useState(true);
   const [bmiReport, setBMIReport] = useState({});
+  const [userCategory, setCategory] = useState("")
+  const [userGender, setUserGender] = useState("");
+  
+
 
   useEffect(() => {
     fetchUser();
@@ -57,6 +63,25 @@ export default function UserDashboardMain() {
       .then((res) => {
         console.log(res);
         setUser(res.data);
+        console.log(typeof(res.data.gender))
+        let BmiScore = parseFloat(res.data.bmi);  
+        if(BmiScore < 18.5){
+          setCategory('Under Weight') 
+      }else if(BmiScore >= 18.5 && BmiScore <= 24.9){
+          setCategory('Normal Weight') 
+      }else if(BmiScore >= 25 && BmiScore <= 29.9){
+          setCategory('OverWeight')
+      }else{
+          setCategory('Obesity');
+      }
+
+      let genderInNumber = res.data.gender;
+      console.log(genderInNumber)
+      if(genderInNumber > 0){
+        setUserGender("Female")
+      }else{
+        setUserGender("Male")
+      }
       });
   };
 
@@ -104,19 +129,19 @@ export default function UserDashboardMain() {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
-        email: email === "" ? user.email : email,
-        password: password === "" ? user.password : password,
-        first_name: firstName === "" ? user.firstName : firstName,
+          first_name: firstName === "" ? user.firstName : firstName,
         last_name: lastName === "" ? user.lastName : lastName,
         mobile: phone === "" ? user.phone : phone,
         primary_address_line1:
           primaryAddress === "" ? user.primary_address_line1 : primaryAddress,
-        primary_address_line2: user.primary_address_line2,
+        primary_address_line2: primaryAddressLine2 === "" ? user.primary_address_line2 : primaryAddressLine2,
         secondary_address_line1:
           secondaryAddress === ""
             ? user.secondary_address_line1
             : secondaryAddress,
-        secondary_address_line2: user.secondary_address_line2,
+        secondary_address_line2: secondaryAddressLine2 === ""
+        ? user.secondary_address_line2
+        : secondaryAddressLine2,
       })
       .then((res) => {
         console.log(res);
@@ -124,7 +149,6 @@ export default function UserDashboardMain() {
         setUser(res.data);
         setEditProfile(true);
         console.log(user);
-        history.push("/");
       });
   };
 
@@ -189,9 +213,9 @@ export default function UserDashboardMain() {
               fontWeight: "700",
             }}
           >
-            Normal Weight
+            {userCategory}
           </UpperRightContainerText>
-        </UpperContainer>
+        </UpperContainer> 
         <MainContainer
           style={{
             background: "hsla(0, 0%, 98.4%, 0.3411764705882353)",
@@ -247,7 +271,7 @@ export default function UserDashboardMain() {
             <FormContent>
               <ForeFrontText>Gender</ForeFrontText>
               <Input
-                defaultValue={user.gender === 0 ? "Male" : "Female"}
+                defaultValue={userGender}
                 style={{
                   border: "none",
                   textDecoration: "none",
@@ -297,7 +321,7 @@ export default function UserDashboardMain() {
                 style={{ background: "white" }}
                 defaultValue={user.primary_address_line2}
                 disabled={editProfile}
-                onChange={(e) => setPrimaryAddress(e.target.value)}
+                onChange={(e) => setPrimaryAddressLine2(e.target.value)}
               />
             </FormContent>
 
@@ -307,7 +331,7 @@ export default function UserDashboardMain() {
                 style={{ background: "white" }}
                 defaultValue={user.secondary_address_line1}
                 disabled={editProfile}
-                onChange={(e) => setPrimaryAddress(e.target.value)}
+                onChange={(e) => setSecondaryAddress(e.target.value)}
               />
             </FormContent>
 
@@ -317,7 +341,7 @@ export default function UserDashboardMain() {
                 style={{ background: "white" }}
                 defaultValue={user.secondary_address_line2}
                 disabled={editProfile}
-                onChange={(e) => setSecondaryAddress(e.target.value)}
+                onChange={(e) => setSecondaryAddressLine2(e.target.value)}
               />
             </FormContent>
             <FormContent>
