@@ -45,6 +45,18 @@ import OtpDialogBox from './components/Auth/OtpDialog';
 import Blogs from './components/Blogs/Blogs'
 import Termcondition from './components/Terms and Condition/Termcondition'
 import Termconditioncontent from './components/Term condition content/Termconditioncontent'
+import PrimaryaddDialog from './components/Dialog/Primary address Dialog/PrimaryaddDialog.js'
+import SelectandAddMain from './components/Dialog/Select and Add dialog/SelectandAddMain.js'
+import SelectionAddressMain from './components/Dialog/Selection Address Dialog/SelectionAddressMain.js'
+import SelectionCalenderMain from './components/Dialog/Selection Calender Dialog/SelectionCalenderMain.js'
+import CalenderDialogMain from './components/Dialog/Calender Dialog/CalenderDialogMain.js'
+
+
+
+
+
+
+
 function App() {
   
   let cookie = new Cookies();
@@ -97,11 +109,13 @@ function App() {
   return (
     <Router>
     <Switch>
+
     <Route path="/" exact>
     <Navbar isOpen={isOpen} toggle={toggle} />
     <Sidebar isOpen={isOpen} toggle={toggle} />
     <LandingPage />
     </Route>
+
     <Route path="/signin" component={Signin} />
     <Route path="/signup" component={Signup} />
     <Route path="/admin" exact component={AdminDash} />
@@ -109,33 +123,39 @@ function App() {
     <Route path="/kitchen" exact component={Kitchen} />
     <Route path="/accountant" exact component={Accountant} />
 
-    {/* <Route path="/DietDataDetails" exact component={DietDataDetails} /> */}
-    <Route path="/MealpkgSubscription" exact component={MealpkgSubscription} />
-    <Route path="/MealAddressMain" exact component={MealAddressMain} />
-    <Route path="/PaymentPlan" exact component={PaymentPlan} />
-    <Route path="/SelectMealPlan" exact component={SelectMealPlan} />
-    <Route path="/Appointmentmain" exact component={Appointmentmain} />
-    <Route path="/GrandtotalAppointmentmain" exact component={GrandtotalAppointmentmain} />
-    <Route path="/AddressAppointmentMain" exact component={AddressAppointmentMain} />
-    <Route path="/OrderHistory" exact component={OrderHistory} />
-    <Route path="/MenuPkg" exact component={MenuPkg} />
-    <Route path="/UserDashboardMain" exact component={UserDashboardMain} />
-    <Route path="/FavouriteMain" exact component={FavouriteMain} />
-    <Route path="/OngoingMain" exact component={OngoingMain} />
-    <Route path="/BmiMain" exact component={BmiMain} />
-    <Route path="/Bmireport" exact component={Bmireport} />
-    <Route path="/ConatctUsMain" exact component={ConatctUsMain} />
-    <Route path="/ChangePassword" exact component={ChangePassword} />
-    <Route path="/AddressDialogBox" exact component={AddressDialogBox} />
-    <Route path="/AddressDialogBoxDropDown" exact component={AddressDialogBoxDropDown} />
-    <Route path="/otpVerification" exact component={OtpDialogBox}/>
-      <Route path="/Blogs" exact component={Blogs} />
-      <Route path="/Termcondition" exact component={Termcondition} />
-      <Route path="/Termconditioncontent" exact component={Termconditioncontent}/>
-    </Switch>
-    </Router>
-    );
-  }
+  {/* <Route path="/DietDataDetails" exact component={DietDataDetails} /> */}
+  <Route path="/MealpkgSubscription" exact component={MealpkgSubscription} />
+  <Route path="/MealAddressMain" exact component={MealAddressMain} />
+  <Route path="/PaymentPlan" exact component={PaymentPlan} />
+  <Route path="/SelectMealPlan" exact component={SelectMealPlan} />
+  <Route path="/Appointmentmain" exact component={Appointmentmain} />
+  <Route path="/GrandtotalAppointmentmain" exact component={GrandtotalAppointmentmain} />
+  <Route path="/AddressAppointmentMain" exact component={AddressAppointmentMain} />
+  <Route path="/OrderHistory" exact component={OrderHistory} />
+  <Route path="/MenuPkg" exact component={MenuPkg} />
+  <Route path="/UserDashboardMain" exact component={UserDashboardMain} />
+  <Route path="/FavouriteMain" exact component={FavouriteMain} />
+  <Route path="/OngoingMain" exact component={OngoingMain} />
+  <Route path="/BmiMain" exact component={BmiMain} />
+  <Route path="/Bmireport" exact component={Bmireport} />
+  <Route path="/ConatctUsMain" exact component={ConatctUsMain} />
+  <Route path="/ChangePassword" exact component={ChangePassword} />
+  <Route path="/AddressDialogBox" exact component={AddressDialogBox} />
+  <Route path="/AddressDialogBoxDropDown" exact component={AddressDialogBoxDropDown} />
+  <Route path="/otpVerification" exact component={OtpDialogBox}/>
+  <Route path="/Blogs" exact component={Blogs} />
+  <Route path="/Termcondition" exact component={Termcondition} />
+  <Route path="/Termconditioncontent" exact component={Termconditioncontent}/>
+
   
-  export default App;
-  
+  <Route path="/PrimaryaddDialog" exact component={PrimaryaddDialog} />
+  <Route path="/SelectionAddressMain" exact component={SelectionAddressMain} />
+  <Route path="/SelectandAddMain" exact component={SelectandAddMain} />
+  <Route path="/CalenderDialogMain" exact component={CalenderDialogMain} />
+  <Route path="/SelectionCalenderMain" exact component={SelectionCalenderMain} />
+  </Switch>
+  </Router>
+  );
+}
+
+export default App;

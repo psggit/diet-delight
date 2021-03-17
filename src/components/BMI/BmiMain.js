@@ -44,7 +44,7 @@ export default function BmiMain(props){
             console.log(calorieInTake)
         handleNavigation(BmiScore,heightInMeter,category, calorieInTake)
 
-        }else if(BmiScore >= 18.5 || BmiScore <= 24.9){
+        }else if(BmiScore >= 18.5 && BmiScore <= 24.9){
             category = 'Normal Weight'
             if(gender === 'male'){
                 calorieInTake = 1400;
@@ -54,7 +54,7 @@ export default function BmiMain(props){
             console.log(calorieInTake)
         handleNavigation(BmiScore,heightInMeter,category, calorieInTake)
 
-        }else if(BmiScore >= 25 || BmiScore <= 29.9){
+        }else if(BmiScore >= 25 && BmiScore <= 29.9){
             category = 'OverWeight'
             if(gender === 'male'){
                 calorieInTake = 1400;
