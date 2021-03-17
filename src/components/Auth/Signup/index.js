@@ -23,6 +23,8 @@ import { setNew } from '../../../features/userSlice'
 import countryList from 'react-select-country-list'
 import OtpDialog from '../OtpDialog'
 import firebase from '../SignInMethods/firebaseConfig'
+import logo_img from '../../../assets/logoweb.png'
+
 
 
 
@@ -40,17 +42,17 @@ const Signup = () => {
     console.log(typeof(callingCountries))
     const options = useMemo(() => countryList().getValues (), [])
     const [otpDialog, setOtpDialog] = useState(false)
+    const [disabled,setDisabled] = useState(false)
     let phoneNumber = useRef("");
-    const [verifiedPhoneNumber, setVerifiedPhoneNumber] = useState(false);
-
     
     const [open, setOpen] = useState(false);
     const code = useRef("");
     const reCaptcha = useRef("");
+    const [otp,setOtp] = useState('');
+
     
     const [token, setToken] = useState({});
     const [successErrorMessage, setSuccessErrorMessage] = useState('Account Created SuccessFully');
-    const [verificationCode, setVerificationCode] = useState('');
     
     useEffect(() => {
         localStorage.setItem('access_token', token.access_token ? token.access_token : '');
@@ -58,25 +60,20 @@ const Signup = () => {
     }, [token])
 
 
-    const handleOtpDialog = () => {
-        otpDialog === true ? setOtpDialog(false) : setOtpDialog(true)
-    }
-
-    const handleVerification = (code) => {
-        console.log(code)
-        setVerificationCode(code)
-    }
+    const handleCloseOtp = () => {
+        // props.handleOtpDialog();
+    };
       
     const ValidateSchema = Yup.object().shape({
         fname: Yup.string().required().label("First Name"),
         lname: Yup.string().required().label("Last Name"),
-        phone: Yup.number().required().label("Phone"),
+        phone: Yup.number().required().phoneNumber,
         email: Yup.string().required().email().label("Email"),
         password: Yup.string().required().min(6).label("Password"),
     })  
     
     const handleClose = () => {
-        setOpen(false);
+        setOpen(false);                         
         dispatch(setNew())
         history.push("/")
     };
@@ -91,35 +88,53 @@ const Signup = () => {
     }, [])
 
 
+    const handleCodeByUser = (confirmationResult, userValues) => {
+        setOtpDialog(true)
+        var captureButtonClick = document.getElementById('verifyOtp');
+        captureButtonClick.onclick =  (e) => {
+            console.log(e)
+            var otpEntered = document.getElementById('num1').value;
+            console.log(otpEntered)
+            confirmationResult.confirm(otpEntered).then(async (result) => {
+                    // User signed in successfully.
+                    const user = result.user;
+                    console.log(user)
+                    console.log(user.phoneNumber)
+                    handleRegistration(userValues, user.phoneNumber)
+                    setOtpDialog(false)
+                    // await setVerifiedPhoneNumber(true)
+                  }).catch((error) => {
+                      console.log(error)
+                  });
+        }
 
-    const phoneAuth = async () => {
+        // return otpEntered;
+    }
+
+
+
+    const phoneAuth = async (values) => {
 
         let number = code.current+phoneNumber.current;
         console.log(number)
 
     await firebase.auth().signInWithPhoneNumber(number, reCaptcha.current)
     .then((confirmationResult) => {
-      console.log(verificationCode)
       console.log(window.confirmationResult)
       window.confirmationResult = confirmationResult;
-      var code = window.prompt("Enter Otp");
-        confirmationResult.confirm(code).then(async (result) => {
-        // User signed in successfully.
-        const user = result.user;
-        console.log(user)
-        await setVerifiedPhoneNumber(true)
-      }).catch((error) => {
-          console.log(error)
-      });
+      console.log(confirmationResult)
+      handleCodeByUser(confirmationResult, values)
     }).catch((error) => {
         console.log(error)
     });
-    if(verifiedPhoneNumber === true){
-        return true
-    }
-        return false
     }
 
+    
+    const storeOtp = (value) => {
+        if(value.length <= 6){
+            setOtp(value)
+        }
+    }
 
     const renderCaptcha = () => {
         firebase.auth().languageCode = 'en';
@@ -137,9 +152,7 @@ const Signup = () => {
     
     
     const handleSignUp = (token, user) => {
-        
         console.log("from handle sign up",token,user)
-        
         console.log("called handle signup")
         var fullName = user.displayName
         var nameArray = fullName.split(" ");
@@ -159,19 +172,15 @@ const Signup = () => {
             phone:phone,
             check:password
         }
-        
-        handleRegistration(values);
-        
-        
+        handleRegistration(values, phone); 
     }
     
     
-    const handleRegistration = (values) => {
+    const handleRegistration = (values, mobileNumber) => {
         console.log("called registration")
         
         if (values.check === values.password) {
             
-            let combine = values.phone === null ? null : code.current + " " + values.phone;
             let Name = values.fname + " " + values.lname;
             let firebase_uid = values.firebase_uid;
             
@@ -181,7 +190,7 @@ const Signup = () => {
                 password: values.password,
                 first_name: values.fname,
                 last_name: values.lname,
-                mobile: combine,
+                mobile: mobileNumber,
                 firebase_uid:firebase_uid,
             }).then(
                 (res) => {
@@ -213,7 +222,56 @@ const Signup = () => {
             
             return (
                 <>
-                {otpDialog && <OtpDialog handleOtpDialog={handleOtpDialog} handleVerification = {handleVerification}/>}
+                <div style={{zIndex:5}}>
+
+<Dialog
+open={otpDialog}
+onClose={handleCloseOtp}
+aria-labelledby="responsive-dialog-title"
+>
+<DialogTitle className="otp_bg" id="responsive-dialog-title">
+
+<div className="row dialog_signup_new">
+
+<div className="col-2">
+<i className="fa fa-long-arrow-left left_icon_dialog" aria-hidden="true"></i>
+</div>
+
+<div className="col-10">
+<div className="img_container_dialog">
+<img src={logo_img} className="logo_dialog_signup" alt="logo"></img>
+</div>
+</div>
+
+</div>
+
+
+<h6 className="your_phone_text">VERIFY YOUR PHONE NUMBER</h6>
+
+<h6 className="received_text">You would have received an otp on your phone...</h6>
+
+
+<h6 className="enter_otp_text">Enter OTP</h6>
+
+<div className="row justify-content-center" style={{width:'100%'}}>
+
+<input type="text" value={otp} placeholder="000000" required className="input_dialog_signup" id="num1" disabled={disabled} onChange={(e) => storeOtp(e.target.value)}></input>
+</div>
+
+<h6 className="resend_otp_text">Resend OTP</h6>
+
+<button className="btn verify_btn_dialog" id="verifyOtp" >VERIFY</button>
+
+</DialogTitle>
+
+
+
+
+
+
+
+</Dialog>
+</div>
                 <Main>
                 <Route to="/">
                 <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
@@ -258,7 +316,7 @@ const Signup = () => {
                 <Formik
                 initialValues={
                     {
-                        phone: '',
+                        phone: phoneNumber.current,
                         fname: '',
                         lname: '',
                         email: '',
@@ -268,7 +326,8 @@ const Signup = () => {
                     }}
                     
                     onSubmit={(values) => {
-                        handleRegistration(values)
+                        phoneAuth(values)
+                        // handleRegistration(values)
                     }}
                     validationSchema={ValidateSchema}
                     >
@@ -294,7 +353,7 @@ const Signup = () => {
                         onChange={(e) => {
                             e.preventDefault()
                             phoneNumber.current = e.target.value;
-                            handleChange("phone")}}
+                            }}
                         />
                         </Section>
                         {errors.phone && touched.phone ?
@@ -368,14 +427,7 @@ const Signup = () => {
                                             <Google />
                                             </IconBox>
                                             </Section>
-                                            <CustomButton id="sign-up" type="submit" onClick={async (e) => {
-                                                e.preventDefault();
-                                                let waitForConfirmation = await phoneAuth();
-                                                console.log(waitForConfirmation)
-                                                if(waitForConfirmation === true){
-                                                    handleSubmit()
-                                                }
-                                            }}>
+                                            <CustomButton id="sign-up" type="submit" onClick={handleSubmit}>
                                             SIGN UP
                                             </CustomButton>
                                             
