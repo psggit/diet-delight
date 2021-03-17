@@ -13,7 +13,7 @@
 	import TitleComponents from '../Primary address Dialog/TitleComponent.js'
 
 
-	export default function PrimaryaddDialog() {
+	export default function SelectandAddMain() {
 		const [open, setOpen] = React.useState(false);
 		const theme = useTheme();
 

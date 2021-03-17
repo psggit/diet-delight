@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Cookies } from 'react-cookie'
 
 import axios from './axiosInstance'
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar'; 
 import Sidebar from './components/Sidebar';
 
 import Signin from './components/Auth/Signin';

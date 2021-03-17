@@ -12,6 +12,7 @@ import AddressDialogBox from '../Address Appointment/AddressDialogBox'
 
 
 export default function AddressAppointmentMain(props){
+    console.log(props)
     let history = useHistory(); 
     const [value, setValue] = React.useState('female');
     const RadioChange = (event) => {
@@ -121,7 +122,7 @@ export default function AddressAppointmentMain(props){
 
                 console.log(todayDate, incrementedDate, today, incrementedDateByTwo, formatedIncrementedDate)
                 
-    },[])
+    },[]) 
 
     function handleData(){
         if(date != ''){
@@ -139,8 +140,8 @@ export default function AddressAppointmentMain(props){
                         }
                 })
         }else(
-            alert("Please Select Date")
-        )
+            alert("Please Select Date") 
+        ) 
     }
                 
     return(     

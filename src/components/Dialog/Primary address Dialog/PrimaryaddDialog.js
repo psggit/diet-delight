@@ -11,28 +11,18 @@
 	import TextareaComponent from './TextareaComponent.js'
 	import TitleComponents from './TitleComponent.js'
 
-	export default function PrimaryaddDialog() {
-		const [open, setOpen] = React.useState(false);
-		const theme = useTheme();
+	export default function PrimaryaddDialog(props) {
+		const [open, setOpen] = React.useState(true);
+		console.log(props)
+		
 
-		const handleOpenOtp = () => {
-			setOpen(true);
-		};
 
-		const handleCloseOtp = () => {
-			setOpen(false);
-		};
-
+		if(props.changeAddress === true){
 		return (
-			<div>
-
-			<Button variant="outlined" color="primary" onClick={handleOpenOtp}>
-			Open responsive dialog
-			</Button>
-
+		
 			<Dialog
 			open={open}
-			onClose={handleCloseOtp}
+			
 			style={{borderRadius:40}}
 			aria-labelledby="responsive-dialog-title">
 			
@@ -47,13 +37,18 @@
 			<TextareaComponent textareaDialogName="3 Newbridge Court Chino Hills, CA 91709" />
 
 			<div className="btn_container_dialog_address">
-			<button className="btn done_btn_dialog">DONE</button>
+			<button className="btn done_btn_dialog" onClick ={() =>props.makeAddress(false)}>DONE</button>
 			</div>
 
 			</DialogTitle>
 
 
 			</Dialog>
-			</div>
-			);
+			);}
+			else{
+				return(
+					<>
+					</>
+				)
+			}
 		}

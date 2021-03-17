@@ -1314,6 +1314,31 @@ export default function PersistentDrawerLeft() {
                                     </Set>
                                 </>)}
                            <Divider/>
+                           <div style={{ display: 'flex', alignItems: "center" }}>
+                                <Items value={listOfDuration}
+                                    onClick={() => {
+                                        setListOfDuration(!listOfDuration)
+                                    }}
+                                >
+                               Report
+                                </Items>
+                                {listOfDuration ? (<AiOutlineUp style={{ marginRight: "10px" }} />) : (<AiOutlineDown style={{ marginRight: "10px" }} />)}
+                            </div>
+                            {listOfDuration &&
+                                (<>
+                                    <Set>
+                                        <Divider />
+                                        <MiniItems
+                               
+                                            
+                                        >List of Report</MiniItems>
+                                        <Divider />
+                                        <MiniItems
+                                           
+                                            >Add Report</MiniItems>
+                                    </Set>
+                                </>)}
+                           <Divider/>
                            
                         </List>
                     </Drawer> 
