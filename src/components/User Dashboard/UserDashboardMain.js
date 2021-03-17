@@ -42,6 +42,10 @@ export default function UserDashboardMain() {
   const [toggleChangePassword, setToggleChangePassword] = useState(false);
   const [editProfile, setEditProfile] = useState(true);
   const [bmiReport, setBMIReport] = useState({});
+  const [userCategory, setCategory] = useState("")
+  const [userGender, setUserGender] = useState("");
+  
+
 
   useEffect(() => {
     fetchUser();
@@ -57,6 +61,25 @@ export default function UserDashboardMain() {
       .then((res) => {
         console.log(res);
         setUser(res.data);
+        console.log(typeof(res.data.gender))
+        let BmiScore = parseFloat(res.data.bmi);
+        if(BmiScore < 18.5){
+          setCategory('Under Weight') 
+      }else if(BmiScore >= 18.5 && BmiScore <= 24.9){
+          setCategory('Normal Weight') 
+      }else if(BmiScore >= 25 && BmiScore <= 29.9){
+          setCategory('OverWeight')
+      }else{
+          setCategory('Obesity');
+      }
+
+      let genderInNumber = res.data.gender;
+      console.log(genderInNumber)
+      if(genderInNumber > 0){
+        setUserGender("Female")
+      }else{
+        setUserGender("Male")
+      }
       });
   };
 
@@ -189,9 +212,9 @@ export default function UserDashboardMain() {
               fontWeight: "700",
             }}
           >
-            Normal Weight
+            {userCategory}
           </UpperRightContainerText>
-        </UpperContainer>
+        </UpperContainer> 
         <MainContainer
           style={{
             background: "hsla(0, 0%, 98.4%, 0.3411764705882353)",
@@ -247,7 +270,7 @@ export default function UserDashboardMain() {
             <FormContent>
               <ForeFrontText>Gender</ForeFrontText>
               <Input
-                defaultValue={user.gender === 0 ? "Male" : "Female"}
+                defaultValue={userGender}
                 style={{
                   border: "none",
                   textDecoration: "none",

@@ -40,11 +40,13 @@ const Signup = () => {
     console.log(typeof(callingCountries))
     const options = useMemo(() => countryList().getValues (), [])
     const [otpDialog, setOtpDialog] = useState(false)
-    const [phone, setPhone] = useState('');
+    let phoneNumber = useRef("");
+    const [verifiedPhoneNumber, setVerifiedPhoneNumber] = useState(false);
 
     
     const [open, setOpen] = useState(false);
     const code = useRef("");
+    const reCaptcha = useRef("");
     
     const [token, setToken] = useState({});
     const [successErrorMessage, setSuccessErrorMessage] = useState('Account Created SuccessFully');
@@ -61,10 +63,10 @@ const Signup = () => {
     }
 
     const handleVerification = (code) => {
+        console.log(code)
         setVerificationCode(code)
     }
-    
-    
+      
     const ValidateSchema = Yup.object().shape({
         fname: Yup.string().required().label("First Name"),
         lname: Yup.string().required().label("Last Name"),
@@ -84,37 +86,53 @@ const Signup = () => {
     }, [code.current])
 
 
-    // useEffect(() => {
-    //     renderCaptcha()
-    // }, [])
+    useEffect(() => {
+        renderCaptcha()
+    }, [])
 
+
+
+    const phoneAuth = async () => {
+
+        let number = code.current+phoneNumber.current;
+        console.log(number)
+
+    await firebase.auth().signInWithPhoneNumber(number, reCaptcha.current)
+    .then((confirmationResult) => {
+      console.log(verificationCode)
+      console.log(window.confirmationResult)
+      window.confirmationResult = confirmationResult;
+      var code = window.prompt("Enter Otp");
+        confirmationResult.confirm(code).then(async (result) => {
+        // User signed in successfully.
+        const user = result.user;
+        console.log(user)
+        await setVerifiedPhoneNumber(true)
+      }).catch((error) => {
+          console.log(error)
+      });
+    }).catch((error) => {
+        console.log(error)
+    });
+    if(verifiedPhoneNumber === true){
+        return true
+    }
+        return false
+    }
 
 
     const renderCaptcha = () => {
         firebase.auth().languageCode = 'en';
-        let recaptcha = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-        let number = code.current+phone;
-        console.log(number)
-
-    firebase.auth().signInWithPhoneNumber(number, recaptcha)
-    .then(() => {
-
-      // SMS sent. Prompt user to type the code from the message, then sign the
-      // user in with confirmationResult.confirm(code).
-      // ...
-      window.confirmationResult = verificationCode;
-    }).catch((error) => {
-        console.log(error)
-      // Error; SMS not sent
-      // ...
-    });
-    }
-
-
-    const phoneAuth = () => {
-        renderCaptcha();
+        let recaptcha = new firebase.auth.RecaptchaVerifier('sign-up', {
+            'size': 'invisible',
+            'callback': (response) => {
+                this.phoneAuth();
+                console.log(response)
+            }
+          });
+        reCaptcha.current = recaptcha;
+          
         console.log("Phone auth")
-        setOtpDialog(true)
     }
     
     
@@ -130,7 +148,7 @@ const Signup = () => {
         var email = user.email;
         var password = 'DietDelight@123ForEnigmaty';
         var firebase_uid = user.uid;
-        var phone = null
+        var phone = null;
         console.log(fname,lname,fullName, nameArray)
         var values = {
             fname: fname,
@@ -275,13 +293,9 @@ const Signup = () => {
                         placeholder="Enter Phone Number"
                         onChange={(e) => {
                             e.preventDefault()
-                            setPhone(e.target.value)
+                            phoneNumber.current = e.target.value;
                             handleChange("phone")}}
                         />
-                        </Section>
-                        <span style={{color:'green', cursor:"pointer"}} onClick={() => phoneAuth()}>Verify Phone Number</span>
-                        <Section id='recaptcha-container'>
-
                         </Section>
                         {errors.phone && touched.phone ?
                             (<Para color="red" size="0.8rem" weight="700">{errors.phone} </Para>)
@@ -354,7 +368,14 @@ const Signup = () => {
                                             <Google />
                                             </IconBox>
                                             </Section>
-                                            <CustomButton type="submit" onClick={handleSubmit}>
+                                            <CustomButton id="sign-up" type="submit" onClick={async (e) => {
+                                                e.preventDefault();
+                                                let waitForConfirmation = await phoneAuth();
+                                                console.log(waitForConfirmation)
+                                                if(waitForConfirmation === true){
+                                                    handleSubmit()
+                                                }
+                                            }}>
                                             SIGN UP
                                             </CustomButton>
                                             

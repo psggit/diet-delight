@@ -45,6 +45,7 @@ import OtpDialogBox from './components/Auth/OtpDialog';
 import Blogs from './components/Blogs/Blogs'
 import Termcondition from './components/Terms and Condition/Termcondition'
 import Termconditioncontent from './components/Term condition content/Termconditioncontent'
+// import NavDrawer from './components/Navdrawer';
 function App() {
   
   let cookie = new Cookies();
@@ -108,7 +109,7 @@ function App() {
     <Route path="/consultant" exact component={Consultant} />
     <Route path="/kitchen" exact component={Kitchen} />
     <Route path="/accountant" exact component={Accountant} />
-
+    {/* <Route path="/navDrawer" exact component={NavDrawer} /> */}
     {/* <Route path="/DietDataDetails" exact component={DietDataDetails} /> */}
     <Route path="/MealpkgSubscription" exact component={MealpkgSubscription} />
     <Route path="/MealAddressMain" exact component={MealAddressMain} />

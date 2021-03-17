@@ -62,6 +62,7 @@ const Signin = () => {
         
         Auth.owner.getToken(email, password).then(
             (res) => {
+                console.log(res.data)
                 setToken(res.data)
                 setErr(false)
                 cookie.set('access_token', res.data.access_token, {
