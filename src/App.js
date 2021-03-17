@@ -50,6 +50,7 @@ import SelectandAddMain from './components/Dialog/Select and Add dialog/Selectan
 import SelectionAddressMain from './components/Dialog/Selection Address Dialog/SelectionAddressMain.js'
 import SelectionCalenderMain from './components/Dialog/Selection Calender Dialog/SelectionCalenderMain.js'
 import CalenderDialogMain from './components/Dialog/Calender Dialog/CalenderDialogMain.js'
+import About from './components/Our story page/About'
 
 
 
@@ -153,6 +154,7 @@ function App() {
   <Route path="/SelectandAddMain" exact component={SelectandAddMain} />
   <Route path="/CalenderDialogMain" exact component={CalenderDialogMain} />
   <Route path="/SelectionCalenderMain" exact component={SelectionCalenderMain} />
+  <Route path="/About" exact component={About} />
   </Switch>
   </Router>
   );

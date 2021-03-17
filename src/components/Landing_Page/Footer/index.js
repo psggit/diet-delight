@@ -20,7 +20,9 @@ const Footer = () => {
                         </Subheading>
                         <Line back="white" width="50px" height="2px" />
                         <Lists>
+                        <Link to="/About">
                             <Items>Our Story</Items>
+                            </Link>
                             <Items>How It Works</Items>
                             <Items>Consultation Packages</Items>
                             <Link to="/Termconditioncontent">
