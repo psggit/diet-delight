@@ -5,10 +5,30 @@ import Mealchoose from "../Mealchoose.js";
 import "../Menu Package/TabMenuPkg.css";
 import "./Favmain.css";
 import axios from "../../axiosInstance";
-import FavComponent from "./FavComponent";
+import FavouriteMemo from "./FavComponent";
 
 export default function FavouriteMain() {
-  const [likeColor, setLikeColor] = useState("fa fa-heart-o heart_menu_pkg");
+  const [favouriteData, setFavouriteData] = useState([]);
+
+ 
+
+  
+  useEffect(() => {
+    axios
+      .get(`favourites`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setFavouriteData(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+
+  const renderFavourites = favouriteData.map((favourite) => <FavouriteMemo favourite={favourite} key={Math.random()}/>);
 
   return (
     <div className="fav_bg_container">
@@ -29,7 +49,7 @@ export default function FavouriteMain() {
           <div className="row">
             <div className="col-md-10">
               <div className="row">
-                <FavComponent />
+                {renderFavourites}
               </div>
             </div>
             <div className="col-md-1"></div>
