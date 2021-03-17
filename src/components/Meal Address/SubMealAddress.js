@@ -100,7 +100,7 @@ export default function AddressAppointmentMain(props){
                 }).then((res) => {
                     console.log(res)
                     
-                    setUser(res.data.data)
+                    setUser(res.data)
                     // setAddress(res.data.primary_address_line1)
                     console.log(user)
                 })
