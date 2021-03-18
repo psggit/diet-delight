@@ -1347,6 +1347,7 @@ export default function PersistentDrawerLeft() {
                         className={clsx(classes.content, {
                             [classes.contentShift]: open,
                         })}
+                        style={{width: "100%"}}
                     >
                         <div className={classes.drawerHeader} />
 

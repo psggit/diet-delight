@@ -49,7 +49,10 @@ import SelectandAddMain from "./components/Dialog/Select and Add dialog/Selectan
 import SelectionAddressMain from "./components/Dialog/Selection Address Dialog/SelectionAddressMain.js";
 import SelectionCalenderMain from "./components/Dialog/Selection Calender Dialog/SelectionCalenderMain.js";
 import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDialogMain.js";
-import About from "./components/Our story page/About";
+// import About from "./components/Our story page/About";
+
+import PaginationTable from "./PaginationTable"
+
 
 function App() {
   let cookie = new Cookies();
@@ -177,7 +180,12 @@ function App() {
           exact
           component={SelectionCalenderMain}
         />
-        <Route path="/About" exact component={About} />
+        <Route
+          path="/test"
+          exact
+          component={PaginationTable}
+        />
+        {/* <Route path="/About" exact component={About} /> */}
       </Switch>
     </Router>
   );

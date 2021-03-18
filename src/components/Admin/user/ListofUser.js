@@ -20,6 +20,9 @@ import {
   MenuItem,
   Snackbar,
 } from "@material-ui/core";
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import TablePagination from '@material-ui/core/TablePagination';
+
 import MuiAlert from "@material-ui/lab/Alert";
 
 import CustomSkeleton from "../../../CustomSkeleton";
@@ -44,9 +47,22 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
   },
+  container: {
+    maxHeight: 600,
+  },
 
   table: {
-    minWidth: 650,
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    top: 20,
+    width: 1,
   },
 });
 
@@ -63,6 +79,11 @@ const ListofUser = () => {
   const [Issuccess, setIsSuccess] = useState(false);
   const [modal, setModal] = useState(false);
   const [loading, setLodaing] = useState(true);
+
+  const [orderBy, setOrderBy] = React.useState('first_name');
+
+  // const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   let current_date_Time = new Date();
   const csvReport = {
@@ -86,7 +107,8 @@ const ListofUser = () => {
         setLodaing(false);
       })
       .catch((err) => console.log(err));
-  }, [order, page, search, sort]);
+    }, []);
+    // }, [order, page, search, sort]);
 
   const handleShow = () => {
     axios
@@ -135,6 +157,32 @@ const ListofUser = () => {
     setModal(false);
   };
 
+  function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+  
+  function getComparator(order, orderBy) {
+    return order === 'desc'
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+  
+  function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+  }
+
   const validateSchema = Yup.object().shape({
     first_name: Yup.string().required().label("First Name"),
     last_name: Yup.string().required().label("Last Name"),
@@ -154,6 +202,78 @@ const ListofUser = () => {
       return;
     }
     setIsSuccess(false);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const headCells = [
+    { id: 'id', numeric: true, disablePadding: true, label: 'ID' },
+    { id: 'status', numeric: true, disablePadding: true, label: 'Status' },
+    { id: 'email', numeric: true, disablePadding: true, label: 'Email' },
+    { id: 'email_verified', numeric: true, disablePadding: true, label: 'Email Verified' },
+    { id: 'first_name', numeric: true, disablePadding: true, label: 'First Name' },
+    { id: 'last_name', numeric: true, disablePadding: true, label: 'Last Name' },
+    { id: 'firebase_uid', numeric: true, disablePadding: true, label: 'Firebase UID' },
+    { id: 'mobile', numeric: true, disablePadding: true, label: 'Mobile' },
+    { id: 'primary_address_line1', numeric: true, disablePadding: true, label: 'Primary Address Line 1' },
+    { id: 'primary_address_line2', numeric: true, disablePadding: true, label: 'Primary Address Line 2' },
+    { id: 'secondary_address_line1', numeric: true, disablePadding: true, label: 'Secondary Address Line 1' },
+    { id: 'secondary_address_line2', numeric: true, disablePadding: true, label: 'Secondary Address Line 2' },
+    { id: 'questionnaire_status', numeric: true, disablePadding: true, label: 'Questionnaire Status' },
+    { id: 'age', numeric: true, disablePadding: true, label: 'Age' },
+    { id: 'gender', numeric: true, disablePadding: true, label: 'Gender' },
+    { id: 'bmi', numeric: true, disablePadding: true, label: 'BMI' },
+    { id: 'recommended_calories', numeric: true, disablePadding: true, label: 'Recommended Calories' },
+    
+  ];
+
+  function EnhancedTableHead(props) {
+    const { classes,  order, orderBy, numSelected, rowCount, onRequestSort } = props;
+    const createSortHandler = (property) => (event) => {
+      onRequestSort(event, property);
+    };
+  
+    return (
+      <TableHead>
+        <TableRow>
+          {headCells.map((headCell) => (
+            <TableCell
+              key={headCell.id}
+              align={headCell.numeric ? 'right' : 'left'}
+              padding={headCell.disablePadding ? 'none' : 'default'}
+              sortDirection={orderBy === headCell.id ? order : false}
+            >
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : 'asc'}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <span className={classes.visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </span>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          ))}
+          <TableCell align="right">Update</TableCell>
+        </TableRow>
+      </TableHead>
+    );
+  }
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
   };
 
   const classes = useStyles();
@@ -446,7 +566,7 @@ const ListofUser = () => {
         <CustomSkeleton />
       ) : (
         <>
-          <Main>
+          <Main style={{width :"100%"}}>
             <h3
               style={{
                 textAlign: "left",
@@ -457,14 +577,14 @@ const ListofUser = () => {
               List of Users
             </h3>
             <HContainer>
-              <Con>
+              {/* <Con>
                 <Title>Data per Page</Title>
                 <Input
                   value={page}
                   onChange={(e) => setPage(e.target.value)}
                   placeholder="Page Size"
                 ></Input>
-              </Con>
+              </Con> */}
               <Con>
                 <Title>Search All</Title>
                 <Input
@@ -473,7 +593,7 @@ const ListofUser = () => {
                   placeholder="Search all"
                 ></Input>
               </Con>
-              <Con>
+              {/* <Con>
                 <Title>Sort By</Title>
                 <Input
                   value={sort}
@@ -488,7 +608,7 @@ const ListofUser = () => {
                   onChange={(e) => setOrder(e.target.value)}
                   placeholder="asc or desc"
                 ></Input>
-              </Con>
+              </Con> */}
               <Set>
                 <Button
                   variant="contained"
@@ -525,9 +645,9 @@ const ListofUser = () => {
             </HContainer>
             {show && (
               <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
+                <TableContainer component={Paper} className={classes.container}>
+                  <Table stickyHeader className={classes.table} aria-label="simple table">
+                    {/* <TableHead>
                       <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell align="right">Status</TableCell>
@@ -561,9 +681,19 @@ const ListofUser = () => {
 
                         <TableCell align="right">Update</TableCell>
                       </TableRow>
-                    </TableHead>
+                    </TableHead> */}
+
+                    <EnhancedTableHead
+                      classes={classes}
+                      // numSelected={selected.length}
+                      order={order}
+                      orderBy={orderBy}
+                      // onSelectAllClick={handleSelectAllClick}
+                      onRequestSort={handleRequestSort}
+                      rowCount={users.length}
+                    />
                     <TableBody>
-                      {users.map((user) => (
+                      {stableSort(users, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => (
                         <TableRow key={user.id}>
                           <TableCell component="th" scope="row">
                             {user.id}
@@ -615,6 +745,15 @@ const ListofUser = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[10, 25, 100]}
+                  component="div"
+                  count={users.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onChangePage={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
               </>
             )}
             <Snackbar
