@@ -40,6 +40,7 @@ import ListofMenu from './Menu/ListofMenu';
 import AddMenu from './Menu/AddMenu';
 import ListofCategory from './Menu/ListofCategory';
 import AddCategory from './Menu/AddCategory'
+import ImportMenu from './Menu/ImportMenu'
 
 import ListofMenuItem from './Menu/ListofMenuItem';
 import AddMenuItem from './Menu/AddMenuItem';
@@ -213,6 +214,7 @@ export default function PersistentDrawerLeft() {
 
     const [menu, setMenu] = useState(false)
     const [menu2, setMenu2] = useState(false)
+    const [importMenu,setImportMenu] = useState(false)
 
     const [category,setCategory] = useState(false) 
     const [category1,setCategory1] = useState(false)
@@ -352,6 +354,7 @@ export default function PersistentDrawerLeft() {
                                     setCategory2(false)
                                     setMenuItem(false)
                                     setMenuItem2(false)
+                                    setImportMenu(false)
                                     setListOfOrder1(false)
                                     setListOfOrder2(false)
                                     setListOfCoupon1(false)
@@ -400,6 +403,7 @@ export default function PersistentDrawerLeft() {
                                             setListOfOrder2(false)
                                             setListOfCoupon1(false)
                                             setListOfCoupon2(false)
+                                            setImportMenu(false)
                                         }}>All User</MiniItems>
                                         <Divider />
                                         <MiniItems value={user2} onClick={() => {
@@ -426,7 +430,7 @@ export default function PersistentDrawerLeft() {
                                             setListOfOrder2(false)
                                             setListOfCoupon1(false)
                                             setListOfCoupon2(false)
-
+                                            setImportMenu(false)
                                         }}>Add New User</MiniItems>
                                         <Divider />
                                     </Set>
@@ -473,6 +477,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >All Questions</MiniItems>
                                         <Divider />
@@ -501,6 +506,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >Add New Question</MiniItems>
                                           <Divider />
@@ -531,6 +537,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfCoupon2(false)
                                                 setListOfAnswer1(true)
                                                 setListOfAnswer2(false)
+                                                setImportMenu(false)
                                               
                                             }}
                                         >All Answer</MiniItems>
@@ -561,7 +568,8 @@ export default function PersistentDrawerLeft() {
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
                                                 setListOfAnswer1(false)
-                                                setListOfAnswer2(true)
+                                                setListOfAnswer2(true)                                            
+                                                setImportMenu(false)
                                             }}
                                         >Add Answer</MiniItems>
                                        
@@ -608,6 +616,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >All Consultants</MiniItems>
                                         <Divider />
@@ -636,6 +645,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >Add New Consultant</MiniItems>
                                     </Set>
@@ -680,6 +690,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >All Consultation package</MiniItems>
                                         <Divider />
@@ -708,6 +719,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>Add new Consultation package</MiniItems>
                                     </Set>
                                 </>)}
@@ -751,6 +763,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >New Consultation</MiniItems>
                                         <Divider />
@@ -779,6 +792,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>All Consultation</MiniItems>
                                     </Set>
                                 </>)}
@@ -822,6 +836,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >All Menu</MiniItems>
                                         <Divider />
@@ -850,6 +865,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>Add New Menu</MiniItems>
                                              <Divider />
                                         <MiniItems value={category1}
@@ -877,6 +893,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>All categories</MiniItems>
                                              <Divider />
                                         <MiniItems value={category2}
@@ -904,6 +921,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>Add New category</MiniItems>
                                              <Divider />
                                         <MiniItems value={menuitem}
@@ -931,6 +949,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>All Menu Items</MiniItems>
                                              <Divider />
                                         <MiniItems value={menuitem2}
@@ -958,7 +977,36 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>Add New Menu Items</MiniItems>
+                                        <Divider />
+                                        <MiniItems value={menuitem2}
+                                            onClick={() => {
+                                                setHome(false)
+                                                setUser1(false)
+                                                setUser2(false)
+                                                setQuestion1(false)
+                                                setQuestion2(false)
+                                                setConsultant1(false)
+                                                setConsultant2(false)
+                                                setMeal1(false)
+                                                setMeal2(false)
+                                                setConsultationPackage1(false)
+                                                setConsultationPackage2(false)
+                                                setConsultation1(false)
+                                                setConsultation2(false)
+                                                setMenu(false)
+                                                setMenu2(false)
+                                                setCategory1(false)
+                                                setCategory2(false)
+                                                setMenuItem(false)
+                                                setMenuItem2(false)
+                                                setListOfOrder1(false)
+                                                setListOfOrder2(false)
+                                                setListOfCoupon1(false)
+                                                setListOfCoupon2(false)
+                                                setImportMenu(true)
+                                            }}>Import Menu Items</MiniItems>
                                     </Set>
                                 </>)}
                             <Divider />
@@ -1002,6 +1050,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >All MealPlan</MiniItems>
                                         <Divider />
@@ -1030,6 +1079,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>Add New MealPlan</MiniItems>
                                     </Set>
                                 </>)}
@@ -1073,6 +1123,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >All Meal Purchase</MiniItems>
                                         <Divider />
@@ -1101,6 +1152,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(true)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}>All Consultation Purchase</MiniItems>
                                     </Set>
                                 </>)}
@@ -1144,6 +1196,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(true)
                                                 setListOfCoupon2(false)
+                                                setImportMenu(false)
                                             }}
                                         >List of Coupon</MiniItems>
                                         <Divider />
@@ -1172,6 +1225,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfOrder2(false)
                                                 setListOfCoupon1(false)
                                                 setListOfCoupon2(true)
+                                                setImportMenu(false)
                                             }}>Add Coupon</MiniItems>
                                     </Set>
                                 </>)}
@@ -1215,6 +1269,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfCoupon2(false)
                                                 setListOfBlog1(true)
                                                 setListOfBlog2(false)
+                                                setImportMenu(false)
                                             }}
                                         >List of Blogs</MiniItems>
                                         <Divider />
@@ -1241,6 +1296,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfCoupon2(false)
                                                 setListOfBlog1(false)
                                                 setListOfBlog2(true)
+                                                setImportMenu(false)
                                             }}>Add Blogs</MiniItems>
                                     </Set>
                                 </>)}
@@ -1284,6 +1340,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfCoupon2(false)
                                                 setListOfDuration1(true)
                                                 setListOfDuration2(false)
+                                                setImportMenu(false)
                                             }}
                                         >List of Duration</MiniItems>
                                         <Divider />
@@ -1310,6 +1367,7 @@ export default function PersistentDrawerLeft() {
                                                 setListOfCoupon2(false)
                                                 setListOfDuration1(false)
                                                 setListOfDuration2(true)
+                                                setImportMenu(false)
                                             }}>Add Duration</MiniItems>
                                     </Set>
                                 </>)}
@@ -1373,6 +1431,8 @@ export default function PersistentDrawerLeft() {
 
                         {menuitem && (<ListofMenuItem />)}
                         {menuitem2 && (<AddMenuItem />)}
+
+                        {importMenu && <ImportMenu/>}
 
                         {consultant1 && (<ListofConsultants />)}
                         {consultant2 && (<PostConsultant />)}
