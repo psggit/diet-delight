@@ -164,11 +164,14 @@ const Navbar = ({ toggle }) => {
                     <NavMenuDown>
                     <NavItem>
                     <NavLinks to="about"  style={{textDecoration:'none'}}>
-                        Our Story</NavLinks>
+                    <Link to="/About" style={{color:"purple"}}>
+                    Our Story
+                        </Link>
+                        </NavLinks>
                     </NavItem>
                     <NavItem>
                     <NavLinks
-                    style={{textDecoration:'none'}}
+                    style={{color:"purple"}}
                     to="menu"
                     spy={true}
                     smooth={true}
@@ -178,7 +181,7 @@ const Navbar = ({ toggle }) => {
                     </NavItem>
                     <NavItem>
                     <NavLinks
-                    style={{textDecoration:'none'}}
+                    style={{color:"purple"}}
                     to="plan"
                     spy={true}
                     smooth={true}
@@ -188,7 +191,7 @@ const Navbar = ({ toggle }) => {
                     </NavItem>
                     <NavItem>
                     <NavLinks
-                    style={{textDecoration:'none'}}
+                    style={{color:"purple"}}
                     to="expert"
                     spy={true}
                     smooth={true}

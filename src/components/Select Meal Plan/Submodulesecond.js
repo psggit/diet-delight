@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import './SelectMealPlan.css'
 import './Submodulessecond.css' 
 import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog';
+import CalenderDialogMain from '../Dialog/Calender Dialog/CalenderDialogMain'
  
 export default function Submodulesecond(props){ 
     const [addressDialog,setAddressDialog] = useState(false) 
@@ -11,8 +12,8 @@ export default function Submodulesecond(props){
             setAddressDialog(true)
         }else{
             setAddressDialog(false) 
-        }
-         
+        } 
+          
     } 
   
 
@@ -20,6 +21,7 @@ export default function Submodulesecond(props){
          
         <div> 
             <PrimaryaddDialog changeAddress={addressDialog} makeAddress={handleAdrress} />
+           <CalenderDialogMain/>
 {/* 
         <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}/>
         <AddressDialogBox/> */}

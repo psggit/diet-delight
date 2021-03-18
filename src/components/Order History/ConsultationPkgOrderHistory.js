@@ -38,7 +38,7 @@ export default function ConsultationPkgOrderHistory(){
             console.log(orderDate)
 
             return orderDate
-        }
+        } 
         
         const renderconsultationpurchase = consultationPurchases.map((consultationPur) => {
             return(
@@ -47,7 +47,7 @@ export default function ConsultationPkgOrderHistory(){
         
                 <div className="card consultancy_Meal_plan_container">
                 <div className="row">
-                
+                 
                 <div className="col-md-12 col-xs-12">
                 <p className="title_meal_pkg">Consultation Package</p>
                 </div>
