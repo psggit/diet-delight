@@ -51,9 +51,6 @@ import SelectionCalenderMain from "./components/Dialog/Selection Calender Dialog
 import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDialogMain.js";
 // import About from "./components/Our story page/About";
 
-import PaginationTable from "./PaginationTable"
-
-
 function App() {
   let cookie = new Cookies();
   let dispatch = useDispatch();
@@ -114,7 +111,7 @@ function App() {
 
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
-        <Route path="/admin" exact component={AdminDash} />
+        <Route path="/admin" component={AdminDash} />
         <Route path="/consultant" exact component={Consultant} />
         <Route path="/kitchen" exact component={Kitchen} />
         <Route path="/accountant" exact component={Accountant} />
@@ -179,11 +176,6 @@ function App() {
           path="/SelectionCalenderMain"
           exact
           component={SelectionCalenderMain}
-        />
-        <Route
-          path="/test"
-          exact
-          component={PaginationTable}
         />
         {/* <Route path="/About" exact component={About} /> */}
       </Switch>
