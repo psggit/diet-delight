@@ -56,7 +56,7 @@ export default function MenuPkg(props){
         <div className="menu_package_main">
             
         <Mealchoose name="Menu Package" />
-        kjbkjb
+      
         
             
         <div className="menupkg_container_main">
