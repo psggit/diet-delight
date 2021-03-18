@@ -33,7 +33,7 @@ import AddressAppointmentMain from "./components/Address Appointment/AddressAppo
 import UserDashboardMain from "./components/User Dashboard/UserDashboardMain";
 import MealAddressMain from "./components/Meal Address/MealAddressMain";
 import FavouriteMain from "./components/Favourite/FavouriteMain";
-import OngoingMain from "./components/Ongoing Meal Plan/OngoingMain";
+import OngoingMain from "./components/Ongoing Meal Plan/OngoingMain"; 
 import BmiMain from "./components/BMI/BmiMain";
 import Bmireport from "./components/BMI Report/Bmireport";
 import ConatctUsMain from "./components/Contact Us/ConatctUsMain";
@@ -48,7 +48,7 @@ import PrimaryaddDialog from "./components/Dialog/Primary address Dialog/Primary
 import SelectandAddMain from "./components/Dialog/Select and Add dialog/SelectandAddMain.js";
 import SelectionAddressMain from "./components/Dialog/Selection Address Dialog/SelectionAddressMain.js";
 import SelectionCalenderMain from "./components/Dialog/Selection Calender Dialog/SelectionCalenderMain.js";
-import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDialogMain.js";
+import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDialogMain";
 import About from "./components/Our story page/About";
 
 function App() {

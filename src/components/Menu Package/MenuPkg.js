@@ -49,16 +49,14 @@ export default function MenuPkg(props){
     menuItem ={menuItem}
     />);
 
-    // function filterMenu(categoryId){
-    //     console.log(categoryId)
-    //     setFilter(categoryId)
-    // }
+
     
     return(
         
         <div className="menu_package_main">
             
         <Mealchoose name="Menu Package" />
+        kjbkjb
         
             
         <div className="menupkg_container_main">
