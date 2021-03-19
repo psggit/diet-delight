@@ -145,6 +145,15 @@ const Signup = () => {
 
     
     const storeOtp = (value) => {
+        if(value.length == 6){
+           console.log("HEllo")
+           document.getElementById('num1').keydown  =  function(e) {
+               if (e.which == 40) { // up key
+                   return false;
+               }
+           } 
+        }
+
         if(value.length <= 6){
             setOtp(value)
         }

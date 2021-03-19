@@ -98,18 +98,39 @@ export default function AddressAppointmentMain(props) {
       props.location.state.packageDate,
       props.location.state.packageTime
     );
-    var dateTime = new Date(
-      props.location.state.packageDate,
-      props.location.state.packageTime
-    );
+    var dateTime = new Date(props.location.state.packageDate);
+    var hour ='';
+    var minutes = '';
+    console.log(dateTime)
     var year = dateTime.getFullYear();
     var month = dateTime.getMonth() + 1;
     var date = dateTime.getDate();
+    console.log("called")
+
     console.log(year, month, date);
 
-    var newDate = new Date(year, month - 1, date, "09", "30");
+
+
+    var time = props.location.state.packageTime;
+     
+    var timeFormated = time.split(' ');
+    if(timeFormated[1] === 'AM'){
+      var timeFormat = timeFormated[0].split(":");
+      hour = timeFormat[0];
+      minutes = timeFormat[1];
+    }else{
+      var timeFormat = timeFormated[0].split(":");
+      hour = timeFormat[0] + 12;
+      minutes = timeFormat[1];
+    }
+    console.log(hour,minutes)
+    
+    
+
+
+    var newDate = new Date(year, month - 1, date, hour, minutes);
     console.log(newDate);
-  });
+  },[props.location.state.packageDate, props.location.state.packageTime]);
 
   const proceedPayment = () => {
     console.log(

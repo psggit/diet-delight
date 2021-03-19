@@ -97,6 +97,7 @@ export default function BmiMain(props){
         })
     }
 
+
     return(
         
         
@@ -182,4 +183,3 @@ export default function BmiMain(props){
         
         )
     }
-    

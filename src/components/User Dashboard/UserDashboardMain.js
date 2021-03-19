@@ -124,8 +124,9 @@ export default function UserDashboardMain() {
 
   const validateOnlyNumeric = (data) => {
     console.log(data)
-    var numeric = '^[0-9]*$'
-    if(data.match(numeric)){
+    var numeric = /^([0|\+[0-9]{1,5})?\s?([0-9]*)$/;
+    console.log(numeric.test(data))
+    if(numeric.test(data)){
       console.log("inside")
     setPhone(data)
     }
@@ -248,7 +249,7 @@ export default function UserDashboardMain() {
 
             <FormContent>
               <ForeFrontText>Last Name</ForeFrontText>
-              <Input 
+              <Input
                 style={{ background: "white" }}
                 defaultValue={user.last_name}
                 disabled={editProfile}
