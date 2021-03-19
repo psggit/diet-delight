@@ -70,7 +70,14 @@ const Signup = () => {
         phone: Yup.number().required().phoneNumber,
         email: Yup.string().required().email().label("Email"),
         password: Yup.string().required().min(6).label("Password"),
-    })  
+    }) 
+    
+    
+    const resendOtp = () => {
+        // window.recaptchaVerifier.render().then(function(widgetId) {
+        //     grecaptcha.reset(widgetId);
+        //   })
+    }
     
     const handleClose = () => {
         setOpen(false);                         
@@ -98,13 +105,20 @@ const Signup = () => {
             confirmationResult.confirm(otpEntered).then(async (result) => {
                     // User signed in successfully.
                     const user = result.user;
+                    var errorMessage = document.getElementById('successErrorMessageForWrongOtp');
+                    errorMessage.innerHTML = '';
                     console.log(user)
                     console.log(user.phoneNumber)
                     handleRegistration(userValues, user.phoneNumber)
-                    setOtpDialog(false)
-                    // await setVerifiedPhoneNumber(true)
+                    setSuccessErrorMessage("Otp Verification Completed")
+                    setOpen(true);
+                    setTimeout(() => {
+                        setOtpDialog(false)
+                    },1000)
                   }).catch((error) => {
                       console.log(error)
+                      var errorMessage = document.getElementById('successErrorMessageForWrongOtp');
+                      errorMessage.innerHTML = 'Invalid Otp Please try Again'
                   });
         }
 
@@ -142,6 +156,7 @@ const Signup = () => {
             'size': 'invisible',
             'callback': (response) => {
                 this.phoneAuth();
+                this.resendOtp();
                 console.log(response)
             }
           });
@@ -258,7 +273,9 @@ aria-labelledby="responsive-dialog-title"
 <input type="text" value={otp} placeholder="000000" required className="input_dialog_signup" id="num1" disabled={disabled} onChange={(e) => storeOtp(e.target.value)}></input>
 </div>
 
-<h6 className="resend_otp_text">Resend OTP</h6>
+<span id="successErrorMessageForWrongOtp" style={{color:'red', fontWeight:800}}></span>
+
+<h6 className="resend_otp_text" onClick = {() => resendOtp()}>Resend OTP</h6>
 
 <button className="btn verify_btn_dialog" id="verifyOtp" >VERIFY</button>
 

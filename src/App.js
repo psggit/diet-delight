@@ -50,11 +50,14 @@ import SelectionAddressMain from "./components/Dialog/Selection Address Dialog/S
 import SelectionCalenderMain from "./components/Dialog/Selection Calender Dialog/SelectionCalenderMain.js";
 import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDialogMain";
 import About from "./components/Our story page/About";
+import ImportMenu from './components/Admin/Menu/ImportMenu';
+
 
 function App() {
   let cookie = new Cookies();
   let dispatch = useDispatch();
   let gettingcookie = cookie.get("access_token");
+  
 
   useEffect(() => {
     const ac = new AbortController();
@@ -178,6 +181,7 @@ function App() {
           component={SelectionCalenderMain}
         />
         <Route path="/About" exact component={About} />
+        <Route path='/importMenu' exact component={ImportMenu}/>
       </Switch>
     </Router>
   );

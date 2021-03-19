@@ -347,6 +347,7 @@ input[type=number] {
         text-align: end;
         margin: 4%;
         color: #000000b5;
+        cursor: pointer;
     }
     button.verify_btn_dialog{
         width: 100%;

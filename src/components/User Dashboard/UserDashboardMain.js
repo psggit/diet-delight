@@ -63,6 +63,7 @@ export default function UserDashboardMain() {
       .then((res) => {
         console.log(res);
         setUser(res.data);
+        setPhone(res.data.mobile)
         console.log(typeof(res.data.gender))
         let BmiScore = parseFloat(res.data.bmi);  
         if(BmiScore < 18.5){
@@ -121,6 +122,15 @@ export default function UserDashboardMain() {
     setToggleBMIReport(false);
   };
 
+  const validateOnlyNumeric = (data) => {
+    console.log(data)
+    var numeric = '^[0-9]*$'
+    if(data.match(numeric)){
+      console.log("inside")
+    setPhone(data)
+    }
+}
+
   const saveUpdate = () => {
     console.log("Save Update");
 
@@ -131,7 +141,7 @@ export default function UserDashboardMain() {
         },
           first_name: firstName === "" ? user.firstName : firstName,
         last_name: lastName === "" ? user.lastName : lastName,
-        mobile: phone === "" ? user.phone : phone,
+        mobile: phone === "" ? user.mobile : phone,
         primary_address_line1:
           primaryAddress === "" ? user.primary_address_line1 : primaryAddress,
         primary_address_line2: primaryAddressLine2 === "" ? user.primary_address_line2 : primaryAddressLine2,
@@ -349,9 +359,9 @@ export default function UserDashboardMain() {
               {/* <input type="text" id="mobileNo" className="inputField" value="+917874658301" style={{}}></input> */}
               <Input
                 style={{ background: "white" }}
-                defaultValue={user.mobile}
+                value={phone}
                 disabled={editProfile}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => validateOnlyNumeric(e.target.value)}
               ></Input>
             </FormContent>
             <Link to="/">

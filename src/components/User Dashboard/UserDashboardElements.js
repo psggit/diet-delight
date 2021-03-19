@@ -226,6 +226,7 @@ padding-right:30px;
 export const Input = styled.input.attrs(props => ({
     type: "text",
     defaultValue: props.defaultValue,
+    value:props.value
 }))`
 width:50%;
 margin-left:5%;

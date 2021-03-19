@@ -49,6 +49,12 @@ const Signin = () => {
         localStorage.setItem('refresh_token', token.refresh_token ? token.refresh_token : getrefresh)
     }, [token, getaccess, getrefresh])
 
+
+    const handleForgotPassword = () => {
+        console.log("handled forgot password")
+
+    }
+
     const handleSignIn = (token, user) => {
         console.log(token,user)
         console.log(user.email)
@@ -161,8 +167,8 @@ const Signin = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         />
-                        <Para color="rgba(137,197,63,1)" size="0.9rem" weight="700" align="end"
-                        onClick={handleSearch}
+                        <Para color="rgba(137,197,63,1)" size="0.9rem" weight="700" align="end" cursor="pointer"
+                        onClick={handleForgotPassword}
                         >
                         Forgot password ?
                         </Para>
