@@ -9,7 +9,7 @@ import Mealchoose from "../Mealchoose.js";
 
 export default function Appointmentmain(props) {
   console.log(props);
-  let history = useHistory();
+  let history = useHistory(); 
 
   const [date, setDate] = useState("");
   const [minDate, setMinDate] = useState("");
@@ -44,6 +44,7 @@ export default function Appointmentmain(props) {
   }
 
   function handleSelectedTimeSlot(selectedTimeSlot) {
+  
     console.log(selectedTimeSlot);
     setTimeSlot(selectedTimeSlot);
   }
@@ -70,17 +71,20 @@ export default function Appointmentmain(props) {
 
   function handleDate() {
     if (date != "") {
-      history.push({
-        pathname: "/GrandtotalAppointmentmain",
-        state: {
-          packageId: props.location.state.packageId,
-          date: date,
-          time: timeSlot,
-          appointmentMode: appointmentMode,
-          picture: props.location.state.packagePicture,
-        },
-      });
-    } else alert("Please Select Date");
+      if( timeSlot != ""){
+        history.push({
+          pathname: "/GrandtotalAppointmentmain",
+          state: {
+            packageId: props.location.state.packageId,
+            date: date,
+            time: timeSlot,
+            appointmentMode: appointmentMode,
+            picture: props.location.state.packagePicture,
+          },
+        });
+      }else alert("please select Time")
+    
+    } else alert("Please Select Date & Time");
   }
 
   useEffect(() => {
@@ -224,7 +228,7 @@ export default function Appointmentmain(props) {
                       >
                         Afternoon
                       </button>
-                      <p className="morning_tabs_subtitle">1 PM to 5 PM</p>
+                      <p className="morning_tabs_subtitle">12 PM to 3 PM</p>
                     </li>
 
                     <li>
@@ -236,7 +240,7 @@ export default function Appointmentmain(props) {
                       >
                         Evening
                       </button>
-                      <p className="morning_tabs_subtitle">5 PM to 9 PM</p>
+                      <p className="morning_tabs_subtitle">3 PM to 6 PM</p>
                     </li>
                   </ul>
 
