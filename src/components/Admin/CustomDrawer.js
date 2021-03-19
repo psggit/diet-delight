@@ -17,7 +17,7 @@ import axios from '../../axiosInstance'
 
 import { useHistory } from 'react-router-dom';
 import { selectAdmin, SetFalse, SetTrue } from '../../features/userSlice'
-import { resetMealPlan,resetConsultation, resetQuestion, resetTemp,resetConsultationPackage,resetMenu, resetCategory,resetMenuItem,resetListOfOrder,resetListOfAnswer,resetListOfDuration ,resetListOfBlog} from '../../features/adminSlice'
+import { resetMealPlan,resetConsultation, resetQuestion, resetTemp,resetConsultationPackage,resetMenu, resetCategory,resetMenuItem,resetListOfOrder,resetListOfAnswer,resetListOfDuration ,resetListOfBlog,resetListOfKitchenReport} from '../../features/adminSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
 import styled from 'styled-components';
@@ -65,6 +65,8 @@ import PostAnswer from './questions/AddAnswer';
 
 import ListofBlog from './Blogs/ListofBlog';
 import PostBlog from './Blogs/PostBlog';
+import ListofDeliverysticker from './KitchenReport/ListofDeliverysticker';
+import ListofClientMealMenu from './KitchenReport/ListofClientMealMenu';
 const Items = styled.h3`
     width:100%;
     text-align:left;  
@@ -244,6 +246,10 @@ export default function PersistentDrawerLeft() {
     const [listOfBlog1, setListOfBlog1] = useState(false)
     const [listOfBlog2, setListOfBlog2] = useState(false)
 
+    const [listOfKitchenReport, setListOfKitchenReport] = useState(false)
+    const [listOfKitchenReport1, setListOfKitchenReport1] = useState(false)
+    const [listOfKitchenReport2, setListOfKitchenReport2] = useState(false)
+
     useEffect(() => {
         dispatch(resetTemp())
         dispatch(resetQuestion())
@@ -257,6 +263,7 @@ export default function PersistentDrawerLeft() {
         dispatch(resetListOfAnswer())
         dispatch(resetListOfDuration())
         dispatch(resetListOfBlog())
+        dispatch(resetListOfKitchenReport())
     }, [dispatch])
 
     const Admin = useSelector(selectAdmin)
@@ -818,7 +825,7 @@ export default function PersistentDrawerLeft() {
                                                 setUser2(false)
                                                 setQuestion1(false)
                                                 setQuestion2(false)
-                                                setConsultant1(false)
+                                                setConsultant1(false) 
                                                 setConsultant2(false)
                                                 setMeal1(false)
                                                 setMeal2(false)
@@ -1397,6 +1404,81 @@ export default function PersistentDrawerLeft() {
                                     </Set>
                                 </>)}
                            <Divider/>
+                           <div style={{ display: 'flex', alignItems: "center" }}>
+                                <Items value={listOfKitchenReport}
+                                    onClick={() => {
+                                        setListOfKitchenReport(!listOfKitchenReport)
+                                    }}
+                                >
+                               KITCHEN REPORT
+                                </Items>
+                                {listOfKitchenReport ? (<AiOutlineUp style={{ marginRight: "10px" }} />) : (<AiOutlineDown style={{ marginRight: "10px" }} />)}
+                            </div>
+                            {listOfKitchenReport &&
+                                (<>
+                                    <Set>
+                                        <Divider />
+                                        <MiniItems value={listOfKitchenReport1}
+                                            onClick={() => {
+                                                setMeal1(false)
+                                                setMeal2(false)
+                                                setUser1(false)
+                                                setUser2(false)
+                                                setQuestion1(false)
+                                                setQuestion2(false)
+                                                setConsultant1(false)
+                                                setHome(false)
+                                                setConsultant2(false)
+                                                setConsultationPackage1(false)
+                                                setConsultationPackage2(false)
+                                                setMenu(false)
+                                                setMenu2(false)
+                                                setCategory1(false)
+                                                setCategory2(false)
+                                                setMenuItem(false)
+                                                setMenuItem2(false)
+                                                setListOfOrder1(false)
+                                                setListOfOrder2(false)
+                                                setListOfCoupon1(false)
+                                                setListOfCoupon2(false)
+                                                setListOfDuration1(false)
+                                                setListOfDuration2(false)
+                                                setImportMenu(false)
+                                                setListOfKitchenReport1(true)
+                                                setListOfKitchenReport2(false)
+                                            }}
+                                        >Delivery sticker</MiniItems>
+                                        <Divider />
+                                        <MiniItems value={listOfKitchenReport2}
+                                            onClick={() => {
+                                                setMeal2(false)
+                                                 setMeal1(false)
+                                                setUser1(false)
+                                                setUser2(false)
+                                                setQuestion1(false)
+                                                setQuestion2(false)
+                                                setConsultant1(false)
+                                                setHome(false)
+                                                setConsultant2(false)
+                                                setConsultationPackage1(false)
+                                                setConsultationPackage2(false)
+                                                setMenu(false)
+                                                setMenu2(false)
+                                                setCategory1(false)
+                                                setCategory2(false)
+                                                setMenuItem(false)
+                                                setMenuItem2(false)
+                                                setListOfCoupon1(false)
+                                                setListOfCoupon2(false)
+                                                setListOfDuration1(false)
+                                                setListOfDuration2(false)
+                                                setImportMenu(false)
+                                                setListOfKitchenReport2(true)
+                                                setListOfKitchenReport1(false)
+                                            }}>Client Meal Menu</MiniItems>
+                                    </Set>
+                                </>)}
+                           <Divider/>
                            
                         </List>
                     </Drawer> 
@@ -1454,6 +1536,9 @@ export default function PersistentDrawerLeft() {
 
                         {listOfBlog1 && (<ListofBlog />)}
                         {listOfBlog2 && (<PostBlog />)}
+
+                        {listOfKitchenReport1 && (<ListofDeliverysticker />)}
+                        {listOfKitchenReport2 && (<ListofClientMealMenu />)}
 
                     </main>
                 </div>

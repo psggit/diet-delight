@@ -248,7 +248,7 @@ export default function UserDashboardMain() {
 
             <FormContent>
               <ForeFrontText>Last Name</ForeFrontText>
-              <Input
+              <Input 
                 style={{ background: "white" }}
                 defaultValue={user.last_name}
                 disabled={editProfile}

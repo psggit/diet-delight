@@ -52,12 +52,10 @@ import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDial
 import About from "./components/Our story page/About";
 import ImportMenu from './components/Admin/Menu/ImportMenu';
 
-
 function App() {
   let cookie = new Cookies();
   let dispatch = useDispatch();
   let gettingcookie = cookie.get("access_token");
-  
 
   useEffect(() => {
     const ac = new AbortController();

@@ -15,7 +15,7 @@ export default function GrandtotalAppointmentmain(props) {
 
   const [packageDetails, setPackageDetails] = useState({});
 
-  const [toggleDate, setToggleDate] = useState(true);
+  // const [toggleDate, setToggleDate] = useState(true);
   const [extras, setExtras] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
 
@@ -61,7 +61,7 @@ export default function GrandtotalAppointmentmain(props) {
                 <div className="col-md-6 col-sm-12 right_side_container">
                   <input
                     type="date"
-                    disabled={toggleDate}
+                    // disabled={toggleDate}
                     value={props.location.state.date}
                     onChange={(e) => {
                       setDate(e.target.value);
@@ -72,12 +72,22 @@ export default function GrandtotalAppointmentmain(props) {
                   ></input>
                 </div>
                 <div className="col-md-6 col-sm-12">
+                  <Link  to={{
+                    pathname: "/Appointmentmain",
+                    state: {
+                    packagePicture :props.location.state.picture,
+                    packageId: props.location.state.packageId,
+                    packageDetails:packageDetails.details,
+                    },
+                  }}>
                   <a
                     className="edit_title_grandtotal"
-                    onClick={() => setToggleDate(!toggleDate)}
+
+                    // onClick={() => setToggleDate(!toggleDate)} 
                   >
                     Edit
                   </a>
+                  </Link>
                 </div>
               </div>
             </div>
