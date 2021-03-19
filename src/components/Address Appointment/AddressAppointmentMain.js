@@ -52,7 +52,7 @@ export default function AddressAppointmentMain(props) {
     console.log(props.location.state.packagePrice);
     console.log(totalCharge);
     axios
-      .get(`user`, {
+      .get(user, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
@@ -98,18 +98,37 @@ export default function AddressAppointmentMain(props) {
       props.location.state.packageDate,
       props.location.state.packageTime
     );
-    var dateTime = new Date(
-      props.location.state.packageDate,
-      props.location.state.packageTime
-    );
+    var dateTime = new Date(props.location.state.packageDate);
+    var hour ='';
+    var minutes = '';
+    console.log(dateTime)
     var year = dateTime.getFullYear();
     var month = dateTime.getMonth() + 1;
     var date = dateTime.getDate();
+    console.log("called")
+
     console.log(year, month, date);
 
-    var newDate = new Date(year, month - 1, date, "09", "30");
+
+
+    var time = props.location.state.packageTime;
+     
+    var timeFormated = time.split(' ');
+    if(timeFormated[1] === 'AM'){
+      var timeFormat = timeFormated[0].split(":");
+      hour = timeFormat[0];
+      minutes = timeFormat[1];
+    }else{
+      var timeFormat = timeFormated[0].split(":");
+      hour = timeFormat[0] + 12;
+      minutes = timeFormat[1];
+    }
+    console.log(hour,minutes)
+
+
+var newDate = new Date(year, month - 1, date, hour, minutes);
     console.log(newDate);
-  });
+  },[props.location.state.packageDate, props.location.state.packageTime]);
 
   const proceedPayment = () => {
     console.log(
@@ -202,7 +221,8 @@ export default function AddressAppointmentMain(props) {
             <div className="col-md-5 col-sm-12 silver_container">
               <h5 className="shipping_title">Shipping Address</h5>
 
-              <div className="row">
+Harshiv Patel, [19.03.21 17:16]
+<div className="row">
                 <div className="col-md-8 col-sm-12">
                   <textarea
                     id="w3review"
@@ -302,7 +322,8 @@ export default function AddressAppointmentMain(props) {
                 <hr className="horizontal_line_grandtotalappointment"></hr>
               </div>
 
-              <div className="grandtotal_totalappointment_container">
+Harshiv Patel, [19.03.21 17:16]
+<div className="grandtotal_totalappointment_container">
                 <p className="grandtotal_totalappointment_title">Grand Total</p>
                 <h5 className="grandtotal_totalappointment_subtitle">
                   <span className="fifteen_text">{totalCharge}</span> BHD

@@ -170,7 +170,7 @@ const ListConsultationPackage = () => {
             open={isdelete}
             onClose={CloseDelete}
             aria-labelledby="form-dialog-title"
-            disableBackdropClick
+            disableBackdropClick 
             disableEscapeKeyDown
           >
             <DialogTitle id="form-dialog-title">Delete Question</DialogTitle>
@@ -236,7 +236,7 @@ const ListConsultationPackage = () => {
                 onSubmit={(values) => {
                   axios
                     .put(`consultation-packages/${consultationPackage.id}`, {
-                      headers: {
+                      headers: { 
                         Authorization: `Bearer ${localStorage.getItem(
                           "access_token"
                         )}`,
