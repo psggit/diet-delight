@@ -5,19 +5,28 @@ import Mealchoose from '../Mealchoose.js'
 import card_img_rounded from '../../assets/food1.jpg'
 import './Tabs.css'
 import DayTabsMenupkg from '../Menu Package/DayTabsMenupkg.js'
-import { Link } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import axios from '../../axiosInstance';
 import TabMenuPkg from './TabMenuPkg'
 import MainCourse from './MainCourse'
 
 
+
  
 export default function MenuPkg(props){ 
+    let history = useHistory();
     console.log(props.location.state)
     const [category, setCategory] = useState([]);
     const [filter, setFilter] = useState(null);
     const [menuItems,setMenuItems] = useState([])
     const [categoryName,setCategoryName] = useState("");
+    function handlePush(){
+        history.push({
+            pathname: '/',
+          
+            })
+
+    }
     
     
     useEffect(() => {
@@ -52,7 +61,7 @@ export default function MenuPkg(props){
 
     
     return(
-        
+   
         <div className="menu_package_main">
             
         <Mealchoose name="Menu Package" />
@@ -84,15 +93,15 @@ export default function MenuPkg(props){
         
         </div>
         
-        </div>
+        </div> 
         {/* vertical line  start*/}
         <div className="vertical_line_Menupkg"></div>
         {/* vertical line  end */}
         
         <div className="col-lg-4 col-md-4 col-sm-12 btn_container_menupkg">
-        <Link to='/'>
-        <button className="buy_sub_menupkg">Buy Subscription</button>
-        </Link>
+        
+        <button className="buy_sub_menupkg" onClick={handlePush}>Buy Subscription</button>
+      
         </div>
         
         
@@ -134,8 +143,7 @@ export default function MenuPkg(props){
         </div>
         
         </div> 
-        
-        
+
         
         )
     }

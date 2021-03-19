@@ -38,12 +38,6 @@ export default function PaymentPlan(props){
     },[couponScheme])
 
 
-    // useEffect(() => {
-    //     if(coupon === ''){
-
-    //     }
-    // },coupon)
-
 
     useEffect(() => {
         console.log(discountAmount, taxAmount)
@@ -105,16 +99,21 @@ export default function PaymentPlan(props){
                   var couponExpiryDate = res.data.data[verifyCoupon].expiry_date;
                   console.log(new Date(couponExpiryDate) < new Date())
                   if(new Date(couponExpiryDate) < new Date()){
-                      alert("Coupon Code Expired")
+                    var errorMessage = document.getElementById('successCoupon');
+                    errorMessage.innerHTML = 'Coupon Code Expired';
+                     
                       setCoupon('');
                   }else{
-                    alert("Coupon applied Successfully")
+                    var errorMessage = document.getElementById('successCoupon');
+                    errorMessage.innerHTML = 'Coupon applied Successfully';
+                 
                     console.log(res.data.data[verifyCoupon])
                     setCouponScheme(res.data.data[verifyCoupon])
                   }
               }
               else{
-                  alert("Invalid Coupon")
+                var errorMessage = document.getElementById('successCoupon');
+                errorMessage.innerHTML = 'Invalid coupon';
               }
               console.log(couponScheme)
           })
@@ -192,6 +191,7 @@ export default function PaymentPlan(props){
                 <div className="row payment_plan_coupon">
                 <input type="text" id="coupon" name="coupon" className="payment_plan_input" value={coupon} onChange={(e) => setCoupon(e.target.value)}></input> 
                 <button className="coupon_btn_payment_plan" onClick={applyCoupon}>Apply Coupon</button>
+                <span id="successCoupon" style={{color:'red', fontWeight:800}}></span>
                 </div>
                 
                 </div>

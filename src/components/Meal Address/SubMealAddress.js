@@ -11,7 +11,7 @@ import AddressDialogBoxDropDown from '../Address Appointment/AddressDialogBoxDro
 import AddressDialogBox from '../Address Appointment/AddressDialogBox'
 
 
-export default function AddressAppointmentMain(props){
+export default function SubMealAddress(props){
     console.log(props)
     let history = useHistory(); 
     const [value, setValue] = React.useState('female');
@@ -63,7 +63,10 @@ export default function AddressAppointmentMain(props){
 
 
     function handleDateChange(date){
-                setDate(date)           
+                setDate(date)  
+                var errorMessage = document.getElementById('successDate');
+                errorMessage.innerHTML = '';
+                console.log(errorMessage)         
     }
 
 
@@ -102,8 +105,8 @@ export default function AddressAppointmentMain(props){
                     console.log(res)
                     
                     setUser(res.data)
-                    // setAddress(res.data.primary_address_line1)
-                    console.log(user)
+               
+                   
                 })
 
 
@@ -139,9 +142,11 @@ export default function AddressAppointmentMain(props){
                             extraCharge:extraCharge
                         }
                 })
-        }else(
-            alert("Please Select Date") 
-        ) 
+        }else {
+            var errorMessage = document.getElementById('successDate');
+            errorMessage.innerHTML = 'please enter date';
+      
+          }
     }
                 
     return(     
@@ -161,7 +166,7 @@ export default function AddressAppointmentMain(props){
                     <div className="col-md-5 col-sm-12">
                    
                     <div className="img_container_mealaddress">
-                    <img src={card_img_rounded} alt="rounded_img" className="rounded-circle card_img_rounded_mealaddress"></img>
+                    <img src={meal.picture} alt="rounded_img" className="rounded-circle card_img_rounded_mealaddress"></img>
                     </div>
                     
                     <h5 className=" immunne_text_mealaddress" >{meal.name}</h5>
@@ -189,7 +194,7 @@ export default function AddressAppointmentMain(props){
                     
                     </div>
                     <div className="row weekdata_mealaddress">
-                                            <WeekDataMemo  mealType={props.mealType} handleWeekDays={handleWeekDays}/> 
+                     <WeekDataMemo  mealType={props.mealType} handleWeekDays={handleWeekDays}/> 
                     </div>
                     
                     <div className="row">
@@ -198,6 +203,7 @@ export default function AddressAppointmentMain(props){
                     
                     <div className="datepicker_container_mealaddress">
                     <SelectdatePicker dateChange={handleDateChange} minValue={incrementedDate}/>
+                    <span id="successDate" style={{color:'red', fontWeight:800}}></span>
                     </div>
                     </div>
                     <div className="col-md-6">

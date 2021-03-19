@@ -170,7 +170,7 @@ const Navbar = ({ toggle }) => {
                         </NavLinks>
                     </NavItem>
                     <NavItem>
-                    <NavLinks
+                    <NavLinks 
                     style={{color:"purple"}}
                     to="menu"
                     spy={true}
