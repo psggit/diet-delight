@@ -9,9 +9,9 @@ export default function TimeSlotByShift(props){
     const [disabled, setDisabled] = useState(false);
 
 
-    let morningShift = ["9:00AM","10:00AM","11:00AM","12:00PM","9:15AM","10:15AM","11:15AM","12:15PM","9:30AM","10:30AM","11:30AM","12:30PM","9:45AM","10:45AM","11:45AM","12:45PM"];
-    let afternoonShift = ["1:00PM","2:00PM","3:00PM","4:00PM","1:15PM","2:15PM","3:15PM","4:15PM","1:30PM","2:30PM","3:30PM","4:30PM","1:45PM","2:45PM","3:45PM","4:45PM"];
-    let eveningShift = ["5:00PM","6:00PM","7:00PM","8:00PM","5:15PM","6:15PM","7:15PM","8:15PM","5:30PM","6:30PM","7:30PM","8:30PM","5:45PM","6:45PM","7:45PM","8:45PM"];
+    let morningShift = ["9:00 AM","10:00 AM","11:00 AM","12:00PM","9:15 AM","10:15 AM","11:15 AM","12:15PM","9:30 AM","10:30 AM","11:30 AM","12:30PM","9:45 AM","10:45 AM","11:45 AM","12:45PM"];
+    let afternoonShift = ["1:00 PM","2:00 PM","3:00 PM","4:00 PM","1:15 PM","2:15 PM","3:15 PM","4:15 PM","1:30 PM","2:30 PM","3:30 PM","4:30 PM","1:45 PM","2:45 PM","3:45 PM","4:45 PM"];
+    let eveningShift = ["5:00 PM","6:00 PM","7:00 PM","8:00 PM","5:15 PM","6:15 PM","7:15 PM","8:15 PM","5:30 PM","6:30 PM","7:30 PM","8:30 PM","5:45 PM","6:45 PM","7:45 PM","8:45 PM"];
 
     // const handleTimeSlot = (selectedTimeSlot) => {
 

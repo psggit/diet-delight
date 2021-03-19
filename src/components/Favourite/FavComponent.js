@@ -9,32 +9,36 @@ import veg_icon from "../../assets/vegicon.png";
 export default function FavComponent(props) {
   const [likeColor, setLikeColor] = useState("fa fa-heart heart_menu_pkg_fill");
 
+
+ 
+ 
   function colorHandle(menu_id) {
+    
     console.log(menu_id)
     likeColor === "fa fa-heart-o heart_menu_pkg"
       ? setLikeColor("fa fa-heart heart_menu_pkg_fill")
       : setLikeColor("fa fa-heart-o heart_menu_pkg");
-      handleUnlike(menu_id)
+      handleUnlike(menu_id);
+      props.handleFavourites()
   }
 
-
-  const handleUnlike = (menu_id) => {
-    console.log(menu_id)
+ 
+  const handleUnlike = (id) => {
+    console.log("menuId Data")
+    console.log(id)
+    axios
+    .delete(`favourites/`+id, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      console.log("Delete Data")
+    })
+    .catch((err) => console.log(err));
   }
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`props.favourite`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //       setFavouriteData(res.data.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
 
 
 
@@ -68,7 +72,7 @@ export default function FavComponent(props) {
         <i
           className={likeColor}
           aria-hidden="true"
-          onClick={() => colorHandle(props.favourite.menu_item.id)}
+          onClick={() => colorHandle(props.favourite.id)}
         ></i>
       </div>
     </div>

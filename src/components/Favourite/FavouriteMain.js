@@ -7,15 +7,23 @@ import "./Favmain.css";
 import axios from "../../axiosInstance";
 import FavouriteMemo from "./FavComponent";
 
-export default function FavouriteMain() {
+export default function FavouriteMain(props) {
   const [favouriteData, setFavouriteData] = useState([]);
 
  
-
+const handleFavourites = () =>{
+  userFavourites();
+}
   
   useEffect(() => {
+  
+    userFavourites();
+
+  }, []);
+
+  const userFavourites = () =>{
     axios
-      .get(`favourites`, {
+      .get(`favourites`, { 
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
@@ -25,10 +33,13 @@ export default function FavouriteMain() {
         setFavouriteData(res.data.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }
 
 
-  const renderFavourites = favouriteData.map((favourite) => <FavouriteMemo favourite={favourite} key={Math.random()}/>);
+  const renderFavourites = favouriteData.map((favourite) => <FavouriteMemo
+   favourite={favourite} key={Math.random()} 
+   handleFavourites ={handleFavourites}
+  />);
 
   return (
     <div className="fav_bg_container">

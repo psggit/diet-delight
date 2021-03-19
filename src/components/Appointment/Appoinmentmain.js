@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Appointmentmain.css";
-import MealchooseWithoutBtn from "../MealchooseWithoutBtn";
-import { Link, useHistory } from "react-router-dom";
+import {useHistory } from "react-router-dom";
 import SelectdatePicker from "../SelectdatePicker";
 import TimeSlotByShift from "./TimeSlotByShift";
 import "./toggle.css";
 import Mealchoose from "../Mealchoose.js";
+import * as Yup from 'yup';
+ 
 
 export default function Appointmentmain(props) {
   console.log(props);
@@ -18,6 +19,8 @@ export default function Appointmentmain(props) {
   const [appointmentMode, setAppointmentMode] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [checked, setChecked] = useState();
+
+  
 
   useEffect(() => {
     var todayDate = new Date();
@@ -34,8 +37,11 @@ export default function Appointmentmain(props) {
     console.log(formatedDate);
   }, []);
 
-  function handleDateChange(date) {
+  function handleDateChange(date){
     setDate(date);
+      var errorMessage = document.getElementById('successDate');
+      errorMessage.innerHTML = '';
+      console.log(errorMessage)
   }
 
   function handleDayPeriod(period) {
@@ -47,6 +53,9 @@ export default function Appointmentmain(props) {
   
     console.log(selectedTimeSlot);
     setTimeSlot(selectedTimeSlot);
+    var errorMessage = document.getElementById('successTime');
+    errorMessage.innerHTML = '';
+    console.log(errorMessage)
   }
 
   function handleColorTheme(period) {
@@ -82,9 +91,17 @@ export default function Appointmentmain(props) {
             picture: props.location.state.packagePicture,
           },
         });
-      }else alert("please select Time")
+      }else {
+        var errorMessage = document.getElementById('successTime');
+        errorMessage.innerHTML = 'please enter time ';
+      }
     
-    } else alert("Please Select Date & Time");
+    } else {
+      var errorMessage = document.getElementById('successDate');
+      errorMessage.innerHTML = 'please enter date';
+
+    }
+    // alert("Please Select Date & Time");
   }
 
   useEffect(() => {
@@ -113,7 +130,7 @@ export default function Appointmentmain(props) {
               <img
                 src={props.location.state.packagePicture}
                 alt="silver"
-                className="silver_img_appointment"
+                className="silver_img_appointment" 
               ></img>
 
               <p className="silver_subtitle">
@@ -124,8 +141,10 @@ export default function Appointmentmain(props) {
 
               <SelectdatePicker
                 dateChange={handleDateChange}
+              
                 minValue={minDate}
               />
+              <span id="successDate" style={{color:'red', fontWeight:800}}></span>
               {/*         
             <div className="row toggle_container">
             <h6 className="online_text">Online</h6>
@@ -237,7 +256,7 @@ export default function Appointmentmain(props) {
                         id="evening"
                         disabled={disabled}
                         onClick={() => handleDayPeriod("evening")}
-                      >
+                      > 
                         Evening
                       </button>
                       <p className="morning_tabs_subtitle">3 PM to 6 PM</p>
@@ -251,6 +270,7 @@ export default function Appointmentmain(props) {
                         selectedTimeSlot={handleSelectedTimeSlot}
                         disabled={disabled}
                       />
+                        <span id="successTime" style={{color:'red', fontWeight:800}}></span>
                     </div>
                   </div>
                 </div>
