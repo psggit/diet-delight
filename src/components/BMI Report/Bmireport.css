@@ -19,6 +19,11 @@ div.bmi_report_container {
   height: 100%;
   top: 25%;
   z-index: 5;
+
+}
+div.bmi_report_card {
+  background-image: url(../../assets/choosemealplan.jpg);
+  box-shadow: 16px 12px 16px -6px rgb(0 0 0 / 75%)
 }
 h6.recommm_text {
   color: #303960;
@@ -47,13 +52,15 @@ h6.normal_text {
   }
   div.bmi_report_card {
     background-image: url(../../assets/choosemealplan.jpg);
-
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     /* background: #78288b; */
-    margin: 1%;
+    margin: 3%;
     padding: 4%;
+    position: relative;
+    top: -37%;
+    box-shadow: 10px 6px 10px -9px rgb(0 0 0 / 75%);
   }
   h6.title_bmi_report {
     color: #303960;
@@ -115,6 +122,15 @@ h6.normal_text {
 }
 
 @media only screen and (min-width: 766px) {
+  div.bmi_report_container {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -6%;
+    z-index: 5;
+  }
   div.bmi_report_row {
     margin: 3%;
   }

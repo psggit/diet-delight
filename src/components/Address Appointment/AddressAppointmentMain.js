@@ -281,6 +281,35 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
 
               <h5 className="payment_text_title">Payment</h5>
 
+               <div className="online_clinic_container ">
+                <label htmlFor="online" className="online_clinic_text_submeal">
+                 Pay at clinic
+                </label>
+                <input
+                  type="radio"
+                  className="male_clinic_input_submeal "
+                  id="clinic"
+                  name="clinic"
+                  value="online"
+                  style={{ cursor: "pointer" }}
+                ></input>
+                <span className="checkmark"></span> <br></br>
+                <label htmlFor="online" className="online_clinic_text_submeal">
+                 Pay Online
+                </label>
+                <input
+                  type="radio"
+                  className="male_clinic_input_submeal "
+                  id="clinic"
+                  name="clinic"
+                  value="online"
+                  style={{ cursor: "pointer" }}
+                ></input>
+                <span className="checkmark"></span>
+              </div>
+
+
+
               <div className="card_payment_container">
                 <div className="card payment_card">
                   <img

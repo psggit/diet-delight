@@ -26,7 +26,7 @@ export default function MealpkgSubscription(props) {
       <div className="main_container_mealpkg" key={Math.random()}>
         <div className="card fullcard_container">
           <div className="row under_card_mealsubscription">
-            <div className="col-md-5 col-sm-12">
+            <div className="col-md-6 col-sm-12">
               <div className="row">
                 <div className="col-md-4 col-sm-12">
                   <div className="img_container">
@@ -39,9 +39,9 @@ export default function MealpkgSubscription(props) {
                 </div>
 
                 <div className="col-md-8 col-sm-12 media_meal">
-                  <h5 className="mt-0 immunne_text_mealpkgsub">{meal.name}</h5>
-                  <div className="d-flex justify-content-around">
-                    <h5 className="mt-0 bhd_text_mealpkgsub">
+                  <h5 className="immunne_text_mealpkgsub">{meal.name}</h5>
+                  <div className="d-flex justify-content-around bhd_weekend_container">
+                    <h5 className=" bhd_text_mealpkgsub">
                       {meal.price} BHD
                     </h5>
                     <p className="with_weekend_text">
@@ -56,17 +56,16 @@ export default function MealpkgSubscription(props) {
               </div>
             </div>
 
-            <div className="col-md-7 col-sm-12">
+            <div className="col-md-6 col-sm-12">
               <div className="row">
                 <div className="vertical_line"></div>
 
-                <div className="col-md-6 col-sm-12">
+                <div className="col-md-11 col-sm-11 right_side_subs">
                   <p className="breakfast_text_mealpkgsub">{meal.subtitle}</p>
 
                   <p className="something_text">- {meal.details}</p>
 
-                  <br />
-                  <br />
+                 
 
                   <button className="btn btn-default mealbtn_subscription">
                     <Link

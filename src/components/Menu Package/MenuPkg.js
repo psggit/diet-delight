@@ -121,7 +121,7 @@ export default function MenuPkg(props){
         
         <div className="container" style={{marginBottom:40}}>  
         
-        <h4 className="d-flex justify-content-center mt-4 mb-4 font-weight-bold">{categoryName}</h4>
+        <h4 className="d-flex justify-content-center breakfast_name_menupkg mt-4 mb-4 font-weight-bold">{categoryName}</h4>
         <div className="row">
         <div className="col-md-1">
         

@@ -4,7 +4,9 @@ import "../Menu Package/TabMenuPkg.css";
 import "./Favmain.css";
 import axios from "../../axiosInstance";
 import card_img_rounded from "../../assets/food1.jpg";
-import veg_icon from "../../assets/vegicon.png";
+// import veg_icon from "../../assets/vegicon.png";
+import VegComponent from '../veg non veg component/VegComponent.js'
+import NonvegComponent from '../veg non veg component/NonvegComponent.js'
 
 export default function FavComponent(props) {
   const [likeColor, setLikeColor] = useState("fa fa-heart heart_menu_pkg_fill");
@@ -63,11 +65,9 @@ export default function FavComponent(props) {
       </div>
 
       <div className="col-lg-2 col-md-2 col-xs-12">
-        <img
-          src={veg_icon}
-          alt="veg"
-          className="veg_icon_menupkg"
-        ></img>
+       <VegComponent/>
+
+     {/* <NonvegComponent/> */}
 
         <i
           className={likeColor}
