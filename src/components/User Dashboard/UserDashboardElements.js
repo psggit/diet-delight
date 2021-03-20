@@ -91,9 +91,9 @@ export const RoundCircle = styled.div`
 background-color:#8BC53F;
 border-radius:50%;
 border: 10px solid #c2daa5;
-padding:20px 10px 20px 10px;
-margin-left:10%;
-margin-right:10%;
+padding:20px 12px 20px 12px;
+margin-left:5%;
+margin-right:5%;
 display:grid;
 place-items:center;
 background-clip: padding-box;
@@ -226,7 +226,6 @@ padding-right:30px;
 export const Input = styled.input.attrs(props => ({
     type: "text",
     defaultValue: props.defaultValue,
-    value:props.value
 }))`
 width:50%;
 margin-left:5%;
