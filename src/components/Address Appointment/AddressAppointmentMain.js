@@ -43,7 +43,7 @@ export default function AddressAppointmentMain(props) {
       setChangeAddressData(true)
       console.log("meet")
   
-
+ 
   }
 
   console.log(props);
@@ -52,7 +52,7 @@ export default function AddressAppointmentMain(props) {
     console.log(props.location.state.packagePrice);
     console.log(totalCharge);
     axios
-      .get(user, {
+      .get('user', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
@@ -183,15 +183,24 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
           var couponExpiryDate = res.data.data[verifyCoupon].expiry_date;
           console.log(new Date(couponExpiryDate) < new Date());
           if (new Date(couponExpiryDate) < new Date()) {
-            alert("Coupon Code Expired");
+            var errorMessage = document.getElementById('successCoupon');
+            errorMessage.innerHTML = 'Coupon Code Expired';
+            console.log(errorMessage)
+            
             setCoupon("");
           } else {
-            alert("Coupon applied Successfully");
+            var errorMessage = document.getElementById('successCoupon');
+            errorMessage.innerHTML = 'Coupon applied Successfully';
+            console.log(errorMessage)
+           
             console.log(res.data.data[verifyCoupon]);
             setCouponScheme(res.data.data[verifyCoupon]);
           }
         } else {
-          alert("Invalid Coupon");
+          var errorMessage = document.getElementById('successCoupon');
+          errorMessage.innerHTML = 'Invalid Coupon';
+          console.log(errorMessage)
+          
         }
         console.log(couponScheme);
       })
@@ -221,7 +230,6 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
             <div className="col-md-5 col-sm-12 silver_container">
               <h5 className="shipping_title">Shipping Address</h5>
 
-Harshiv Patel, [19.03.21 17:16]
 <div className="row">
                 <div className="col-md-8 col-sm-12">
                   <textarea
@@ -267,6 +275,7 @@ Harshiv Patel, [19.03.21 17:16]
                   >
                     Apply Coupon
                   </button>
+                  <span id="successCoupon" style={{color:'red', fontWeight:800}}></span>
                 </div>
               </div>
 
@@ -322,7 +331,6 @@ Harshiv Patel, [19.03.21 17:16]
                 <hr className="horizontal_line_grandtotalappointment"></hr>
               </div>
 
-Harshiv Patel, [19.03.21 17:16]
 <div className="grandtotal_totalappointment_container">
                 <p className="grandtotal_totalappointment_title">Grand Total</p>
                 <h5 className="grandtotal_totalappointment_subtitle">

@@ -97,6 +97,21 @@ const ListofQuestions = () => {
         setLoading(false);
       })
       .catch((err) => console.log(err));
+      axios
+      .get(
+        `menu-orders?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      )
+      .then((res) => {
+       
+        setShow(true);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
   }, [page, search, sort, order]);
 
   const handleShow = () => {

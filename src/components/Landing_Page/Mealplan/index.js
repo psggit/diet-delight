@@ -6,7 +6,7 @@ import axios from '../../../axiosInstance'
 
 const Mealplan = () => {
 
-    const [duration, setDuration] = useState([]);
+    const [duration, setDuration] = useState([]); 
 
 
     useEffect(() => {
