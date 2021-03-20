@@ -31,7 +31,7 @@ export default function ChangePassword(props){
         }
     }
     return(
-        <div style={{backgroundColor:'#Fafafa', display:'flex', flexDirection:'column', width:'30%', height:'300px', alignItems:'center', justifyContent:'space-around', boxShadow: '1px 3px 4px -2px rgb(61 61 61 / 66%)', position:'absolute', top:'40%', left:'35%'}}>
+        <div style={{backgroundColor:'#Fafafa', display:'flex', flexDirection:'column', width:'30%', height:'300px', alignItems:'center', justifyContent:'space-around', zIndex:7, boxShadow: '1px 3px 4px -2px rgb(61 61 61 / 66%)', position:'absolute', top:'40%', left:'35%'}}>
         <div className="icon_container_remove" style={{position:'absolute', top:'10px', right:'10px'}}>
             <i className="fa fa-times" onClick={() => props.closeChangePassword()}></i>
         </div>
