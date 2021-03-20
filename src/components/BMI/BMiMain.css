@@ -146,8 +146,8 @@ h6.ques_title_bmi{
 
 @media screen and (min-width: 768px) {
     div.row_bmi_bmi{
-        
-        width: 64%;
+
+        width: 66%;
         position: relative;
         left: 16%;
         
@@ -191,67 +191,72 @@ h6.ques_title_bmi{
         left: 6%;
     }
     div.card_bmi{ 
-        width: 100%;
+       /*  width: 100%;
         padding: 3%;
-        height: 34vh;
+        height: 34vh; */
+        padding: 3%;
+        height: 373px;
+        width: 700px;
     }
     h6.title_bmi{
-        font-size: 27px;
-        text-align: center;
-        margin: 1%;
-        margin-bottom: 48px;
-        letter-spacing: 4px;
-    }
-    input.bmi_que_textfiled{
-        outline: none;
-        padding: 1%;
-        font-size: 14px;
-        width: 52%;
-    }
-    h6.ques_title_bmi{
-        color: #303960;
-        text-align: center;
-        font-size: 12px;
-        letter-spacing: .1px;
-        margin-bottom: 20px;
-    }
-    div.icon_container_bmi{
-        padding: 3%;
-        width: 45px;
-        height: 47px;
-        text-align: center;
-        background: #fff;
-        border-radius: 8px;
-        margin-right: 18px;
-        margin-bottom: 11px;
-    }
-    h6.male_text_btn_bmi{
-        font-size: 7px;
-    }
-    i.icon_bmi{
-        margin-top: 4px;
-        font-size: 19px;
-    }
-    div.icon_container_main_bmi{
-        display: flex;
-        justify-content: center;
-    }
-    div.text_field_container_bmi{
-        display: flex;
-        justify-content: center;
-    }
-    button.btn_next_bmi{
-        color: #fff;
-        background: #8BC441;
-        margin-top: 21px;
-        font-size: 10px;
-    }
-    div.btn_next_container{
-        display: flex;
-        justify-content: center;
-    }
-    
-    
+       font-size: 27px;
+       text-align: center;
+       margin: 1%;
+       margin-bottom: 24px;
+       letter-spacing: 4px;
+   }
+   input.bmi_que_textfiled{
+    outline: none;
+    padding: 1%;
+    font-size: 14px;
+    width: 52%;
+}
+h6.ques_title_bmi{
+    color: #303960;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: .1px;
+    margin-bottom: 9px;
+    margin-top: 12px;
+}
+div.icon_container_bmi{
+    padding: 3%;
+    width: 45px;
+    height: 47px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    margin-right: 18px;
+    margin-bottom: 11px;
+}
+h6.male_text_btn_bmi{
+    font-size: 7px;
+}
+i.icon_bmi{
+    margin-top: 4px;
+    font-size: 19px;
+}
+div.icon_container_main_bmi{
+    display: flex;
+    justify-content: center;
+}
+div.text_field_container_bmi{
+    display: flex;
+    justify-content: center;
+}
+button.btn_next_bmi{
+  color: #fff;
+  background: #8BC441;
+  margin-top: 18px;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+div.btn_next_container{
+    display: flex;
+    justify-content: center;
+}
+
+
 }
 
 
@@ -283,80 +288,79 @@ h6.ques_title_bmi{
         display: grid;
         place-items: center;
         position: absolute;
-        top: 30%;
-        left: 15%;
+        top: 16%;
+        left: 6%;
     }
     div.card_bmi{ 
-        width: 100%;
-        padding: 6%;
-        height: 350px;
-        
-    }
-    h6.title_bmi{
-        font-size: 28px;
-        text-align: center;
-        margin: 0%;
-        margin-top: -30px;
-        margin-bottom: 52px;
-        letter-spacing: 3px;
-    }
-    input.bmi_que_textfiled{
-        outline: none;
-        padding: 2%;
-        font-size: 14px;
-        width: 80%;
-        letter-spacing: .8px;
-    }
-    h6.ques_title_bmi{
-        color: #303960;
-        text-align: center;
-        font-size: 11px;
-        letter-spacing: .2px;
-        margin-bottom: 20px;
-        margin-top: 0px;
-    }
-    div.icon_container_bmi{
-        padding: 3%;
-        width: 47px;
-        height: 46px;
-        text-align: center;
-        background: #fff;
-        border-radius: 8px;
-    }
-    i.icon_bmi{
-        margin-top: 2px;
-        font-size: 16px;
-    }
-    h6.male_text_btn_bmi {
-        font-size: 9px;
-        font-weight: bold;
-        letter-spacing: .5px;
-    }    
-    div.icon_container_main_bmi{
-        display: flex;
-        justify-content: center;
-    }
-    div.text_field_container_bmi{
-        display: flex;
-        justify-content: center;
-    }
-    button.btn_next_bmi{
-        color: #fff;
-        background: #8BC441;
-        margin-top: 20px;
-        font-size: 14px;
-        width: 14%;
-        height: 64%;
-        position: relative;
-        top: -13px;
-    }
-    div.btn_next_container{
-        display: flex;
-        justify-content: center;
-        margin-top: 14px;
-    }
-    
-    
+     padding: 6%;
+     width: 927px;
+     height: 399px;
+ }
+ h6.title_bmi{
+     font-size: 28px;
+     text-align: center;
+     margin: 0%;
+     margin-top: -45px;
+     margin-bottom: 20px;
+     letter-spacing: 3px;
+ }
+ input.bmi_que_textfiled{
+    outline: none;
+    padding: 2%;
+    font-size: 14px;
+    width: 80%;
+    letter-spacing: .8px;
+}
+h6.ques_title_bmi{
+  color: #303960;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  margin-top: 23px;
+}
+div.icon_container_bmi{
+    padding: 3%;
+    width: 47px;
+    height: 46px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+}
+i.icon_bmi{
+    margin-top: 2px;
+    font-size: 16px;
+}
+h6.male_text_btn_bmi {
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: .5px;
+}    
+div.icon_container_main_bmi{
+    display: flex;
+    justify-content: center;
+}
+div.text_field_container_bmi{
+    display: flex;
+    justify-content: center;
+}
+button.btn_next_bmi{
+    color: #fff;
+    background: #8BC441;
+    margin-top: 20px;
+    font-size: 14px;
+    width: 14%;
+    height: 64%;
+    position: relative;
+    top: -13px;
+}
+div.btn_next_container{
+    display: flex;
+    justify-content: center;
+    margin-top: 29px;
+}
+
+
 }
 
 
@@ -380,95 +384,97 @@ h6.ques_title_bmi{
         align-self: center;
     }
     div.row_bmi{
-        width: 114%;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    div.bmi_main_container{
-        display: grid;
-        place-items: center;
-        position: absolute;
-        top: 38%;
-        left: 25%;
-    }
-    div.card_bmi{
-        width: 100%;
-        padding: 7%;
-        height: 410px;
-    }
-    h6.title_bmi{
-        font-size: 28px;
-        text-align: center;
-        margin: 0%;
-        margin-top: -30px;
-        margin-bottom: 52px;
-        letter-spacing: 3px;
-    }
-    input.bmi_que_textfiled{
-        outline: none;
-        padding: 2%;
-        font-size: 14px;
-        width: 63%;
-        letter-spacing: .8px;
-    }
-    h6.ques_title_bmi{
-        color: #303960;
-        text-align: center;
-        font-size: 14px;
-        letter-spacing: .2px;
-        margin-bottom: 20px;
-    }
-    div.icon_container_bmi{
-        padding: 2.5%;
-        width: 58px;
-        height: 62px;
-        text-align: center;
-        background: #fff;
-        border-radius: 8px;
-        margin-bottom: 12px;
-        margin-right: 15px;
-        
-    }
-    i.icon_bmi{
-        
-        margin-top: 0px;
-        font-size: 25px;
-        
-    }
-    div.icon_container_main_bmi{
-        display: flex;
-        justify-content: center;
-    }
-    div.text_field_container_bmi{
-        display: flex;
-        justify-content: center;
-    }
-    button.btn_next_bmi{
-        color: #fff;
-        background: #8BC441;
-        margin-top: 25px;
-        font-size: 14px;
-        width: 15%;
-    }
-    div.btn_next_container{
-        display: flex;
-        justify-content: center;
-    }
-    h6.male_text_btn_bmi{
-        font-size: 12px;
-        margin-top: 8px;
-    }
-    div.row_bmi_bmi{
-        width: 80%;
-        position: relative;
-        left: 9%;
-    }
-    div.que_text_container_div{
-        
-        position: relative;
-        left: 35px;
-        
-    }
-    
-    
+     /*    width: 114%; */
+     margin-top: 20px;
+     margin-bottom: 20px;
+ }
+ div.bmi_main_container{
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 15%;
+    left: 6.5%;
+}
+div.card_bmi{
+   width: 1300px;
+   padding: 6%;
+   height: 463px;
+}
+h6.title_bmi{
+ font-size: 40px;
+ text-align: center;
+ margin: 0%;
+ margin-top: -56px;
+ margin-bottom: 28px;
+ letter-spacing: 6px;
+}
+input.bmi_que_textfiled{
+ outline: none;
+ padding: 2%;
+ font-size: 14px;
+ width: 46%;
+ letter-spacing: .8px;
+}
+h6.ques_title_bmi{
+   color: #303960;
+   text-align: center;
+   font-size: 17px;
+   letter-spacing: .2px;
+   margin-bottom: 11px;
+   margin-top: 14px;
+}
+div.icon_container_bmi{
+    padding: 2.5%;
+    width: 58px;
+    height: 62px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    margin-right: 15px;
+
+}
+i.icon_bmi{
+
+    margin-top: 0px;
+    font-size: 25px;
+
+}
+div.icon_container_main_bmi{
+    display: flex;
+    justify-content: center;
+}
+div.text_field_container_bmi{
+    display: flex;
+    justify-content: center;
+}
+button.btn_next_bmi{
+    color: #fff;
+    background: #8BC441;
+    margin-top: 25px;
+    font-size: 18px;
+    width: 15%;
+    letter-spacing: 4px;
+}
+div.btn_next_container{
+    display: flex;
+    justify-content: center;
+}
+h6.male_text_btn_bmi{
+    font-size: 11px;
+    margin-top: 8px;
+}
+div.row_bmi_bmi{
+ width: 59%;
+ position: relative;
+ left: 18%;
+}
+div.que_text_container_div{
+
+    position: relative;
+    left: 48px;
+
+}
+
+
 }

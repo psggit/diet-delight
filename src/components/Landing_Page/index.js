@@ -34,7 +34,7 @@ const LandingPage = () => {
         setToggleBMIReport(true)
 
     }
-        const toggleReport = () => {
+    const toggleReport = () => {
         setToggleBMI(false)
         setToggleBMIReport(false)
     }
@@ -48,44 +48,44 @@ const LandingPage = () => {
             setToggleBMI(true)
         }
     }
- 
- 
+    
+    
     useEffect(() => {
-     axios.get('user',{
-         headers: {
-             Authorization: `Bearer ${localStorage.getItem('access_token')}`
-         }
-     }).then((res) => {
-         console.log(res)
-         console.log(res.data)
-         setUserInfo(res.data)
-         if(res.data.questionnaire_status === 0){
-             setShowQuestion(true)
-         }
-     }).catch(err => console.log(err));
-    },[])
- 
+       axios.get('user',{
+           headers: {
+               Authorization: `Bearer ${localStorage.getItem('access_token')}`
+           }
+       }).then((res) => {
+           console.log(res)
+           console.log(res.data)
+           setUserInfo(res.data)
+           if(res.data.questionnaire_status === 0){
+               setShowQuestion(true)
+           }
+       }).catch(err => console.log(err));
+   },[])
+    
     function handleCancel(){
-     console.log("meet")
-     setShowQuestion(false)
- }
-    return (
-        <>
+       console.log("meet")
+       setShowQuestion(false)
+   }
+   return (
+    <>
 
-            
-            {showQuestion && <DietDataDetails  handleCancel={handleCancel} closeBMI={closeBMI}/>}
-            {toggleBMI && <BmiMain closeBMI={closeBMI} toggleReportBMI={toggleBMIReportVisibility}/>}
-            {toggleBMIReport && <Bmireport bmiReport={bmiReport} toggleReport={toggleReport}/>}
-            <Home />
-            <MealPackage />
-            <Mealplan />
-            <Feature />
-            <Expert />
-            <Work />
-            <Rating />
-            <Downlaod />
-            <Footer />
-        </> 
+    
+    {showQuestion && <DietDataDetails  handleCancel={handleCancel} closeBMI={closeBMI}/>}
+    {toggleBMI && <BmiMain closeBMI={closeBMI} toggleReportBMI={toggleBMIReportVisibility}/>}
+    {toggleBMIReport && <Bmireport bmiReport={bmiReport} toggleReport={toggleReport}/>}
+    <Home />
+    <MealPackage />
+    <Mealplan />
+    <Feature />
+    <Expert />
+    <Work />
+    <Rating />
+    <Downlaod />
+    <Footer />
+    </> 
     )
 }
 

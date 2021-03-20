@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {Input, Button} from './ChangePasswordElement'
 import axios from '../../../axiosInstance';
+import './Changepwd.css'
 
 
 
@@ -31,11 +32,11 @@ export default function ChangePassword(props){
         }
     }
     return(
-        <div style={{backgroundColor:'#Fafafa', display:'flex', flexDirection:'column', width:'30%', height:'300px', alignItems:'center', justifyContent:'space-around', boxShadow: '1px 3px 4px -2px rgb(61 61 61 / 66%)', position:'absolute', top:'40%', left:'35%'}}>
+        <div className="change_pwd_dialog_container">
         <div className="icon_container_remove" style={{position:'absolute', top:'10px', right:'10px'}}>
             <i className="fa fa-times" onClick={() => props.closeChangePassword()}></i>
         </div>
-        <Input type="password" placeholder="Current Password" onChange={(e) => setCurrentPassword(e.target.value)}></Input>
+        <Input type="password" className="pwd_change" placeholder="Current Password" onChange={(e) => setCurrentPassword(e.target.value)}></Input>
         <Input type="password" placeholder="New Password" onChange={(e) => setNewPassword(e.target.value)}></Input>
         <Input type="password" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)}></Input>
         <Button onClick={() => handlePasswordChange()}>CHANGE PASSWORD</Button>

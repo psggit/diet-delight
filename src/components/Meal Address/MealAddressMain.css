@@ -29,11 +29,11 @@ button.continue_btn_mealaddress:hover {
 div.male_container {
 }
 input[type="radio"]:checked:after {
-  width: 15px;
+ /*  width: 15px;
   height: 15px;
-  border-radius: 15px;
-  top: -4px;
-  left: -1px;
+  border-radius: 15px; */
+ /*  top: -4px;
+  left: -1px; */
   position: relative;
   background-color: rgb(139, 196, 65);
   content: "";
