@@ -3,9 +3,11 @@ import veg_icon from '../../assets/vegicon.png'
 import './TabMenuPkg.css'
 
 import axios from '../../axiosInstance';
+import VegComponent from '../veg non veg component/VegComponent.js'
+import NonvegComponent from '../veg non veg component/NonvegComponent.js'
 
 export default function MainCourse(props){
-     
+
     const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_menu_pkg")
     
     function colorHandle(menu_item_id){
@@ -14,12 +16,12 @@ export default function MainCourse(props){
     }
     // useEffect(() => {
     //     axios.get(`menu-items?menu_id=`+props.categoryData.menu_id+`&menu_category_id=`+props.categoryData.id, {
-            
+
     //         headers: {
     //             Authorization: `Bearer ${localStorage.getItem('access_token')}`
     //         }
     //     }).then((res) => {
-            
+
     //         console.log(res.data.data)
     //         setMenuItems(res.data.data)
     //     })
@@ -28,9 +30,9 @@ export default function MainCourse(props){
     // const [like ,setLike] = useState("")
     
     function handleLike(id){  
-        
+
         axios.post(`favourites`, {
-            
+
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             },
@@ -47,7 +49,7 @@ export default function MainCourse(props){
     
     return(
         <div className="col-md-6 col-xs-12">
-                
+
         <div className="card text-center card_border_menupkg">
         
         
@@ -60,19 +62,23 @@ export default function MainCourse(props){
         
         <div className="media-body content_media">
         <h5 className="something_text">{props.menuItem.name}</h5>
-        {/* <h5 className="something_about_text">About dish like crunch with something chrunchy and salad</h5> */}
-        </div>
-        
-        </div>
-        
-        <div className="col-lg-2 col-md-2 col-xs-12">
-        
-        <img src={veg_icon} alt="veg" className="veg_icon_menupkg"></img>
+    {/* <h5 className="something_about_text">About dish like crunch with something chrunchy and salad</h5> */}
+    </div>
+
+    </div>
+
+    <div className="col-lg-2 col-md-2 col-xs-12">
+
+       
+         {/*<VegComponent/> */}
+
+        <NonvegComponent/>
+      
         
         <i className={likeColor} aria-hidden="true" onClick={() => colorHandle(props.menuItem.id)}></i>
         
         
-        {/* <i className="" aria-hidden="true"></i> */}
+        <i className="" aria-hidden="true"></i>
         
         
         
@@ -89,6 +95,5 @@ export default function MainCourse(props){
     
     
     </div>
-        )
-    }
-    
+    )
+}

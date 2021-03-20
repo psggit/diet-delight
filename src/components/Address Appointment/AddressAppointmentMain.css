@@ -25,22 +25,22 @@ h6.address_card_title {
 /* a.change_text_title{
     font-size: 10px;
     color: #8BC441;
-} */
+    } */
 /* a.change_text_title:hover{
     font-size: 10px;
     color: #000;
-} */
-h5.change_text_title {
-}
-h5.payment_text_title {
-  font-size: 22px;
-  color: #303960;
-  font-family: "Roboto";
-}
-div.payment_card {
-}
-img.payment_img {
-}
+    } */
+    h5.change_text_title {
+    }
+    h5.payment_text_title {
+      font-size: 22px;
+      color: #303960;
+      font-family: "Roboto";
+    }
+    div.payment_card {
+    }
+    img.payment_img {
+    }
 /* a.change_in_title{
     font-size: 9px;
     margin: 6px;
@@ -50,165 +50,216 @@ a.change_in_title:hover{
     font-size: 9px;
     
     color: #000;
-} */
-div.card_payment_container {
-  display: flex;
-  justify-content: space-between;
-}
-div.card_user_addressAppointment {
-  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  margin-top: 3.5rem;
-  border: none;
-  padding: 9%;
-  margin: 4%;
-  /* box-shadow: 0px 5px 10px -1px rgb(61 61 61 / 66%); */
-  border-radius: 1rem;
-  background: #fafafa5e;
-}
-div.address_appointment_main_container {
-  display: grid;
-  place-items: center;
-}
-img.payment_img_AddressAppointment {
-  width: 100px;
-  height: 70px;
-}
-h6.change_text_adressAppointment {
-  color: #8bc441;
-  cursor: pointer;
-}
-h6.change_text_adressAppointment:hover {
-  color: #6e9a34;
-}
-h6.change_in_title_payment:hover {
-  color: #6e9a34;
-  cursor: pointer;
-}
-button.payOnline_btn_address:hover {
-  color: #fff;
-  background: #6e9a34;
-}
-button.payOnline_btn_address {
-  color: white;
-  background: #8bc441;
-  border-radius: 3px;
-  border: none;
-  letter-spacing: 2px;
-  font-weight: 600;
-  outline: none;
-}
+    } */
+    div.card_payment_container {
+      display: flex;
+      justify-content: space-between;
+    }
+    div.card_user_addressAppointment {
+      background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      margin-top: 3.5rem;
+      border: none;
+      padding: 9%;
+      margin: 4%;
+      /* box-shadow: 0px 5px 10px -1px rgb(61 61 61 / 66%); */
+      border-radius: 1rem;
+      background: #fafafa5e;
+    }
+    div.address_appointment_main_container {
+      display: grid;
+      place-items: center;
+    }
+    img.payment_img_AddressAppointment {
+      width: 100px;
+      height: 70px;
+    }
+    h6.change_text_adressAppointment {
+      color: #8bc441;
+      cursor: pointer;
+    }
+    h6.change_text_adressAppointment:hover {
+      color: #6e9a34;
+    }
+    h6.change_in_title_payment:hover {
+      color: #6e9a34;
+      cursor: pointer;
+    }
+    button.payOnline_btn_address:hover {
+      color: #fff;
+      background: #6e9a34;
+    }
+    button.payOnline_btn_address {
+      color: white;
+      background: #8bc441;
+      border-radius: 3px;
+      border: none;
+      letter-spacing: 2px;
+      font-weight: 600;
+      outline: none;
+    }
 
-@media only screen and (max-width: 767px) {
-  button.payOnline_btn_address {
-    padding: 7px;
-    font-size: 15px;
-    border-radius: 3px;
-    width: 100%;
-    margin-left: -45%;
-    justify-content: center;
-    letter-spacing: 2px;
-    font-weight: 600;
+    @media only screen and (max-width: 767px) {
+      label.online_clinic_text_submeal {
+        margin: 3%;
+        font-size: 12px;
+        letter-spacing: 1px;
+        font-weight: 900;
+      }
+      input.male_clinic_input_submeal {
+      }
+      input[type="radio"]:checked:after {
+       width: 15px;
+       height: 14px;
+       border-radius: 100%;
+       top: -6px;
+       left: -1px;
+       position: relative;
+       background-color: rgb(139, 196, 65);
+       content: "";
+       display: inline-block;
+       visibility: visible;
+       border: 2px solid rgba(139, 196, 65, 0.049);
+     }
+     button.payOnline_btn_address {
+      padding: 7px;
+      font-size: 15px;
+      border-radius: 3px;
+      width: 100%;
+      margin-left: -45%;
+      justify-content: center;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    div.address_appointment_main_container {
+      margin-top: 8%;
+      display: grid;
+      place-items: center;
+    }
+    h6.change_in_title_payment {
+      font-size: 13px;
+      margin: 2%;
+      color: #8bc441;
+    }
+    h6.appointment_subtitle_text_date {
+      font-weight: 700;
+      opacity: 0.8;
+      font-size: 9px;
+      margin-top: -15px;
+      width: 70%;
+    }
+    h6.change_text_adressAppointment {
+      text-align: end;
+      font-size: 16px;
+      margin-right: 4px;
+    }
+    textarea.textarea_addressAppoinment {
+      width: 95%;
+      border: 1px solid #0000002e;
+      border-radius: 10px;
+      padding: 3%;
+      font-size: 12px;
+      line-height: 16px;
+    }
+    h5.shipping_title {
+      font-size: 25px;
+      font-weight: 800;
+      color: #303960;
+      font-family: "Roboto";
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-bottom: 13px;
+    }
+    div.address_card_container {
+      padding: 5px;
+    }
+    h6.address_card_title {
+      font-size: 8px;
+      text-align: left;
+    }
+    a.change_text_title {
+      font-size: 10px;
+      color: #8bc441;
+      display: flex;
+      justify-content: flex-end;
+    }
+    a.change_text_title:hover {
+      font-size: 10px;
+      color: #000;
+    }
+    h5.change_text_title {
+    }
+    img.payment_img_AddressAppointment {
+      width: 100%;
+      height: 70px;
+    }
+    h5.payment_text_title {
+      color: #303960;
+      font-family: "Roboto";
+      font-size: 23px;
+      margin-top: -6px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+    div.payment_card {
+    }
+    img.payment_img {
+      width: 11rem;
+    }
+    a.change_in_title {
+      font-size: 12px;
+      margin: 6px;
+      color: #8bc441;
+      margin-top: 0px;
+    }
+    a.change_in_title:hover {
+      font-size: 9px;
+      margin: 6px;
+      color: #000;
+    }
+    div.card_payment_container {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 14px;
+      margin-bottom: 12px;
+    }
   }
 
-  div.address_appointment_main_container {
-    margin-top: 8%;
-    display: grid;
-    place-items: center;
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+   div.online_clinic_container {
+    margin-top: -21px;
+    margin-bottom: 10px;
   }
-  h6.change_in_title_payment {
-    font-size: 13px;
-    margin: 2%;
-    color: #8bc441;
-  }
-  h6.appointment_subtitle_text_date {
-    font-weight: 700;
-    opacity: 0.8;
-    font-size: 9px;
-    margin-top: -15px;
-    width: 70%;
-  }
-  h6.change_text_adressAppointment {
-    text-align: end;
-    font-size: 16px;
-    margin-right: 4px;
-  }
-  textarea.textarea_addressAppoinment {
-    width: 95%;
-    border: 1px solid #0000002e;
-    border-radius: 10px;
-    padding: 3%;
+  label.online_clinic_text_submeal {
+    margin: 3%;
     font-size: 12px;
-    line-height: 16px;
-  }
-  h5.shipping_title {
-    font-size: 25px;
-    font-weight: 800;
-    color: #303960;
-    font-family: "Roboto";
     letter-spacing: 1px;
-    opacity: 0.9;
-    margin-bottom: 13px;
+    font-weight: 900;
+    margin-right: 6px;
+    margin-top: 9px;
+    cursor: pointer;
   }
-  div.address_card_container {
-    padding: 5px;
+  input.male_clinic_input_submeal {
+    position: relative;
+    top: 3px;
   }
-  h6.address_card_title {
-    font-size: 8px;
-    text-align: left;
+  input.male_clinic_input_submeal:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    top: -6px;
+    left: -1px;
+    position: relative;
+    background-color: rgb(139, 196, 65);
+    content: "";
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid rgba(139, 196, 65, 0.049);
   }
-  a.change_text_title {
-    font-size: 10px;
-    color: #8bc441;
-    display: flex;
-    justify-content: flex-end;
-  }
-  a.change_text_title:hover {
-    font-size: 10px;
-    color: #000;
-  }
-  h5.change_text_title {
-  }
-  img.payment_img_AddressAppointment {
-    width: 100%;
-    height: 70px;
-  }
-  h5.payment_text_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 23px;
-    margin-top: -6px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    opacity: 0.9;
-  }
-  div.payment_card {
-  }
-  img.payment_img {
-    width: 11rem;
-  }
-  a.change_in_title {
-    font-size: 12px;
-    margin: 6px;
-    color: #8bc441;
-    margin-top: 0px;
-  }
-  a.change_in_title:hover {
-    font-size: 9px;
-    margin: 6px;
-    color: #000;
-  }
-  div.card_payment_container {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 14px;
-    margin-bottom: 12px;
-  }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
   button.payOnline_btn_address {
     padding: 7px;
     font-size: 13px;
@@ -331,6 +382,14 @@ button.payOnline_btn_address {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  label.online_clinic_text_submeal {
+    margin: 2.5%;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 900;
+    margin-right: 6px;
+    margin-top: 9px;
+  }
   button.payOnline_btn_address {
     padding: 7px;
     font-size: 13px;
@@ -457,6 +516,14 @@ button.payOnline_btn_address {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+  label.online_clinic_text_submeal {
+    margin: 0.2%;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: 900;
+    margin-right: 6px;
+    margin-top: 9px;
+  }
   button.payOnline_btn_address {
     padding: 7px;
     font-size: 15px;
@@ -583,4 +650,18 @@ button.payOnline_btn_address {
     display: flex;
     justify-content: space-between;
   }
+   input.male_clinic_input_submeal:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    top: -6px;
+    left: 0px;
+    position: relative;
+    background-color: rgb(139, 196, 65);
+    content: "";
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid rgba(139, 196, 65, 0.049);
+  }
 }
+

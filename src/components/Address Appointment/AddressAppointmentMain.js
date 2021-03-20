@@ -9,6 +9,7 @@ import Mealchoose from "../Mealchoose.js";
 import AddressDialogBox from '../Address Appointment/AddressDialogBox'
 
 export default function AddressAppointmentMain(props) {
+  console.log(props)
   let history = useHistory();
   const [address, setAddress] = useState("");
   const [user, setUser] = useState([]);
@@ -173,6 +174,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
   };
 
   const applyCoupon = () => {
+  
     axios
       .get("coupons")
       .then((res) => {
@@ -280,6 +282,35 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
               </div>
 
               <h5 className="payment_text_title">Payment</h5>
+
+               <div className="online_clinic_container ">
+                <label htmlFor="online" className="online_clinic_text_submeal">
+                 Pay at clinic
+                </label>
+                <input
+                  type="radio"
+                  className="male_clinic_input_submeal "
+                  id="clinic"
+                  name="clinic"
+                  value="online"
+                  style={{ cursor: "pointer" }}
+                ></input>
+                <span className="checkmark"></span> <br></br>
+                <label htmlFor="online" className="online_clinic_text_submeal">
+                 Pay Online
+                </label>
+                <input
+                  type="radio"
+                  className="male_clinic_input_submeal "
+                  id="clinic"
+                  name="clinic"
+                  value="online"
+                  style={{ cursor: "pointer" }}
+                ></input>
+                <span className="checkmark"></span>
+              </div>
+
+
 
               <div className="card_payment_container">
                 <div className="card payment_card">

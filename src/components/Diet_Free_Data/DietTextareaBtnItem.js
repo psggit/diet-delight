@@ -76,7 +76,7 @@ export default function DietTextareaBtnItem (props) {
         
         <div className="col-md-3 col-sm-12 mb-3" >
         
-        <p className="six_title">{props.textBtnQue.question}</p>
+        <p className="six_title">{props.question.question}</p>
         
         <div className="six_btn_container">
         <button type="button" id="Yes" className="btn btn-outline-light btn-sm mx-3 six_btn_yes" onClick={() => handleAnswer("Yes")}>Yes</button>

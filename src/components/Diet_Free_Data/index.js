@@ -85,7 +85,7 @@ const DietDataDetails = (props) => {
       <>
         {question.type === 0 && (
           <DietTextareaBtnItem
-            textBtnQue={question}
+            question={question}
             handleAnswerGiven={handleAnswerByUser}
             submitAnswer={submitAnswer}
           />
