@@ -41,7 +41,7 @@ const Signup = () => {
     console.log(callingCountries)
     console.log(typeof(callingCountries))
     const options = useMemo(() => countryList().getValues (), [])
-    const [otpDialog, setOtpDialog] = useState(false)
+    const [otpDialog, setOtpDialog] = useState(true)
     const [disabled,setDisabled] = useState(false)
     let phoneNumber = useRef("");
     

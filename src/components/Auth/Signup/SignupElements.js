@@ -10,7 +10,7 @@ export const Main = styled.div`
     flex-direction:column;
     align-items:center;
     width:100%;
-    /* height: 100vh; */
+    height: 100vh;
     overflow:hidden;
     background:url(${back}) no-repeat center center ;
     background-size:cover;
