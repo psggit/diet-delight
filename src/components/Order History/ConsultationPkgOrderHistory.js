@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import './OrderHistory.css'
 import axios from '../../axiosInstance';
+import { Link } from 'react-scroll';
 
 export default function ConsultationPkgOrderHistory(){
 
@@ -61,7 +62,7 @@ export default function ConsultationPkgOrderHistory(){
                 
                 <div className="menu_booster_container">
                 <p  className="subscriptionplan_title">Appointment Date:</p>
-                <h6 className="subscriptionplan_subtitle">2 Weeks Plan</h6>
+                <h6 className="subscriptionplan_subtitle">{consultationPur.consultation_package_id}</h6>
                 </div>
                 
                 <div className="menu_booster_container">
@@ -89,14 +90,14 @@ export default function ConsultationPkgOrderHistory(){
                 <h6 className="break_subtitle">{handleDateChange(consultationPur.created_at)}</h6>
                 </div>
                 
-                <div className="right_side_container_orderhistory">
+                <div className="right_side_container_orderhistory">  
                 <p  className="order_id_title">Order # :</p>
                 <h6 className="order_id_subtitle">{consultationPur.id}</h6>
                 </div>
                 
                 
                 <div className="right_side_container_orderhistory">
-                <p  className="cost_title">Cost:</p>
+                <p  className="cost_title">Cost:</p> 
                 <h6 className="cost_subtitle">{consultationPur.amount_paid}BHD</h6>
                 
                 </div>
@@ -104,7 +105,9 @@ export default function ConsultationPkgOrderHistory(){
                 
                 </div>
                 <div className="col-md-3 col-xs-12 btn_container_orderhistory">
+                <Link  to= "/AddressAppointmentMain">
                 <button className="btn btn-default renew_plan_btn_consultion">Renew Plan</button><br></br>
+              </Link>
                 
                 
                 </div>

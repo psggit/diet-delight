@@ -77,7 +77,7 @@ export default function Appointmentmain(props) {
     }
     setRenderShift(period);
   }
-
+ 
   function handleDate() {
     if (date != "") {
       if( timeSlot != ""){
@@ -132,7 +132,7 @@ export default function Appointmentmain(props) {
                 alt="silver"
                 className="silver_img_appointment" 
               ></img>
-
+ 
               <p className="silver_subtitle">
                 {props.location.state.packageDetails}
               </p>
