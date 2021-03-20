@@ -326,10 +326,10 @@ export default function PersistentDrawerLeft() {
               <CustomNavList
                 primaryLabel="QUESTIONS"
                 navList={[
-                  { label: "All Questions", link: "questionlist" },
-                  { label: "Add New Question", link: "addquestion" },
-                  { label: "Answer List", link: "answerlist" },
-                  { label: "Add Answer", link: "addanswer" },
+                  { label: "Questions", link: "questionlist" },
+                  // { label: "Add New Question", link: "addquestion" },
+                  { label: "Answers", link: "answerlist" },
+                  // { label: "Add Answer", link: "addanswer" },
                 ]}
               />
               <CustomNavList
