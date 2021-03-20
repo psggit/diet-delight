@@ -11,7 +11,8 @@ import { Formik } from 'formik'
 
 import { Main, HContainer, Con, Input, Title, Set, Mini, Info, Container } from './ConsultantElements'
 import { useDispatch, useSelector } from 'react-redux'
-import {  selectListOfOrder, resetListOfOrder, setListOfOrder } from '../../../features/adminSlice'
+import { selectListOfOrder, resetListOfOrder, setListOfOrder } from '../../../features/adminSlice'
+import TableHeader from '../../reusable/TableHeader';
 
 const useStyles = makeStyles({
     root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
     },
 
     table: {
-        minWidth: 650,  
+        minWidth: 650,
     },
 });
 
@@ -47,6 +48,12 @@ const PostOrder = () => {
     const [Issuccess, setIsSuccess] = useState(false);
     const [isdelete, setIsDelete] = useState(false);
     const [isupdate, setISUpdate] = useState(false);
+
+    let current_date_Time = new Date();
+    const csvReport = {
+        data: listoforders,
+        filename: `List_of_listoforders_${current_date_Time}.csv`,
+    };
 
     useEffect(() => {
         axios.get(`consultation-purchases?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`, {
@@ -90,17 +97,17 @@ const PostOrder = () => {
     const handleUpdate = async (orderlist) => {
         console.log(orderlist)
         await dispatch(setListOfOrder({
-            id:orderlist.id,
-            user_id:orderlist.user_id,
-            consultation_package_id:orderlist.consultation_package_id,
-            payment_id:orderlist.payment_id,
-            status:orderlist.status,
-            billing_address_line1:orderlist.billing_address_line1,
-            billing_address_line2 :orderlist.billing_address_line2 ,
-            consultation_package_name:orderlist.consultation_package_name,
-            consultation_package_duration:orderlist.consultation_package_duration,
-            amount_paid:orderlist.amount_paid,
-            
+            id: orderlist.id,
+            user_id: orderlist.user_id,
+            consultation_package_id: orderlist.consultation_package_id,
+            payment_id: orderlist.payment_id,
+            status: orderlist.status,
+            billing_address_line1: orderlist.billing_address_line1,
+            billing_address_line2: orderlist.billing_address_line2,
+            consultation_package_name: orderlist.consultation_package_name,
+            consultation_package_duration: orderlist.consultation_package_duration,
+            amount_paid: orderlist.amount_paid,
+
         }))
 
         await setISUpdate(true);
@@ -158,31 +165,31 @@ const PostOrder = () => {
                 <DialogContent>
                     <Formik
                         initialValues={{
-                            user_id:listoforder.user_id,
-                            consultation_package_id:listoforder.consultation_package_id,
-                            payment_id:listoforder.payment_id,
-                            status:listoforder.status,
-                            billing_address_line1:listoforder.billing_address_line1,
-                            billing_address_line2 :listoforder.billing_address_line2 ,
-                            consultation_package_name:listoforder.consultation_package_name,
-                            consultation_package_duration:listoforder.consultation_package_duration,
-                            amount_paid:listoforder.amount_paid,
+                            user_id: listoforder.user_id,
+                            consultation_package_id: listoforder.consultation_package_id,
+                            payment_id: listoforder.payment_id,
+                            status: listoforder.status,
+                            billing_address_line1: listoforder.billing_address_line1,
+                            billing_address_line2: listoforder.billing_address_line2,
+                            consultation_package_name: listoforder.consultation_package_name,
+                            consultation_package_duration: listoforder.consultation_package_duration,
+                            amount_paid: listoforder.amount_paid,
                         }}
-                      
+
                         onSubmit={(values) => {
                             axios.put(`meal-purchases/${listoforder.id}`, {
                                 headers: {
                                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                                 },
-                                user_id:values.user_id,
-                            consultation_package_id:values.consultation_package_id,
-                            payment_id:values.payment_id,
-                            status:values.status,
-                            billing_address_line1:values.billing_address_line1,
-                            billing_address_line2 :values.billing_address_line2 ,
-                            consultation_package_name:values.consultation_package_name,
-                            consultation_package_duration:values.consultation_package_duration,
-                            amount_paid:values.amount_paid,
+                                user_id: values.user_id,
+                                consultation_package_id: values.consultation_package_id,
+                                payment_id: values.payment_id,
+                                status: values.status,
+                                billing_address_line1: values.billing_address_line1,
+                                billing_address_line2: values.billing_address_line2,
+                                consultation_package_name: values.consultation_package_name,
+                                consultation_package_duration: values.consultation_package_duration,
+                                amount_paid: values.amount_paid,
                             }).then((res) => {
                                 setIsSuccess(true)
                                 setISUpdate(false)
@@ -206,10 +213,10 @@ const PostOrder = () => {
                                     {errors.user_id && touched && (
                                         <Info error>{errors.user_id}</Info>
                                     )}
-                                   
+
                                     <Mini>
                                         <Title>
-                                        Consultation Package ID
+                                            Consultation Package ID
                                             </Title>
                                         <Input
                                             placeholder=" Consultation Package ID"
@@ -222,7 +229,7 @@ const PostOrder = () => {
                                     )}
                                     <Mini>
                                         <Title>
-                                        Payment ID
+                                            Payment ID
                                             </Title>
                                         <Input
                                             placeholder="Payment ID"
@@ -233,7 +240,7 @@ const PostOrder = () => {
                                     {errors.payment_id && touched && (
                                         <Info error>{errors.payment_id}</Info>
                                     )}
-                                     <Mini>
+                                    <Mini>
                                         <Title>Status</Title>
                                         <Input
                                             placeholder="Status"
@@ -243,7 +250,7 @@ const PostOrder = () => {
                                     {errors.status && touched && (
                                         <Info error>{errors.status}</Info>
                                     )}
-                                     <Mini>
+                                    <Mini>
                                         <Title>Billing Address Line1</Title>
                                         <Input
                                             placeholder="Billing Address Line1"
@@ -263,7 +270,7 @@ const PostOrder = () => {
                                     {errors.billing_address_line2 && touched && (
                                         <Info error>{errors.billing_address_line2}</Info>
                                     )}
-                                      <Mini>
+                                    <Mini>
                                         <Title>Consultation Package Name</Title>
                                         <Input
                                             placeholder="Consultation Package Name"
@@ -273,7 +280,7 @@ const PostOrder = () => {
                                     {errors.consultation_package_name && touched && (
                                         <Info error>{errors.consultation_package_name}</Info>
                                     )}
-                                       <Mini>
+                                    <Mini>
                                         <Title>Consultation Package Duration</Title>
                                         <Input
                                             placeholder="Consultation Package Duration"
@@ -283,7 +290,7 @@ const PostOrder = () => {
                                     {errors.consultation_package_duration && touched && (
                                         <Info error>{errors.consultation_package_duration}</Info>
                                     )}
-                                        <Mini>
+                                    <Mini>
                                         <Title>Amount Paid</Title>
                                         <Input
                                             placeholder="Amount Paid"
@@ -320,55 +327,16 @@ const PostOrder = () => {
 
             {loading ? (<CustomSkeleton />) : (<>
                 <Main>
-                    <h3 style={{ textAlign: "left", marginLeft: "50px", marginBottom: "20px" }}>All Consultation Purchase</h3>
-                    <HContainer>
-                        <Con>
-                            <Title>Data per Page</Title>
-                            <Input value={page}
-                                onChange={(e) => setPage(e.target.value)}
-                                placeholder="Page Size"></Input>
-                        </Con>
-                        <Con>
-                            <Title>Search All</Title>
-                            <Input
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                placeholder="Search all"></Input>
-                        </Con>
-                        <Con>
-                            <Title>Sort By</Title>
-                            <Input
-                                value={sort}
-                                onChange={(e) => setSort(e.target.value)}
-                                placeholder="Sort by"></Input>
-                        </Con>
-                        <Con>
-                            <Title>Sort Order</Title>
-                            <Input
-                                value={order}
-                                onChange={(e) => setOrder(e.target.value)}
-                                placeholder="asc or desc"></Input>
-                        </Con>
-                        <Set>
-                            <Button
-                                variant="contained"
-                                style={{ margin: "10px", background: "#800080" }}
-                                onClick={handleShow}
-                                color="primary">Search</Button>
-                            <Button
-                                variant="contained"
-                                style={{ margin: "10px", background: "#800080" }}
-                                onClick={() => {
-                                    setListOfOrders([])
-                                    setShow(false)
-                                    setPage('')
-                                    setSearch('')
-                                    setSort('')
-                                    setOrder('')
-                                }}
-                                color="primary">Reset</Button>
-                        </Set>
-                    </HContainer>
+                    <TableHeader
+                        title="List of All Consultation Purchase"
+                        csvReport={csvReport}
+                        addHandler={() => {
+                            // TODO: Handle add
+                        }}
+                        searchHandler={(value) => {
+                            // TODO: Handle search
+                        }}
+                    />
                     {show && (<>
                         <TableContainer component={Paper}>
                             <Table className={classes.table} aria-label="simple table">
@@ -400,11 +368,11 @@ const PostOrder = () => {
                                             <TableCell>{orderlist.payment_id}</TableCell>
                                             <TableCell>{orderlist.status}</TableCell>
                                             <TableCell>{orderlist.billing_address_line1}</TableCell>
-                                            <TableCell>{orderlist.billing_address_line2}</TableCell> 
+                                            <TableCell>{orderlist.billing_address_line2}</TableCell>
                                             <TableCell>{orderlist.consultation_package_name}</TableCell>
                                             <TableCell>{orderlist.consultation_package_duration}</TableCell>
                                             <TableCell>{orderlist.amount_paid}</TableCell>
-                                            
+
                                             <TableCell>
                                                 <Button variant="outlined" color="primary"
                                                     onClick={() => handleUpdate(orderlist)}>

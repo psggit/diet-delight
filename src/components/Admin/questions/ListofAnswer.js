@@ -47,6 +47,7 @@ import {
   resetListOfAnswer,
   setListOfAnswer,
 } from "../../../features/adminSlice";
+import TableHeader from '../../reusable/TableHeader';
 
 const useStyles = makeStyles({
   root: {
@@ -232,14 +233,14 @@ const ListofAnswer = () => {
         .filter((user) => user.id === id)
         .map(
           (filteredUserId) =>
-            (filtr_users = [
-              ...filtr_users,
-              [
-                (filtr_users.id = filteredUserId.id),
-                (filtr_users.name =
-                  filteredUserId.first_name + " " + filteredUserId.last_name),
-              ],
-            ])
+          (filtr_users = [
+            ...filtr_users,
+            [
+              (filtr_users.id = filteredUserId.id),
+              (filtr_users.name =
+                filteredUserId.first_name + " " + filteredUserId.last_name),
+            ],
+          ])
         )
     );
 
@@ -484,82 +485,16 @@ const ListofAnswer = () => {
       ) : (
         <>
           <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+            <TableHeader
+              title="List of All Answers"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of Answer
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setListOfAnswers([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                // TODO: Handle search
+              }}
+            />
             {filteredUsers.map((id) => (
               <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>

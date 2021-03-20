@@ -26,6 +26,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import MuiAlert from "@material-ui/lab/Alert";
 
 import CustomSkeleton from "../../../CustomSkeleton";
+import TableHeader from '../../reusable/TableHeader';
 
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -166,13 +167,13 @@ const ListofUser = () => {
     }
     return 0;
   }
-  
+
   function getComparator(order, orderBy) {
     return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
-  
+
   function stableSort(array, comparator) {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
@@ -231,15 +232,15 @@ const ListofUser = () => {
     { id: 'gender', numeric: true, disablePadding: true, label: 'Gender' },
     { id: 'bmi', numeric: true, disablePadding: true, label: 'BMI' },
     { id: 'recommended_calories', numeric: true, disablePadding: true, label: 'Recommended Calories' },
-    
+
   ];
 
   function EnhancedTableHead(props) {
-    const { classes,  order, orderBy, numSelected, rowCount, onRequestSort } = props;
+    const { classes, order, orderBy, numSelected, rowCount, onRequestSort } = props;
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };
-  
+
     return (
       <TableHead>
         <TableRow>
@@ -566,83 +567,17 @@ const ListofUser = () => {
         <CustomSkeleton />
       ) : (
         <>
-          <Main style={{width :"100%"}}>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+          <Main style={{ width: "100%" }}>
+            <TableHeader
+              title="List of All Users"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of Users
-            </h3>
-            <HContainer>
-              {/* <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con> */}
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              {/* <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con> */}
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setUsers([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                // TODO: Handle search
+              }}
+            />
             {show && (
               <>
                 <TableContainer component={Paper} className={classes.container}>

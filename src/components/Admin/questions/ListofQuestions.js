@@ -121,7 +121,6 @@ const ListofQuestions = () => {
         order: values.order,
       }).then((res) => {
         setNotificationConf([true, 'success', 'Question Added Successfully !'])
-        setShowForm(false);
         handleShow();
       }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
     } else {
@@ -133,11 +132,11 @@ const ListofQuestions = () => {
         })
         .then((res) => {
           setNotificationConf([true, 'success', 'Question Updated Successfully !'])
-          setShowForm(false);
           handleShow();
         })
         .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
     }
+    setShowForm(false);
   }
 
   const [showNotification, notificationType, notification] = notificationConf;
@@ -153,11 +152,11 @@ const ListofQuestions = () => {
             color: 'secondary',
             text: 'Delete',
             onClick: () => {
+              setIsDelete(false);
               axios
                 .delete(`questions/${question.id}`)
                 .then(() => {
                   setNotificationConf([true, 'success', 'Question Deleted Successfully !'])
-                  setIsDelete(false);
                   handleShow();
                 })
                 .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
@@ -189,7 +188,7 @@ const ListofQuestions = () => {
       ) : (
         <Main>
           <TableHeader
-            title="List All Question"
+            title="List of All Question"
             csvReport={csvReport}
             addHandler={() => {
               setMode('Add');
