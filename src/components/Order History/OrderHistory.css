@@ -237,7 +237,9 @@ div.vertical_line_OrderHistory {
     height: 2rem;
     margin-top: 22px;
     margin-right: 22px;
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
   }
 
   /* left side card */
@@ -379,6 +381,7 @@ div.vertical_line_OrderHistory {
     padding-top: 2px;
     border: none;
     text-transform: uppercase;
+    letter-spacing: 1px;
   }
   button.select_menu_btn {
     background: #8bc441;
@@ -389,6 +392,7 @@ div.vertical_line_OrderHistory {
     padding-top: 2px;
     border: none;
     text-transform: uppercase;
+    letter-spacing: 1px;
   }
   div.ConsultPkgOrderHistory {
     margin-top: 0rem;
@@ -402,254 +406,307 @@ div.vertical_line_OrderHistory {
     padding-top: 4px;
     border: none;
     text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  p.remaining_days_title_cons{
+    color: #303960;
+    font-family: "Roboto";
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: -1rem;
+    margin-bottom: 4px;
   }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  img.logo_web_order {
-    width: 29%;
-    height: 93px;
-    margin: 1%;
-  }
-  div.select_container_order_histroy {
-    margin-top: -63px;
-  }
-  div.order_bg_container {
-    background-image: url(../../assets/order_history.jpg);
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  img.meal_icon {
-    width: 40px;
-    height: 44px;
-    /* margin: 1rem; */
-    margin-top: 29px;
-    position: relative;
-  }
-  img.logo_web {
-    width: 150px;
-    /* FONT-WEIGHT: 100; */
-    height: 67px;
-    margin: 1%;
-    margin-left: 0px;
-  }
-  p.choose_your_meal_text {
-    padding: 0;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-top: 53px;
-    font-size: 17px;
-  }
-  div.consultancy_Meal_plan_container {
-    /* box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 54%); */
-    margin: 4%;
-    border-radius: 0.4rem;
-    padding: 3%;
-    background: #f2f2f2ad;
-    margin-top: 1rem;
-    border: none;
-    width: 82%;
-    height: auto;
-    margin-bottom: 50px;
-  }
-
-  div.ConsultPkgOrderHistory {
-    margin-top: -3rem;
-  }
-  div.vertical_line_OrderHistory {
-    height: auto;
-    margin-right: 1%;
-  }
-
-  div.Meal_plan_container {
-    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 54%);
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    margin: 4%;
-    border-radius: 0.4rem;
-    padding: 3%;
-    background: #f2f2f2ad;
-    margin-top: 3rem;
-    border: none;
-    width: 82%;
-    height: auto;
-    margin-bottom: 12px;
-  }
-
-  select.select_orderhistory {
-    width: 7rem;
-    height: 2rem;
-    margin-top: 28px;
-    margin-right: 34px;
-    font-size: 12px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 54%);
-  }
-
-  p.title_meal_pkg {
-    color: purple;
-    opacity: 0.9;
-    font-size: 17px;
-
-    font-weight: 750;
-    font-family: sans-serif;
-    letter-spacing: 0.7px;
-  }
-  div.menu_booster_container {
-    display: flex;
-    justify-content: space-between;
-  }
-  p.menu_pkg_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 10px;
-    font-weight: 700;
-  }
-  h6.menu_pkg_subtitle {
-    font-weight: 400;
-    font-size: 10px;
-    margin-right: 0;
-    margin-top: 1px;
-    width: 78px;
-  }
-  p.subscriptionplan_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 10px;
-    font-weight: 700;
-  }
-  h6.subscriptionplan_subtitle {
-    font-weight: 400;
-    font-size: 10px;
-    margin-right: 65px;
-    margin-top: 3px;
-  }
-  p.remaining_days_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 10px;
-    font-weight: 700;
-  }
-  h6.remaining_days_subtitle {
+  h6.remaining_days_title_cons{
     font-weight: 400;
     font-size: 10px;
     margin-right: 0;
     margin-top: 4px;
-    width: 78px;
+    width: 87px;
   }
-  p.address_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 10px;
-    font-weight: 700;
-  }
-  h6.address_subtitle {
-    font-weight: 400;
-    font-size: 10px;
-    margin-right: 16px;
-    margin-top: 3px;
-  }
+  h6.subscriptionplan_subtitle_cons{
+   font-weight: 400;
+   font-size: 10px;
+   margin-right: 0;
+   margin-top: 3px;
+   width: 77px;
+ }
+ img.logo_web_order {
+  width: 29%;
+  height: 93px;
+  margin: 1%;
+}
+div.select_container_order_histroy {
+  margin-top: -63px;
+}
+div.order_bg_container {
+  background-image: url(../../assets/order_history.jpg);
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+img.meal_icon {
+  width: 40px;
+  height: 44px;
+  /* margin: 1rem; */
+  margin-top: 29px;
+  position: relative;
+}
+img.logo_web {
+  width: 150px;
+  /* FONT-WEIGHT: 100; */
+  height: 67px;
+  margin: 1%;
+  margin-left: 0px;
+}
+p.choose_your_meal_text {
+  padding: 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 53px;
+  font-size: 17px;
+}
+div.consultancy_Meal_plan_container {
+  /* box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 54%); */
+  margin: 4%;
+  border-radius: 0.4rem;
+  padding: 3%;
+  background: #f2f2f2ad;
+  margin-top: 1rem;
+  border: none;
+  width: 82%;
+  height: auto;
+  margin-bottom: 50px;
+}
 
-  /* right side card */
+div.ConsultPkgOrderHistory {
+  margin-top: -3rem;
+}
+div.vertical_line_OrderHistory {
+  height: auto;
+  margin-right: 1%;
+}
 
-  div.right_side_container_orderhistory {
-    display: flex;
-    justify-content: space-between;
-  }
-  p.break_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 10px;
-    font-weight: 700;
-  }
-  h6.break_subtitle {
-    font-weight: 600;
-    color: #8bc441;
-    font-size: 10px;
-    margin-right: 34px;
-    margin-top: 1px;
-  }
-  p.order_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 10px;
-    font-weight: 700;
-  }
-  h6.order_subtitle {
-    color: #303960;
-    font-family: "Roboto";
-    font-weight: 400;
-    font-size: 10px;
-    margin-right: 0;
-    margin-top: 3px;
-    width: 90px;
-  }
-  p.order_id_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 10px;
-    font-weight: 700;
-  }
-  h6.order_id_subtitle {
-    font-weight: 400;
-    font-size: 10px;
-    margin-right: 80px;
-    margin-top: 2px;
-  }
-  p.cost_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 10px;
-    font-weight: 700;
-  }
-  h6.cost_subtitle {
-    font-weight: 400;
-    font-size: 10px;
-    margin-right: 0;
-    margin-top: 2px;
-    width: 89px;
-  }
-  div.btn_container_orderhistory {
-    margin-top: 4rem;
-  }
-  button.renew_plan_btn {
-    background: #8bc441;
-    color: white;
-    font-size: 13px;
-    letter-spacing: 3px;
-    width: 10rem;
-    border: none;
-    text-transform: uppercase;
-  }
-  button.select_menu_btn {
-    background: #8bc441;
-    color: white;
-    font-size: 13px;
-    letter-spacing: 3px;
-    width: 10rem;
-    border: none;
-    margin-top: 1rem;
-    text-transform: uppercase;
-  }
-  button.renew_plan_btn_consultion {
-    background: #8bc441;
-    color: white;
-    font-size: 13px;
-    letter-spacing: 3px;
-    width: 10rem;
-    border: none;
-    margin-top: 24px;
-    text-transform: uppercase;
-  }
+div.Meal_plan_container {
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 54%);
+  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  margin: 4%;
+  border-radius: 0.4rem;
+  padding: 3%;
+  background: #f2f2f2ad;
+  margin-top: 3rem;
+  border: none;
+  width: 81%;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+select.select_orderhistory {
+  width: 7rem;
+  height: 2rem;
+  margin-top: 28px;
+  margin-right: 34px;
+  font-size: 13px;
+  border-radius: 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 54%);
+}
+
+p.title_meal_pkg {
+  color: purple;
+  opacity: 0.9;
+  font-size: 17px;
+
+  font-weight: 750;
+  font-family: sans-serif;
+  letter-spacing: 0.7px;
+}
+div.menu_booster_container {
+  display: flex;
+  justify-content: space-between;
+}
+p.menu_pkg_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+}
+h6.menu_pkg_subtitle {
+  font-weight: 400;
+  font-size: 10px;
+  margin-right: 0;
+  margin-top: 1px;
+  width: 78px;
+}
+p.subscriptionplan_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+}
+h6.subscriptionplan_subtitle {
+ font-weight: 400;
+ font-size: 10px;
+ margin-right: 68px;
+ margin-top: 3px;
+}
+p.remaining_days_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+}
+h6.remaining_days_subtitle {
+  font-weight: 400;
+  font-size: 10px;
+  margin-right: 0;
+  margin-top: 4px;
+  width: 78px;
+}
+p.address_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+}
+h6.address_subtitle {
+ font-weight: 400;
+ font-size: 10px;
+ margin-right: 0px;
+ margin-top: 3px;
+ width: 78px;
+}
+
+/* right side card */
+
+div.right_side_container_orderhistory {
+  display: flex;
+  justify-content: space-between;
+}
+p.break_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+}
+h6.break_subtitle {
+  font-weight: 600;
+  color: #8bc441;
+  font-size: 10px;
+  margin-right: 42px;
+  margin-top: 1px;
+}
+p.order_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+}
+h6.order_subtitle {
+  color: #303960;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 10px;
+  margin-right: 0;
+  margin-top: 3px;
+  width: 90px;
+}
+p.order_id_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+}
+h6.order_id_subtitle {
+  font-weight: 400;
+  font-size: 10px;
+  margin-right: 0;
+  margin-top: 2px;
+  width: 89px;
+}
+p.cost_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+}
+h6.cost_subtitle {
+  font-weight: 400;
+  font-size: 10px;
+  margin-right: 0;
+  margin-top: 2px;
+  width: 89px;
+  letter-spacing: 1px;
+}
+div.btn_container_orderhistory {
+  margin-top: 3rem;
+}
+button.renew_plan_btn {
+ background: #8bc441;
+ color: white;
+ font-size: 13px;
+ 
+ width: 7rem;
+ letter-spacing: 2px;
+ border: none;
+ text-transform: uppercase;
+ position: relative;
+ font-weight: 600;
+}
+button.select_menu_btn {
+  background: #8bc441;
+  color: white;
+  font-size: 13px;
+
+  width: 7rem;
+  letter-spacing: 2px;
+  border: none;
+  position: relative;
+  font-weight: 600;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+div.vertical_line_OrderHistory {
+  border-left: 1px solid grey;
+  margin-left: 10px;
+}
+button.renew_plan_btn_consultion {
+ background: #8bc441;
+ color: white;
+ font-size: 13px;
+ letter-spacing: 3px;
+ width: 8rem;
+ border: none;
+ margin-top: 0px;
+ font-weight: 700;
+ text-transform: uppercase;
+}
+p.remaining_days_title_cons{
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  h6.subscriptionplan_subtitle_cons {
+    font-weight: 400;
+    font-size: 13px;
+    margin-right: 0;
+    margin-top: 3px;
+    width: 77px;
+  }
   img.logo_web_order {
     width: 19%;
     height: 95px;
@@ -700,7 +757,7 @@ div.vertical_line_OrderHistory {
     height: 2rem;
     margin-top: 28px;
     margin-right: 34px;
-    font-size: 12px;
+    font-size: 13px;
     border-radius: 5px;
     box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 54%);
   }
@@ -720,36 +777,37 @@ div.vertical_line_OrderHistory {
   p.menu_pkg_title {
     color: #303960;
     font-family: "Roboto";
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
   }
   h6.menu_pkg_subtitle {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 4px;
     width: 77px;
   }
   p.subscriptionplan_title {
     color: #303960;
     font-family: "Roboto";
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
   }
   h6.subscriptionplan_subtitle {
     font-weight: 400;
-    font-size: 12px;
-    margin-right: 63px;
+    font-size: 13px;
+    margin-right: 0;
     margin-top: 4px;
+    width: 77px;
   }
   p.remaining_days_title {
     color: #303960;
     font-family: "Roboto";
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
   }
   h6.remaining_days_subtitle {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 13px;
     margin-right: 0px;
     margin-top: 3px;
     width: 76px;
@@ -757,14 +815,14 @@ div.vertical_line_OrderHistory {
   p.address_title {
     color: #303960;
     font-family: "Roboto";
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
   }
   h6.address_subtitle {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 13px;
     margin-right: 1px;
-    margin-top: 2px;
+    margin-top: 5px;
     width: 76px;
   }
 
@@ -777,56 +835,58 @@ div.vertical_line_OrderHistory {
   p.break_title {
     color: #303960;
     font-family: "Roboto";
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
   }
   h6.break_subtitle {
-    font-weight: 600;
     color: #8bc441;
     font-weight: 400;
-    font-size: 10px;
-    margin-right: 34px;
-    margin-top: 1px;
+    font-size: 13px;
+    margin-right: 0;
+    margin-top: 4px;
+    width: 90px;
   }
   p.order_title {
     color: #303960;
     font-family: "Roboto";
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
   }
   h6.order_subtitle {
     color: #303960;
     font-family: "Roboto";
     font-weight: 400;
-    font-size: 10px;
+    font-size: 13px;
     margin-right: 0;
-    margin-top: 3px;
+    margin-top: 6px;
     width: 90px;
   }
   p.order_id_title {
     color: #303960;
     font-family: "Roboto";
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
   }
   h6.order_id_subtitle {
     font-weight: 400;
-    font-size: 10px;
-    margin-right: 78px;
-    margin-top: 2px;
+    font-size: 13px;
+    margin-right: 0;
+    margin-top: 6px;
+    width: 90px;
   }
   p.cost_title {
     color: #303960;
     font-family: "Roboto";
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
   }
   h6.cost_subtitle {
     font-weight: 400;
-    font-size: 10px;
+    font-size: 13px;
     margin-right: 0px;
-    margin-top: 2px;
+    margin-top: 5px;
     width: 88px;
+    letter-spacing: 1px;
   }
   div.btn_container_orderhistory {
     margin-top: 3.5rem;
@@ -836,7 +896,7 @@ div.vertical_line_OrderHistory {
     color: white;
     font-size: 13px;
     letter-spacing: 3px;
-    width: 10rem;
+    width: 8rem;
     border: none;
     text-transform: uppercase;
   }
@@ -845,7 +905,7 @@ div.vertical_line_OrderHistory {
     color: white;
     font-size: 13px;
     letter-spacing: 3px;
-    width: 10rem;
+    width: 8rem;
     border: none;
     margin-top: 1rem;
     text-transform: uppercase;
@@ -855,252 +915,280 @@ div.vertical_line_OrderHistory {
     color: white;
     font-size: 13px;
     letter-spacing: 3px;
-    width: 10rem;
+    width: 8rem;
     border: none;
     margin-top: 46px;
     text-transform: uppercase;
   }
+  p.remaining_days_title_cons{
+   color: #303960;
+   font-family: "Roboto";
+   font-size: 13px;
+   font-weight: 700;
+   margin-bottom: 6px;
+ }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-  div.MealpkgOrderHistory {
-    display: grid;
-    place-items: end;
-  }
-  img.logo_web_order {
-    width: 14%;
-    height: 88px;
-    margin: 2%;
-    margin-top: 46px;
-  }
-  div.order_bg_container {
-  }
-  p.choose_your_meal_text {
-    padding: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-top: 64px;
-    font-size: 22px;
-    position: relative;
-  }
-  img.meal_icon {
-    width: 40px;
-    height: 44px;
-    margin: 1rem;
-    margin-top: 76px;
-    position: relative;
-  }
-  img.logo_web {
-    width: 153px;
-    /* FONT-WEIGHT: 100; */
-    height: 70px;
-    margin: 3%;
-    margin-left: 2.5%;
-    cursor: pointer;
-    padding: 0.5%;
-    margin-top: 25%;
-  }
-  div.consultancy_Meal_plan_container {
-    /* box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 54%); */
-    margin: 4%;
-    border-radius: 0.4rem;
-    padding: 3%;
-    background: #f2f2f2ad;
-    margin-top: 1rem;
-    border: none;
-    width: 69%;
-    height: auto;
-    margin-bottom: 46px;
-  }
-  div.ConsultPkgOrderHistory {
-    margin-top: -3rem;
-  }
-  div.vertical_line_OrderHistory {
-    height: auto;
-    margin-right: 3%;
-    margin-left: 3%;
-  }
+  p.remaining_days_title_cons{
+   color: #303960;
+   font-family: "Roboto";
+   font-size: 15px;
+   font-weight: 700;
+ }
+ div.MealpkgOrderHistory {
+  display: grid;
+  place-items: end;
+}
+img.logo_web_order {
+  width: 14%;
+  height: 88px;
+  margin: 2%;
+  margin-top: 46px;
+}
+div.order_bg_container {
+}
+p.choose_your_meal_text {
+  padding: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 64px;
+  font-size: 22px;
+  position: relative;
+}
+img.meal_icon {
+  width: 40px;
+  height: 44px;
+  margin: 1rem;
+  margin-top: 76px;
+  position: relative;
+}
+img.logo_web {
+  width: 153px;
+  /* FONT-WEIGHT: 100; */
+  height: 70px;
+  margin: 3%;
+  margin-left: 2.5%;
+  cursor: pointer;
+  padding: 0.5%;
+  margin-top: 25%;
+}
+div.consultancy_Meal_plan_container {
+  /* box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 54%); */
+  margin: 4%;
+  border-radius: 0.4rem;
+  padding: 3%;
+  background: #f2f2f2ad;
+  margin-top: 1rem;
+  border: none;
+  width: 63%;
+  height: auto;
+  margin-bottom: 46px;
+}
+div.ConsultPkgOrderHistory {
+  margin-top: -3rem;
+}
+div.vertical_line_OrderHistory {
+  height: auto;
+  margin-right: 3%;
+  margin-left: 3%;
+}
 
-  div.Meal_plan_container {
-    box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 54%);
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    margin: 4%;
-    border-radius: 0.4rem;
-    padding: 3%;
-    margin-top: 3rem;
-    border: none;
-    width: 69%;
-    height: auto;
-    margin-bottom: 21px;
-  }
+div.Meal_plan_container {
+  box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 54%);
+  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  margin: 4%;
+  border-radius: 0.4rem;
+  padding: 3%;
+  margin-top: 3rem;
+  border: none;
+  width: 63%;
+  height: auto;
+  margin-bottom: 21px;
+}
 
-  select.select_orderhistory {
-    width: 7rem;
-    height: 2rem;
-    margin-top: 28px;
-    margin-right: 34px;
-    font-size: 12px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 54%);
-  }
+select.select_orderhistory {
+ width: 7rem;
+ height: 2rem;
+ margin-top: 28px;
+ margin-right: 34px;
+ font-size: 15px;
+ border-radius: 5px;
+ box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 54%);
+}
 
-  p.title_meal_pkg {
-    color: purple;
-    opacity: 0.9;
-    font-size: 24px;
-    font-weight: 750;
-    font-family: sans-serif;
-    letter-spacing: 0.7px;
-  }
-  div.menu_booster_container {
-    display: flex;
-    justify-content: space-between;
-  }
-  p.menu_pkg_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 15px;
-    font-weight: 700;
-  }
-  h6.menu_pkg_subtitle {
-    font-weight: 400;
-    font-size: 13px;
-    margin-right: 0;
-    margin-top: 5px;
-    width: 84px;
-  }
-  p.subscriptionplan_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 15px;
-    font-weight: 700;
-  }
-  h6.subscriptionplan_subtitle {
-    font-weight: 400;
-    font-size: 13px;
-    margin-right: 70px;
-    margin-top: 4px;
-  }
-  p.remaining_days_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 15px;
-    font-weight: 700;
-  }
-  h6.remaining_days_subtitle {
-    font-weight: 400;
-    font-size: 13px;
-    margin-right: 0px;
-    margin-top: 6px;
-    width: 84px;
-  }
-  p.address_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 15px;
-    font-weight: 700;
-  }
-  h6.address_subtitle {
-    font-weight: 400;
-    font-size: 13px;
-    margin-right: 1px;
-    margin-top: 6px;
-    width: 83px;
-  }
+p.title_meal_pkg {
+  color: purple;
+  opacity: 0.9;
+  font-size: 24px;
+  font-weight: 750;
+  font-family: sans-serif;
+  letter-spacing: 0.7px;
+}
+div.menu_booster_container {
+  display: flex;
+  justify-content: space-between;
+}
+p.menu_pkg_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-weight: 700;
+}
+h6.menu_pkg_subtitle {
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 0;
+  margin-top: 5px;
+  width: 84px;
+  letter-spacing: 1px;
+}
+p.subscriptionplan_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-weight: 700;
+}
+h6.subscriptionplan_subtitle_cons {
+ font-weight: 400;
+ font-size: 14px;
+ margin-right: 0;
+ margin-top: 5px;
+ width: 83px;
+ letter-spacing: 1px;
+}
+h6.subscriptionplan_subtitle {
+ font-weight: 400;
+ font-size: 15px;
+ margin-right: 0;
+ margin-top: 4px;
+ width: 84px;
+ letter-spacing: 1px;
+}
+p.remaining_days_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-weight: 700;
+}
+h6.remaining_days_subtitle {
+  font-weight: 400;
+  font-size: 15px;
+  margin-right: 0px;
+  margin-top: 6px;
+  width: 84px;
+  letter-spacing: 1px;
+}
+p.address_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-weight: 700;
+}
+h6.address_subtitle {
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 1px;
+  margin-top: 6px;
+  width: 83px;
+  letter-spacing: 1px;
+}
 
-  /* right side card */
+/* right side card */
 
-  div.right_side_container_orderhistory {
-    display: flex;
-    justify-content: space-between;
-  }
-  p.break_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 15px;
-    font-weight: 700;
-  }
-  h6.break_subtitle {
-    font-weight: 600;
-    color: #8bc441;
-    font-weight: 400;
-    font-size: 13px;
-    margin-right: 51px;
-    margin-top: 6px;
-  }
-  p.order_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 15px;
-    font-weight: 700;
-  }
-  h6.order_subtitle {
-    color: #303960;
-    font-family: "Roboto";
-    font-weight: 400;
-    font-size: 13px;
-    margin-right: 7px;
-    margin-top: 6px;
-    width: 115px;
-  }
-  p.order_id_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 15px;
-    font-weight: 700;
-  }
-  h6.order_id_subtitle {
-    font-weight: 400;
-    font-size: 13px;
-    margin-right: 105px;
-    margin-top: 5px;
-  }
-  p.cost_title {
-    color: #303960;
-    font-family: "Roboto";
-    font-size: 15px;
-    font-weight: 700;
-  }
-  h6.cost_subtitle {
-    font-weight: 400;
-    font-size: 13px;
-    margin-right: 0;
-    margin-top: 6px;
-    width: 123px;
-  }
-  div.btn_container_orderhistory {
-    margin-top: 4.5rem;
-  }
-  button.renew_plan_btn {
-    background: #8bc441;
-    color: white;
-    font-size: 17px;
-    letter-spacing: 3px;
-    width: 11rem;
-    border: none;
-    text-transform: uppercase;
-  }
-  button.select_menu_btn {
-    background: #8bc441;
-    color: white;
-    font-size: 17px;
-    letter-spacing: 3px;
-    width: 11rem;
-    border: none;
-    margin-top: 1.1rem;
-    text-transform: uppercase;
-  }
-  button.renew_plan_btn_consultion {
-    background: #8bc441;
-    color: white;
-    font-size: 17px;
-    letter-spacing: 3px;
-    width: 11rem;
-    border: none;
-    margin-top: 41px;
-    text-transform: uppercase;
-  }
+div.right_side_container_orderhistory {
+  display: flex;
+  justify-content: space-between;
+}
+p.break_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-weight: 700;
+}
+h6.break_subtitle {
+  color: #8bc441;
+  font-weight: 400;
+  font-size: 15px;
+  margin-right: 0;
+  margin-top: 6px;
+  width: 145px;
+  letter-spacing: 1px;
+}
+p.order_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-weight: 700;
+}
+h6.order_subtitle {
+  color: #303960;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 0;
+  margin-top: 6px;
+  width: 145px;
+}
+p.order_id_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-weight: 700;
+}
+h6.order_id_subtitle {
+ font-weight: 400;
+ font-size: 14px;
+ margin-right: 0;
+ margin-top: 5px;
+ width: 145px;
+}
+p.cost_title {
+  color: #303960;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-weight: 700;
+}
+h6.cost_subtitle {
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 0;
+  margin-top: 6px;
+  width: 145px;
+}
+div.btn_container_orderhistory {
+  margin-top: 4.5rem;
+}
+button.renew_plan_btn {
+  background: #8bc441;
+  color: white;
+  font-size: 17px;
+  letter-spacing: 3px;
+  width: 10rem;
+  border: none;
+  text-transform: uppercase;
+}
+button.select_menu_btn {
+  background: #8bc441;
+  color: white;
+  font-size: 17px;
+  letter-spacing: 3px;
+  width: 10rem;
+  border: none;
+  margin-top: 1.1rem;
+  text-transform: uppercase;
+}
+button.renew_plan_btn_consultion {
+  background: #8bc441;
+  color: white;
+  font-size: 17px;
+  letter-spacing: 3px;
+  width: 10rem;
+  border: none;
+  margin-top: 41px;
+  text-transform: uppercase;
+}
 }

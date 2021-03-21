@@ -1,4 +1,4 @@
-.calender_dialog_bg{
+.calender_dialog_bg_new{
   background-image: url("../../../assets/consultant.jpg");
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
@@ -200,7 +200,7 @@ h6.breaks_header{
 div.dialog_signup_new{
   margin-top: 15px;
 }
-.calender_dialog_bg{
+.calender_dialog_bg_new{
 
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
@@ -249,9 +249,9 @@ span.done_all_icon{
  div.dialog_signup_new{
   margin-top: 15px;
 }
-.calender_dialog_bg{
+.calender_dialog_bg_new{
 
- height: 500px;
+ height: 381px;
  background-position: center;
  background-repeat: no-repeat;
  background-size: cover;
@@ -340,7 +340,7 @@ h6.breaks_header{
 div.dialog_signup_new{
   margin-top: 15px;
 }
-.calender_dialog_bg{
+.calender_dialog_bg_new{
 
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */

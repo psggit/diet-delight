@@ -4,9 +4,14 @@ import './importMenu.css'
 
 
 
+
 export default function ImportMenu() {
 
     
+
+    var csvjson = require('csvjson');
+    
+
 
 
 
@@ -22,34 +27,21 @@ export default function ImportMenu() {
             // console.log(arrayOfFile)
             let inputFileName = e.target.files['0'].name;
             console.log(inputFileName)
-            var lines=arrayOfFile.split("\n");
-            console.log(lines)
+          
+            var data = arrayOfFile;
 
-            var result = [];
-          
-            var headers=lines[0].split(",");
-          
-            for(var i=1;i<lines.length;i++){
-          
-                var obj = {};
-                var lengthOfLine = lines[i].length;
-                if(lengthOfLine > 0){
-                var currentline=lines[i].split(",");
-                console.log(currentline)
-          
-                for(var j=0;j<headers.length;j++){
-                    obj[headers[j]] = currentline[j];
-                }
-          
-                result.push(obj);}
-            }
-            
-            //return result; //JavaScript object
-            // console.log(result);
-            console.log(result['0']) //JSON
-            // console.log(JSON.stringify(result))
+            var options = {
+                delimiter : ',', // optional
+                quote     : '"' // optional
+              };
 
-            uploadFile(result)
+
+
+             var convertedForm = csvjson.toSchemaObject(data, options)
+
+             console.log(convertedForm);
+            uploadFile(convertedForm)
+
 
 
 
