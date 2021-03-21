@@ -12,10 +12,23 @@ export default function ChangePassword(props){
     const[confirmPassword,setConfirmPassword] = useState('');
 
 
+    const handlePasswordCheck = (e) => {
+        var getMessageBox = document.getElementById('successErrorMessage');
+        if(e.target.value === newPassword){
+            getMessageBox.innerHTML = "";
+            setConfirmPassword(e.target.value)
+        }else{
+            getMessageBox.innerHTML = "Password doesn't Matched";
+        }
+
+    }
+
+
     const handlePasswordChange = () => {
         console.log(currentPassword)
+        var getMessageBox = document.getElementById('successErrorMessage');
         if(newPassword === confirmPassword){
-
+            getMessageBox.innerHTML = "";
             axios.post(`update-password`,{
                 headers: { 
                     Authorization: `Bearer ${localStorage.getItem('access_token')}` 
@@ -29,6 +42,8 @@ export default function ChangePassword(props){
                     props.closeChangePassword()
                 }
             })
+        }else{
+            getMessageBox.innerHTML = "Password Mismatched"
         }
     }
     return(
@@ -38,7 +53,10 @@ export default function ChangePassword(props){
         </div>
         <Input type="password" className="pwd_change" placeholder="Current Password" onChange={(e) => setCurrentPassword(e.target.value)}></Input>
         <Input type="password" placeholder="New Password" onChange={(e) => setNewPassword(e.target.value)}></Input>
-        <Input type="password" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)}></Input>
+        <Input type="password" placeholder="Confirm Password" onChange={(e) => {
+            handlePasswordCheck(e);
+        }}></Input>
+        <span id="successErrorMessage"></span>
         <Button onClick={() => handlePasswordChange()}>CHANGE PASSWORD</Button>
         </div>
     );
