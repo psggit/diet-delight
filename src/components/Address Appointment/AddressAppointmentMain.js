@@ -9,6 +9,7 @@ import Mealchoose from "../Mealchoose.js";
 import AddressDialogBox from '../Address Appointment/AddressDialogBox'
 
 export default function AddressAppointmentMain(props) {
+  console.log(props)
   let history = useHistory();
   const [address, setAddress] = useState("");
   const [user, setUser] = useState([]);
@@ -173,6 +174,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
   };
 
   const applyCoupon = () => {
+  
     axios
       .get("coupons")
       .then((res) => {

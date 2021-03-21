@@ -41,7 +41,7 @@ const Signup = () => {
     console.log(callingCountries)
     console.log(typeof(callingCountries))
     const options = useMemo(() => countryList().getValues (), [])
-    const [otpDialog, setOtpDialog] = useState(true)
+    const [otpDialog, setOtpDialog] = useState(false)
     const [disabled,setDisabled] = useState(false)
     let phoneNumber = useRef("");
     
@@ -144,9 +144,10 @@ const Signup = () => {
     }
 
     
-    const storeOtp = (value) => {
-        if(value.length <= 6){
-            setOtp(value)
+    const storeOtp = (e) => {
+        console.log("Hello")
+        if(e.target.value.length <= 6){
+            setOtp(e.target.value)
         }
     }
 
@@ -270,7 +271,7 @@ aria-labelledby="responsive-dialog-title"
 
 <div className="row justify-content-center" style={{width:'100%'}}>
 
-<input type="text" value={otp} placeholder="000000" required className="input_dialog_signup" id="num1" disabled={disabled} onChange={(e) => storeOtp(e.target.value)}></input>
+<input type="text" value={otp} placeholder="000000" required className="input_dialog_signup" id="num1" disabled={disabled} onChange={(e) => storeOtp(e)}></input>
 </div>
 
 <span id="successErrorMessageForWrongOtp" style={{color:'red', fontWeight:800}}></span>
