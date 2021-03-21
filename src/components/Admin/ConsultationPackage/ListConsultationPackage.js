@@ -4,7 +4,6 @@ import axios from "../../../axiosInstance";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -40,6 +39,8 @@ import {
   Info,
   Container,
 } from "./QuestionElements";
+import Table from '../../reusable/Table';
+import { Edit, Delete } from '@material-ui/icons';
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { CSVLink } from "react-csv";
@@ -68,8 +69,8 @@ const ListConsultationPackage = () => {
   const consultationPackage = useSelector(selectConsultationPackage);
   const [page, setPage] = useState("");
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Issuccess, setIsSuccess] = useState(false);
@@ -424,65 +425,55 @@ const ListConsultationPackage = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer style={{ margin: "10px 0" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Duration</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Subtitle</TableCell>
-                        <TableCell>Details</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>Sale_price</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {consultantPackages.map((consultationPack) => (
-                        <TableRow key={consultationPack.id}>
-                          <TableCell component="th" scope="row">
-                            {consultationPack.id}
-                          </TableCell>
-                          <TableCell>{consultationPack.name}</TableCell>
-                          <TableCell>{consultationPack.status}</TableCell>
-                          <TableCell>{consultationPack.duration}</TableCell>
-                          <TableCell>{consultationPack.order}</TableCell>
-                          <TableCell>{consultationPack.subtitle}</TableCell>
-                          <TableCell>{consultationPack.details}</TableCell>
-                          <TableCell>{consultationPack.picture}</TableCell>
-                          <TableCell>{consultationPack.price}</TableCell>
-                          <TableCell>{consultationPack.sale_price}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(consultationPack)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(consultationPack)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'duration', label: 'Duration', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'subtitle', label: 'Sub Title', sort: true },
+                    { id: 'details', label: 'Details', sort: false },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'price', label: 'Price', sort: true },
+                    { id: 'sale_price', label: 'Sale Price', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: consultantPackages.map((cPackage) => {
+                    return [
+                      cPackage.name,
+                      cPackage.status,
+                      cPackage.duration,
+                      cPackage.order,
+                      cPackage.subtitle,
+                      cPackage.details,
+                      <a href={cPackage.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      cPackage.price,
+                      cPackage.sale_price,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(cPackage);
+                            // handleUpdate(cPackage);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

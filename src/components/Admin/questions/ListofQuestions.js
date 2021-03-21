@@ -29,8 +29,8 @@ const ListofQuestions = () => {
   const question = useSelector(selectQuestion);
   const [page, setPage] = useState("");
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('question');
+  const [order, setOrder] = useState('asc');
   const [mode, setMode] = useState('Add');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -201,7 +201,12 @@ const ListofQuestions = () => {
           {show && (
             <Table
               dataSource={{
-                columns: ['Question', 'Type', 'Order', ''],
+                columns: [
+                  { id: 'question', label: 'Question', sort: true }, 
+                  { id: 'type', label: 'Type', sort: true }, 
+                  { id: 'order', label: 'Order', sort: true },
+                  { id: 'actions', label: '', sort: false },
+                ],
                 rows: questions.map((q) => {
                   return [
                     q.question,
@@ -221,6 +226,12 @@ const ListofQuestions = () => {
                     </>
                   ]
                 })
+              }}
+              order={order}
+              orderBy={sort}
+              onSortClick={(key) => {
+                setOrder(order === 'asc' ? 'desc' : 'asc');
+                setSort(key);
               }}
             />
           )}

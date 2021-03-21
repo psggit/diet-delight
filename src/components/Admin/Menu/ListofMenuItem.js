@@ -4,7 +4,6 @@ import axios from "../../../axiosInstance";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -19,6 +18,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -28,6 +28,7 @@ import {
   selectMenuItem,
   resetMenuItem,
 } from "../../../features/adminSlice";
+import Table from '../../reusable/Table';
 
 import {
   Main,
@@ -62,8 +63,8 @@ const ListofMenuItem = () => {
   const menuitem = useSelector(selectMenuItem);
   const [page, setPage] = useState("");
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Issuccess, setIsSuccess] = useState(false);
@@ -389,64 +390,55 @@ const ListofMenuItem = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer style={{ margin: "10px 0" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Menu ID</TableCell>
-                        <TableCell>Menu Category ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Day</TableCell>
-                        <TableCell>Featured</TableCell>
-                        <TableCell>Veg</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {menuitems.map((menuitem) => (
-                        <TableRow key={menuitem.id}>
-                          <TableCell component="th" scope="row">
-                            {menuitem.id}
-                          </TableCell>
-                          <TableCell>{menuitem.menu_id}</TableCell>
-                          <TableCell>{menuitem.menu_category_id}</TableCell>
-                          <TableCell>{menuitem.name}</TableCell>
-                          <TableCell>{menuitem.picture}</TableCell>
-                          <TableCell>{menuitem.date}</TableCell>
-                          <TableCell>{menuitem.day}</TableCell>
-                          <TableCell>{menuitem.featured}</TableCell>
-                          <TableCell>{menuitem.veg}</TableCell>
-                          <TableCell>{menuitem.order}</TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(menuitem)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(menuitem)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'menu_id', label: 'Menu ID', sort: true },
+                    { id: 'menu_category_id', label: 'Menu Category', sort: true },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'date', label: 'Date', sort: true },
+                    { id: 'day', label: 'Day', sort: true },
+                    { id: 'featured', label: 'Featured', sort: true },
+                    { id: 'veg', label: 'Veg', sort: false },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: menuitems.map((item) => {
+                    return [
+                      item.name,
+                      item.menu_id,
+                      item.menu_category_id,
+                      <a href={item.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      item.date,
+                      item.day,
+                      item.featured,
+                      item.veg,
+                      item.order,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(item);
+                            // handleUpdate(item);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

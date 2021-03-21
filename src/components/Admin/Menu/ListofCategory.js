@@ -4,7 +4,6 @@ import axios from "../../../axiosInstance";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -19,6 +18,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -29,6 +29,7 @@ import {
   resetCategory,
 } from "../../../features/adminSlice";
 import TableHeader from '../../reusable/TableHeader';
+import Table from '../../reusable/Table';
 
 import {
   Main,
@@ -58,12 +59,12 @@ const useStyles = makeStyles({
 const ListofCategory = () => {
   const dispatch = useDispatch();
 
-  const [categorys, setCategorys] = useState([]);
+  const [categories, setCategories] = useState([]);
   const category = useSelector(selectCategory);
   const [page, setPage] = useState("");
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Issuccess, setIsSuccess] = useState(false);
@@ -72,7 +73,7 @@ const ListofCategory = () => {
 
   let current_date_Time = new Date();
   const csvReport = {
-    data: categorys,
+    data: categories,
     filename: `List_of_categorys_${current_date_Time}.csv`,
   };
 
@@ -88,7 +89,7 @@ const ListofCategory = () => {
       )
       .then((res) => {
         console.log(res, "useeffect from list category");
-        setCategorys(res.data.data);
+        setCategories(res.data.data);
         setShow(true);
         setLoading(false);
       })
@@ -107,7 +108,7 @@ const ListofCategory = () => {
       )
       .then((res) => {
         console.log(res);
-        setCategorys(res.data.data);
+        setCategories(res.data.data);
         setShow(true);
       })
       .catch((err) => console.log(err));
@@ -340,57 +341,45 @@ const ListofCategory = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer style={{ margin: "10px 0" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Menu ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Parent</TableCell>
-                        <TableCell>Max Buy</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {categorys.map((cate) => (
-                        <TableRow key={cate.id}>
-                          <TableCell component="th" scope="row">
-                            {cate.id}
-                          </TableCell>
-                          <TableCell>{cate.menu_id}</TableCell>
-                          <TableCell>{cate.name}</TableCell>
-                          <TableCell>{cate.parent}</TableCell>
-                          <TableCell>{cate.max_buy}</TableCell>
-                          <TableCell>{cate.order}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(cate)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(cate)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'menu_id', label: 'Menu', sort: true },
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'parent', label: 'Parent', sort: true },
+                    { id: 'max_buy', label: 'Max Buy', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: categories.map((category) => {
+                    return [
+                      category.menu_id,
+                      category.name,
+                      category.parent,
+                      category.max_buy,
+                      category.order,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(q);
+                            // handleUpdate(q);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

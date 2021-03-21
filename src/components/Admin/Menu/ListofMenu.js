@@ -4,7 +4,6 @@ import axios from "../../../axiosInstance";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -19,6 +18,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -40,6 +40,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { CSVLink } from "react-csv";
 import TableHeader from '../../reusable/TableHeader';
+import Table from '../../reusable/Table';
 
 const useStyles = makeStyles({
   root: {
@@ -64,8 +65,8 @@ const ListofMenu = () => {
   const menu = useSelector(selectMenu);
   const [page, setPage] = useState("");
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Issuccess, setIsSuccess] = useState(false);
@@ -341,61 +342,47 @@ const ListofMenu = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer style={{ margin: "10px 0" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Details</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {menus.map((menu) => (
-                        <TableRow key={menu.id}>
-                          <TableCell component="th" scope="row">
-                            {menu.id}
-                          </TableCell>
-                          <TableCell>{menu.name}</TableCell>
-                          <TableCell>{menu.details}</TableCell>
-                          <TableCell>
-                            <div style={{ overflow: "hidden", width: "400px" }}>
-                              {menu.picture}
-                            </div>
-                          </TableCell>
-                          <TableCell>{menu.status}</TableCell>
-                          <TableCell>{menu.order}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(menu)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(menu)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'details', label: 'Details', sort: false },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: menus.map((menu) => {
+                    return [
+                      menu.name,
+                      menu.details,
+                      <a href={menu.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      menu.status,
+                      menu.order,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(menu);
+                            // handleUpdate(menu);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

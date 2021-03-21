@@ -5,7 +5,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -21,10 +20,11 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
+import { Edit, Delete } from '@material-ui/icons';
 
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { CSVLink } from "react-csv";
+import Table from '../../reusable/Table';
 import TableHeader from '../../reusable/TableHeader';
 
 import {
@@ -90,8 +90,8 @@ const ListofDuration = () => {
   const [page, setPage] = useState("");
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('title');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -401,59 +401,49 @@ const ListofDuration = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Duration</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Subtitle</TableCell>
-                        <TableCell>Details</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {listOfDurations.map((durationlist) => (
-                        <TableRow key={durationlist.id}>
-                          <TableCell component="th" scope="row">
-                            {durationlist.id}
-                          </TableCell>
-                          <TableCell>{durationlist.title}</TableCell>
-                          <TableCell>{durationlist.duration}</TableCell>
-                          <TableCell>{durationlist.order}</TableCell>
-                          <TableCell>{durationlist.subtitle}</TableCell>
-                          <TableCell>{durationlist.details}</TableCell>
-                          <TableCell>{durationlist.picture}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(durationlist)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(durationlist)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'title', label: 'Title', sort: true },
+                    { id: 'duration', label: 'Duration', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'subtitle', label: 'Subtitle', sort: true },
+                    { id: 'details', label: 'Details', sort: false },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: listOfDurations.map((duration) => {
+                    return [
+                      duration.title,
+                      duration.duration,
+                      duration.order,
+                      duration.subtitle,
+                      duration.details,
+                      <a href={duration.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(duration);
+                            // handleUpdate(duration);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

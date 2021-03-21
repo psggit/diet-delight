@@ -6,7 +6,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -21,6 +20,7 @@ import {
   MenuItem,
   Snackbar,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
 import { Formik } from "formik";
@@ -34,6 +34,7 @@ import {
   resetMealPlan,
   selectMealPlan,
 } from "../../../features/adminSlice";
+import Table from '../../reusable/Table';
 
 import {
   Main,
@@ -83,8 +84,8 @@ const ListofMealPlan = () => {
   const [meals, setMeals] = useState([]);
   const [page, setPage] = useState("");
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -467,70 +468,61 @@ const ListofMealPlan = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer style={{ marginTop: "20px" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Menu ID</TableCell>
-                        <TableCell>Duration ID</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Type</TableCell>
-                        <TableCell>Duration</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Subtitle</TableCell>
-                        <TableCell>Details</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>Sales Price</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {meals.map((mealPack) => (
-                        <TableRow key={mealPack.id}>
-                          <TableCell component="th" scope="row">
-                            {mealPack.id}
-                          </TableCell>
-                          <TableCell>{mealPack.name}</TableCell>
-                          <TableCell>{mealPack.menu_id}</TableCell>
-                          <TableCell>{mealPack.duration_id}</TableCell>
-                          <TableCell>{mealPack.status}</TableCell>
-                          <TableCell>{mealPack.type}</TableCell>
-                          <TableCell>{mealPack.duration}</TableCell>
-                          <TableCell>{mealPack.order}</TableCell>
-                          <TableCell>{mealPack.subtitle}</TableCell>
-                          <TableCell>{mealPack.details}</TableCell>
-                          <TableCell>{mealPack.picture}</TableCell>
-                          <TableCell>{mealPack.price}</TableCell>
-                          <TableCell>{mealPack.sale_price}</TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(mealPack)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(mealPack)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'menu_id', label: 'Menu', sort: true },
+                    { id: 'duration_id', label: 'Duration Id', sort: false },
+                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'type', label: 'Type', sort: true },
+                    { id: 'duration', label: 'Duration', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'subtitle', label: 'Subtitle', sort: true },
+                    { id: 'details', label: 'Details', sort: false },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'price', label: 'Price', sort: true },
+                    { id: 'sale_price', label: 'Sales Price', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: meals.map((meal) => {
+                    return [
+                      meal.name,
+                      meal.menu_id,
+                      meal.duration_id,
+                      meal.status,
+                      meal.type,
+                      meal.duration,
+                      meal.order,
+                      meal.subtitle,
+                      meal.details,
+                      <a href={meal.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      meal.price,
+                      meal.sale_price,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(meal);
+                            // handleUpdate(meal);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
           </Main>
           <Snackbar

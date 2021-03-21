@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react'
 import axios from '../../../axiosInstance';
 import CustomSkeleton from '../../../CustomSkeleton';
 
-import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogContent, DialogTitle, Snackbar, Select, MenuItem } from '@material-ui/core'
+import { makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogContent, DialogTitle, Snackbar, Select, MenuItem } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
+import { Edit, Delete } from '@material-ui/icons';
 
 import { Formik } from 'formik'
-import { CSVLink } from "react-csv";
+import Table from '../../reusable/Table';
 
 // import * as Yup from 'yup'
 
@@ -44,8 +45,8 @@ const ListofOrder = () => {
   const [page, setPage] = useState('')
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
-  const [sort, setSort] = useState('')
-  const [order, setOrder] = useState('')
+  const [sort, setSort] = useState('meal_plan_name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false)
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -480,89 +481,61 @@ const ListofOrder = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>User ID</TableCell>
-                        <TableCell>Meal Plan ID</TableCell>
-                        <TableCell>Payment ID</TableCell>
-                        <TableCell>Satus</TableCell>
-                        <TableCell>Billing Address Line1</TableCell>
-                        <TableCell>Billing Address Line2</TableCell>
-                        <TableCell>Shipping Address Line1</TableCell>
-                        <TableCell>Shipping Address Line2</TableCell>
-                        <TableCell>Meal Plan Name</TableCell>
-                        <TableCell>Meal Plan Duration</TableCell>
-                        <TableCell>Amount Paid</TableCell>
-                        <TableCell>Start Date</TableCell>
-                        <TableCell>End Date</TableCell>
-                        <TableCell>Weekdays</TableCell>
-                        <TableCell>Kcal</TableCell>
-                        <TableCell>Portions</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {listoforders.map((orderlist) => (
-                        <TableRow key={orderlist.id}>
-                          <TableCell component="th" scope="row">
-                            {orderlist.id}
-                          </TableCell>
-                          <TableCell>{orderlist.user_id}</TableCell>
-                          <TableCell>{orderlist.meal_plan_id}</TableCell>
-                          <TableCell>{orderlist.payment_id}</TableCell>
-                          <TableCell>{orderlist.status}</TableCell>
-                          <TableCell>
-                            {orderlist.billing_address_line1}
-                          </TableCell>
-                          <TableCell>
-                            {orderlist.billing_address_line2}
-                          </TableCell>
-                          <TableCell>
-                            {orderlist.shipping_address_line1}
-                          </TableCell>
-                          <TableCell>
-                            {orderlist.shipping_address_line2}
-                          </TableCell>
-                          <TableCell>{orderlist.meal_plan_name}</TableCell>
-                          <TableCell>
-                            {orderlist.meal_plan_duration}
-                          </TableCell>
-                          <TableCell>{orderlist.amount_paid}</TableCell>
-                          <TableCell>{orderlist.start_date}</TableCell>
-                          <TableCell>{orderlist.end_date}</TableCell>
-                          <TableCell>{orderlist.weekdays}</TableCell>
-                          <TableCell>{orderlist.kcal}</TableCell>
-                          <TableCell>{orderlist.portions}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(orderlist)}
-                            >
-                              Update
-                              </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(orderlist)}
-                            >
-                              Delete
-                              </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'user_id', label: 'User ID', sort: true },
+                    { id: 'meal_plan_name', label: 'Meal Plan', sort: true },
+                    { id: 'payment_id', label: 'Payment ID', sort: false },
+                    { id: 'satus', label: 'Satus', sort: true },
+                    { id: 'billing_address', label: 'Billing Address', sort: false },
+                    { id: 'shipping_address', label: 'Shipping Address', sort: false },
+                    { id: 'meal_plan_duration', label: 'Meal Plan Duration', sort: true },
+                    { id: 'amount_paid', label: 'Amount Paid', sort: true },
+                    { id: 'start_date', label: 'Start Date', sort: true },
+                    { id: 'end_date', label: 'End Date', sort: true },
+                    { id: 'weekdays', label: 'Weekdays', sort: false },
+                    { id: 'kcal', label: 'Kcal', sort: true },
+                    { id: 'portions', label: 'Portions', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: listoforders.map((order) => {
+                    return [
+                      order.user_id,
+                      order.meal_plan_name,
+                      order.payment_id,
+                      order.satus,
+                      `${order.billing_address_line1 || ''} ${order.billing_address_line2 || ''}`,
+                      `${order.shipping_address_line1 || ''} ${order.shipping_address_line2 || ''}`,
+                      order.meal_plan_duration,
+                      order.amount_paid,
+                      order.start_date,
+                      order.end_date,
+                      order.weekdays,
+                      order.kcal,
+                      order.portions,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(q);
+                            // handleUpdate(q);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

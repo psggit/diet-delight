@@ -5,7 +5,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -20,10 +19,11 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
 import { Formik } from "formik";
-import { CSVLink } from "react-csv";
+import Table from '../../reusable/Table';
 // import * as Yup from 'yup'
 
 import {
@@ -63,8 +63,8 @@ const ListofBlog = () => {
   const [page, setPage] = useState("");
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('title');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -372,59 +372,49 @@ const ListofBlog = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Slug</TableCell>
-                        <TableCell>Content</TableCell>
-                        <TableCell>Featured Image</TableCell>
-                        <TableCell>Published At</TableCell>
-                        <TableCell>Author ID</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {listOfBlogs.map((bloglist) => (
-                        <TableRow key={bloglist.id}>
-                          <TableCell component="th" scope="row">
-                            {bloglist.id}
-                          </TableCell>
-                          <TableCell>{bloglist.title}</TableCell>
-                          <TableCell>{bloglist.slug}</TableCell>
-                          <TableCell>{bloglist.content}</TableCell>
-                          <TableCell>{bloglist.featured_image}</TableCell>
-                          <TableCell>{bloglist.published_at}</TableCell>
-                          <TableCell>{bloglist.author_id}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(bloglist)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(bloglist)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'title', label: 'Title', sort: true },
+                    { id: 'slug', label: 'Slug', sort: true },
+                    { id: 'content', label: 'Content', sort: false },
+                    { id: 'featured_image', label: 'Featured Image', sort: false },
+                    { id: 'published_at', label: 'Published At', sort: true },
+                    { id: 'author_id', label: 'Author', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: listOfBlogs.map((blog) => {
+                    return [
+                      blog.title,
+                      blog.slug,
+                      blog.content,
+                      <a href={blog.featured_image} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      blog.published_at,
+                      blog.author_id,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(q);
+                            // handleUpdate(q);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

@@ -5,13 +5,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Button,
   Dialog,
   DialogContent,
@@ -20,11 +13,12 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { CSVLink } from "react-csv";
+import Table from '../../reusable/Table';
 
 import {
   Main,
@@ -71,8 +65,8 @@ const ListofConsultants = () => {
   const [page, setPage] = useState("");
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -353,56 +347,46 @@ const ListofConsultants = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Qualification</TableCell>
-                        <TableCell>Bio</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {consultants.map((user) => (
-                        <TableRow key={user.id}>
-                          <TableCell component="th" scope="row">
-                            {user.id}
-                          </TableCell>
-                          <TableCell>{user.name}</TableCell>
-                          <TableCell>{user.qualification}</TableCell>
-                          <TableCell>{user.bio}</TableCell>
-                          <TableCell>{user.status}</TableCell>
-                          <TableCell>{user.order}</TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(user)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(user)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'qualification', label: 'Qualification', sort: true },
+                    { id: 'bio', label: 'Bio', sort: true },
+                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: consultants.map((consultant) => {
+                    return [
+                      consultant.name,
+                      consultant.qualification,
+                      consultant.bio,
+                      consultant.status,
+                      consultant.order,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(consultant);
+                            // handleUpdate(consultant);
+                            // setShowForm(true);
+                            // TODO: Handle edit
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

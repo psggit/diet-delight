@@ -5,7 +5,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -44,6 +43,8 @@ import {
   selectConsultation,
 } from "../../../features/adminSlice";
 import TableHeader from '../../reusable/TableHeader';
+import Table from '../../reusable/Table';
+import { Edit, Delete } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root: {
@@ -71,8 +72,8 @@ const ListofConsultation = () => {
   const [page, setPage] = useState("");
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('user_id');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -415,67 +416,55 @@ const ListofConsultation = () => {
               }}
             />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>User ID</TableCell>
-                        <TableCell>Consultation Purchase ID</TableCell>
-                        <TableCell>Consultant ID</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Consultation Link</TableCell>
-                        <TableCell>Consultation Time</TableCell>
-                        <TableCell>Consultation Mode</TableCell>
-                        <TableCell>Consultant Name</TableCell>
-                        <TableCell>Notes</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {consultations.map((consul) => (
-                        <TableRow key={consul.id}>
-                          <TableCell component="th" scope="row">
-                            {consul.id}
-                          </TableCell>
-                          <TableCell>{consul.user_id}</TableCell>
-                          <TableCell>
-                            {consul.consultation_purchase_id}
-                          </TableCell>
-                          <TableCell>{consul.consultant_id}</TableCell>
-                          <TableCell>{consul.status}</TableCell>
-                          <TableCell>{consul.consultation_link}</TableCell>
-                          <TableCell>{consul.consultation_time}</TableCell>
-                          <TableCell>{consul.consultation_mode}</TableCell>
-                          <TableCell>{consul.consultant_name}</TableCell>
-                          <TableCell>{consul.notes}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(consul)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(consul)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'user_id', label: 'User', sort: false },
+                    { id: 'consultation_purchase_id', label: 'Consultation Purchase ID', sort: true },
+                    { id: 'consultant_id', label: 'Consultant ID', sort: true },
+                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'consultation_link', label: 'Consultation Link', sort: false },
+                    { id: 'consultation_time', label: 'Consultation Time', sort: false },
+                    { id: 'consultation_mode', label: 'Consultation Mode', sort: true },
+                    { id: 'consultant_name', label: 'Consultant Name', sort: true },
+                    { id: 'notes', label: 'Notes', sort: false },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: consultations.map((consultation) => {
+                    return [
+                      `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
+                      consultation.consultation_purchase_id,
+                      consultation.consultant_id,
+                      consultation.status,
+                      <a href={consultation.consultation_link} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      consultation.consultation_time,
+                      consultation.consultation_mode,
+                      consultation.consultant_name,
+                      consultation.notes,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(consultation);
+                            // handleUpdate(consultation);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}
