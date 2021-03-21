@@ -144,7 +144,7 @@ export default function Appointmentmain(props) {
               
                 minValue={minDate}
               />
-              <span id="successDate" style={{color:'red', fontWeight:800}}></span>
+              <span id="successDate" className="enter_text_red_alert" style={{color:'red', fontWeight:800}}></span>
               {/*         
             <div className="row toggle_container">
             <h6 className="online_text">Online</h6>
@@ -212,14 +212,14 @@ export default function Appointmentmain(props) {
               {/* tabs start */}
               {checked ? (
                 <div>
-                  <h3 className="heading">
+                  <h3 className="heading heading_text_appointmain">
                     You have Selected an online consultation!
                   </h3>
-                  <p className="online_details">
+                  <p className="online_details online_details_appointmain">
                     We will get in touch with you via email or whatsapp and
                     schedule the meeting at your convenient time.
                   </p>
-                  <p className="online_details">
+                  <p className="online_details online_details_appointmain">
                     Please click “NEXT” to proceed further.
                   </p>
                 </div>

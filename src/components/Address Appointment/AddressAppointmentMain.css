@@ -99,13 +99,22 @@ a.change_in_title:hover{
       font-weight: 600;
       outline: none;
     }
+     label.online_clinic_text_submeal {
+       
+        letter-spacing: 1px;
+        font-weight: 700;
+        text-transform: capitalize;
+      }
 
     @media only screen and (max-width: 767px) {
       label.online_clinic_text_submeal {
         margin: 3%;
-        font-size: 12px;
+        font-size: 13px;
         letter-spacing: 1px;
-        font-weight: 900;
+        font-weight: 700;
+        position: relative;
+        top: -3px;
+        text-transform: capitalize;
       }
       input.male_clinic_input_submeal {
       }
@@ -650,7 +659,7 @@ a.change_in_title:hover{
     display: flex;
     justify-content: space-between;
   }
-   input.male_clinic_input_submeal:checked:after {
+  input.male_clinic_input_submeal:checked:after {
     width: 15px;
     height: 15px;
     border-radius: 100%;

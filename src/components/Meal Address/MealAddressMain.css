@@ -28,18 +28,18 @@ button.continue_btn_mealaddress:hover {
 }
 div.male_container {
 }
-input[type="radio"]:checked:after {
+input.male_input_submeal:checked:after {
  /*  width: 15px;
   height: 15px;
   border-radius: 15px; */
  /*  top: -4px;
-  left: -1px; */
-  position: relative;
-  background-color: rgb(139, 196, 65);
-  content: "";
-  display: inline-block;
-  visibility: visible;
-  border: 2px solid rgba(139, 196, 65, 0.049);
+ left: -1px; */
+ position: relative;
+ background-color: rgb(139, 196, 65);
+ content: "";
+ display: inline-block;
+ visibility: visible;
+ border: 2px solid rgba(139, 196, 65, 0.049);
 }
 
 label.male_text_submeal {
@@ -564,178 +564,178 @@ label.male_text_submeal {
     margin-right: 14px;
     margin-top: 9px;
   }
-  input[type="radio"]:checked:after {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    top: -4px;
-    left: -1px;
-    position: relative;
-    background-color: rgb(139, 196, 65);
-    content: "";
-    display: inline-block;
-    visibility: visible;
-    border: 2px solid rgba(139, 196, 65, 0.049);
-  }
-  label.male_text_submeal {
-    margin: 4%;
-    font-size: 14px;
-    letter-spacing: 0px;
-    margin-right: 14px;
-    margin-top: 9px;
-  }
-  button.week_btn_mealaddress {
-    border: none;
-    color: #fff;
-    border-radius: 25px;
-    height: 44px;
-    width: 44px;
-    font-size: 15px;
-    background-color: rgb(139, 196, 65);
-  }
-  div.fullcard_container_mealaddressmain {
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
-    backdrop-filter: blur(4px);
-    margin-right: 3%;
-    /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
+  input.male_input_submeal:checked:after {
+   width: 15px;
+   height: 15px;
+   border-radius: 15px;
+   top: -9px;
+   left: -1px;
+   position: relative;
+   background-color: rgb(139, 196, 65);
+   content: "";
+   display: inline-block;
+   visibility: visible;
+   border: 2px solid rgba(139, 196, 65, 0.049);
+ }
+ label.male_text_submeal {
+  margin: 4%;
+  font-size: 14px;
+  letter-spacing: 0px;
+  margin-right: 14px;
+  margin-top: 9px;
+}
+button.week_btn_mealaddress {
+  border: none;
+  color: #fff;
+  border-radius: 25px;
+  height: 44px;
+  width: 44px;
+  font-size: 15px;
+  background-color: rgb(139, 196, 65);
+}
+div.fullcard_container_mealaddressmain {
+  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  backdrop-filter: blur(4px);
+  margin-right: 3%;
+  /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
 
-    border-radius: 0.5rem;
-    height: auto;
-    margin-bottom: -7%;
-    border: none;
-    width: 60%;
-    padding: 2%;
-    margin-top: 4%;
-    margin-bottom: 66px;
-  }
-  textarea.textarea_mealaddress {
-    width: 100%;
-    border: 1px solid #21212133;
-    background: white;
-    border-radius: 6px;
-    padding: 7px;
-    line-height: 20px;
-    height: 98%;
-    font-size: 16px;
-    margin-bottom: 11px;
-    margin-top: 16px;
-  }
-  div.vertical_line_appointment_submealaddress {
-    border-left: 1px solid grey;
-    height: auto;
-    margin: 1%;
-  }
-  div.card_MealAdress {
-    margin-top: 2rem;
-    margin: 74px;
-    height: 86%;
-    padding: 2rem;
-    box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
-    border-radius: 1rem;
-    background: #fafafa;
-  }
-  div.img_container_mealaddress {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  img.card_img_rounded_mealaddress {
-    width: 125px;
-    box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
-  }
+  border-radius: 0.5rem;
+  height: auto;
+  margin-bottom: -7%;
+  border: none;
+  width: 60%;
+  padding: 2%;
+  margin-top: 4%;
+  margin-bottom: 66px;
+}
+textarea.textarea_mealaddress {
+  width: 100%;
+  border: 1px solid #21212133;
+  background: white;
+  border-radius: 6px;
+  padding: 7px;
+  line-height: 20px;
+  height: 98%;
+  font-size: 16px;
+  margin-bottom: 11px;
+  margin-top: 16px;
+}
+div.vertical_line_appointment_submealaddress {
+  border-left: 1px solid grey;
+  height: auto;
+  margin: 1%;
+}
+div.card_MealAdress {
+  margin-top: 2rem;
+  margin: 74px;
+  height: 86%;
+  padding: 2rem;
+  box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
+  border-radius: 1rem;
+  background: #fafafa;
+}
+div.img_container_mealaddress {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+img.card_img_rounded_mealaddress {
+  width: 125px;
+  box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+}
 
-  h5.immunne_text_mealaddress {
-    font-family: sans-serif;
-    color: purple;
-    font-weight: 700;
-    font-size: 35px;
-    text-align: center;
-    margin-bottom: 30px;
-    /* margin: 1rem; */
-  }
-  h5.bhd_text_mealaddress {
-    color: #303960;
-    font-size: 17px;
-    font-weight: 600;
-    text-align: center;
-    margin-top: -1px;
-  }
-  h5.bhd_text_mealaddress_subttile {
-    color: #303960;
-    font-weight: 0;
-    font-size: 13px;
-    text-align: justify;
-    margin: 13px;
-    margin-top: 40px;
-  }
-  h5.week_text_title {
-    color: #303960;
-    font-size: 19px;
-    font-weight: 600;
-  }
-  h6.subtitle_mealaddress {
-    color: grey;
-    font-size: 10px;
-    margin-top: 4px;
-    margin-left: -49px;
-    width: 150%;
-    position: relative;
-  }
-  div.weekdata_mealaddress {
-    margin-top: 8px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-around;
-    margin-left: 0px;
-  }
-  h6.select_date_mealaddress {
-    color: #303960;
-    font-size: 18px;
-    font-weight: 600;
-    margin-top: 13px;
-  }
-  div.datepicker_container_mealaddress {
-    margin-bottom: 18px;
-    margin-top: 17px;
-  }
-  h6.shipping_title_mealaddress {
-    color: #303960;
-    font-size: 18.5px;
-    margin-bottom: 15px;
-    margin-top: -10px;
-    position: absolute;
-    margin-top: 2px;
-    font-weight: 700;
-  }
-  p.adress_subtitle_mealaddress {
-    font-size: 11px;
-    padding: 3px;
-    margin-top: 5px;
-  }
-  span.change_text_mealaddress {
-    font-size: 14px;
-    margin: 0;
-    margin-top: 40px;
-    display: flex;
-    justify-content: flex-end;
-    color: rgb(139, 196, 65);
-  }
-  button.continue_btn_mealaddress {
-    background-color: rgb(139, 196, 65);
-    color: #fff;
-    margin-top: 32px;
-    padding: 0.7rem;
-    width: 40%;
-    font-size: 16px;
-    border: none;
-    padding-top: 9px;
-    border-radius: 0.4rem;
-    height: 42px;
-    border: none;
-  }
+h5.immunne_text_mealaddress {
+  font-family: sans-serif;
+  color: purple;
+  font-weight: 700;
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 30px;
+  /* margin: 1rem; */
+}
+h5.bhd_text_mealaddress {
+  color: #303960;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: -1px;
+}
+h5.bhd_text_mealaddress_subttile {
+  color: #303960;
+  font-weight: 0;
+  font-size: 13px;
+  text-align: justify;
+  margin: 13px;
+  margin-top: 40px;
+}
+h5.week_text_title {
+  color: #303960;
+  font-size: 19px;
+  font-weight: 600;
+}
+h6.subtitle_mealaddress {
+  color: grey;
+  font-size: 10px;
+  margin-top: 4px;
+  margin-left: -49px;
+  width: 150%;
+  position: relative;
+}
+div.weekdata_mealaddress {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 0px;
+}
+h6.select_date_mealaddress {
+  color: #303960;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 13px;
+}
+div.datepicker_container_mealaddress {
+  margin-bottom: 18px;
+  margin-top: 17px;
+}
+h6.shipping_title_mealaddress {
+  color: #303960;
+  font-size: 18.5px;
+  margin-bottom: 15px;
+  margin-top: -10px;
+  position: absolute;
+  margin-top: 2px;
+  font-weight: 700;
+}
+p.adress_subtitle_mealaddress {
+  font-size: 11px;
+  padding: 3px;
+  margin-top: 5px;
+}
+span.change_text_mealaddress {
+  font-size: 14px;
+  margin: 0;
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+  color: rgb(139, 196, 65);
+}
+button.continue_btn_mealaddress {
+  background-color: rgb(139, 196, 65);
+  color: #fff;
+  margin-top: 32px;
+  padding: 0.7rem;
+  width: 40%;
+  font-size: 16px;
+  border: none;
+  padding-top: 9px;
+  border-radius: 0.4rem;
+  height: 42px;
+  border: none;
+}
 
-  div.btn_Mealadresscontainer {
-    display: flex;
-    justify-content: flex-end;
-  }
+div.btn_Mealadresscontainer {
+  display: flex;
+  justify-content: flex-end;
+}
 }
