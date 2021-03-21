@@ -235,15 +235,15 @@ div.select_meal_bg {
     margin-top: -2rem;
     width: 9rem;
     float: right;
-    background: #8bc53f;
-    color: white;
+    /* background: #8bc53f;
+    color: white; */
     text-transform: uppercase;
     text-transform: uppercase;
     border: 1px solid #8bc53f;
   }
   button.mealbtn_selectmeal {
-    background: #8bc53f;
-    color: white;
+    /* background: #8bc53f;
+    color: white; */
     text-transform: uppercase;
     border: 1px solid #8bc53f;
     margin-top: 2px;
@@ -292,8 +292,8 @@ div.select_meal_bg {
     border: 1px solid #8bc53f;
     bottom: 0;
     right: -21px;
-    background: #8bc53f;
-    color: white;
+    /* background: #8bc53f; */
+    /* color: white; */
     text-transform: uppercase;
   }
   h5.breakfast_title_selectmeal {
@@ -424,14 +424,14 @@ div.select_meal_bg {
     border: 1px solid #8bc53f;
     bottom: 0;
     right: -35px;
-    background: #8bc53f;
-    color: white;
+    /* background: #8bc53f; */
+    /* color: white; */
     text-transform: uppercase;
   }
   button.mealbtn_selectmeal:hover {
     border: 1px solid #8bc53f;
-    background: #8bc53f;
-    color: #fff;
+    /* background: #8bc53f; */
+    /* color: #fff; */
   }
   h5.breakfast_title_selectmeal {
     font-size: 20px;
@@ -562,14 +562,14 @@ div.select_meal_bg {
     border: 1px solid #8bc53f;
     bottom: 0;
     right: -62px;
-    background: #8bc53f;
-    color: white;
+    /* background: #8bc53f; */
+    /* color: white; */
     text-transform: uppercase;
   }
   button.mealbtn_selectmeal:hover {
     border: 1px solid #8bc53f;
-    background: #8bc53f;
-    color: #fff;
+    /* background: #8bc53f; */
+    /* color: #fff; */
   }
   h5.breakfast_title_selectmeal {
     font-size: 30px;

@@ -73,7 +73,7 @@ export default function GrandtotalAppointmentmain(props) {
                 </div>
                 <div className="col-md-6 col-sm-12">
                   <Link  to={{
-                    pathname: "/Appointmentmain",
+                    pathname: "/Appointmentmain", 
                     state: {
                     packagePicture :props.location.state.picture,
                     packageId: props.location.state.packageId,

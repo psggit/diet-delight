@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
-import './SelectMealPlan.css'
+import './SelectMealPlan.css' 
 import veg_icon from '../../assets/vegicon.png'
-import { Link } from 'react-router-dom';
+
 import axios from '../../axiosInstance';
  
 export default function MealPlansMenuItems(props){
@@ -9,6 +9,10 @@ export default function MealPlansMenuItems(props){
    
     const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_border_selectedMeal")
     const [menuItems,setMenuItems] = useState([])
+    // const [selectColor ,setSelectColor] = useState("Select");
+    // const [changeColor ,setColorChange] = useState("#8bc53f");
+
+    
 
     useEffect(() => {
         axios.get(`menu-items?menu_id=`+props.category.menu_id+`&menu_category_id=`+props.category.id, {
@@ -28,9 +32,40 @@ export default function MealPlansMenuItems(props){
         
     }
 
+   
+
+
+
+    function handleSelect(e){
+        console.log(e)
+    //     selectColor ==="Select" ?  setSelectColor("Selected") : setSelectColor("Select");
+         
+    //    changeColor === "#8bc53f" ? setColorChange("blue") :  setColorChange("#8bc53f");
+        var buttonText = e.target.innerHTML;
+        console.log(buttonText);
+        var buttonElement = document.getElementById(e.target.id)
+        console.log(buttonElement);
+
+        if(buttonText === "Select"){
+        buttonElement.style.backgroundColor="#8bc53f";
+        buttonElement.style.color="#fff"
+        buttonElement.innerHTML="Selected"; 
+
+        }else{
+            buttonElement.style.backgroundColor="transparent";
+            buttonElement.style.color="#8bc53f"
+            buttonElement.innerHTML="Select";
+    
+        }
+
+
+     }
+
+
+
 
     const renderMenuDatas = menuItems.map((menuItem) =>{
-        console.log(menuItem)
+    
         if(menuItem.day  === props.selectedDay){
             return(
                 <div className="select_meal_plan_main_container" key={Math.random()}>
@@ -55,9 +90,9 @@ export default function MealPlansMenuItems(props){
             
             
             </div>
-            
+             
             <div className="vertical_line_Selectedmeal"></div>
-            <div className="col-md-5 col-sm-12">
+            <div className="col-md-5 col-sm-12"> 
             <div className="row">
             <div className="col-md-9 col-sm-12">
             
@@ -74,9 +109,9 @@ export default function MealPlansMenuItems(props){
             {/* <HeartIcon /> */}
             </div>
             
-            
+             
 
-            <button className="btn btn-default mealbtn_selectmeal">
+            <button id={Math.random()}   className="btn btn-default mealbtn_selectmeal" onClick ={(e) => handleSelect(e)}>
             Select
             
             </button>

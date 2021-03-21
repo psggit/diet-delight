@@ -67,6 +67,7 @@ import ListofBlog from './Blogs/ListofBlog';
 import PostBlog from './Blogs/PostBlog';
 import ListofDeliverysticker from './KitchenReport/ListofDeliverysticker';
 import ListofClientMealMenu from './KitchenReport/ListofClientMealMenu';
+import KitchenReport from './KitchenReport/KitchenReport'
 const Items = styled.h3`
     width:100%;
     text-align:left;  
@@ -249,6 +250,7 @@ export default function PersistentDrawerLeft() {
     const [listOfKitchenReport, setListOfKitchenReport] = useState(false)
     const [listOfKitchenReport1, setListOfKitchenReport1] = useState(false)
     const [listOfKitchenReport2, setListOfKitchenReport2] = useState(false)
+    const [listOfKitchenReport3, setListOfKitchenReport3] = useState(false)
 
     useEffect(() => {
         dispatch(resetTemp())
@@ -1476,6 +1478,34 @@ export default function PersistentDrawerLeft() {
                                                 setListOfKitchenReport2(true)
                                                 setListOfKitchenReport1(false)
                                             }}>Client Meal Menu</MiniItems>
+                                             <MiniItems value={listOfKitchenReport3}
+                                            onClick={() => {
+                                                setMeal2(false)
+                                                 setMeal1(false)
+                                                setUser1(false)
+                                                setUser2(false)
+                                                setQuestion1(false)
+                                                setQuestion2(false)
+                                                setConsultant1(false)
+                                                setHome(false)
+                                                setConsultant2(false)
+                                                setConsultationPackage1(false)
+                                                setConsultationPackage2(false)
+                                                setMenu(false)
+                                                setMenu2(false)
+                                                setCategory1(false)
+                                                setCategory2(false)
+                                                setMenuItem(false)
+                                                setMenuItem2(false)
+                                                setListOfCoupon1(false)
+                                                setListOfCoupon2(false)
+                                                setListOfDuration1(false)
+                                                setListOfDuration2(false)
+                                                setImportMenu(false)
+                                                setListOfKitchenReport2(false)
+                                                setListOfKitchenReport1(false)
+                                                setListOfKitchenReport3(true)
+                                            }}>Kitchen Report</MiniItems>
                                     </Set>
                                 </>)}
                            <Divider/>
@@ -1539,6 +1569,7 @@ export default function PersistentDrawerLeft() {
 
                         {listOfKitchenReport1 && (<ListofDeliverysticker />)}
                         {listOfKitchenReport2 && (<ListofClientMealMenu />)}
+                        {listOfKitchenReport3 && (<KitchenReport />)}
 
                     </main>
                 </div>
