@@ -62,11 +62,11 @@ export default function ConsultationPkgOrderHistory(){
                 
                 <div className="menu_booster_container">
                 <p  className="subscriptionplan_title">Appointment Date:</p>
-                <h6 className="subscriptionplan_subtitle">{consultationPur.consultation_package_id}</h6>
+                <h6 className="subscriptionplan_subtitle_cons">{consultationPur.consultation_package_id}</h6>
                 </div>
                 
                 <div className="menu_booster_container">
-                <p  className="remaining_days_title">Appointment Link:</p>
+                <p  className="remaining_days_title_cons">Appointment Link:</p>
                 <h6 className="remaining_days_subtitle">{consultationPur.consultations.consultation_link}</h6>
                 </div>
                 
