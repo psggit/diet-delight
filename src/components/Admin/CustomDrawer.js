@@ -316,20 +316,15 @@ export default function PersistentDrawerLeft() {
 
               <Divider />
 
-              <CustomNavList
-                primaryLabel="User"
-                navList={[
-                  { label: "All User", link: "userlist" },
-                  { label: "Add New User", link: "adduser" },
-                ]}
-              />
+              <ListItem button component={Link} to={"/admin/userlist"}>
+                <ListItemText primary={"USER"} />
+              </ListItem>
+              <Divider />
               <CustomNavList
                 primaryLabel="QUESTIONS"
                 navList={[
                   { label: "Questions", link: "questionlist" },
-                  // { label: "Add New Question", link: "addquestion" },
                   { label: "Answers", link: "answerlist" },
-                  // { label: "Add Answer", link: "addanswer" },
                 ]}
               />
               <CustomNavList

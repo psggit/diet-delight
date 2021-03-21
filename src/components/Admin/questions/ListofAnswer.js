@@ -5,7 +5,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -20,11 +19,13 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Table from '../../reusable/Table';
 
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -97,8 +98,8 @@ const ListofAnswer = () => {
   const [page, setPage] = useState("");
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('answer');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -495,152 +496,45 @@ const ListofAnswer = () => {
                 // TODO: Handle search
               }}
             />
-            {filteredUsers.map((id) => (
-              <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <span style={{ marginRight: "50px" }}>
-                    <b style={{ marginRight: "5px" }}>User ID:</b> {id[0]}
-                  </span>{" "}
-                  <span>
-                    <b style={{ marginRight: "5px" }}>Name:</b> {id[1]}
-                  </span>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <div>
-                    {/* {listOfAnswers
-                      .filter((answerlist) => answerlist.user_id === id)
-                      .map((filteredUserId) => (
-                        <li>{filteredUserId}</li>
-                      ))} */}
-
-                    <TableContainer component={Paper}>
-                      <Table
-                        className={classes.table}
-                        aria-label="simple table"
-                      >
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>User Name</TableCell>
-                            <TableCell>Question Additional_ ext</TableCell>
-                            <TableCell>Question</TableCell>
-                            <TableCell>Answer Option </TableCell>
-                            <TableCell>Answer</TableCell>
-                            <TableCell>Update</TableCell>
-                            <TableCell>Delete</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {listOfAnswers
-                            .filter(
-                              (answerlist) => answerlist.user_id === id[0]
-                            )
-                            .map((filteredUserId) => (
-                              <TableRow key={filteredUserId.id}>
-                                <TableCell component="th" scope="row">
-                                  {filteredUserId.user.first_name +
-                                    " " +
-                                    filteredUserId.user.last_name}
-                                </TableCell>
-                                <TableCell>
-                                  {filteredUserId.question_additional_text}
-                                </TableCell>
-                                <TableCell>
-                                  {filteredUserId.question_question}
-                                </TableCell>
-                                <TableCell>
-                                  {filteredUserId.answer_option_option}
-                                </TableCell>
-                                <TableCell>{filteredUserId.answer}</TableCell>
-                                <TableCell>
-                                  <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    onClick={() => handleUpdate(filteredUserId)}
-                                  >
-                                    Update
-                                  </Button>
-                                </TableCell>
-                                <TableCell>
-                                  <Button
-                                    variant="outlined"
-                                    color="secondary"
-                                    onClick={() => handleDelete(filteredUserId)}
-                                  >
-                                    Delete
-                                  </Button>
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  </div>
-                </AccordionDetails>
-              </Accordion>
-            ))}
-            {/* {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell> ID</TableCell>
-                        <TableCell> User ID</TableCell>
-                        <TableCell>Question ID</TableCell>
-                        <TableCell>Answer Option ID</TableCell>
-                        <TableCell>Answer</TableCell>
-                        <TableCell>Question Question</TableCell>
-                        <TableCell>Question Type</TableCell>
-                        <TableCell>Question Additional_ ext</TableCell>
-                        <TableCell>Answer Option Option</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {listOfAnswers.map((answerlist) => (
-                        <TableRow key={answerlist.id}>
-                          <TableCell component="th" scope="row">
-                            {answerlist.id}
-                          </TableCell>
-                          <TableCell>{answerlist.user_id}</TableCell>
-                          <TableCell>{answerlist.question_id}</TableCell>
-                          <TableCell>{answerlist.answer_option_id}</TableCell>
-                          <TableCell>{answerlist.answer}</TableCell>
-                          <TableCell>{answerlist.question_question}</TableCell>
-                          <TableCell>{answerlist.question_type}</TableCell>
-                          <TableCell>
-                            {answerlist.question_additional_text}
-                          </TableCell>
-                          <TableCell>
-                            {answerlist.answer_option_option}
-                          </TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(answerlist)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(answerlist)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
-            )} */}
+            {show && (
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'user_name', label: 'User Name', sort: false },
+                    { id: 'question_question', label: 'Question', sort: true },
+                    { id: 'answer', label: 'Answer', sort: true },
+                    { id: 'answer_option_option', label: 'Answer Option', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: listOfAnswers.map((answer) => {
+                    return [
+                      `${answer?.user?.first_name} ${answer?.user?.last_name}`,
+                      answer.question_question,
+                      answer.answer,
+                      answer.answer_option_option,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(answer);
+                            // handleUpdate(answer);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+              />
+            )}
             <Snackbar
               autoHideDuration={3000}
               anchorOrigin={{ vertical: "top", horizontal: "center" }}

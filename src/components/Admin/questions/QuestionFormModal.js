@@ -5,7 +5,7 @@ import { Formik, Form, Field } from "formik";
 
 import { TextField, Select } from '../../reusable/InputItems';
 import Modal from '../../reusable/Modal';
-import { Mini } from "./QuestionElements";
+import { Mini } from "../Elements";
 import { QUESTION_TYPES } from '../Constants';
 
 const validationSchema = Yup.object().shape({
