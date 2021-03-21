@@ -9,7 +9,7 @@ export default function ImportMenu() {
 
     
 
-    var csvjson = require('csvjson');
+    var csvjson = require('csvjson');   
     
 
 
