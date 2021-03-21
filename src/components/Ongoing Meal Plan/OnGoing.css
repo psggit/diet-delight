@@ -1,26 +1,27 @@
 h6.date_content_ongoing {
-  color: #303960;
+
   font-family: "Roboto";
 }
 div.ongoing_bg {
   background-image: url(../../assets/bottom_sheet.jpg);
   width: 100%;
   height: fit-content;
-  background-position: left;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
+  background-attachment: fixed;
 }
 h6.date_content_ongoing_subtext {
-  color: #303960;
+
   font-family: "Roboto";
 }
 h6.weekend_content_text {
-  color: #303960;
+
   font-family: "Roboto";
 }
 h6.calories_text_ongoing {
-  color: #8bc441;
+
   font-weight: 500;
 }
 div.fullcard_container_ongoing {
@@ -28,25 +29,47 @@ div.fullcard_container_ongoing {
   /* box-shadow: 1px 4px 12px -5px rgba(61,61,61,0.66); */
   margin-top: 2rem;
   border-radius: 0.5rem;
-  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  background: #ffffffa3;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   border: none;
   margin-bottom: 50px;
+  color: #303960;
 }
 h5.title_ongoing {
-  color: purple;
+
   font-weight: 700;
   font-family: "Roboto Condensed Regular";
 }
 h5.subtitle_ongoing {
-  color: purple;
+
   font-weight: 500;
+}
+img.card_img_rounded_ongoing{
+  width: 108px;
+  height: 108px;
+  box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+}
+div.vertical_line_ongoing {
+  border: 1px solid grey;
+  height: auto;
+}
+
+/* hover effect  */
+
+div.fullcard_container_ongoing:hover{
+  background-color: #8BC53F;
+  color: #fff;
 }
 
 @media only screen and (max-width: 767px) {
+  img.card_img_rounded_ongoing {
+    width: 121px;
+    height: 121px;
+    box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+  }
   h6.date_content_ongoing {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
@@ -55,7 +78,7 @@ h5.subtitle_ongoing {
     font-size: 15px;
   }
   h6.date_content_ongoing_subtext {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
@@ -64,7 +87,7 @@ h5.subtitle_ongoing {
     font-size: 15px;
   }
   h6.weekend_content_text {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
@@ -74,7 +97,7 @@ h5.subtitle_ongoing {
   }
   h6.calories_text_ongoing {
     font-size: 14px;
-    color: #8bc441;
+
   }
   div.fullcard_container_ongoing {
     margin-right: 5%;
@@ -82,7 +105,7 @@ h5.subtitle_ongoing {
     padding: 7%;
     text-align: center;
     margin-bottom: 7%;
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    background: #ffffffa3;
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
@@ -97,18 +120,28 @@ h5.subtitle_ongoing {
   div.vertical_line_ongoing {
     display: none;
   }
+  div.main_container_ongoing{
+    display: grid;
+    place-items: start;
+    
+  }
 }
 
 @media only screen and (min-width: 768px) {
+  img.card_img_rounded_ongoing {
+    width: 84px;
+    height: 84px;
+    box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+  }
   div.img_container_ongoing {
-    margin-top: -14px;
+    margin-top: 6px;
   }
   div.vertical_line_ongoing {
     border: 1px solid grey;
     height: auto;
   }
   h6.date_content_ongoing {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
@@ -116,14 +149,14 @@ h5.subtitle_ongoing {
     letter-spacing: 0.2px;
   }
   h6.date_content_ongoing_subtext {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
     font-size: 15px;
   }
   h6.weekend_content_text {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
@@ -135,9 +168,9 @@ h5.subtitle_ongoing {
   }
   div.fullcard_container_ongoing {
     margin-right: 5%;
-    width: 72%;
+    width: 75%;
     padding: 3%;
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    background: #ffffffa3;
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
@@ -150,29 +183,39 @@ h5.subtitle_ongoing {
     margin-top: 4px;
   }
   h5.subtitle_ongoing {
-    color: purple;
+
     font-weight: 500;
     font-size: 18px;
     margin-left: 12px;
   }
   h6.calories_text_ongoing {
-    color: #8bc441;
+
     font-weight: 500;
     font-size: 14px;
     margin-left: 14px;
   }
+  div.main_container_ongoing{
+    display: grid;
+    place-items: start;
+    margin-left: 35px;
+  }
 }
 
 @media only screen and (min-width: 992px) {
+  img.card_img_rounded_ongoing {
+    width: 108px;
+    height: 108px;
+    box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+  }
   div.img_container_ongoing {
-    margin-top: -22px;
+    margin-top: 1px;
   }
   div.vertical_line_ongoing {
     border: 1px solid grey;
     height: auto;
   }
   h6.date_content_ongoing {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
@@ -180,14 +223,14 @@ h5.subtitle_ongoing {
     letter-spacing: 0.2px;
   }
   h6.date_content_ongoing_subtext {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
     font-size: 15px;
   }
   h6.weekend_content_text {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.9;
@@ -199,9 +242,9 @@ h5.subtitle_ongoing {
   }
   div.fullcard_container_ongoing {
     margin-right: 5%;
-    width: 57%;
+    width: 65%;
     padding: 3%;
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    background: #ffffffa3;
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
@@ -214,28 +257,43 @@ h5.subtitle_ongoing {
     margin-top: 4px;
   }
   h5.subtitle_ongoing {
-    color: purple;
+
     font-weight: 500;
     font-size: 16px;
     margin-left: 27px;
   }
   h6.calories_text_ongoing {
-    color: #8bc441;
+
     font-weight: 500;
     font-size: 13px;
     margin-left: 29px;
   }
+  div.main_container_ongoing{
+    display: grid;
+    place-items: start;
+    margin-left: 65px;
+  }
 }
 @media only screen and (min-width: 1200px) {
+  img.card_img_rounded_ongoing {
+    width: 120px;
+    height: 120px;
+    box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+  }
+  div.main_container_ongoing{
+    display: grid;
+    place-items: start;
+    margin-left: 65px;
+  }
   div.img_container_ongoing {
-    margin-top: -22px;
+    margin-top: 10px;
   }
   div.vertical_line_ongoing {
     border: 1px solid grey;
     height: auto;
   }
   h6.date_content_ongoing {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.8;
@@ -244,13 +302,13 @@ h5.subtitle_ongoing {
     margin-top: 16px;
   }
   h6.date_content_ongoing_subtext {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 500;
     font-size: 16.5px;
   }
   h6.weekend_content_text {
-    color: #303960;
+
     font-family: "Roboto";
     font-weight: 600;
     opacity: 0.8;
@@ -264,7 +322,7 @@ h5.subtitle_ongoing {
     margin-right: 5%;
     width: 62%;
     padding: 2%;
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+    background: #ffffffa3;
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
@@ -277,13 +335,87 @@ h5.subtitle_ongoing {
     margin-top: 4px;
   }
   h5.subtitle_ongoing {
-    color: purple;
+
     font-weight: 500;
     font-size: 21px;
     margin-left: 0;
   }
   h6.calories_text_ongoing {
-    color: #8bc441;
+
+    font-weight: 500;
+    font-size: 17px;
+    margin-left: 0;
+  }
+}
+
+@media only screen and (min-width: 1350px) {
+  img.card_img_rounded_ongoing {
+    width: 120px;
+    height: 120px;
+    box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
+  }
+  div.main_container_ongoing{
+    display: grid;
+    place-items: start;
+    margin-left: 65px;
+  }
+  div.img_container_ongoing {
+    margin-top: 10px;
+  }
+  div.vertical_line_ongoing {
+    border: 1px solid grey;
+    height: auto;
+  }
+  h6.date_content_ongoing {
+
+    font-family: "Roboto";
+    font-weight: 600;
+    opacity: 0.8;
+    font-size: 18.5px;
+    letter-spacing: 0.2px;
+    margin-top: 16px;
+  }
+  h6.date_content_ongoing_subtext {
+
+    font-family: "Roboto";
+    font-weight: 500;
+    font-size: 16.5px;
+  }
+  h6.weekend_content_text {
+
+    font-family: "Roboto";
+    font-weight: 600;
+    opacity: 0.8;
+    font-size: 18.5px;
+  }
+  h6.calories_text {
+    margin-left: 27px;
+    font-size: 12px;
+  }
+  div.fullcard_container_ongoing {
+    margin-right: 5%;
+    width: 62%;
+    padding: 2%;
+    background: #ffffffa3;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  h5.title_ongoing {
+    font-size: 30px;
+    margin-left: 0px;
+    margin-top: 12px;
+  }
+  div.meal_ongoing {
+    margin-top: 4px;
+  }
+  h5.subtitle_ongoing {
+
+    font-weight: 500;
+    font-size: 21px;
+    margin-left: 0;
+  }
+  h6.calories_text_ongoing {
+
     font-weight: 500;
     font-size: 17px;
     margin-left: 0;
