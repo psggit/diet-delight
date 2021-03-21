@@ -60,6 +60,7 @@ div.vertical_line_ongoing {
 div.fullcard_container_ongoing:hover{
   background-color: #8BC53F;
   color: #fff;
+   border: 1px solid #fff;
 }
 
 @media only screen and (max-width: 767px) {
