@@ -108,24 +108,18 @@ const ListofAnswer = () => {
   const [isupdate, setISUpdate] = useState(false);
 
   useEffect(() => {
-    // TODO: Remove after making change in API
-    axios.get('answers').then((res) => {
-      setTotalCount(res?.data?.data?.length);
-    })
-  }, [])
-
-  useEffect(() => {
     handleShow();
   }, [rowsPerPage, page, search, sort, order]);
 
 
   const handleShow = () => {
     axios
-      .get(`answers?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`answers?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfAnswers(res.data.data);
         setLoading(false);
         setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -477,7 +471,7 @@ const ListofAnswer = () => {
                   ],
                   rows: listOfAnswers.map((answer) => {
                     return [
-                      `${answer?.user?.first_name} ${answer?.user?.last_name}`,
+                      `${answer?.user?.first_name || ''} ${answer?.user?.last_name || ''}`,
                       answer.question_question,
                       answer.answer,
                       answer.answer_option_option,

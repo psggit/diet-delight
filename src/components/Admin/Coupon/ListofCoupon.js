@@ -106,23 +106,17 @@ const ListofCoupon = () => {
   };
 
   useEffect(() => {
-    // TODO: Remove after making change in API
-      axios.get('coupons').then((res) => {
-        setTotalCount(res?.data?.data?.length);
-      })
-    }, [])
-  
-    useEffect(() => {
-      handleShow();
-    }, [rowsPerPage, page, search, sort, order]);
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(`coupons?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`coupons?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfCoupons(res.data.data);
         setLoading(false);
         setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };

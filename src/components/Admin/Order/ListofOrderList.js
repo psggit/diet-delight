@@ -61,22 +61,16 @@ const ListofOrder = () => {
   };
 
   useEffect(() => {
-    // TODO: Remove after making change in API
-      axios.get('meal-purchases').then((res) => {
-        setTotalCount(res?.data?.data?.length);
-      })
-    }, [])
-  
-    useEffect(() => {
-      handleShow();
-    }, [rowsPerPage, page, search, sort, order]);
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
-    axios.get(`meal-purchases?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`
+    axios.get(`meal-purchases?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`
     ).then((res) => {
       setListOfOrders(res.data.data)
       setLoading(false)
       setShow(true)
+      setTotalCount(res.data?.meta?.total || 0);
     }).catch(err => console.log(err));
   }
 

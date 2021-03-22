@@ -6,27 +6,27 @@ import { Snackbar } from "@material-ui/core";
 import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setQuestion,
-  selectQuestion,
-  resetQuestion,
-} from "../../../features/adminSlice";
+import { useDispatch } from "react-redux";
+import { setQuestion } from "../../../features/adminSlice";
 
-import {
-  Main,
-} from "./QuestionElements";
+import { Main } from "./QuestionElements";
 import QuestionFormModal from './QuestionFormModal';
 import Modal from '../../reusable/Modal';
 import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';
 import { QUESTION_TYPES } from '../Constants';
 
+const questInitialValue = {
+  id: '',
+  question: '',
+  type: '',
+  order: '',
+}
+
 const ListofQuestions = () => {
   const dispatch = useDispatch();
 
   const [questions, setQuestions] = useState([]);
-  const question = useSelector(selectQuestion);
   const [rowsPerPage, setRowsPerPage] = useState(20)
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
@@ -39,11 +39,7 @@ const ListofQuestions = () => {
   const [isdelete, setIsDelete] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
-  const [currentQuestion, setCurrentQuestion] = useState({
-    question: '',
-    type: '',
-    order: '',
-  });
+  const [currentQuestion, setCurrentQuestion] = useState(questInitialValue);
 
   let current_date_Time = new Date();
   const csvReport = {
@@ -52,30 +48,17 @@ const ListofQuestions = () => {
   };
 
   useEffect(() => {
-  // TODO: Remove after making change in API
-    axios.get('questions').then((res) => {
-      setTotalCount(res?.data?.data?.length);
-    })
-  }, [])
-
-  useEffect(() => {
     handleShow();
   }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(
-        `questions?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`questions?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setQuestions(res.data.data);
         setShow(true);
         setLoading(false);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -134,7 +117,7 @@ const ListofQuestions = () => {
       }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
     } else {
       axios
-        .put(`questions/${question.id}`, {
+        .put(`questions/${currentQuestion.id}`, {
           question: values.question,
           type: values.type,
           order: values.order,
@@ -163,7 +146,7 @@ const ListofQuestions = () => {
             onClick: () => {
               setIsDelete(false);
               axios
-                .delete(`questions/${question.id}`)
+                .delete(`questions/${currentQuestion.id}`)
                 .then(() => {
                   setNotificationConf([true, 'success', 'Question Deleted Successfully !'])
                   handleShow();
@@ -179,11 +162,7 @@ const ListofQuestions = () => {
           onClose={() => {
             setShowForm(false)
             if (mode === 'Update') {
-              setCurrentQuestion({
-                question: '',
-                type: '',
-                order: '',
-              })
+              setCurrentQuestion(questInitialValue)
             }
           }}
           mode={mode}
@@ -231,7 +210,13 @@ const ListofQuestions = () => {
                         }}
                         style={{ margin: '0 6px', cursor: 'pointer' }}
                       />
-                      <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      <Delete 
+                        onClick={() => {
+                          setCurrentQuestion(q);
+                          setIsDelete(true)
+                        }} 
+                        style={{ margin: '0 6px', cursor: 'pointer' }} 
+                      />
                     </>
                   ]
                 })

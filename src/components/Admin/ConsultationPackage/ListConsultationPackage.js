@@ -86,23 +86,17 @@ const ListConsultationPackage = () => {
   };
 
   useEffect(() => {
-    // TODO: Remove after making change in API
-      axios.get('consultation-packages').then((res) => {
-        setTotalCount(res?.data?.data?.length);
-      })
-    }, [])
-  
-    useEffect(() => {
-      handleShow();
-    }, [rowsPerPage, page, search, sort, order]);
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(`consultation-packages?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`consultation-packages?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setConsultationPackages(res.data.data);
         setShow(true);
         setLoading(false);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };

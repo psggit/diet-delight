@@ -57,11 +57,6 @@ const ListofUser = () => {
 
   useEffect(() => {
     axios.get('roles').then(res => setUserRoles((res?.data?.data || []).map(role => ({ id: role.id, name: role.name }))));
-
-  // TODO: Remove after making change in API
-    axios.get('users').then((res) => {
-      setTotalCount(res?.data?.data?.length);
-    })
   }, [])
 
   useEffect(() => {
@@ -70,11 +65,12 @@ const ListofUser = () => {
 
   const handleShow = () => {
     axios
-      .get(`users?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`users?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setUsers(res.data.data);
         setShow(true);
         setLodaing(false);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -189,7 +185,7 @@ const ListofUser = () => {
                   ],
                   rows: users.map((user) => {
                     return [
-                      `${user.first_name} ${user.last_name}`,
+                      `${user.first_name || ''} ${user.last_name || ''}`,
                       user.email,
                       user.email_verified_at,
                       user.status,
@@ -234,7 +230,7 @@ const ListofUser = () => {
                   setSort(key);
                 }}
                 pagination
-                page={page}
+                page={page - 1}
                 totalCount={totalCount}
                 rowsPerPage={rowsPerPage}
                 onChangePage={(_, newPage) => {

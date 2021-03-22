@@ -8,30 +8,27 @@ import Modal from '../../reusable/Modal';
 import { Mini } from "../Elements";
 import { GENDER_TYPE } from '../Constants';
 
-const passwordSchema = Yup.string().required('Please enter Password');
-
-let validationSchema = Yup.object().shape({
-	firstName: Yup.string().required('Please enter First Name'),
-	lastName: Yup.string().required('Please enter Last Name'),
-	email: Yup.string().required('Please enter Last Name'),
-	firebaseUid: Yup.string().required('Please enter Firebase UID'),
-	age: Yup.number(),
-	phoneNumber: Yup.string(),
-	primaryAddressLine1: Yup.string(),
-	primaryAddressLine2: Yup.string(),
-	secondaryAddressLine1: Yup.string(),
-	secondaryAddressLine2: Yup.string(),
-	role: Yup.string(),
-});
-
 const UserFormModal = (props) => {
 	const { visible, onClose, onSubmit, mode, values = {}, roleOptions = [] } = props;
 
-	if (mode === 'Add') {
-		validationSchema = validationSchema.concat(Yup.object().shape({
-			password: passwordSchema,
-		}))
-	}
+	const validationSchema = Yup.object().shape({
+		firstName: Yup.string().required('Please enter First Name'),
+		lastName: Yup.string().required('Please enter Last Name'),
+		email: Yup.string().required('Please enter Email'),
+		password: Yup.string().when('email', {
+			is: () => mode === 'Add',
+			then: Yup.string().required('Please enter Password'),
+			otherwise: Yup.string().nullable(),
+		}),
+		firebaseUid: Yup.string().required('Please enter Firebase UID'),
+		age: Yup.number(),
+		phoneNumber: Yup.string(),
+		primaryAddressLine1: Yup.string(),
+		primaryAddressLine2: Yup.string(),
+		secondaryAddressLine1: Yup.string(),
+		secondaryAddressLine2: Yup.string(),
+		role: Yup.string(),
+	});
 
 	return (
 		<Modal

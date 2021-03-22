@@ -106,23 +106,17 @@ const ListofDuration = () => {
   };
 
   useEffect(() => {
-    // TODO: Remove after making change in API
-      axios.get('durations').then((res) => {
-        setTotalCount(res?.data?.data?.length);
-      })
-    }, [])
-  
-    useEffect(() => {
-      handleShow();
-    }, [rowsPerPage, page, search, sort, order]);
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(`durations?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`durations?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfDurations(res.data.data);
         setLoading(false);
         setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -434,16 +428,16 @@ const ListofDuration = () => {
                   setSort(key);
                 }}
                 pagination
-              page={page}
-              totalCount={totalCount}
-              rowsPerPage={rowsPerPage}
-              onChangePage={(_, newPage) => {
-                setPage(newPage);
-              }}
-              onChangeRowsPerPage={(event) => {
-                setRowsPerPage(parseInt(event.target.value, 10));
-                setPage(0);
-              }}
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
               />
             )}
             <Snackbar

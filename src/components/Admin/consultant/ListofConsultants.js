@@ -79,13 +79,6 @@ const ListofConsultants = () => {
     data: consultants,
     filename: `List_of_consultants_${current_date_Time}.csv`,
   };
-
-  useEffect(() => {
-    // TODO: Remove after making change in API
-      axios.get('consultants').then((res) => {
-        setTotalCount(res?.data?.data?.length);
-      })
-    }, [])
   
     useEffect(() => {
       handleShow();
@@ -93,11 +86,12 @@ const ListofConsultants = () => {
 
   const handleShow = () => {
     axios
-      .get(`consultants?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`consultants?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setConsultants(res.data.data);
         setLoading(false);
         setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
