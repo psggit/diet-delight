@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 });
 
 const Table = (props) => {
-	const { dataSource, order, orderBy, onSortClick, totalCount, rowsPerPage } = props;
+	const { dataSource, order, orderBy, onSortClick, pagination = false, totalCount, page, rowsPerPage, onChangePage, onChangeRowsPerPage } = props;
 	const { columns = [], rows = [] } = dataSource;
 	const classes = useStyles();
 
@@ -75,15 +75,15 @@ const Table = (props) => {
 					</TableBody>
 				</DefaultTable>
 			</TableContainer>
-			{/* <TablePagination
-				rowsPerPageOptions={[10, 25, 100]}
+			{pagination && <TablePagination
+				rowsPerPageOptions={[20, 50, 100]}
 				component="div"
 				count={totalCount}
 				rowsPerPage={rowsPerPage}
 				page={page}
-				onChangePage={handleChangePage}
-				onChangeRowsPerPage={handleChangeRowsPerPage} 
-			/>*/}
+				onChangePage={onChangePage}
+				onChangeRowsPerPage={onChangeRowsPerPage}
+			/>}
 		</>
 	);
 }

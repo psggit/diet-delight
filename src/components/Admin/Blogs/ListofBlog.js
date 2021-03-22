@@ -60,7 +60,9 @@ const ListofBlog = () => {
   const listOfBlog = useSelector(selectListOfBlog);
 
   const [listOfBlogs, setListOfBlogs] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState('title');
@@ -77,34 +79,22 @@ const ListofBlog = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `posts?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setListOfBlogs(res.data.data);
-        setLoading(false);
-        setShow(true);
-      });
-  }, [page, search, sort, order]);
+    // TODO: Remove after making change in API
+      axios.get('posts').then((res) => {
+        setTotalCount(res?.data?.data?.length);
+      })
+    }, [])
+  
+    useEffect(() => {
+      handleShow();
+    }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(
-        `posts?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`posts?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfBlogs(res.data.data);
+        setLoading(false);
         setShow(true);
       })
       .catch((err) => console.log(err));
@@ -368,7 +358,7 @@ const ListofBlog = () => {
                 // TODO: Handle add
               }}
               searchHandler={(value) => {
-                // TODO: Handle search
+                setSearch(value);
               }}
             />
             {show && (
@@ -413,6 +403,17 @@ const ListofBlog = () => {
                 onSortClick={(key) => {
                   setOrder(order === 'asc' ? 'desc' : 'asc');
                   setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
                 }}
               />
             )}

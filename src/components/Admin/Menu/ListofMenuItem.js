@@ -61,7 +61,9 @@ const ListofMenuItem = () => {
 
   const [menuitems, setMenuItems] = useState([]);
   const menuitem = useSelector(selectMenuItem);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState('name');
   const [order, setOrder] = useState('asc');
@@ -78,36 +80,23 @@ const ListofMenuItem = () => {
   };
 
   useEffect(() => {
+    // TODO: Remove after making change in API
+    axios.get('menu-items').then((res) => {
+      setTotalCount(res?.data?.data?.length);
+    })
+  }, [])
+
+  useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
+
+  const handleShow = () => {
     axios
-      .get(
-        `menu-items?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`menu-items?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setMenuItems(res.data.data);
         setShow(true);
         setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [page, search, sort, order]);
-
-  const handleShow = () => {
-    axios
-      .get(
-        `menu-items?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setMenuItems(res.data.data);
-        setShow(true);
       })
       .catch((err) => console.log(err));
   };
@@ -386,7 +375,7 @@ const ListofMenuItem = () => {
                 // TODO: Handle add
               }}
               searchHandler={(value) => {
-                // TODO: Handle search
+                setSearch(value);
               }}
             />
             {show && (
@@ -437,6 +426,17 @@ const ListofMenuItem = () => {
                 onSortClick={(key) => {
                   setOrder(order === 'asc' ? 'desc' : 'asc');
                   setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
                 }}
               />
             )}

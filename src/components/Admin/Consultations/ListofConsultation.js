@@ -69,7 +69,9 @@ const ListofConsultation = () => {
   const consultation = useSelector(selectConsultation);
 
   const [consultations, setConsultations] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState('user_id');
@@ -86,34 +88,22 @@ const ListofConsultation = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `consultations?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setConsultations(res.data.data);
-        setLoading(false);
-        setShow(true);
-      });
-  }, [page, search, sort, order]);
+    // TODO: Remove after making change in API
+    axios.get('consultations').then((res) => {
+      setTotalCount(res?.data?.data?.length);
+    })
+  }, [])
+
+  useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(
-        `consultations?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`consultations?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setConsultations(res.data.data);
+        setLoading(false);
         setShow(true);
       })
       .catch((err) => console.log(err));
@@ -412,7 +402,7 @@ const ListofConsultation = () => {
                 // TODO: Handle add
               }}
               searchHandler={(value) => {
-                // TODO: Handle search
+                setSearch(value);
               }}
             />
             {show && (
@@ -463,6 +453,17 @@ const ListofConsultation = () => {
                 onSortClick={(key) => {
                   setOrder(order === 'asc' ? 'desc' : 'asc');
                   setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
                 }}
               />
             )}

@@ -82,7 +82,9 @@ const ListofMealPlan = () => {
 
   const [loading, setLoading] = useState(true);
   const [meals, setMeals] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState('name');
   const [order, setOrder] = useState('asc');
@@ -98,31 +100,22 @@ const ListofMealPlan = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`meal-plans?`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      })
-      .then((res) => {
-        setMeals(res.data.data);
-        setLoading(false);
-        setShow(true);
-      });
-  }, []);
+    // TODO: Remove after making change in API
+    axios.get('meal-plans').then((res) => {
+      setTotalCount(res?.data?.data?.length);
+    })
+  }, [])
+
+  useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(
-        `meal-plans?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`meal-plans?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setMeals(res.data.data);
+        setLoading(false);
         setShow(true);
       })
       .catch((err) => console.log(err));
@@ -464,7 +457,7 @@ const ListofMealPlan = () => {
                 // TODO: Handle add
               }}
               searchHandler={(value) => {
-                // TODO: Handle search
+                setSearch(value);
               }}
             />
             {show && (
@@ -521,6 +514,17 @@ const ListofMealPlan = () => {
                 onSortClick={(key) => {
                   setOrder(order === 'asc' ? 'desc' : 'asc');
                   setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
                 }}
               />
             )}

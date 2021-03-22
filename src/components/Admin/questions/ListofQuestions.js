@@ -27,7 +27,9 @@ const ListofQuestions = () => {
 
   const [questions, setQuestions] = useState([]);
   const question = useSelector(selectQuestion);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState('question');
   const [order, setOrder] = useState('asc');
@@ -50,13 +52,20 @@ const ListofQuestions = () => {
   };
 
   useEffect(() => {
+  // TODO: Remove after making change in API
+    axios.get('questions').then((res) => {
+      setTotalCount(res?.data?.data?.length);
+    })
+  }, [])
+
+  useEffect(() => {
     handleShow();
-  }, [page, search, sort, order]);
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
       .get(
-        `questions?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
+        `questions?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -232,6 +241,17 @@ const ListofQuestions = () => {
               onSortClick={(key) => {
                 setOrder(order === 'asc' ? 'desc' : 'asc');
                 setSort(key);
+              }}
+              pagination
+              page={page}
+              totalCount={totalCount}
+              rowsPerPage={rowsPerPage}
+              onChangePage={(_, newPage) => {
+                setPage(newPage);
+              }}
+              onChangeRowsPerPage={(event) => {
+                setRowsPerPage(parseInt(event.target.value, 10));
+                setPage(0);
               }}
             />
           )}

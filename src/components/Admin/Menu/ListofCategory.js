@@ -61,7 +61,9 @@ const ListofCategory = () => {
 
   const [categories, setCategories] = useState([]);
   const category = useSelector(selectCategory);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState('name');
   const [order, setOrder] = useState('asc');
@@ -78,38 +80,23 @@ const ListofCategory = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `menu-categories?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res, "useeffect from list category");
-        setCategories(res.data.data);
-        setShow(true);
-        setLoading(false);
+    // TODO: Remove after making change in API
+      axios.get('menu-categories').then((res) => {
+        setTotalCount(res?.data?.data?.length);
       })
-      .catch((err) => console.log(err));
-  }, [page, search, sort, order]);
+    }, [])
+  
+    useEffect(() => {
+      handleShow();
+    }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(
-        `menu-categories?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`menu-categories?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
-        console.log(res);
         setCategories(res.data.data);
         setShow(true);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -337,7 +324,7 @@ const ListofCategory = () => {
                 // TODO: Handle add
               }}
               searchHandler={(value) => {
-                // TODO: Handle search
+                setSearch(value);
               }}
             />
             {show && (
@@ -378,6 +365,17 @@ const ListofCategory = () => {
                 onSortClick={(key) => {
                   setOrder(order === 'asc' ? 'desc' : 'asc');
                   setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
                 }}
               />
             )}

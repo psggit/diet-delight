@@ -95,7 +95,9 @@ const ListofAnswer = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUser] = useState([]);
   const [uniqueIds, setUniqueIds] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState('answer');
@@ -106,56 +108,23 @@ const ListofAnswer = () => {
   const [isupdate, setISUpdate] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(
-        `answers?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setListOfAnswers(res.data.data);
-        console.log(res.data.data);
-        setLoading(false);
-        setShow(true);
-      });
-  }, [page, search, sort, order]);
-
-  // hitting user modedel for user name
+    // TODO: Remove after making change in API
+    axios.get('answers').then((res) => {
+      setTotalCount(res?.data?.data?.length);
+    })
+  }, [])
 
   useEffect(() => {
-    axios
-      .get(
-        `users?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setUsers(res.data.data);
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
-        setShow(true);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [order, page, search, sort]);
 
   const handleShow = () => {
     axios
-      .get(
-        `answers?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`answers?pageSize=${rowsPerPage}&page=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfAnswers(res.data.data);
+        setLoading(false);
         setShow(true);
       })
       .catch((err) => console.log(err));
@@ -532,6 +501,17 @@ const ListofAnswer = () => {
                 onSortClick={(key) => {
                   setOrder(order === 'asc' ? 'desc' : 'asc');
                   setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
                 }}
               />
             )}
