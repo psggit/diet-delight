@@ -1,15 +1,11 @@
 import React from "react";
 import { Select as DefaultSelect, MenuItem, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import './index.css';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
-		margin: theme.spacing(1),
 		minWidth: 120,
-	},
-	selectEmpty: {
-		marginTop: theme.spacing(2),
-		paddingTop: theme.spacing(1),
 	},
 }));
 
@@ -29,17 +25,19 @@ export const Select = (props) => {
 	}
 
 	return (
-		<FormControl style={{ width: '100%' }} className={classes.formControl}>
-			<InputLabel style={error ? { color: 'red' } : {}} shrink>
+		<FormControl style={{ width: '100%' }} variant="outlined" className={classes.formControl}>
+			<InputLabel id={label} style={error ? { color: 'red' } : {}}>
 				{label}
 			</InputLabel>
 			<DefaultSelect
-				labelId="demo-simple-select-placeholder-label-label"
-				style={{ margin: 8 }}
+				labelId={label}
+				id={`${label}-select`}
+				style={{ margin: '8px 0' }}
 				fullWidth
 				onChange={onFieldChange}
 				className={classes.selectEmpty}
 				value={field.value}
+				label={label}
 			>
 				{options.map((option, index) => {
 					if (typeof option === 'object') {

@@ -15,19 +15,27 @@ const Set = styled.div`
 	align-items:center;
 `
 
+const SearchBox = styled.div`
+	display:flex;
+	flex-direction: column;
+`
+
 const TableHeader = (props) => {
 	const [search, setSearch] = useState("");
-	const { csvReport, title, addHandler, searchHandler } = props;
+	const { csvReport, title, addHandler, searchHandler, searchMessage } = props;
 
 	return (
 		<HContainer>
 			<h3>{title}</h3>
 			<Set>
-				<Input
-					value={search}
-					onChange={(e) => setSearch(e.target.value)}
-					placeholder="Search all"
-				/>
+				<SearchBox>
+					<Input
+						value={search}
+						onChange={(e) => setSearch(e.target.value)}
+						placeholder="Search"
+					/>
+					{searchMessage && <span style={{marginTop: '4px', fontSize: '10px', opacity: '0.5'}}>{searchMessage}</span>}
+				</SearchBox>
 				<Button
 					variant="contained"
 					style={{ margin: "10px", background: "#800080" }}

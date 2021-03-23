@@ -18,3 +18,7 @@ export const QUESTION_TYPES = [
 ]
 
 export const GENDER_TYPE = [{ id: 0, name: 'Male' }, { id: 1, name: 'Female' }, { id: 2, name: 'Other' }]
+
+export const CONSULTATION_STATUS = [{ id: 0, name: 'Booked' }, { id: 1, name: 'Cancelled' }]
+
+export const CONSULTATION_MODE = [{ id: 0, name: 'Offline' }, { id: 1, name: 'Online' }]

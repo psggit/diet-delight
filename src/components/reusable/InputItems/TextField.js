@@ -2,7 +2,7 @@ import React from "react";
 import DefaultTextField from '@material-ui/core/TextField';
 
 export const TextField = (props) => {
-	const { label, placeholder, onChange, field = {}, form = {}, type } = props;
+	const { label, onChange, field = {}, form = {}, type, disabled, defaultValue, rows, multiline } = props;
 	const { setFieldValue, errors = {}, touched = {} } = form;
 	const helperText = errors[field.name]
 	const error = helperText && touched[field.name]
@@ -18,17 +18,18 @@ export const TextField = (props) => {
 		<DefaultTextField
 			label={label}
 			style={{ margin: '8px 0' }}
-			placeholder={placeholder}
 			helperText={error ? helperText : ''}
 			fullWidth
 			margin="normal"
-			InputLabelProps={{
-				shrink: true,
-			}}
+			variant="outlined"
 			error={error}
 			onChange={onFieldChange}
 			value={field.value}
 			type={type}
+			disabled={disabled}
+			defaultValue={defaultValue}
+			rows={rows}
+			multiline={multiline}
 		/>
 	)
 }

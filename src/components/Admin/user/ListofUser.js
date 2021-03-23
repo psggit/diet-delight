@@ -114,14 +114,14 @@ const ListofUser = () => {
     }
     if (mode === 'Add') {
       axios.post(`users`, { ...data, password: values.password }).then(() => {
-        setNotificationConf([true, 'success', 'Question Added Successfully !'])
+        setNotificationConf([true, 'success', 'User Added Successfully !'])
         handleShow();
       }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
     } else {
       axios
         .put(`users/${currentUser.id}`, data)
         .then(() => {
-          setNotificationConf([true, 'success', 'Question Updated Successfully !'])
+          setNotificationConf([true, 'success', 'User Updated Successfully !'])
           handleShow();
         })
         .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
@@ -163,6 +163,7 @@ const ListofUser = () => {
               searchHandler={(value) => {
                 setSearch(value);
               }}
+              searchMessage="Search is applicable to only Name, Phone Number and Email"
             />
             {show && (
               <Table
