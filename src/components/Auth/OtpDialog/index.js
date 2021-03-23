@@ -62,12 +62,12 @@ export default function OtpDialog() {
         
         <div className="row justify-content-center">
         
-        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num1"></input>
-        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num2"></input>
-        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num3"></input>
-        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num4"></input>
-        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num5"></input>
-        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num6"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus id="num1"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup"  id="num2"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup"  id="num3"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup"  id="num4"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup"  id="num5"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup"  id="num6"></input>
         </div>
         
         <h6 className="resend_otp_text">Resend OTP</h6>
