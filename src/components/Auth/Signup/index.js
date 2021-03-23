@@ -53,6 +53,29 @@ const Signup = () => {
     
     const [token, setToken] = useState({});
     const [successErrorMessage, setSuccessErrorMessage] = useState('Account Created SuccessFully');
+    const [autofocus,setAutoFocus] = useState(true)
+    const [num1,setNum1] = useState("");
+    const [num2,setNum2] = useState("");
+    const [num3,setNum3] = useState("");
+    const [num4,setNum4] = useState("");
+    const [num5,setNum5] = useState("");
+    const [num6,setNum6] = useState("");
+    const [fname, setFname] = useState("");
+    const [lname, setLname] = useState("");
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [firebaseUid, setFirebaseUid] = useState("");
+
+
+
+
+
+
+
+
+
     
     useEffect(() => {
         localStorage.setItem('access_token', token.access_token ? token.access_token : '');
@@ -67,16 +90,22 @@ const Signup = () => {
     const ValidateSchema = Yup.object().shape({
         fname: Yup.string().required().label("First Name"),
         lname: Yup.string().required().label("Last Name"),
-        phone: Yup.number().required().phoneNumber,
+        phone: Yup.number().required().label("p"),
         email: Yup.string().required().email().label("Email"),
         password: Yup.string().required().min(6).label("Password"),
     }) 
     
     
     const resendOtp = () => {
-        // window.recaptchaVerifier.render().then(function(widgetId) {
-        //     grecaptcha.reset(widgetId);
-        //   })
+        const values = {
+            'fname':fname,
+            'lname':lname,
+            'email':email,
+            'password':password,
+            'check':confirmPassword,
+            'firebase_uid':firebaseUid,
+        };
+        phoneAuth(values)
     }
     
     const handleClose = () => {
@@ -100,16 +129,21 @@ const Signup = () => {
         var captureButtonClick = document.getElementById('verifyOtp');
         captureButtonClick.onclick =  (e) => {
             console.log(e)
-            var otpEntered = document.getElementById('num1').value;
+            var otpEnteredList = document.getElementsByClassName('input_dialog_signup');
+            var otpEntered = '';
+            for(var i=0; i<otpEnteredList.length; i++){
+                console.log(otpEnteredList[i].value);
+                otpEntered = otpEntered + otpEnteredList[i].value.toString();
+            }
             console.log(otpEntered)
-            confirmationResult.confirm(otpEntered).then(async (result) => {
+                    confirmationResult.confirm(otpEntered).then(async (result) => {
                     // User signed in successfully.
                     const user = result.user;
                     var errorMessage = document.getElementById('successErrorMessageForWrongOtp');
                     errorMessage.innerHTML = '';
                     console.log(user)
                     console.log(user.phoneNumber)
-                    handleRegistration(userValues, user.phoneNumber)
+                    handleRegistration(userValues, user.phoneNumber, user.uid)
                     setSuccessErrorMessage("Otp Verification Completed")
                     setOpen(true);
                     setTimeout(() => {
@@ -156,7 +190,7 @@ const Signup = () => {
         let recaptcha = new firebase.auth.RecaptchaVerifier('sign-up', {
             'size': 'invisible',
             'callback': (response) => {
-                this.phoneAuth();
+                phoneAuth();
                 this.resendOtp();
                 console.log(response)
             }
@@ -165,6 +199,34 @@ const Signup = () => {
           
         console.log("Phone auth")
     }
+
+
+    const validateIfNumeric = (e, relatedTo) => {
+        const data = e.target.value;
+        console.log(data,relatedTo)
+        var numeric = '^[0-9]*$'
+        if(data.match(numeric)){
+            if(relatedTo === 'num1'){
+                console.log("hello num1")
+                setNum1(data)
+            }else if(relatedTo === 'num2'){
+                setNum2(data)
+            }else if(relatedTo === 'num3'){
+                setNum3(data)
+            }else if(relatedTo === 'num4'){
+                setNum4(data)
+            }else if(relatedTo === 'num5'){
+                setNum5(data)
+            }else{
+                setNum6(data)
+            }
+        }
+
+    }
+
+
+
+    
     
     
     const handleSignUp = (token, user) => {
@@ -192,13 +254,13 @@ const Signup = () => {
     }
     
     
-    const handleRegistration = (values, mobileNumber) => {
+    const handleRegistration = (values, mobileNumber, firebase_uid) => {
         console.log("called registration")
         
         if (values.check === values.password) {
             
             let Name = values.fname + " " + values.lname;
-            let firebase_uid = values.firebase_uid;
+            let firebaseUid = firebase_uid === '' ? values.firebase_uid : firebase_uid;
             
             axios.post('register', {
                 name: Name,
@@ -207,7 +269,7 @@ const Signup = () => {
                 first_name: values.fname,
                 last_name: values.lname,
                 mobile: mobileNumber,
-                firebase_uid:firebase_uid,
+                firebase_uid:firebaseUid,
             }).then(
                 (res) => {
                     console.log(res)
@@ -239,39 +301,43 @@ const Signup = () => {
             return (
                 <>
                 <div style={{zIndex:5}}>
-
-<Dialog
-open={otpDialog}
-onClose={handleCloseOtp}
-aria-labelledby="responsive-dialog-title"
->
-<DialogTitle className="otp_bg" id="responsive-dialog-title">
-
-<div className="row dialog_signup_new">
-
-<div className="col-2">
-<i className="fa fa-long-arrow-left left_icon_dialog" aria-hidden="true"></i>
-</div>
-
-<div className="col-10">
-<div className="img_container_dialog">
-<img src={logo_img} className="logo_dialog_signup" alt="logo"></img>
-</div>
-</div>
-
-</div>
-
-
-<h6 className="your_phone_text">VERIFY YOUR PHONE NUMBER</h6>
-
-<h6 className="received_text">You would have received an otp on your phone...</h6>
-
-
-<h6 className="enter_otp_text">Enter OTP</h6>
-
-<div className="row justify-content-center" style={{width:'100%'}}>
-
-<input type="text" value={otp} placeholder="000000" required className="input_dialog_signup" id="num1" disabled={disabled} onChange={(e) => storeOtp(e)}></input>
+                <Dialog
+        open={otpDialog}
+        onClose={handleCloseOtp}
+        aria-labelledby="responsive-dialog-title"
+        
+        >
+        <DialogTitle className="otp_bg" id="responsive-dialog-title">
+        
+        <div className="row dialog_signup_new">
+        
+        <div className="col-2">
+        <i className="fa fa-long-arrow-left left_icon_dialog" aria-hidden="true"></i>
+        </div>
+        
+        <div className="col-10">
+        <div className="img_container_dialog">
+        <img src={logo_img} className="logo_dialog_signup" alt="logo"></img>
+        </div>
+        </div>
+        
+        </div>
+        
+        
+        <h6 className="your_phone_text">VERIFY YOUR PHONE NUMBER</h6>
+        
+        <h6 className="received_text">You would have received an otp on your phone...</h6>
+        
+        
+        <h6 className="enter_otp_text">Enter OTP</h6>
+        
+        <div className="row justify-content-center">
+        <input type="text" required value={num1}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num1" onInput={(e) => validateIfNumeric(e, 'num1')} autofocus></input>
+        <input type="text" required value={num2}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num2" onInput={(e) => validateIfNumeric(e, 'num2')}></input>
+        <input type="text" required value={num3}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num3" onInput={(e) => validateIfNumeric(e, 'num3')}></input>
+        <input type="text" required value={num4}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num4" onInput={(e) => validateIfNumeric(e, 'num4')}></input>
+        <input type="text" required value={num5}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num5" onInput={(e) => validateIfNumeric(e, 'num5')}></input>
+        <input type="text" required value={num6}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num6" onInput={(e) => validateIfNumeric(e, 'num6')}></input>
 </div>
 
 <span id="successErrorMessageForWrongOtp" style={{color:'red', fontWeight:800}}></span>
@@ -290,6 +356,7 @@ aria-labelledby="responsive-dialog-title"
 
 </Dialog>
 </div>
+
                 <Main>
                 <Route to="/">
                 <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
@@ -335,17 +402,15 @@ aria-labelledby="responsive-dialog-title"
                 initialValues={
                     {
                         phone: phoneNumber.current,
-                        fname: '',
-                        lname: '',
-                        email: '',
-                        password: '',
-                        check: '',
-                        firebase_uid:0,
+                        fname: fname,
+                        lname: lname,
+                        email: email,
+                        password: password,
+                        check: confirmPassword,
+                        firebase_uid:firebaseUid,
                     }}
-                    
                     onSubmit={(values) => {
-                        phoneAuth(values)
-                        // handleRegistration(values)
+    phoneAuth(values)
                     }}
                     validationSchema={ValidateSchema}
                     >
@@ -383,7 +448,7 @@ aria-labelledby="responsive-dialog-title"
                             <Input
                             type="text"
                             placeholder="Enter First Name"
-                            onChange={handleChange("fname")}
+                            onChange={(e) => handleChange("fname")}
                             />
                             {errors.fname && touched.fname ?
                                 (<Para color="red" size="0.8rem" weight="700">{errors.fname} </Para>)
@@ -394,7 +459,7 @@ aria-labelledby="responsive-dialog-title"
                                 <Input
                                 type="text"
                                 placeholder="Enter Last Name"
-                                onChange={handleChange("lname")}
+                                onChange={(e) => handleChange("lname")}
                                 />
                                 {errors.lname && touched.lname ?
                                     (<Para color="red" size="0.8rem" weight="700">{errors.lname} </Para>)
@@ -405,7 +470,7 @@ aria-labelledby="responsive-dialog-title"
                                     <Input
                                     type="email"
                                     placeholder="Enter Email "
-                                    onChange={handleChange("email")}
+                                    onChange={(e) => handleChange("email")}
                                     />
                                     {errors.email && touched.email ?
                                         (<Para color="red" size="0.8rem" weight="700">{errors.email} </Para>)
@@ -416,7 +481,7 @@ aria-labelledby="responsive-dialog-title"
                                         <Input
                                         type="password"
                                         placeholder="Enter Password"
-                                        onChange={handleChange("password")}
+                                        onChange={(e) => handleChange("password")}
                                         />
                                         {errors.password && touched.password ?
                                             (<Para color="red" size="0.8rem" weight="700">{errors.password} </Para>)
@@ -427,11 +492,11 @@ aria-labelledby="responsive-dialog-title"
                                             <Input
                                             type="password"
                                             placeholder="Confirm Password"
-                                            onChange={handleChange("check")}
+                                            onChange={(e) => handleChange("check")}
                                             />
                                             
                                             <Section width="auto">
-                                            <Line back="rgba(137,197,63,1)" height="1px" />
+                                            <Line back="rgba(137,197,63,1)" height="1px"/>
                                             <Para width="30px" color="rgba(137,197,63,1)" size="0.8rem" weight="700">
                                             OR
                                             </Para>

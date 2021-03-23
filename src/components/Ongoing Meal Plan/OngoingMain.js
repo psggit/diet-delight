@@ -38,7 +38,7 @@ export default function OngoingMain() {
   const renderMeal = meals.map((meal) => {
     return (
       <div onClick={() =>pushScreen(meal)}>
-        <div className="main_container_mealpkg">
+        <div className="main_container_ongoing">
           <div className="card fullcard_container_ongoing">
             <div className="row">
               <div className="col-md-6 col-sm-12">
@@ -48,7 +48,7 @@ export default function OngoingMain() {
                       <img
                         src={meal.meal_plan.picture}
                         alt="rounded_img"
-                        className="rounded-circle card_img_rounded_mealpkgsub"
+                        className="rounded-circle card_img_rounded_ongoing"
                       ></img>
                     </div>
                   </div>

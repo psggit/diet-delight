@@ -172,7 +172,7 @@ export default function UserDashboardMain() {
         />
       )}
       {toggleChangePassword && (
-        <ChangePassword closeChangePassword={closeChangePassword} />
+        <ChangePassword closeChangePassword={closeChangePassword} changePassword={true}/>
       )}
       {toggleBMIReport && (
         <Bmireport bmiReport={bmiReport} toggleReport={toggleReport} />

@@ -24,7 +24,7 @@ export default function Mealchoose(props) {
           {props.name}
         </a>
 
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center a_link_text_mealchoose">
           <a href="/" className="choose_your_meal_text2">
             Consulting
           </a>

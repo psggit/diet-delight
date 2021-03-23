@@ -1,3 +1,140 @@
 select.signup_select:focus{
     outline: none;
 }
+.calender_dialog_bg_new{
+	background-image: url("../../../assets/consultant.jpg");
+	height: 100%; /* You must set a specified height */
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover;
+
+}
+
+
+#emailForUpdatePassword{
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: 0;
+    margin-left: -10px;
+    margin-top: 15px;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+@media only screen and (max-width: 767px) {
+	div.mobile_dialog_container{
+		margin-top: 26px;
+	}
+	input.mobile_number_input_dialog{
+		border: none;
+		border-radius: 4px;
+		padding: 3%;
+		font-size: 14px;
+		width: 91%;
+		height: 20px;
+		position: relative;
+		margin-left: 27px;
+		top: -2px;
+		height: 39px;
+	}
+	select.select_mobile_no_dialog{
+		border: none;
+		border-radius: 4px;
+		padding: 1%;
+		font-size: 14px;
+		width: max-content;
+		height: 39px;
+	}
+
+	
+	button.btn_submit_dialog_mobile_no{
+		background: green;
+		color: #fff;
+		margin-right: auto;
+		margin-left: auto;
+		font-size: 16px;
+		letter-spacing: 2px;
+		width: max-content;
+		height: 38px
+	}
+	div.btn_container_mobile_dialog{
+		display: flex;
+		margin-top: 40px;
+	}
+	.calender_dialog_bg_new{
+
+		height: 100%; /* You must set a specified height */
+		background-position: center; /* Center the image */
+		background-repeat: no-repeat; /* Do not repeat the image */
+		background-size: cover;
+	}
+
+
+}
+
+@media only screen and (min-width: 768px) {
+	div.mobile_dialog_container{
+		margin-top: 26px;
+	}
+	input.mobile_number_input_dialog{
+		border: none;
+		border-radius: 4px;
+		padding: 3%;
+		font-size: 14px;
+		width: 91%;
+		height: 20px;
+		position: relative;
+		margin-left: 27px;
+		top: -2px;
+		height: 39px;
+	}
+	select.select_mobile_no_dialog{
+		border: none;
+		border-radius: 4px;
+		padding: 1%;
+		font-size: 14px;
+		width: max-content;
+		height: 39px;
+	}
+
+	
+	button.btn_submit_dialog_mobile_no{
+		background: green;
+		color: #fff;
+		margin-right: auto;
+		margin-left: auto;
+		font-size: 16px;
+		letter-spacing: 2px;
+		width: max-content;
+		height: 38px
+	}
+	div.btn_container_mobile_dialog{
+		display: flex;
+		margin-top: 40px;
+	}
+
+
+	.calender_dialog_bg_new{
+
+		height: 200px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		width: 337px;
+
+	}
+
+
+
+
+
+}

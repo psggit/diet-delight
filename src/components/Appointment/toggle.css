@@ -57,54 +57,64 @@ label.switch_toggle:active:after {
     label.switch_toggle {
         cursor: pointer;
         text-indent: inherit;
-        width: 69px;
+        width: 72px;
         height: 34px;
         background: grey;
         display: block;
         border-radius: 100px;
         position: relative;
+        margin-top: 17px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    span.enter_text_red_alert{
+        font-size: 12px;
+        letter-spacing: 1px;
     }
 
 }
 
 
 @media only screen and (min-width: 768px) {
+   span.enter_text_red_alert{
+    font-size: 12px;
+    letter-spacing: 1px;
+}
 
-    div.toggle_container{
-        margin: 2%;
-        /* margin-bottom: 6px; */
-        margin-top: 26px;
-       
-        margin-left: -14px;
-    }
-    h6.online_text{
-        font-size: 20px;
-        font-weight: bold;
-        margin: 1%;
-        letter-spacing: 1px;
-    }
-    label.switch_toggle {
-        cursor: pointer;
-        text-indent: inherit;
-        width: 62px;
-        height: 29px;
-        background: grey;
-        display: block;
-        border-radius: 100px;
-        position: relative;
-        margin-left: 13px;
-    }
-    label.switch_toggle:after {
-        content: '';
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        width: 19px;
-        height: 19px;
-        background: #fff;
-        border-radius: 90px;
-        transition: 0.3s;
-    }
+div.toggle_container{
+   margin: 2%;
+   /* margin-bottom: 6px; */
+   margin-top: 26px;
+   margin-left: 0px;
+}
+h6.online_text{
+ font-size: 11px;
+ font-weight: bold;
+ margin: 1%;
+ letter-spacing: 1px;
+}
+label.switch_toggle {
+   cursor: pointer;
+   text-indent: inherit;
+   width: 46px;
+   height: 19px;
+   background: grey;
+   display: block;
+   border-radius: 100px;
+   position: relative;
+   margin-left: 13px;
+}
+label.switch_toggle:after {
+ content: '';
+ position: absolute;
+ top: 5px;
+ left: 5px;
+ width: 10px;
+ height: 10px;
+ background: #fff;
+ border-radius: 10px;
+ transition: 0.3s;
+}
 
 }
 
@@ -117,33 +127,33 @@ label.switch_toggle:active:after {
         margin-left: -3px;
     }
     h6.online_text{
-        font-size: 20px;
-        font-weight: bold;
-        margin: 1%;
-        letter-spacing: 1px;
-    }
-    label.switch_toggle {
-        cursor: pointer;
-        text-indent: inherit;
-        width: 62px;
-        height: 29px;
-        background: grey;
-        display: block;
-        border-radius: 100px;
-        position: relative;
-        margin-left: 13px;
-    }
-    label.switch_toggle:after {
-        content: '';
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        width: 19px;
-        height: 19px;
-        background: #fff;
-        border-radius: 90px;
-        transition: 0.3s;
-    }
+     font-size: 15px;
+     font-weight: bold;
+     margin: 1%;
+     letter-spacing: 1px;
+ }
+ label.switch_toggle {
+    cursor: pointer;
+    text-indent: inherit;
+    width: 58px;
+    height: 23px;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    margin-left: 13px;
+}
+label.switch_toggle:after {
+   content: '';
+   position: absolute;
+   top: 5px;
+   left: 5px;
+   width: 13px;
+   height: 13px;
+   background: #fff;
+   border-radius: 13px;
+   transition: 0.3s;
+}
 
 }
 

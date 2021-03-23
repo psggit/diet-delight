@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -10,49 +10,31 @@ import { useTheme } from '@material-ui/core/styles';
 import './DialogSign.css'
 import logo_img from '../../../assets/logoweb.png'
 
-export default function OtpDialogBox(props) {
+export default function OtpDialog() {
     const [open, setOpen] = React.useState(true);
-    const theme = useTheme();
     const [otp,setOtp] = useState('');
     const [disabled,setDisabled] = useState(false)
     
-    // const handleOpenOtp = () => {
-    //     setOpen(true);
-    // };
-
-    useEffect(() => {   
-        if(otp.length > 6){
-            setDisabled(true)
-            console.log(otp)
-        }
-    },[otp])
-
+    const handleOpenOtp = () => {
+        setOpen(true);
+    };
     
     const handleCloseOtp = () => {
-        props.handleOtpDialog();
+        setOpen(false);
     };
-
-    const storeOtp = (value) => {
-        if(value.length <= 6){
-            setOtp(value)
-        }
-    }
-
-
-    const verifyOtp = () => {
-        var enteredOtp = parseInt(otp);
-
-        props.handleVerification(otp)
-        console.log(enteredOtp)
-    }
     
     return (
-        <div style={{zIndex:5}}>
-
+        <div>
+        
+        <Button variant="outlined" color="primary" onClick={handleOpenOtp}>
+        Open responsive dialog
+        </Button>
+        
         <Dialog
         open={open}
         onClose={handleCloseOtp}
         aria-labelledby="responsive-dialog-title"
+        
         >
         <DialogTitle className="otp_bg" id="responsive-dialog-title">
         
@@ -78,14 +60,19 @@ export default function OtpDialogBox(props) {
         
         <h6 className="enter_otp_text">Enter OTP</h6>
         
-        <div className="row justify-content-center" style={{width:'100%'}}>
+        <div className="row justify-content-center">
         
-        <input type="text" value={otp} placeholder="000000" required className="input_dialog_signup" id="num1" disabled={disabled} onChange={(e) => storeOtp(e.target.value)}></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num1"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num2"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num3"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num4"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num5"></input>
+        <input type="text" required  minlength="1" maxlength="1" className="input_dialog_signup" autofocus={autofocus} id="num6"></input>
         </div>
         
         <h6 className="resend_otp_text">Resend OTP</h6>
         
-        <button className="btn verify_btn_dialog" onClick={() => verifyOtp()}>VERIFY</button>
+        <button className="btn verify_btn_dialog">VERIFY</button>
         
         </DialogTitle>
         
