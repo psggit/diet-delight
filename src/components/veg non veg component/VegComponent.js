@@ -10,8 +10,8 @@ export default function VegComponent(){
 		
 
 
-		<div class="vegsquare">
-		<div class="vegcircle">
+		<div className="vegsquare">
+		<div className="vegcircle">
 
 		</div>
 		</div>

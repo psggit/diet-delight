@@ -9,6 +9,7 @@ import { useHistory} from 'react-router-dom';
 import axios from '../../axiosInstance';
 import TabMenuPkg from './TabMenuPkg'
 import MainCourse from './MainCourse'
+import { Update } from '@material-ui/icons'
 
 
 
@@ -20,6 +21,8 @@ export default function MenuPkg(props){
     const [filter, setFilter] = useState(null);
     const [menuItems,setMenuItems] = useState([])
     const [categoryName,setCategoryName] = useState("");
+    const [recentlyAddedFavourites, setRecentlyAddedFavourites] = useState([]);
+    const [favouritesList, setFavouritesList] = useState([]);
     function handlePush(){
         history.push({
             pathname: '/',
@@ -36,11 +39,31 @@ export default function MenuPkg(props){
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then((res) => {
-            console.log(res.data.data)
             setCategory(res.data.data)
             filteredMenu(res.data.data[0].menu_id, res.data.data[0].id,res.data.data[0].name)
-        })
+        }).catch((err) => console.log(err))
+
+        fetchFavourites()
+   
     }, [])
+
+    const fetchFavourites = () => {
+        axios.get('favourites').then((res) => {
+            var favourites = [];
+            res.data.data.forEach(favourite => {
+                favourites.push(favourite.menu_item_id);
+            });
+            setFavouritesList([...favourites]);
+        }).catch((err) => console.log(err))
+    }
+
+
+    const addInRecentLikeList = (data) => {
+        var oldRecentlyAddedFavouritesList = recentlyAddedFavourites;
+        oldRecentlyAddedFavouritesList.push(data);
+        setRecentlyAddedFavourites([...oldRecentlyAddedFavouritesList]) 
+
+    }
 
 
     const filteredMenu = (menu_id,category_id,category_name) => {
@@ -48,15 +71,37 @@ export default function MenuPkg(props){
         axios.get(`menu-items?menu_id=`+menu_id+`&menu_category_id=`+category_id, {
         }).then((res) => {
             setCategoryName(category_name)
-            console.log(res.data.data)
             setMenuItems(res.data.data)
+            console.log(res.data.data)
         })
     } 
     
-    const renderCategory = menuItems.map((menuItem) =>  <MainCourse filterId = {filter}
-    key={Math.random()}
-    menuItem ={menuItem}
-    />);
+    const renderCategory = menuItems.map((menuItem) =>  {
+
+        // console.log(menuItem)
+        // console.log(favouritesList)
+
+        var mergedFavouriteList = favouritesList.concat(recentlyAddedFavourites);
+
+
+        var ifFavourite = mergedFavouriteList.includes(menuItem.id)
+
+        if(ifFavourite){
+            return(
+                <MainCourse filterId = {filter}
+        key={Math.random()}
+        menuItem ={menuItem}
+        notifyAddedFavourite={addInRecentLikeList} favouriteItem={true}/>
+            );
+        }else{
+            return(
+                <MainCourse filterId = {filter}
+        key={Math.random()}
+        menuItem ={menuItem}
+        notifyAddedFavourite={addInRecentLikeList}/>
+            );
+        }
+    });
 
 
     

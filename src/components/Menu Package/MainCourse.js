@@ -28,21 +28,39 @@ export default function MainCourse(props){
     // }, [props.categoryData.menu_id,props.categoryData.id])
     
     // const [like ,setLike] = useState("")
+
+
+    useEffect(() => {
+        if(props.favouriteItem){
+            setLikeColor("fa fa-heart heart_menu_pkg_fill")
+        }else{
+            setLikeColor("fa fa-heart-o heart_menu_pkg")
+        }
+
+    }, [props.favouriteItem])
     
     function handleLike(id){  
 
-        axios.post(`favourites`, {
+        if(likeColor === 'fa fa-heart-o heart_menu_pkg'){
+            axios.post(`favourites`, {
 
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('access_token')}`
-            },
-            
-            menu_item_id: id
-            
-        }).then((res) => {
-            console.log(res)
-            
-        }).catch(err => console.log(err))
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+                },
+                
+                menu_item_id: id
+                
+            }).then((res) => {
+                console.log(res)
+                props.notifyAddedFavourite(props.menuItem.id)
+            }).catch(err => console.log(err))
+        }else{
+            axios.delete('favourites/'+props.menuItem.id).then((res) =>{
+                props.notifyAddedFavourite(props.menuItem.id)
+                console.log(res)}).catch((err) => console.log(err));
+        }
+
+
         
     } 
     
@@ -72,7 +90,7 @@ export default function MainCourse(props){
        
          {/*<VegComponent/> */}
 
-        <NonvegComponent/>
+         {props.menuItem.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
       
         
         <i className={likeColor} aria-hidden="true" onClick={() => colorHandle(props.menuItem.id)}></i>

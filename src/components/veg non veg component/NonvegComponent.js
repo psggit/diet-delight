@@ -9,8 +9,8 @@ export default function VegComponent(){
 
 
 
-		<div class="nonvegsquare">
-		<div class="nonvegcircle">
+		<div className="nonvegsquare">
+		<div className="nonvegcircle">
 
 		</div>
 		</div>

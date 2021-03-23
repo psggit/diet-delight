@@ -29,7 +29,7 @@ export default class DayTabsMenupkg extends React.Component {
             <div>
             <div className="tabsH_wrapper_menupkg">
             {this.props.categories.map(category => {
-
+                console.log(category)
                 return (
                     <div onClick={() => {
                         this.notifyParent(category.menu_id,category.id,category.name)

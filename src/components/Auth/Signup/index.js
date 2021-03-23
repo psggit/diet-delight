@@ -1,3 +1,5 @@
+/* global grecaptcha */
+
 import React, { useState, forwardRef, useEffect, useMemo, useRef } from 'react'
 import { Main, Route, Container, Section, Phone, Input, Facebook, Google, IconBox, CustomButton, SetBg, RouteContainer } from './SignupElements'
 
@@ -90,13 +92,14 @@ const Signup = () => {
     const ValidateSchema = Yup.object().shape({
         fname: Yup.string().required().label("First Name"),
         lname: Yup.string().required().label("Last Name"),
-        phone: Yup.number().required().label("p"),
+        // phone: Yup.number().required().label("Phone"),
         email: Yup.string().required().email().label("Email"),
         password: Yup.string().required().min(6).label("Password"),
     }) 
     
     
     const resendOtp = () => {
+        grecaptcha.reset();
         const values = {
             'fname':fname,
             'lname':lname,
@@ -106,6 +109,8 @@ const Signup = () => {
             'firebase_uid':firebaseUid,
         };
         phoneAuth(values)
+
+
     }
     
     const handleClose = () => {
@@ -155,6 +160,36 @@ const Signup = () => {
                       errorMessage.innerHTML = 'Invalid Otp Please try Again'
                   });
         }
+        captureButtonClick.onKeyPress = (e) =>{
+            if(e.code === 'Enter'){
+                var otpEnteredList = document.getElementsByClassName('input_dialog_signup');
+                var otpEntered = '';
+                for(var i=0; i<otpEnteredList.length; i++){
+                    console.log(otpEnteredList[i].value);
+                    otpEntered = otpEntered + otpEnteredList[i].value.toString();
+                }
+                console.log(otpEntered)
+                        confirmationResult.confirm(otpEntered).then(async (result) => {
+                        // User signed in successfully.
+                        const user = result.user;
+                        var errorMessage = document.getElementById('successErrorMessageForWrongOtp');
+                        errorMessage.innerHTML = '';
+                        console.log(user)
+                        console.log(user.phoneNumber)
+                        handleRegistration(userValues, user.phoneNumber, user.uid)
+                        setSuccessErrorMessage("Otp Verification Completed")
+                        setOpen(true);
+                        setTimeout(() => {
+                            setOtpDialog(false)
+                        },1000)
+                      }).catch((error) => {
+                          console.log(error)
+                          var errorMessage = document.getElementById('successErrorMessageForWrongOtp');
+                          errorMessage.innerHTML = 'Invalid Otp Please try Again'
+                      });
+                
+            }
+        }
 
         // return otpEntered;
     }
@@ -165,6 +200,7 @@ const Signup = () => {
 
         let number = code.current+phoneNumber.current;
         console.log(number)
+            
 
     await firebase.auth().signInWithPhoneNumber(number, reCaptcha.current)
     .then((confirmationResult) => {
@@ -174,6 +210,7 @@ const Signup = () => {
       handleCodeByUser(confirmationResult, values)
     }).catch((error) => {
         console.log(error)
+        grecaptcha.reset();
     });
     }
 
@@ -190,8 +227,8 @@ const Signup = () => {
         let recaptcha = new firebase.auth.RecaptchaVerifier('sign-up', {
             'size': 'invisible',
             'callback': (response) => {
-                phoneAuth();
-                this.resendOtp();
+                // phoneAuth();
+                // this.resendOtp();
                 console.log(response)
             }
           });
@@ -312,7 +349,7 @@ const Signup = () => {
         <div className="row dialog_signup_new">
         
         <div className="col-2">
-        <i className="fa fa-long-arrow-left left_icon_dialog" aria-hidden="true"></i>
+        <i className="fa fa-long-arrow-left left_icon_dialog" aria-hidden="true" onClick={() => setOtpDialog(false)}></i>
         </div>
         
         <div className="col-10">
@@ -337,10 +374,10 @@ const Signup = () => {
         <input type="text" required value={num3}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num3" onInput={(e) => validateIfNumeric(e, 'num3')}></input>
         <input type="text" required value={num4}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num4" onInput={(e) => validateIfNumeric(e, 'num4')}></input>
         <input type="text" required value={num5}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num5" onInput={(e) => validateIfNumeric(e, 'num5')}></input>
-        <input type="text" required value={num6}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num6" onInput={(e) => validateIfNumeric(e, 'num6')}></input>
+        <input type="text" required value={num6}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num6" onInput={(e) => validateIfNumeric(e, 'num6')} ></input>
 </div>
 
-<span id="successErrorMessageForWrongOtp" style={{color:'red', fontWeight:800}}></span>
+<span id="successErrorMessageForWrongOtp" style={{color:'red', size:"0.8rem", weight:"700", align:"none", top:'0'}}></span>
 
 <h6 className="resend_otp_text" onClick = {() => resendOtp()}>Resend OTP</h6>
 
@@ -401,17 +438,34 @@ const Signup = () => {
                 <Formik
                 initialValues={
                     {
-                        phone: phoneNumber.current,
-                        fname: fname,
-                        lname: lname,
-                        email: email,
-                        password: password,
-                        check: confirmPassword,
-                        firebase_uid:firebaseUid,
+                        phone: '',
+                        fname: '',
+                        lname: '',
+                        email: '',
+                        password: '',
+                        check: '',
+                        firebase_uid:0,
                     }}
+                    
                     onSubmit={(values) => {
-    phoneAuth(values)
-                    }}
+                        if(phoneNumber.current != ''){
+                            if(code.current != ''){
+                                setFname(values.fname)
+                                setLname(values.lname)
+                                setPassword(values.password)
+                                setConfirmPassword(values.check)
+                                setEmail(values.email)
+                                setFirebaseUid(values.firebase_uid)
+                                document.getElementById('phoneError').innerHTML = "";
+                                phoneAuth(values)
+                            }else{
+                                document.getElementById('phoneError').innerHTML = "Select Country Code";
+                                phoneAuth(values)
+                            }
+                        }else{
+                            document.getElementById('phoneError').innerHTML = "Enter Mobile No";
+                        }
+                                        }}
                     validationSchema={ValidateSchema}
                     >
                     
@@ -437,18 +491,32 @@ const Signup = () => {
                             e.preventDefault()
                             phoneNumber.current = e.target.value;
                             }}
+                            onKeyPress={(e) =>  { 
+                                console.log("called")
+                                console.log(e)
+                                if (e.code === 'Enter') {
+                                    console.log("called")
+                                e.preventDefault();
+                                handleSubmit()
+                              }}}   
                         />
                         </Section>
-                        {errors.phone && touched.phone ?
-                            (<Para color="red" size="0.8rem" weight="700">{errors.phone} </Para>)
-                            : null}
+                            <p id="phoneError" style={{color:'red', size:"0.8rem", weight:"700", align:"none", top:'0'}}></p>,
                             <Para color="rgba(137,197,63,1)" size="0.8rem" weight="700" align="none" top="0">
                             FIRST NAME
                             </Para>
                             <Input
                             type="text"
                             placeholder="Enter First Name"
-                            onChange={(e) => handleChange("fname")}
+                            onChange={handleChange("fname")}
+                            onKeyPress={(e) =>  { 
+                                console.log("called")
+                                console.log(e)
+                                if (e.code === 'Enter') {
+                                    console.log("called")
+                                e.preventDefault();
+                                handleSubmit()
+                              }}}
                             />
                             {errors.fname && touched.fname ?
                                 (<Para color="red" size="0.8rem" weight="700">{errors.fname} </Para>)
@@ -459,7 +527,15 @@ const Signup = () => {
                                 <Input
                                 type="text"
                                 placeholder="Enter Last Name"
-                                onChange={(e) => handleChange("lname")}
+                                onChange={handleChange("lname")}
+                                onKeyPress={(e) =>  { 
+                                    console.log("called")
+                                    console.log(e)
+                                    if (e.code === 'Enter') {
+                                        console.log("called")
+                                    e.preventDefault();
+                                    handleSubmit()
+                                  }}}
                                 />
                                 {errors.lname && touched.lname ?
                                     (<Para color="red" size="0.8rem" weight="700">{errors.lname} </Para>)
@@ -470,7 +546,15 @@ const Signup = () => {
                                     <Input
                                     type="email"
                                     placeholder="Enter Email "
-                                    onChange={(e) => handleChange("email")}
+                                    onChange={handleChange("email")}
+                                    onKeyPress={(e) =>  { 
+                                        console.log("called")
+                                        console.log(e)
+                                        if (e.code === 'Enter') {
+                                            console.log("called")
+                                        e.preventDefault();
+                                        handleSubmit()
+                                      }}}
                                     />
                                     {errors.email && touched.email ?
                                         (<Para color="red" size="0.8rem" weight="700">{errors.email} </Para>)
@@ -481,7 +565,15 @@ const Signup = () => {
                                         <Input
                                         type="password"
                                         placeholder="Enter Password"
-                                        onChange={(e) => handleChange("password")}
+                                        onChange={handleChange("password")}
+                                        onKeyPress={(e) =>  { 
+                                            console.log("called")
+                                            console.log(e)
+                                            if (e.code === 'Enter') {
+                                                console.log("called")
+                                            e.preventDefault();
+                                            handleSubmit()
+                                          }}}
                                         />
                                         {errors.password && touched.password ?
                                             (<Para color="red" size="0.8rem" weight="700">{errors.password} </Para>)
@@ -492,11 +584,19 @@ const Signup = () => {
                                             <Input
                                             type="password"
                                             placeholder="Confirm Password"
-                                            onChange={(e) => handleChange("check")}
+                                            onChange={handleChange("check")}
+                                            onKeyPress={(e) =>  { 
+                                                console.log("called")
+                                                console.log(e)
+                                                if (e.code === 'Enter') {
+                                                    console.log("called")
+                                                e.preventDefault();
+                                                handleSubmit()
+                                              }}}
                                             />
                                             
                                             <Section width="auto">
-                                            <Line back="rgba(137,197,63,1)" height="1px"/>
+                                            <Line back="rgba(137,197,63,1)" height="1px" />
                                             <Para width="30px" color="rgba(137,197,63,1)" size="0.8rem" weight="700">
                                             OR
                                             </Para>
@@ -518,6 +618,7 @@ const Signup = () => {
                                             )}
                                             
                                             </Formik>
+                         
                                             </Container>
                                             </SetBg>
                                             </Main>
