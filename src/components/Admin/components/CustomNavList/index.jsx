@@ -16,19 +16,19 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: 400,
     padding: "0",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: '#373a47',
   },
   item: {
-    color: "#212529",
+    color: "#b8b7ad",
     '&:hover': {
-      color: '#8BC53F',
+      color: '#c94e50',
     }
   },
   nested: {
     paddingLeft: theme.spacing(4),
-    color: "#212529",
+    color: "#b8b7ad",
     '&:hover': {
-      color: '#8BC53F',
+      color: '#c94e50',
     }
   },
 }));

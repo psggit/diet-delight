@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { scaleDown as Menu } from 'react-burger-menu'
+import { elastic as Menu } from 'react-burger-menu'
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -119,7 +119,7 @@ var styles = {
     height: '100%'
   },
   bmMenu: {
-    background: '#FFFFFF',
+    background: '#373a47',
     fontSize: '1.15em'
   },
   bmMorphShape: {
