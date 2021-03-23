@@ -6,52 +6,62 @@ import { Formik, Form, Field } from "formik";
 import { TextField, Select } from '../../reusable/InputItems';
 import Modal from '../../reusable/Modal';
 import { Mini } from "../Elements";
-import { QUESTION_TYPES } from '../Constants';
+import { CONSULTANT_STATUS } from '../Constants';
 
 const validationSchema = Yup.object().shape({
-	question: Yup.string().required('Please enter Question'),
-	type: Yup.string().required('Please select Type'),
-	order: Yup.number().required('Pleae enter Order'),
+	name: Yup.string().required('Please Select User'),
+	status: Yup.string(),
+	qualification: Yup.string(),
+	bio: Yup.string(),
+	order: Yup.string().required('Please Enter Order'),
 });
 
-const QuestionFormModal = (props) => {
-	const { visible, onClose, onSubmit, mode, values = {} } = props;
+const ConsultantFormModal = (props) => {
+	const { visible, onClose, onSubmit, mode, values = {}, users } = props;
 
 	return (
 		<Modal
 			visible={visible}
 			onClose={onClose}
-			title={`${mode} Question`}
+			title={`${mode} Consultant`}
 			requireFooter={false}
 		>
 			<Formik
-				initialValues={{
-					question: values.question || '',
-					type: values.type || '',
-					order: values.order || '',
-				}}
+				initialValues={values}
 				validationSchema={validationSchema}
 				onSubmit={onSubmit}
 			>
 				{() => (
 					<Form>
 						<Field
-							name="question"
-							component={TextField}
-							label="Question*"
-							placeholder="Question"
+							name="name"
+							component={Select}
+							label="Name*"
+							options={users}
+							disabled={mode === 'Update'}
 						/>
 						<Field
-							name="type"
+							name="status"
 							component={Select}
-							label="Type*"
-							options={QUESTION_TYPES}
+							label="Status"
+							options={CONSULTANT_STATUS}
+						/>
+						<Field
+							name="qualification"
+							component={TextField}
+							label="Qualification"
 						/>
 						<Field
 							name="order"
 							component={TextField}
 							label="Order*"
-							placeholder="Order"
+						/>
+						<Field
+							name="bio"
+							component={TextField}
+							label="Bio"
+							multiline
+							rows={4}
 						/>
 						<Mini style={{ marginTop: "10px" }}>
 							<Button
@@ -61,7 +71,7 @@ const QuestionFormModal = (props) => {
 								style={{ margin: "8px 8px 8px 0", background: "#800080", padding: '8px 20px' }}
 							>
 								Submit
-                            </Button>
+              </Button>
 							<Button
 								variant="contained"
 								color="primary"
@@ -69,7 +79,7 @@ const QuestionFormModal = (props) => {
 								onClick={onClose}
 							>
 								Close
-                            </Button>
+              </Button>
 						</Mini>
 					</Form>
 				)}
@@ -78,4 +88,4 @@ const QuestionFormModal = (props) => {
 	)
 }
 
-export default QuestionFormModal;
+export default ConsultantFormModal;

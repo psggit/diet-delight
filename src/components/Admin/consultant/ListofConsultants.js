@@ -38,6 +38,8 @@ import {
   selectConsultant,
 } from "../../../features/adminSlice";
 import TableHeader from '../../reusable/TableHeader';
+import ConsultantFormModal from './ConsultantFormModal';
+import Modal from '../../reusable/Modal';
 
 const useStyles = makeStyles({
   root: {
@@ -57,6 +59,15 @@ const validationSchema = Yup.object().shape({
   order: Yup.number().required().label("Order"),
 });
 
+const consultantInitialValue = {
+  id: '',
+  name: '',
+  status: '',
+  qualification: '',
+  bio: '',
+  order: '',
+}
+
 const ListofConsultants = () => {
   const dispatch = useDispatch();
   const consultant = useSelector(selectConsultant);
@@ -73,20 +84,42 @@ const ListofConsultants = () => {
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
   const [isupdate, setISUpdate] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [mode, setMode] = useState('Add');
+  const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
+  const [currentConsultant, setCurrentConsultant] = useState(consultantInitialValue);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get('roles').then(res => {
+      const role = (res?.data?.data || []).find(r => r.name === 'Consultant')
+
+      if (role) {
+        axios.get(`users?role_id=${role.id}`).then((res) => {
+          setUsers((res?.data?.data || []).map((user) => {
+            return {
+              id: user.id,
+              name: `${user.first_name || ''} ${user.last_name || ''}`,
+            }
+          }));
+        });
+      }
+    });
+  }, []);
 
   let current_date_Time = new Date();
   const csvReport = {
     data: consultants,
     filename: `List_of_consultants_${current_date_Time}.csv`,
   };
-  
-    useEffect(() => {
-      handleShow();
-    }, [rowsPerPage, page, search, sort, order]);
+
+  useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(`consultants?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`consultants?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setConsultants(res.data.data);
         setLoading(false);
@@ -106,215 +139,77 @@ const ListofConsultants = () => {
     if (reason === "clickaway") {
       return;
     }
-
-    setIsSuccess(false);
+    setNotificationConf([false, 'success', '']);
   };
 
-  const handleUpdate = async (user) => {
-    await dispatch(
-      setConsultant({
-        id: user.id,
-        name: user.name,
-        status: user.status,
-        order: user.order,
-        qualification: user.qualification,
-        bio: user.bio,
-      })
-    );
+  const handleFormSubmit = (values) => {
+    const data = {
+      user_id: values.name,
+      name: (users.find(u => u.id === values.name) || { name: '' }).name,
+      status: values.status,
+      qualification: values.qualification,
+      bio: values.bio,
+      order: parseInt(values.order, 10),
+    }
+    if (mode === 'Add') {
 
-    await setISUpdate(true);
-  };
+      axios.post(`consultants`, data).then((res) => {
+        setNotificationConf([true, 'success', 'Consultant Added Successfully !'])
+        handleShow();
+      }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+    } else {
+      axios
+        .put(`consultants/${currentConsultant.id}`, data)
+        .then((res) => {
+          setNotificationConf([true, 'success', 'Consultant Updated Successfully !'])
+          handleShow();
+        })
+        .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+    }
+    console.log(data);
+    setShowForm(false);
+  }
 
-  const handleDelete = async (user) => {
-    await dispatch(resetConsultant());
-    await dispatch(
-      setConsultant({
-        id: user.id,
-      })
-    );
-    await setIsDelete(true);
-  };
-
-  const CloseDelete = () => setIsDelete(false);
-  const CloseUpdate = () => setISUpdate(false);
+  const [showNotification, notificationType, notification] = notificationConf;
 
   return (
     <>
       {isdelete && (
-        <>
-          {" "}
-          <Dialog
-            open={isdelete}
-            onClose={CloseDelete}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick
-            disableEscapeKeyDown
-          >
-            <DialogTitle id="form-dialog-title">Delete Question</DialogTitle>
-            <DialogContent>
-              <Mini>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    axios
-                      .delete(`consultants/${consultant.id}`)
-                      .then((res) => {
-                        setIsSuccess(true);
-                        setIsDelete(false);
-                        handleShow();
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  color="primary"
-                  onClick={CloseDelete}
-                >
-                  Close
-                </Button>
-              </Mini>
-            </DialogContent>
-          </Dialog>
-        </>
+        <Modal
+          visible={isdelete}
+          onClose={() => setIsDelete(false)}
+          title="Delete Question"
+          acceptButtonConfig={{
+            color: 'secondary',
+            text: 'Delete',
+            onClick: () => {
+              setIsDelete(false);
+              axios
+                .delete(`consultants/${currentConsultant.id}`)
+                .then(() => {
+                  setNotificationConf([true, 'success', 'Consultant Deleted Successfully !'])
+                  handleShow();
+                })
+                .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+            }
+          }}
+        />
       )}
-
-      {isupdate && (
-        <>
-          {" "}
-          <Dialog
-            open={isupdate}
-            onClose={CloseUpdate}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick
-            disableEscapeKeyDown
-          >
-            <DialogTitle id="form-dialog-title">Update Question</DialogTitle>
-            <DialogContent>
-              <Formik
-                initialValues={{
-                  name: consultant.name,
-                  status: consultant.status,
-                  qualification: consultant.qualification,
-                  bio: consultant.bio,
-                  order: consultant.order,
-                }}
-                validationSchema={validationSchema}
-                onSubmit={(values) => {
-                  axios
-                    .put(`consultants/${consultant.id}`, {
-                      name: values.name,
-                      status: values.status,
-                      qualification: values.qualification,
-                      bio: values.bio,
-                      order: values.order,
-                    })
-                    .then((res) => {
-                      setIsSuccess(true);
-                      setISUpdate(false);
-                      handleShow();
-                    })
-                    .catch((err) => console.log(err));
-                }}
-              >
-                {({ handleChange, handleSubmit, errors, touched, values }) => (
-                  <>
-                    <Container>
-                      <Mini>
-                        <Title>Name</Title>
-                        <Input
-                          value={values.name}
-                          placeholder="Name"
-                          onChange={handleChange("name")}
-                        ></Input>
-                      </Mini>
-                      {errors.name && touched && (
-                        <Info error>{errors.name}</Info>
-                      )}
-                      <Mini>
-                        <Title>Status</Title>
-                        <Select
-                          defaultValue={values.status}
-                          onChange={handleChange("status")}
-                        >
-                          <MenuItem value={0}>Available</MenuItem>
-                          <MenuItem value={1}>Leave</MenuItem>
-                          <MenuItem value={2}>Left</MenuItem>
-                        </Select>
-                      </Mini>
-                      {errors.status && touched && (
-                        <Info error>{errors.status}</Info>
-                      )}
-                      <Mini>
-                        <Title>Qualifaication</Title>
-                        <Input
-                          placeholder="Qualification"
-                          value={values.qualification}
-                          onChange={handleChange("qualification")}
-                        ></Input>
-                      </Mini>
-                      {errors.qualification && touched && (
-                        <Info error>{errors.qualification}</Info>
-                      )}
-                      <Mini>
-                        <Title>Bio</Title>
-                        <Input
-                          placeholder="Bio"
-                          value={values.bio}
-                          onChange={handleChange("bio")}
-                        ></Input>
-                      </Mini>
-                      {errors.bio && touched && <Info error>{errors.bio}</Info>}
-                      <Mini>
-                        <Title>Order</Title>
-                        <Input
-                          placeholder="Order"
-                          value={values.order}
-                          onChange={handleChange("order")}
-                        />
-                      </Mini>
-                      {errors.order && touched && (
-                        <Info error>{errors.order}</Info>
-                      )}
-                      <Mini>
-                        <Button
-                          variant="contained"
-                          style={{
-                            margin: "20px",
-                            padding: "5px",
-                            background: "#800080",
-                          }}
-                          color="primary"
-                          onClick={handleSubmit}
-                        >
-                          submit
-                        </Button>
-                        <Button
-                          variant="contained"
-                          style={{
-                            margin: "20px",
-                            padding: "5px",
-                            background: "#800080",
-                          }}
-                          color="primary"
-                          onClick={CloseUpdate}
-                        >
-                          Close
-                        </Button>
-                      </Mini>
-                    </Container>
-                  </>
-                )}
-              </Formik>
-            </DialogContent>
-          </Dialog>
-        </>
+      {showForm && (
+        <ConsultantFormModal
+          visible={showForm}
+          onClose={() => {
+            setShowForm(false)
+            if (mode === 'Update') {
+              setCurrentConsultant(consultantInitialValue)
+            }
+          }}
+          mode={mode}
+          values={currentConsultant}
+          onSubmit={handleFormSubmit}
+          users={users}
+        />
       )}
-
       {loading ? (
         <CustomSkeleton />
       ) : (
@@ -324,7 +219,8 @@ const ListofConsultants = () => {
               title="List of All Consultants"
               csvReport={csvReport}
               addHandler={() => {
-                // TODO: Handle add
+                setMode('Add');
+                setShowForm(true);
               }}
               searchHandler={(value) => {
                 setSearch(value);
@@ -351,11 +247,16 @@ const ListofConsultants = () => {
                       <>
                         <Edit
                           onClick={() => {
-                            // setMode('Update')
-                            // setCurrentQuestion(consultant);
-                            // handleUpdate(consultant);
-                            // setShowForm(true);
-                            // TODO: Handle edit
+                            setMode('Update')
+                            setCurrentConsultant({
+                              id: consultant.id,
+                              name: consultant.user_id,
+                              status: consultant.status,
+                              qualification: consultant.qualification,
+                              bio: consultant.bio,
+                              order: consultant.order,
+                            });
+                            setShowForm(true);
                           }}
                           style={{ margin: '0 6px', cursor: 'pointer' }}
                         />
@@ -387,11 +288,11 @@ const ListofConsultants = () => {
               autoHideDuration={3000}
               anchorOrigin={{ vertical: "top", horizontal: "center" }}
               message="Success"
-              open={Issuccess}
+              open={showNotification}
               onClose={handleClose}
             >
-              <Alert onClose={handleClose} severity="success">
-                Success Message !
+              <Alert onClose={handleClose} severity={notificationType}>
+                {notification}
               </Alert>
             </Snackbar>
           </Main>

@@ -12,6 +12,7 @@ import UserFormModal from './UserFormModal';
 
 import Table from '../../reusable/Table';
 import { GENDER_TYPE } from '../Constants';
+import { useHistory } from "react-router-dom";
 
 import { Main } from "./UserElements";
 
@@ -48,6 +49,9 @@ const ListofUser = () => {
   const [mode, setMode] = useState('Add');
   const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
 
+  let history = useHistory();
+  const searchParams = new URLSearchParams(history.location.search);
+  const customerPage = searchParams.get('type') === 'customer';
 
   let current_date_Time = new Date();
   const csvReport = {
@@ -65,7 +69,7 @@ const ListofUser = () => {
 
   const handleShow = () => {
     axios
-      .get(`users?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`users?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}${customerPage ? `&role_id=${1}` : ''}`)
       .then((res) => {
         setUsers(res.data.data);
         setShow(true);
@@ -109,7 +113,7 @@ const ListofUser = () => {
       email: values.email,
       age: values.age,
       gender: values.gender,
-      roles: [values.role],
+      roles: [values.role || 1],
       firebase_uid: values.firebaseUid,
     }
     if (mode === 'Add') {
@@ -146,6 +150,7 @@ const ListofUser = () => {
           values={currentUser}
           onSubmit={handleFormSubmit}
           roleOptions={userRoles}
+          showRoleField={!customerPage}
         />
       )}
       {loading ? (

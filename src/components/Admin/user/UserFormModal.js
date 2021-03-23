@@ -9,7 +9,7 @@ import { Mini } from "../Elements";
 import { GENDER_TYPE } from '../Constants';
 
 const UserFormModal = (props) => {
-	const { visible, onClose, onSubmit, mode, values = {}, roleOptions = [] } = props;
+	const { visible, onClose, onSubmit, mode, values = {}, roleOptions = [], showRoleField = true } = props;
 
 	const validationSchema = Yup.object().shape({
 		firstName: Yup.string().required('Please enter First Name'),
@@ -22,6 +22,7 @@ const UserFormModal = (props) => {
 		}),
 		firebaseUid: Yup.string().required('Please enter Firebase UID'),
 		age: Yup.number(),
+		gender: Yup.string().required('Please enter Gender'),
 		phoneNumber: Yup.string(),
 		primaryAddressLine1: Yup.string(),
 		primaryAddressLine2: Yup.string(),
@@ -121,12 +122,12 @@ const UserFormModal = (props) => {
 									/>
 								</Grid>
 							</Grid>
-							<Field
+							{showRoleField && <Field
 								name="role"
 								component={Select}
 								label="Role"
 								options={roleOptions}
-							/>
+							/>}
 							<Mini style={{ marginTop: "10px" }}>
 								<Button
 									type="submit"

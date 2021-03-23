@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Select = (props) => {
-	const { label, onChange, field = {}, form = {}, options } = props;
+	const { label, onChange, field = {}, form = {}, options, disabled } = props;
 	const { setFieldValue, errors = {}, touched = {} } = form;
 	const helperText = errors[field.name]
 	const error = helperText && touched[field.name]
@@ -38,6 +38,7 @@ export const Select = (props) => {
 				className={classes.selectEmpty}
 				value={field.value}
 				label={label}
+				disabled={disabled}
 			>
 				{options.map((option, index) => {
 					if (typeof option === 'object') {

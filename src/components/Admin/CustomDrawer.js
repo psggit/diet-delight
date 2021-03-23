@@ -263,27 +263,19 @@ export default function PersistentDrawerLeft() {
                 handleClick={handleMenuOpen}
                 primaryLabel="USER"
                 navList={[
-                  { label: "User", link: "userlist" },
+                  { label: "Customers", link: "userlist?type=customer" },
+                  { label: "Consultants", link: "consultantlist" },
+                  { label: "Others", link: "userlist" },
                 ]}
               />
               <CustomNavList
                 name="question"
                 open={listKey === 'question'}
                 handleClick={handleMenuOpen}
-                primaryLabel="QUESTIONS"
+                primaryLabel="QUESTIONNAIRE"
                 navList={[
-                  { label: "Questions", link: "questionlist" },
-                  { label: "Answers", link: "answerlist" },
-                ]}
-              />
-              <CustomNavList
-                name="consultant"
-                open={listKey === 'consultant'}
-                handleClick={handleMenuOpen}
-                primaryLabel="CONSULTANT"
-                navList={[
-                  { label: "Consultant List", link: "consultantlist" },
-                  { label: "Add Consultant", link: "addconsultant" },
+                  { label: "All Questions", link: "questionlist" },
+                  { label: "Customer Responses", link: "customer-response" },
                 ]}
               />
               <CustomNavList
@@ -309,8 +301,8 @@ export default function PersistentDrawerLeft() {
                 handleClick={handleMenuOpen}
                 primaryLabel="CONSULTATION"
                 navList={[
-                  { label: "Consultation List", link: "consultationlist" },
-                  { label: "Add Consultation", link: "addconsultation" },
+                  { label: "Consultations", link: "consultationlist" },
+                  { label: "Past Consultations", link: "consultationlist?type=past" },
                 ]}
               />
 
@@ -406,7 +398,7 @@ export default function PersistentDrawerLeft() {
               <Route exact path={`${path}/addquestion`}>
                 <AddQuestion />
               </Route>
-              <Route exact path={`${path}/answerlist`}>
+              <Route exact path={`${path}/customer-response`}>
                 <ListofAnswer />
               </Route>
               <Route exact path={`${path}/addanswer`}>
