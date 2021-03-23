@@ -17,11 +17,11 @@ export default function Submodulesecond(props){
     } 
   
 
-    return(
+    return( 
          
         <div> 
-            <PrimaryaddDialog changeAddress={addressDialog} makeAddress={handleAdrress} />
-           <CalenderDialogMain/>
+            {/* <PrimaryaddDialog changeAddress={addressDialog} makeAddress={handleAdrress} /> */}
+           <CalenderDialogMain changeAddress={addressDialog} makeAddress={handleAdrress}/>
 {/* 
         <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}/>
         <AddressDialogBox/> */}

@@ -80,7 +80,26 @@ export default function Appointmentmain(props) {
  
   function handleDate() {
     if (date != "") {
-      if( timeSlot != ""){
+  
+
+      if(appointmentMode === "offline"){
+        if( timeSlot != ""){
+          history.push({
+            pathname: "/GrandtotalAppointmentmain",
+            state: {
+              packageId: props.location.state.packageId,
+              date: date,
+              time: timeSlot,
+              appointmentMode: appointmentMode,
+              picture: props.location.state.packagePicture,
+            },
+          });
+        }else {
+          var errorMessage = document.getElementById('successTime');
+          errorMessage.innerHTML = 'please enter time ';
+        }
+
+      }else{
         history.push({
           pathname: "/GrandtotalAppointmentmain",
           state: {
@@ -91,9 +110,7 @@ export default function Appointmentmain(props) {
             picture: props.location.state.packagePicture,
           },
         });
-      }else {
-        var errorMessage = document.getElementById('successTime');
-        errorMessage.innerHTML = 'please enter time ';
+
       }
     
     } else {

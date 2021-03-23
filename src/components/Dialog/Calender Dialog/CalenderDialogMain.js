@@ -13,31 +13,22 @@
 	import './CustomcalenderStyle.css'
 
 
-
-	export default function CalenderDialogMain() {
-		const [open, setOpen] = React.useState(false);
+ 
+	export default function CalenderDialogMain(props) {
+		const [open, setOpen] = React.useState(true);
 		const theme = useTheme();
+		
 
-		const handleOpenOtp = () => {
-			setOpen(true);
-		};
-
-		const handleCloseOtp = () => {
-			setOpen(false);
-		};
-
+		
 		const [value, onChange] = useState(new Date());
 
+		if(props.changeAddress === true){
 		return (
 			<div>
 
-			<Button variant="outlined" color="primary" onClick={handleOpenOtp}>
-			Open responsive dialog
-			</Button>
-
 			<Dialog
 			open={open}
-			onClose={handleCloseOtp}
+		
 			style={{borderRadius:40}}
 			aria-labelledby="responsive-dialog-title">
 			
@@ -48,6 +39,7 @@
 			
 			<div>
 			<Calendar
+		
 			onChange={onChange}
 			value={value}
 			/>
@@ -56,7 +48,7 @@
 
 			
 			<div className="btn_container_dialog_calender mt-3">
-			<button className="btn calender_btn_dialog"><span class="material-icons done_all_icon">done_all</span></button>
+			<button className="btn calender_btn_dialog"  onClick ={() =>props.makeAddress(false)}><span class="material-icons done_all_icon">done_all</span></button>
 			</div>
 
 
@@ -65,5 +57,10 @@
 
 			</Dialog>
 			</div>
-			);
+			);}else{
+				return(
+					<>
+					</>
+				)
+			}
 	}

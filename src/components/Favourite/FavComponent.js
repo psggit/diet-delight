@@ -65,9 +65,7 @@ export default function FavComponent(props) {
       </div>
 
       <div className="col-lg-2 col-md-2 col-xs-12">
-       <VegComponent/>
-
-     {/* <NonvegComponent/> */}
+      {props.favourite.menu_item.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
 
         <i
           className={likeColor}

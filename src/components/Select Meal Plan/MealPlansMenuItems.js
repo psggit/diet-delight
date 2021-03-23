@@ -13,10 +13,11 @@ export default function MealPlansMenuItems(props){
     const [menuItems,setMenuItems] = useState([])
     const selectCounter = useRef(0);
     const [maxBuy ,setMaxBuy] = useState(0);
+    const[user,setUser ]=useState({});
 
 
     // const [changeColor ,setColorChange] = useState("#8bc53f");
-
+ 
     
 
     useEffect(() => {
@@ -28,9 +29,25 @@ export default function MealPlansMenuItems(props){
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then((res) => {
-            console.log(res.data.data) 
+            console.log(res.data.data)  
             setMenuItems(res.data.data)
+            
         })
+        axios.get(`user`,{
+                    
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            }
+        }).then((res) => {
+            console.log(res)
+            
+            setUser(res.data)
+       
+           
+        })
+
+       
+
     }, [props.category.menu_id,props.category.id, props.max_buy])
     
     
@@ -44,7 +61,7 @@ export default function MealPlansMenuItems(props){
 
 
 
-    function handleSelect(e){
+    function handleSelect(e,menuItem){
         console.log(e)
     //     selectColor ==="Select" ?  setSelectColor("Selected") : setSelectColor("Select");
          
@@ -62,6 +79,26 @@ export default function MealPlansMenuItems(props){
             buttonElement.innerHTML="Selected"; 
             console.log(selectCounter)
             console.log(maxBuy)
+            axios.post(`my-menu-orders`, {
+                user_id: user.id,
+                menu_item_id: menuItem.id,
+                menu_category_id: menuItem.menu_category_id,
+                meal_purchase_id: 1, 
+                status: user.status,
+                kcal: 1800,
+                menu_item_date: "2020-11-26 06:50:41",
+                menu_item_day: menuItem.day, 
+                menu_item_name: menuItem.name,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                mobile: user.mobile,
+                delivery_address: user.primary_address_line1,
+                delivery_time: 0,
+                notes: "" 
+            }).then((res) => {
+                console.log(res.data.data)  
+            
+            }) .catch((err) => console.log(err));
             
         }
         }else{
@@ -72,11 +109,18 @@ export default function MealPlansMenuItems(props){
             buttonElement.style.border = "1px solid #8bc53f";
             console.log(selectCounter)
             console.log(maxBuy)
+            axios.delete(`my-menu-orders`, {
+               
+            }).then((res) => {
+                console.log(res.data.data)  
+            
+            }) .catch((err) => console.log(err));
     
         }
-
-
-     }
+        console.log(menuItem)
+      
+       
+     } 
 
 
 
@@ -101,8 +145,7 @@ export default function MealPlansMenuItems(props){
             {/* <h5 className=" salad_details_text"> About dish like crunch with something chrunchy and salad  About dish like crunch with something chrunchy and salad</h5> */}
             {/* <img src={veg_icon} alt="veg" className="veg_icon"></img> */}
 
-            <VegComponent/>
-             {/* <NonvegComponent/> */}
+            {menuItem.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
             </div>
             
             </div>
@@ -131,7 +174,7 @@ export default function MealPlansMenuItems(props){
             
              
 
-            <button id={Math.random()}   className="btn btn-default mealbtn_selectmeal" onClick ={(e) => handleSelect(e)}>
+            <button id={Math.random()}   className="btn btn-default mealbtn_selectmeal" onClick ={(e) => handleSelect(e,menuItem)}>
             Select
             
             </button>
