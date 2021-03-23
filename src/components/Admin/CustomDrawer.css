@@ -1,0 +1,7 @@
+.app-drawer .MuiListItem-button:hover {
+  background-color: transparent;
+}
+
+.app-drawer .MuiList-root:focus {
+	outline: none;
+}
