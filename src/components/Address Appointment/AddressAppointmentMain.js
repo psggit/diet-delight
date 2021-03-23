@@ -111,6 +111,9 @@ export default function AddressAppointmentMain(props) {
     console.log(year, month, date); 
 
 
+ 
+
+
 
     var time = props.location.state.packageTime;
      
@@ -126,6 +129,9 @@ export default function AddressAppointmentMain(props) {
     }
     console.log(hour,minutes)
 
+    setDateTime(year+"-"+month+"-"+date+" " + hour+":" + minutes)
+    console.log(setDateTime)
+
 
 var newDate = new Date(year, month - 1, date, hour, minutes);
     console.log(newDate);
@@ -135,7 +141,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
     console.log(
       props.location.state.packageId,
       props.location.state.packageName,
-      props.location.state.packageDuration,
+      props.location.state.packageDuration, 
       props.location.state.packagePrice
     );
     axios

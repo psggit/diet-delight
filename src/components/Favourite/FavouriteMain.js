@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../Menu Package/MenuPkg.css";
-import logo_web from "../../assets/logoweb.png";
+import logo_web from "../../assets/logoweb.png"; 
 import Mealchoose from "../Mealchoose.js";
 import "../Menu Package/TabMenuPkg.css";
 import "./Favmain.css";

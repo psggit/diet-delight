@@ -19,7 +19,7 @@ const Home = () => {
                         <Heading>
                             EAT HEALTHLY
                 </Heading>
-                        <HomeSearch>
+                        {/* <HomeSearch>
                             <HomeIcon>
                                 <Searchbtn />
                             </HomeIcon>
@@ -27,9 +27,9 @@ const Home = () => {
                             <HomeIcon border="0px 10px 10px 0px">
                                 <RightArrow />
                             </HomeIcon>
-                        </HomeSearch>
+                        </HomeSearch> */}
                     </Containerup>
-                    <Icons>
+                    {/* <Icons>
                         <Icon>
                             
                             
@@ -41,7 +41,7 @@ const Home = () => {
                         <Icon>
                             <Whatsapp />
                         </Icon>
-                    </Icons>
+                    </Icons> */}
                 </HomeContainer>
             </HomeMain>
         </div>

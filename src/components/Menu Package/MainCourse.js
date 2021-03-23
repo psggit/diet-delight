@@ -7,6 +7,7 @@ import VegComponent from '../veg non veg component/VegComponent.js'
 import NonvegComponent from '../veg non veg component/NonvegComponent.js'
 
 export default function MainCourse(props){
+    console.log(props)
 
     const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_menu_pkg")
     
@@ -69,10 +70,12 @@ export default function MainCourse(props){
 
     <div className="col-lg-2 col-md-2 col-xs-12">
 
-       
-         {/*<VegComponent/> */}
 
-        <NonvegComponent/>
+        {props.menuItem.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
+       
+        
+
+      
       
         
         <i className={likeColor} aria-hidden="true" onClick={() => colorHandle(props.menuItem.id)}></i>
