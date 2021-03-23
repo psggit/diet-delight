@@ -1,14 +1,39 @@
 import React,{useEffect,useState} from 'react'
 import './OrderHistory.css' 
 import { Link } from 'react-router-dom';
-import axios from '../../axiosInstance';
+import axios from '../../axiosInstance'; 
 
-export default function MealpkgOrderHistory(){
+export default function MealpkgOrderHistory(props){
     const [mealPurchases, setMealPurchases] = useState([]);
+    const [startDate,setStartDate] = useState("")
+    const [endDate,setEndDate] = useState("")
     // const[remainingDay,setRemainingDay] = useState(0)
+
+    useEffect(() =>{
+        console.log(props.timePeriod)
+            var dateTime = new Date();
+           
+            console.log(dateTime)
+            var fromDate = addMonths(dateTime,props.timePeriod)
+            console.log(fromDate);
+            var toDate = new Date();
+
+
+            if(fromDate > toDate){
+                setStartDate(toDate)
+                setEndDate(fromDate)
+            }else{
+                setStartDate(fromDate)
+                setEndDate(toDate)
+            }
+    },[props.timePeriod])
+    function addMonths(date, months) {
+        date.setMonth(date.getMonth() + months);
+        return date;
+      }
     useEffect(() => {
         
-        axios.get(`my-meal-purchases`, {
+        axios.get(`my-meal-purchases?fromDate=`+startDate+`&toDate=`+endDate, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }

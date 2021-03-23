@@ -15,6 +15,7 @@ import BmiMain from '../BMI/BmiMain';
 import Bmireport from '../BMI Report/Bmireport';
 
 
+
 const LandingPage = () => {
 
     const [showQuestion,setShowQuestion] = useState(false)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

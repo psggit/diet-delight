@@ -6,7 +6,7 @@ import Navbar from '../Navbar/index'
 export default function Blogs(){
     return(
 
-        <div>
+        <div> 
         <Navbar/>
         <header>
         <div className="jumbotron jumbotron-image color-grey-light main_blog_archive_div">
