@@ -16,21 +16,26 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: 400,
     padding: "0",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: '#373a47',
+  },
+  item: {
+    color: "#b8b7ad",
+    '&:hover': {
+      color: '#c94e50',
+    }
   },
   nested: {
     paddingLeft: theme.spacing(4),
+    color: "#b8b7ad",
+    '&:hover': {
+      color: '#c94e50',
+    }
   },
 }));
 
 export default function NestedList(props) {
   const classes = useStyles();
-  const { primaryLabel, navList } = props;
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const { primaryLabel, navList, name, handleClick, open } = props;
 
   return (
     <>
@@ -38,7 +43,7 @@ export default function NestedList(props) {
         aria-labelledby="nested-list-subheader"
         className={classes.root}
       >
-        <ListItem button onClick={handleClick}>
+        <ListItem className={classes.item} button onClick={() => handleClick(name)}>
           <ListItemText primary={primaryLabel} />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
@@ -58,7 +63,6 @@ export default function NestedList(props) {
           </List>
         </Collapse>
       </List>
-      <Divider />
     </>
   );
 }

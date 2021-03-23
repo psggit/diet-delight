@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { elastic as Menu } from 'react-burger-menu'
 
-import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
 import logo from "../../assets/logo.png";
-
-import { AiOutlineLeft, AiOutlineRight, AiOutlineMenu } from "react-icons/ai";
-import { BiUserCircle } from "react-icons/bi";
+import './CustomDrawer.css';
 
 import CustomNavList from "./components/CustomNavList";
 
@@ -89,78 +80,66 @@ import PostAnswer from "./questions/AddAnswer";
 
 import ListofBlog from "./Blogs/ListofBlog";
 import PostBlog from "./Blogs/PostBlog";
-const Items = styled.h3`
+
+const HeaderLogo = styled.div`
   width: 100%;
-  text-align: left;
-  margin: 5px 0;
-  margin-left: 15px;
-  font-family: "Roboto Condensed Regular";
-  cursor: pointer;
-  letter-spacing: 1px;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-`;
-
-const MiniItems = styled.h5`
-  text-align: left;
-  padding: 0 10px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  margin: 3px 0;
-  margin-left: 15px;
-`;
-
-const Set = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Info = styled.h3`
-  text-align: center;
-  font-family: "Roboto Condensed Regular";
-  cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: 300;
-`;
-
-const Logout = styled.div`
   display: flex;
   align-items: center;
-  margin-left: auto;
-  padding: 0 20px;
+  justify-content: center;
+  margin-top: 16px;
 
-  @media only screen and (max-width: 500px) {
-    padding: 0;
+  &:focus {
+    outline: none;
   }
 `;
+
+var styles = {
+  bmBurgerButton: {
+    position: 'fixed',
+    width: '36px',
+    height: '30px',
+    left: '36px',
+    top: '36px'
+  },
+  bmBurgerBars: {
+    background: '#800080'
+  },
+  bmBurgerBarsHover: {
+    background: '#a90000'
+  },
+  bmCrossButton: {
+    height: '24px',
+    width: '24px'
+  },
+  bmCross: {
+    background: '#800080'
+  },
+  bmMenuWrap: {
+    position: 'fixed',
+    height: '100%'
+  },
+  bmMenu: {
+    background: '#373a47',
+    fontSize: '1.15em'
+  },
+  bmMorphShape: {
+    fill: '#373a47'
+  },
+  bmItemList: {
+    color: '#b8b7ad',
+    padding: '0.8em'
+  },
+  bmItem: {
+    display: 'inline-block'
+  },
+  bmOverlay: {
+    background: 'rgba(0, 0, 0, 0.3)'
+  }
+}
 
 const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    background: "#8BC53F",
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: "none",
-  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -203,6 +182,7 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
+  const [listKey, setListKey] = useState('');
 
   useEffect(() => {
     dispatch(resetTemp());
@@ -248,79 +228,48 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  const handleMenuOpen = (key) => {
+    setListKey(key === listKey ? '' : key)
+  }
+
   return (
     <>
       {Admin ? (
-        <div className={classes.root}>
-          <CssBaseline />
-          <AppBar
-            position="fixed"
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: open,
-            })}
+        <div id="outer-container">
+          <Menu
+            className="app-drawer"
+            styles={styles}
+            pageWrapId={"page-wrap"}
+            outerContainerId={"outer-container"}
           >
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                className={clsx(classes.menuButton, open && classes.hide)}
-              >
-                <AiOutlineMenu />
-              </IconButton>
-              <Info style={{ margin: "auto 0" }}>
-                Diet Delight Admin Dashboard
-              </Info>
-              <Logout onClick={handleLogout}>
-                <Items>LOGOUT</Items>
-                <BiUserCircle
-                  style={{ width: "30px", height: "30px", margin: "0 5px" }}
-                />
-              </Logout>
-            </Toolbar>
-          </AppBar>
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="left"
-            open={open}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <div className={classes.drawerHeader}>
-              <img
-                style={{
-                  objectFit: "contain",
-                  height: "55px",
-                  alignSelf: "center",
-                  margin: "auto",
-                }}
-                src={logo}
-                alt="logo"
-              />
-              <IconButton onClick={handleDrawerClose}>
-                {theme.direction === "ltr" ? (
-                  <AiOutlineLeft />
-                ) : (
-                  <AiOutlineRight />
-                )}
-              </IconButton>
-            </div>
-            <Divider />
             <List color="primary">
-              <ListItem button component={Link} to={"/admin"}>
-                <ListItemText primary={"Dashboard"} />
+              <ListItem button component={Link} to={"/admin"} style={{ marginBottom: "32px" }}>
+                <HeaderLogo style={{ display: 'flex' }}>
+                  <img
+                    style={{
+                      objectFit: "contain",
+                      height: "75px",
+                      alignSelf: "center",
+                      margin: "auto",
+                    }}
+                    src={logo}
+                    alt="logo"
+                  />
+                </HeaderLogo>
               </ListItem>
-
-              <Divider />
-
-              <ListItem button component={Link} to={"/admin/userlist"}>
-                <ListItemText primary={"USER"} />
-              </ListItem>
-              <Divider />
               <CustomNavList
+                name="user"
+                open={listKey === 'user'}
+                handleClick={handleMenuOpen}
+                primaryLabel="USER"
+                navList={[
+                  { label: "User", link: "userlist" },
+                ]}
+              />
+              <CustomNavList
+                name="question"
+                open={listKey === 'question'}
+                handleClick={handleMenuOpen}
                 primaryLabel="QUESTIONS"
                 navList={[
                   { label: "Questions", link: "questionlist" },
@@ -328,6 +277,9 @@ export default function PersistentDrawerLeft() {
                 ]}
               />
               <CustomNavList
+                name="consultant"
+                open={listKey === 'consultant'}
+                handleClick={handleMenuOpen}
                 primaryLabel="CONSULTANT"
                 navList={[
                   { label: "Consultant List", link: "consultantlist" },
@@ -335,6 +287,9 @@ export default function PersistentDrawerLeft() {
                 ]}
               />
               <CustomNavList
+                name="consultationPackage"
+                open={listKey === 'consultationPackage'}
+                handleClick={handleMenuOpen}
                 primaryLabel="CONSULTATION PACKAGE"
                 navList={[
                   {
@@ -349,6 +304,9 @@ export default function PersistentDrawerLeft() {
               />
 
               <CustomNavList
+                name="consultation"
+                open={listKey === 'consultation'}
+                handleClick={handleMenuOpen}
                 primaryLabel="CONSULTATION"
                 navList={[
                   { label: "Consultation List", link: "consultationlist" },
@@ -357,6 +315,9 @@ export default function PersistentDrawerLeft() {
               />
 
               <CustomNavList
+                name="menu"
+                open={listKey === 'menu'}
+                handleClick={handleMenuOpen}
                 primaryLabel="MENU"
                 navList={[
                   { label: "All Menu", link: "menulist" },
@@ -368,6 +329,9 @@ export default function PersistentDrawerLeft() {
                 ]}
               />
               <CustomNavList
+                name="mealPlan"
+                open={listKey === 'mealPlan'}
+                handleClick={handleMenuOpen}
                 primaryLabel="MEAL PLAN"
                 navList={[
                   { label: "All Meal Plan", link: "mealplanlist" },
@@ -376,6 +340,9 @@ export default function PersistentDrawerLeft() {
               />
 
               <CustomNavList
+                name="order"
+                open={listKey === 'order'}
+                handleClick={handleMenuOpen}
                 primaryLabel="ORDER"
                 navList={[
                   { label: "All Meal Purchase", link: "mealpurchaselist" },
@@ -386,6 +353,9 @@ export default function PersistentDrawerLeft() {
                 ]}
               />
               <CustomNavList
+                name="coupon"
+                open={listKey === 'coupon'}
+                handleClick={handleMenuOpen}
                 primaryLabel="COUPON / DISCOUNT"
                 navList={[
                   { label: "List of Coupon", link: "couponlist" },
@@ -393,6 +363,9 @@ export default function PersistentDrawerLeft() {
                 ]}
               />
               <CustomNavList
+                name="blog"
+                open={listKey === 'blog'}
+                handleClick={handleMenuOpen}
                 primaryLabel="BLOGS"
                 navList={[
                   { label: "List of Blogs", link: "bloglist" },
@@ -401,38 +374,22 @@ export default function PersistentDrawerLeft() {
               />
 
               <CustomNavList
+                name="duration"
+                open={listKey === 'duration'}
+                handleClick={handleMenuOpen}
                 primaryLabel="DURATION"
                 navList={[
                   { label: "List Duration", link: "durationlist" },
                   { label: "Add Duration", link: "addduration" },
                 ]}
               />
-              <CustomNavList
-                primaryLabel="REPORT"
-                navList={[
-                  { label: "List of Report", link: "reportlist" },
-                  { label: "Add Report", link: "addreport" },
-                ]}
-              />
-
-              <CustomNavList
-                primaryLabel="REPORT"
-                navList={[
-                  { label: "List of Report", link: "reportlist" },
-                  { label: "Add Report", link: "addreport" },
-                ]}
-              />
             </List>
-          </Drawer>
+          </Menu>
           <main
-            onClick={handleDrawerClose}
-            className={clsx(classes.content, {
-              [classes.contentShift]: open,
-            })}
-            style={{ width: "100%" }}
+            id="page-wrap"
+            style={{ width: "100%", padding: "16px 32px 0 32px" }}
           >
             <div className={classes.drawerHeader} />
-
             <Switch>
               <Route exact path={`${path}`}>
                 <Home />
