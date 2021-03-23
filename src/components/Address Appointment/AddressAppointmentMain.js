@@ -96,7 +96,7 @@ export default function AddressAppointmentMain(props) {
   //   props.location.state.packageDate + ' ' + props.location.state.packageTime,
   useEffect(() => {
     console.log(
-      props.location.state.packageDate,
+      props.location.state.packageDate, 
       props.location.state.packageTime
     );
     var dateTime = new Date(props.location.state.packageDate);
@@ -108,7 +108,7 @@ export default function AddressAppointmentMain(props) {
     var date = dateTime.getDate();
     console.log("called")
 
-    console.log(year, month, date);
+    console.log(year, month, date); 
 
 
 

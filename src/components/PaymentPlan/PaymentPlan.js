@@ -130,10 +130,10 @@ export default function PaymentPlan(props){
                     meal_plan_id: props.location.state.mealId,
                     payment_id: 1,
                     status: 1,
-                    billing_address_line1: "Sojmlkmklmkl",
-                    billing_address_line2: "SomePlaza", 
-                    shipping_address_line1: "SomePlaza",
-                    shipping_address_line2: "SomePlaza",
+                    billing_address_line1: meal.billing_address_line1,
+                    billing_address_line2: meal.billing_address_line2,
+                    shipping_address_line1: meal.shipping_address_line1,
+                    shipping_address_line2: meal .shipping_address_line2,
                     meal_plan_name: meal.name,
                     meal_plan_duration: meal.duration, 
                     amount_paid: totalCharge,
@@ -141,7 +141,8 @@ export default function PaymentPlan(props){
                     end_date: endDate,
                     weekdays: JSON.stringify(props.location.state.weekDays),
                     kcal: 1800,
-                    portions: 0 
+                    portions: 0,
+                    duration_id :meal.duration_id,
                 }).then((res) => {
                     console.log(res)
                     // history.push("/SelectMealPlan?purchase_id="+res.data.data.id)

@@ -24,7 +24,7 @@ export default function SubmoduleSelectMeal(props){
     const renderCategory = category.map((categoryData) =>  {
         console.log(categoryData)
         return(
-    <MealPlansMenuItems key={Math.random()} category={categoryData} selectedDay={props.selectedDay}/>)
+    <MealPlansMenuItems key={Math.random()} category={categoryData} selectedDay={props.selectedDay} />)
 });
    
     return(

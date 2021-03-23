@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 import './SelectMealPlan.css' 
 import veg_icon from '../../assets/vegicon.png'
 
@@ -11,12 +11,18 @@ export default function MealPlansMenuItems(props){
    
     const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_border_selectedMeal")
     const [menuItems,setMenuItems] = useState([])
-    // const [selectColor ,setSelectColor] = useState("Select");
+    const selectCounter = useRef(0);
+    const [maxBuy ,setMaxBuy] = useState(0);
+
+
     // const [changeColor ,setColorChange] = useState("#8bc53f");
 
     
 
     useEffect(() => {
+        var max_buy = parseInt(props.category.max_buy)
+        console.log(max_buy)
+        setMaxBuy(max_buy)
         axios.get(`menu-items?menu_id=`+props.category.menu_id+`&menu_category_id=`+props.category.id, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -25,7 +31,7 @@ export default function MealPlansMenuItems(props){
             console.log(res.data.data) 
             setMenuItems(res.data.data)
         })
-    }, [props.category.menu_id,props.category.id])
+    }, [props.category.menu_id,props.category.id, props.max_buy])
     
     
     function colorHandle(){
@@ -49,14 +55,23 @@ export default function MealPlansMenuItems(props){
         console.log(buttonElement);
 
         if(buttonText === "Select"){
-        buttonElement.style.backgroundColor="#8bc53f";
-        buttonElement.style.color="#fff"
-        buttonElement.innerHTML="Selected"; 
-
+        if(maxBuy > selectCounter.current){
+            selectCounter.current = selectCounter.current + 1;
+            buttonElement.style.backgroundColor="#8bc53f";
+            buttonElement.style.color="#fff"
+            buttonElement.innerHTML="Selected"; 
+            console.log(selectCounter)
+            console.log(maxBuy)
+            
+        }
         }else{
+            selectCounter.current = selectCounter.current - 1;
             buttonElement.style.backgroundColor="transparent";
-            buttonElement.style.color="#8bc53f"
+            buttonElement.style.color="#000"
             buttonElement.innerHTML="Select";
+            buttonElement.style.border = "1px solid #8bc53f";
+            console.log(selectCounter)
+            console.log(maxBuy)
     
         }
 
@@ -92,7 +107,7 @@ export default function MealPlansMenuItems(props){
             
             </div>
             
-            
+             
             
             </div>
              

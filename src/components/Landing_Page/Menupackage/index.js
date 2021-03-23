@@ -20,16 +20,16 @@ const MenuPackage = () => {
         })
 
     },[])
-
+ 
 
     const meals = mealup.map((meal) =>  <Menubox
     key={Math.random()}
     meal={meal} 
-/>);
+/>); 
 
     return (
  
-        <>
+        <> 
             <Menupack id="menu">
                 <Packup>
                     <Heading size="2rem" color="rgba(137,197,63,1)" length="1px">

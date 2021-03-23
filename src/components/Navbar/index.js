@@ -4,7 +4,7 @@ import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, 
 import { FaBars, FaUserCircle,FaShoppingBag,FaRegHeart, FaRegClock} from 'react-icons/fa'
 import logo from "../../assets/logo.png"
 
-import axios from '../../axiosInstance'
+import axios from '../../axiosInstance' 
 import { Cookies } from 'react-cookie'
 
 import { animateScroll as scroll } from 'react-scroll'
@@ -26,7 +26,7 @@ const Navbar = ({ toggle }) => {
     
     const [nav, setNav] = useState(false);
     
-    
+  
     useEffect(() => {
         
         const ac = new AbortController();
@@ -178,6 +178,7 @@ const Navbar = ({ toggle }) => {
                     offset={-80} 
                     duration={200}
                     >Menus</NavLinks>
+                    
                     </NavItem>
                     <NavItem>
                     <NavLinks
@@ -189,10 +190,12 @@ const Navbar = ({ toggle }) => {
                     duration={200}
                     >Meal Plan</NavLinks>
                     </NavItem>
+                    
+                  
+                    
                     <NavItem>
                     <NavLinks
                     style={{color:"purple"}}
-                    to="expert"
                     spy={true}
                     smooth={true}
                     offset={-80}
@@ -200,6 +203,8 @@ const Navbar = ({ toggle }) => {
                     >Consulting</NavLinks>
                     </NavItem>
                     <NavItem>
+                        
+                        
              
                     <NavLinks style={{textDecoration:'none'}}>
                         <Link to="/Blogs" style={{color:"purple"}}>
@@ -210,10 +215,11 @@ const Navbar = ({ toggle }) => {
                     </NavItem>
                     <NavItem>
                     <NavLinks style={{textDecoration:'none'}}>
-                        <Link to="/ConatctUsMain" style={{color:"purple"}}>
+                        <Link to="ConatctUsMain" style={{color:"purple"}}>
                         Contact Us
                         </Link></NavLinks>
                     </NavItem>
+                    
                     {user ?
                         (<>
                             <div style={{
