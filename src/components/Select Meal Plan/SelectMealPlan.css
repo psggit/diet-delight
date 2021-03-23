@@ -100,6 +100,10 @@ button.select_btn {
   border-radius: 0.3rem;
   border: 1px solid #8bc441;
 }
+button.mealbtn_selectmeal {
+  letter-spacing: 1px;
+  color: #8bc441;  
+}
 button.select_btn:hover {
   color: #fff;
   background: #8bc441;
@@ -125,13 +129,6 @@ i.heart_border_selectedMeal {
 i.heart_submodule_selectMeal_fill {
   font-size: 20px;
   cursor: pointer;
-}
-i.heart_border_selectedMeal:hover {
-}
-i.heart_submodule_selectMeal_fill:hover {
-  color: red;
-}
-i.heart_submodule_selectMeal_fill::after {
   color: red;
 }
 div.select_meal_bg {
@@ -232,20 +229,12 @@ div.select_meal_bg {
     justify-content: flex-start;
   }
   button.mealbtn_selectmeal {
-    margin-top: -2rem;
+
     width: 9rem;
     float: right;
-    /* background: #8bc53f;
-    color: white; */
-    text-transform: uppercase;
     text-transform: uppercase;
     border: 1px solid #8bc53f;
-  }
-  button.mealbtn_selectmeal {
-    /* background: #8bc53f;
-    color: white; */
-    text-transform: uppercase;
-    border: 1px solid #8bc53f;
+    color: #8bc53f;
     margin-top: 2px;
   }
   h5.breakfast_paragrapgh_content {

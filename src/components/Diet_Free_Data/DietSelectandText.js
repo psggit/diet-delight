@@ -82,7 +82,7 @@ export default function DietSelectandText (props) {
         </select>
         </div>
 
-        <p className="text-light text_fifth_subtitle">Height & Width</p>
+        <p className=" text_fifth_subtitle">Height & Width</p>
          
         
         </div>

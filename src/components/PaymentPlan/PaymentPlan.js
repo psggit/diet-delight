@@ -1,5 +1,5 @@
-import React,{useEffect,useState} from 'react'
-import './PaymentPlan.css'
+import React,{useEffect, useState} from 'react';
+import './PaymentPlan.css' 
 import WeekData from './WeekData';
 import Mealchoose from '../Mealchoose';
 import logo_web from '../../assets/logoweb.png'
@@ -249,7 +249,7 @@ export default function PaymentPlan(props){
                 
                 <div className="grandtotal_container">
                 <span className="grand_total_subtitle mr-2 mt-1">Grand Total</span>
-                <label className="font-weight-bold"><span className="total_text">{totalCharge}</span>BHD</label>
+                <label className="font-weight-bold total_sub_text_payment"><span className="total_text">{totalCharge}</span>BHD</label>
                 </div> 
                 
                 <div className="pay_now_btn_container">

@@ -47,8 +47,8 @@ div.card_user_appointment {
 }
 [type="date"] {
   background: #fff
-    url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)
-    97% 50% no-repeat;
+  url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)
+  97% 50% no-repeat;
 }
 [type="date"]::-webkit-inner-spin-button {
   display: none;
@@ -106,6 +106,7 @@ h6.appointmentdate_title {
   font-size: 1.1rem;
   letter-spacing: 0.5px;
   font-weight: 700;
+  
 }
 h5.timeslot_title {
   font-family: Roboto;
@@ -189,10 +190,19 @@ button.select_btn_next_appointmain:hover{
     margin-left: 5rem;
     border-radius: .3rem;
     border: 1px solid #8BC441;
-} */
+    } */
 
-@media only screen and (max-width: 767px) {
-  label.online_text_submeal {
+    @media only screen and (max-width: 767px) {
+     h3.heading_text_appointmain{
+      font-size: 16px;
+      text-align: center;
+    }
+    p.online_details_appointmain{
+     font-size: 16px;
+     text-align: center;
+     margin-left: 0;
+   }
+   label.online_text_submeal {
     margin: 3%;
     font-size: 12px;
     letter-spacing: 1px;
@@ -241,314 +251,323 @@ button.select_btn_next_appointmain:hover{
   }
   /* left side  */
   input.appointmentdate_subtitle {
-    border: 1px solid #c4c4c4;
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 3px 5px;
-    width: 100px;
-    margin-top: 11px;
-    box-shadow: 1px 2px 0px 0px rgb(22 6 6 / 21%);
-    outline: none;
-  }
-  img.silver_img_appointment {
-    width: 100%;
-    height: 3rem;
-  }
-  h5.appointmentdate_subtitle {
-    box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
-    margin: 0px;
-    width: 9rem;
-    padding: 5px;
-    font-size: 17px;
-    text-align: center;
-    border-radius: 1rem;
-    margin-bottom: 9px;
-    display: inline-block;
-  }
-  p.silver_subtitle {
-    color: #303960;
-    font-family: Roboto;
-    font-size: 12px;
-    margin-top: 12px;
-    text-align: justify;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    opacity: 0.9;
-  }
-  h6.appointmentdate_title {
-    color: #303960;
-    font-family: Roboto;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    font-weight: 700;
-    margin-top: 20px;
-  }
-  h5.timeslot_title {
-    font-family: Roboto;
-    color: #303960;
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-top: 22px;
-    text-align: center;
-    margin: 16px 0 23px;
-  }
-  button.time_morning_title {
-    font-family: Roboto;
-    color: #303960;
-    box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
-    text-align: center;
-    border-radius: 7px;
-    border: 1px solid #2121213b;
-    margin-top: 12px;
-    padding: 3px;
-    width: 49px;
-    background: white;
-    font-weight: 600;
-    font-size: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  button.time_morning_title:hover {
-    background-color: #8bc441;
-    color: #fff;
-  }
+   border: 1px solid #c4c4c4;
+   border-radius: 5px;
+   background-color: #fff;
+   padding: 3px 5px;
+   width: 60%;
+   margin-top: 11px;
+   box-shadow: 1px 2px 0px 0px rgb(22 6 6 / 21%);
+   outline: none;
+   font-size: 15px
+ }
+ img.silver_img_appointment {
+  width: 100%;
+  height: 3rem;
+}
+h5.appointmentdate_subtitle {
+  box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
+  margin: 0px;
+  width: 9rem;
+  padding: 5px;
+  font-size: 17px;
+  text-align: center;
+  border-radius: 1rem;
+  margin-bottom: 9px;
+  display: inline-block;
+}
+p.silver_subtitle {
+  color: #303960;
+  font-family: Roboto;
+  font-size: 12px;
+  margin-top: 12px;
+  text-align: justify;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  opacity: 0.9;
+}
+h6.appointmentdate_title {
+  color: #303960;
+  font-family: Roboto;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+h5.timeslot_title {
+  font-family: Roboto;
+  color: #303960;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 22px;
+  text-align: center;
+  margin: 16px 0 23px;
+}
+button.time_morning_title {
+ font-family: Roboto;
+ color: #303960;
+ box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
+ text-align: center;
+ border-radius: 7px;
+ border: 1px solid #2121213b;
+ margin-top: 12px;
+ padding: 3px;
+ width: 51px;
+ background: white;
+ font-weight: 600;
+ font-size: 10px;
+ margin-left: auto;
+ margin-right: auto;
+}
+button.time_morning_title:hover {
+  background-color: #8bc441;
+  color: #fff;
+}
 
-  /* tabs */
+/* tabs */
 
-  ul.appoinment_tab_container {
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-  }
-  a.appoinment_tab_subcontainer {
-    background: white;
-    font-family: Roboto;
-    color: #303960;
-    box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
-    border-radius: 7px;
-    padding: 6px;
+ul.appoinment_tab_container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+a.appoinment_tab_subcontainer {
+  background: white;
+  font-family: Roboto;
+  color: #303960;
+  box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
+  border-radius: 7px;
+  padding: 6px;
 
-    text-decoration: none;
-    font-size: 13px;
-  }
-  a.appoinment_tab_subcontainer:active,
-  a.appoinment_tab_subcontainer:focus {
-    color: #fff;
-    background: #8bc441;
-    box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-    -webkit-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-    -moz-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-  }
-  p.morning_tabs_subtitle {
-    margin-top: 15px;
-    font-size: 11px;
-  }
-  h4.morning_tab_title {
-    font-size: 14px;
-    margin-left: 15px;
-    margin-top: 11px;
-  }
-  button.select_btn_next_appointmain {
-    color: #fff;
-    background: #8bc441;
-    margin-top: 1.5rem;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 0.3rem;
-    border: none;
-    text-transform: uppercase;
-  }
+  text-decoration: none;
+  font-size: 13px;
+}
+a.appoinment_tab_subcontainer:active,
+a.appoinment_tab_subcontainer:focus {
+  color: #fff;
+  background: #8bc441;
+  box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+  -webkit-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+  -moz-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+}
+p.morning_tabs_subtitle {
+  margin-top: 15px;
+  font-size: 11px;
+}
+h4.morning_tab_title {
+  font-size: 14px;
+  margin-left: 15px;
+  margin-top: 11px;
+}
+button.select_btn_next_appointmain {
+  color: #fff;
+  background: #8bc441;
+  margin-top: 1.5rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.3rem;
+  border: none;
+  text-transform: uppercase;
+}
 }
 
 @media only screen and (min-width: 768px) {
-  label.online_text_submeal {
-    margin: 3%;
-    font-size: 12px;
-    letter-spacing: 1px;
-    font-weight: 900;
-    margin-right: 6px;
-    margin-top: 9px;
-    cursor: pointer;
+  h3.heading_text_appointmain{
+    font-size: 16px;
   }
-  button.appoinment_tab_subcontainer {
-    border: 1px solid #2121213b;
-    background: "#fbfbfb";
-    box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
-    border-radius: 7px;
-    padding: 5px;
-    color: #212121;
-    text-decoration: none;
-    font-size: 13px;
-  }
-  p.choose_your_meal_text_meal_choose {
-    font-size: 15px;
-    font-weight: bold;
-    position: relative;
-    top: 50px;
-    left: 15px;
-  }
-  input.appointmentdate_subtitle {
-    border: 1px solid #c4c4c433;
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 2%;
-    width: 106%;
-    font-size: 10px;
-    box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
-    outline: none;
-  }
-  /* vertical line */
-  div.vertical_line_appointment {
-    border-left: 1px solid grey;
-    height: auto;
-  }
-  div.main_container_appoi {
-    min-height: 120vh;
-  }
+  p.online_details_appointmain{
+   font-size: 16px;
+   margin-left: 1%;
+ }
+ label.online_text_submeal {
+  margin: 3%;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 900;
+  margin-right: 6px;
+  margin-top: 9px;
+  cursor: pointer;
+}
+button.appoinment_tab_subcontainer {
+  border: 1px solid #2121213b;
+  background: "#fbfbfb";
+  box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
+  border-radius: 7px;
+  padding: 5px;
+  color: #212121;
+  text-decoration: none;
+  font-size: 13px;
+}
+p.choose_your_meal_text_meal_choose {
+  font-size: 15px;
+  font-weight: bold;
+  position: relative;
+  top: 50px;
+  left: 15px;
+}
+input.appointmentdate_subtitle {
+ border: 1px solid #c4c4c433;
+ border-radius: 5px;
+ background-color: #fff;
+ padding: 2%;
+ width: 100%;
+ font-size: 10px;
+ box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
+ outline: none;
+}
+/* vertical line */
+div.vertical_line_appointment {
+  border-left: 1px solid grey;
+  height: auto;
+}
+div.main_container_appoi {
+  min-height: 120vh;
+}
 
-  div.card_user_appointment {
-    margin-top: 1rem;
-    padding: 4%;
-    /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    border-radius: 1rem;
-    margin: 5%;
-    width: 70%;
-    height: auto;
-    border: none;
-  }
-  div.appointment_main_container {
-    font-family: Roboto;
-    color: #303960;
-    display: grid;
-    place-items: center;
-  }
-  img.silver_img_appointment {
-    width: 70%;
-  }
+div.card_user_appointment {
+  margin-top: 1rem;
+  padding: 4%;
+  /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
+  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border-radius: 1rem;
+  margin: 5%;
+  width: 70%;
+  height: auto;
+  border: none;
+}
+div.appointment_main_container {
+  font-family: Roboto;
+  color: #303960;
+  display: grid;
+  place-items: center;
+}
+img.silver_img_appointment {
+  width: 70%;
+}
 
-  /* left side  */
+/* left side  */
 
-  img.silver_img {
-    width: 13rem;
-    height: 3rem;
-  }
-  h5.appointmentdate_subtitle {
-    box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
-    margin: 0px;
-    width: 9rem;
-    padding: 1rem;
-    border-radius: 1rem;
-  }
-  p.silver_subtitle {
-    color: #303960;
-    font-family: Roboto;
-    font-size: 11px;
-    margin-top: 12px;
-    font-weight: 600;
-    text-align: justify;
-    line-height: 13px;
-    opacity: 0.9;
-  }
-  h6.appointmentdate_title {
-    color: #303960;
-    font-family: Roboto;
-    font-size: 13px;
-    letter-spacing: 0px;
-    font-weight: 700;
-  }
-  h5.timeslot_title {
-    font-family: Roboto;
-    color: #303960;
-    font-size: 13px;
-    font-weight: 700;
-  }
-  button.time_morning_title {
-    font-family: Roboto;
-    color: #303960;
-    box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
-    text-align: center;
-    border-radius: 7px;
-    border: 1px solid #98989885;
-    margin: 19%;
-    background: white;
-    font-weight: 600;
-    letter-spacing: 1x;
-    width: 52px;
-    font-size: 10px;
-  }
-  button.time_morning_title:hover {
-    background-color: #8bc441;
-    color: #fff;
-  }
+img.silver_img {
+  width: 13rem;
+  height: 3rem;
+}
+h5.appointmentdate_subtitle {
+  box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
+  margin: 0px;
+  width: 9rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+p.silver_subtitle {
+  color: #303960;
+  font-family: Roboto;
+  font-size: 11px;
+  margin-top: 12px;
+  font-weight: 600;
+  text-align: justify;
+  line-height: 13px;
+  opacity: 0.9;
+}
+h6.appointmentdate_title {
+  color: #303960;
+  font-family: Roboto;
+  font-size: 13px;
+  letter-spacing: 0px;
+  font-weight: 700;
+}
+h5.timeslot_title {
+  font-family: Roboto;
+  color: #303960;
+  font-size: 13px;
+  font-weight: 700;
+}
+button.time_morning_title {
+  font-family: Roboto;
+  color: #303960;
+  box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
+  text-align: center;
+  border-radius: 7px;
+  border: 1px solid #98989885;
+  margin: 19%;
+  background: white;
+  font-weight: 600;
+  letter-spacing: 1x;
+  width: 52px;
+  font-size: 10px;
+}
+button.time_morning_title:hover {
+  background-color: #8bc441;
+  color: #fff;
+}
 
-  /* tabs */
+/* tabs */
 
-  ul.appoinment_tab_container {
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-    margin-left: 4%;
-  }
-  a.appoinment_tab_subcontainer {
-    background: white;
-    border: none;
-    box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
-    border-radius: 7px;
-    padding: 5px;
-    font-family: Roboto;
-    color: #303960;
-    text-decoration: none;
-    font-size: 13px;
-  }
-  a.appoinment_tab_subcontainer:active,
-  a.appoinment_tab_subcontainer:focus {
-    box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-    -webkit-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-    -moz-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-    border-radius: 7px;
-    padding: 5px;
-    border: none;
-    color: #212121;
-    text-decoration: none;
-    font-size: 13px;
-  }
-  a.appoinment_tab_subcontainer:active,
-  a.appoinment_tab_subcontainer:focus {
-    color: #fff;
-    background: #8bc441;
-  }
-  p.morning_tabs_subtitle {
-    margin-top: 8px;
-    font-size: 10px;
-  }
-  h4.morning_tab_title {
-    font-size: 15px;
-    margin-left: 20px;
-    width: 43px;
-  }
-  div.right_side_container_appointmentmain {
-    margin-left: 8px;
-  }
-  div.btn_container_appointment {
-  }
-  button.select_btn_next_appointmain {
-    color: #fff;
-    background: #8bc441;
-    margin-top: 8%;
-    width: 72%;
-    margin-left: 43%;
-    border-radius: 0.3rem;
-    border: none;
-    text-transform: uppercase;
-  }
-  div.date_time_container_appointmain {
-    margin-right: auto;
-    margin-left: auto;
-  }
+ul.appoinment_tab_container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-left: 4%;
+}
+a.appoinment_tab_subcontainer {
+  background: white;
+  border: none;
+  box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
+  border-radius: 7px;
+  padding: 5px;
+  font-family: Roboto;
+  color: #303960;
+  text-decoration: none;
+  font-size: 13px;
+}
+a.appoinment_tab_subcontainer:active,
+a.appoinment_tab_subcontainer:focus {
+  box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+  -webkit-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+  -moz-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+  border-radius: 7px;
+  padding: 5px;
+  border: none;
+  color: #212121;
+  text-decoration: none;
+  font-size: 13px;
+}
+a.appoinment_tab_subcontainer:active,
+a.appoinment_tab_subcontainer:focus {
+  color: #fff;
+  background: #8bc441;
+}
+p.morning_tabs_subtitle {
+  margin-top: 8px;
+  font-size: 10px;
+}
+h4.morning_tab_title {
+  font-size: 15px;
+  margin-left: 20px;
+  width: 43px;
+}
+div.right_side_container_appointmentmain {
+  margin-left: 8px;
+}
+div.btn_container_appointment {
+}
+button.select_btn_next_appointmain {
+ color: #fff;
+ background: #8bc441;
+ margin-top: 5px;
+ width: 68%;
+ font-size: 16px;
+ margin-left: 43%;
+ border-radius: 0.3rem;
+ border: none;
+ text-transform: uppercase;
+}
+div.date_time_container_appointmain {
+  margin-right: auto;
+  margin-left: auto;
+}
 }
 
 @media only screen and (min-width: 992px) {
@@ -580,175 +599,177 @@ button.select_btn_next_appointmain:hover{
     left: 15px;
   }
   input.appointmentdate_subtitle {
-    margin-top: 4%;
-    border: 1px solid #c4c4c433;
-    border-radius: 10px;
-    background-color: #fff;
-    padding: 2%;
-    width: 41%;
-    box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
-    outline: none;
-  }
-  /* vertical line */
-  div.vertical_line_appointment {
-    border-left: 1px solid grey;
-    height: auto;
-  }
+   margin-top: 4%;
+   border: 1px solid #c4c4c433;
+   border-radius: 10px;
+   background-color: #fff;
+   padding: 2%;
+   width: 200px;
+   font-size: 13px;
+   box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
+   outline: none;
+   
+}
+/* vertical line */
+div.vertical_line_appointment {
+  border-left: 1px solid grey;
+  height: auto;
+}
 
-  div.card_user_appointment {
-    margin-top: 1rem;
-    padding: 3%;
-    /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
-    border-radius: 1rem;
+div.card_user_appointment {
+  margin-top: 1rem;
+  padding: 3%;
+  /* box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%); */
+  border-radius: 1rem;
 
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
+  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 
-    margin: 5%;
-    width: 70%;
-    height: auto;
-    border: none;
-  }
-  div.appointment_main_container {
-    font-family: Roboto;
-    color: #303960;
-    display: grid;
-    place-items: center;
-  }
-  img.silver_img_appointment {
-    width: 70%;
-    height: 16%;
-  }
+  margin: 5%;
+  width: 70%;
+  height: auto;
+  border: none;
+}
+div.appointment_main_container {
+  font-family: Roboto;
+  color: #303960;
+  display: grid;
+  place-items: center;
+}
+img.silver_img_appointment {
+  width: 70%;
+  height: 16%;
+}
 
-  /* left side  */
+/* left side  */
 
-  img.silver_img {
-    width: 13rem;
-    height: 3rem;
-  }
-  h5.appointmentdate_subtitle {
-    box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
-    margin: 0px;
-    width: 9rem;
-    padding: 1rem;
-    border-radius: 1rem;
-    outline: none;
-  }
-  p.silver_subtitle {
-    color: #303960;
-    font-family: Roboto;
-    font-size: 13px;
-    margin-top: 12px;
-    font-weight: 600;
-    text-align: justify;
-    line-height: 18px;
-    opacity: 0.9;
-  }
-  h6.appointmentdate_title {
-    color: #303960;
-    font-family: Roboto;
-    font-size: 16px;
-    letter-spacing: 0px;
-    font-weight: 700;
-    margin-top: 17px;
-  }
-  h5.timeslot_title {
-    font-family: Roboto;
-    color: #303960;
-    font-size: 16px;
-    font-weight: 700;
-  }
-  button.time_morning_title {
-    font-family: Roboto;
-    color: #303960;
-    box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
-    text-align: center;
-    border-radius: 7px;
-    border: 1px solid #98989885;
-    margin: 19%;
-    background: white;
-    font-weight: 600;
-    letter-spacing: 1x;
-    width: 136%;
-    font-size: 14px;
-    letter-spacing: 1px;
-  }
-  button.time_morning_title:hover {
-    background-color: #8bc441;
-    color: #fff;
-  }
+img.silver_img {
+  width: 13rem;
+  height: 3rem;
+}
+h5.appointmentdate_subtitle {
+  box-shadow: 2px 5px 2px -1px rgb(61 61 61 / 66%);
+  margin: 0px;
+  width: 9rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  outline: none;
+}
+p.silver_subtitle {
+  color: #303960;
+  font-family: Roboto;
+  font-size: 13px;
+  margin-top: 12px;
+  font-weight: 600;
+  text-align: justify;
+  line-height: 18px;
+  opacity: 0.9;
+}
+h6.appointmentdate_title {
+  color: #303960;
+  font-family: Roboto;
+  font-size: 16px;
+  letter-spacing: 0px;
+  font-weight: 700;
+  margin-top: 17px;
+}
+h5.timeslot_title {
+  font-family: Roboto;
+  color: #303960;
+  font-size: 16px;
+  font-weight: 700;
+}
+button.time_morning_title {
+  font-family: Roboto;
+  color: #303960;
+  box-shadow: 1px 1px 2px -1px rgb(22 6 6 / 21%);
+  text-align: center;
+  border-radius: 7px;
+  border: 1px solid #98989885;
+  margin: 19%;
+  background: white;
+  font-weight: 600;
+  letter-spacing: 1x;
+  width: 136%;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+button.time_morning_title:hover {
+  background-color: #8bc441;
+  color: #fff;
+}
 
-  /* tabs */
+/* tabs */
 
-  ul.appoinment_tab_container {
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-    margin-left: 9%;
-  }
-  a.appoinment_tab_subcontainer {
-    background: white;
-    border: none;
-    box-shadow: 0px 3px 3px 1px rgb(22 6 6 / 21%);
-    border-radius: 7px;
-    padding: 5px;
-    font-family: Roboto;
-    color: #303960;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 0.1px;
-  }
-  a.appoinment_tab_subcontainer:active,
-  a.appoinment_tab_subcontainer:focus {
-    box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-    -webkit-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-    -moz-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
-    border-radius: 7px;
-    padding: 5px;
-    border: none;
-    color: #212121;
-    text-decoration: none;
-    font-size: 16px;
-  }
-  a.appoinment_tab_subcontainer:active,
-  a.appoinment_tab_subcontainer:focus {
-    color: #fff;
-    background: #8bc441;
-  }
-  p.morning_tabs_subtitle {
-    margin-top: 11px;
-    font-size: 11px;
-  }
-  h4.morning_tab_title {
-    font-size: 15px;
-    margin-left: 20px;
-    width: 43px;
-  }
-  div.right_side_container_appointmentmain {
-    margin-left: 8px;
-  }
-  button.time_morning_title:hover {
-    font-family: Roboto;
-    color: #303960;
-    font-weight: 500;
-  }
+ul.appoinment_tab_container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-left: 9%;
+}
+a.appoinment_tab_subcontainer {
+  background: white;
+  border: none;
+  box-shadow: 0px 3px 3px 1px rgb(22 6 6 / 21%);
+  border-radius: 7px;
+  padding: 5px;
+  font-family: Roboto;
+  color: #303960;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+a.appoinment_tab_subcontainer:active,
+a.appoinment_tab_subcontainer:focus {
+  box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+  -webkit-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+  -moz-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
+  border-radius: 7px;
+  padding: 5px;
+  border: none;
+  color: #212121;
+  text-decoration: none;
+  font-size: 16px;
+}
+a.appoinment_tab_subcontainer:active,
+a.appoinment_tab_subcontainer:focus {
+  color: #fff;
+  background: #8bc441;
+}
+p.morning_tabs_subtitle {
+  margin-top: 11px;
+  font-size: 11px;
+}
+h4.morning_tab_title {
+  font-size: 15px;
+  margin-left: 20px;
+  width: 43px;
+}
+div.right_side_container_appointmentmain {
+  margin-left: 8px;
+}
+button.time_morning_title:hover {
+  font-family: Roboto;
+  color: #303960;
+  font-weight: 500;
+}
 
-  button.select_btn_next_appointmain {
-    color: #fff;
-    background: #8bc441;
-    margin-top: 8%;
-    width: 72%;
-    margin-left: 43%;
-    border-radius: 0.3rem;
-    border: none;
-    text-transform: uppercase;
-  }
-  div.date_time_container_appointmain {
-    margin-right: auto;
-    margin-left: auto;
-  }
+button.select_btn_next_appointmain {
+  color: #fff;
+  background: #8bc441;
+  margin-top: 8%;
+  width: 72%;
+  margin-left: 43%;
+  border-radius: 0.3rem;
+  border: none;
+  text-transform: uppercase;
+}
+div.date_time_container_appointmain {
+  margin-right: auto;
+  margin-left: auto;
+}
 }
 
 @media only screen and (min-width: 1200px) {
@@ -783,7 +804,7 @@ button.select_btn_next_appointmain:hover{
     width: 15px;
     height: 15px;
     border-radius: 15px;
-    top: -4px;
+    top: -9px;
     left: -1px;
     position: relative;
     background-color: rgb(139, 196, 65);

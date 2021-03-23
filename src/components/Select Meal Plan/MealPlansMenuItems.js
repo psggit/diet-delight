@@ -3,6 +3,8 @@ import './SelectMealPlan.css'
 import veg_icon from '../../assets/vegicon.png'
 
 import axios from '../../axiosInstance';
+import NonvegComponent from '../veg non veg component/NonvegComponent.js'
+import VegComponent from '../veg non veg component/VegComponent.js'
  
 export default function MealPlansMenuItems(props){
     console.log(props)
@@ -82,7 +84,10 @@ export default function MealPlansMenuItems(props){
             <div className="col-md-8 col-sm-12 left_side_container_selectMeal">
             <h5 className=" salad_text" >{menuItem.name}</h5>
             {/* <h5 className=" salad_details_text"> About dish like crunch with something chrunchy and salad  About dish like crunch with something chrunchy and salad</h5> */}
-            <img src={veg_icon} alt="veg" className="veg_icon"></img>
+            {/* <img src={veg_icon} alt="veg" className="veg_icon"></img> */}
+
+            <VegComponent/>
+             {/* <NonvegComponent/> */}
             </div>
             
             </div>
@@ -106,7 +111,7 @@ export default function MealPlansMenuItems(props){
             <div className="heart_icon_meal">  
             
             <i className={likeColor} aria-hidden="true" onClick={colorHandle}></i>
-            {/* <HeartIcon /> */}
+           
             </div>
             
              

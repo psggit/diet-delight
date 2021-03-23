@@ -62,7 +62,7 @@ export const Container = styled.div`
     border: 1px solid rgba(139,197,63,1);
     max-width: 300px;
     min-width: 200px;
-    height:450px;
+    height:482px;
 
   
 `

@@ -23,15 +23,24 @@ export const Packdown = styled.div`
     justify-content:space-evenly;
 `
 export const Menu = styled.div`
+
     display: flex;
     margin-top: 50px;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height: 370px;
-    margin-left:20px;
-    min-width:300px;
-    padding-bottom:30px;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 420px;
+    margin-left: 20px;
+    min-width: 300px;
+    padding-bottom: 30px;
 
    
 `
@@ -74,7 +83,7 @@ export const Menubtn = styled.button`
     font-family:"Open Sans";
     border: 1px solid rgba(139,197,63,1);
     border-radius: 10px;
-    font-size:normal;
+    font-size:14px;
     cursor:pointer;
 `
 
