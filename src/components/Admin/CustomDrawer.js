@@ -6,6 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import logo from "../../assets/logo.png";
 import './CustomDrawer.css';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import CustomNavList from "./components/CustomNavList";
 
@@ -91,6 +92,12 @@ const HeaderLogo = styled.div`
   &:focus {
     outline: none;
   }
+`;
+
+const LogoutContainer = styled.div`
+  position: absolute;
+  bottom: 16px;
+  cursor: pointer;
 `;
 
 var styles = {
@@ -242,140 +249,139 @@ export default function PersistentDrawerLeft() {
             pageWrapId={"page-wrap"}
             outerContainerId={"outer-container"}
           >
-            <List color="primary">
-              <ListItem button component={Link} to={"/admin"} style={{ marginBottom: "32px" }}>
-                <HeaderLogo style={{ display: 'flex' }}>
-                  <img
-                    style={{
-                      objectFit: "contain",
-                      height: "75px",
-                      alignSelf: "center",
-                      margin: "auto",
-                    }}
-                    src={logo}
-                    alt="logo"
-                  />
-                </HeaderLogo>
-              </ListItem>
-              <CustomNavList
-                name="user"
-                open={listKey === 'user'}
-                handleClick={handleMenuOpen}
-                primaryLabel="USER"
-                navList={[
-                  { label: "Customers", link: "userlist?type=customer" },
-                  { label: "Consultants", link: "consultantlist" },
-                  { label: "Others", link: "userlist" },
-                ]}
-              />
-              <CustomNavList
-                name="question"
-                open={listKey === 'question'}
-                handleClick={handleMenuOpen}
-                primaryLabel="QUESTIONNAIRE"
-                navList={[
-                  { label: "All Questions", link: "questionlist" },
-                  { label: "Customer Responses", link: "customer-response" },
-                ]}
-              />
-              <CustomNavList
-                name="consultationPackage"
-                open={listKey === 'consultationPackage'}
-                handleClick={handleMenuOpen}
-                primaryLabel="CONSULTATION PACKAGE"
-                navList={[
-                  {
-                    label: "Consultation Package List",
-                    link: "consultationPackageList",
-                  },
-                  {
-                    label: "Add Consultation Package",
-                    link: "addConsultationPackage",
-                  },
-                ]}
-              />
+            <div>
+              <List color="primary">
+                <ListItem button component={Link} to={"/admin"} style={{ marginBottom: "32px" }}>
+                  <HeaderLogo style={{ display: 'flex' }}>
+                    <img
+                      style={{
+                        objectFit: "contain",
+                        height: "75px",
+                        alignSelf: "center",
+                        margin: "auto",
+                      }}
+                      src={logo}
+                      alt="logo"
+                    />
+                  </HeaderLogo>
+                </ListItem>
+                <CustomNavList
+                  name="user"
+                  open={listKey === 'user'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="USER"
+                  navList={[
+                    { label: "Customers", link: "userlist?type=customer" },
+                    { label: "Consultants", link: "consultantlist" },
+                    { label: "Others", link: "userlist" },
+                  ]}
+                />
+                <CustomNavList
+                  name="question"
+                  open={listKey === 'question'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="QUESTIONNAIRE"
+                  navList={[
+                    { label: "All Questions", link: "questionlist" },
+                    { label: "Customer Responses", link: "customer-response" },
+                  ]}
+                />
+                <CustomNavList
+                  name="consultationPackage"
+                  open={listKey === 'consultationPackage'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="CONSULTATION PACKAGE"
+                  navList={[
+                    {
+                      label: "Consultation Package List",
+                      link: "consultationPackageList",
+                    },
+                  ]}
+                />
 
-              <CustomNavList
-                name="consultation"
-                open={listKey === 'consultation'}
-                handleClick={handleMenuOpen}
-                primaryLabel="CONSULTATION"
-                navList={[
-                  { label: "Consultations", link: "consultationlist" },
-                  { label: "Past Consultations", link: "consultationlist?type=past" },
-                ]}
-              />
+                <CustomNavList
+                  name="consultation"
+                  open={listKey === 'consultation'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="CONSULTATION"
+                  navList={[
+                    { label: "Consultations", link: "consultationlist" },
+                    { label: "Past Consultations", link: "consultationlist?type=past" },
+                  ]}
+                />
 
-              <CustomNavList
-                name="menu"
-                open={listKey === 'menu'}
-                handleClick={handleMenuOpen}
-                primaryLabel="MENU"
-                navList={[
-                  { label: "All Menu", link: "menulist" },
-                  { label: "Add New Menu", link: "addmenu" },
-                  { label: "All Categories", link: "categories" },
-                  { label: "Add New Categories", link: "addcategories" },
-                  { label: "All Menu Items", link: "menuitemslist" },
-                  { label: "Add New Menu Items", link: "addnewmenuitems" },
-                ]}
-              />
-              <CustomNavList
-                name="mealPlan"
-                open={listKey === 'mealPlan'}
-                handleClick={handleMenuOpen}
-                primaryLabel="MEAL PLAN"
-                navList={[
-                  { label: "All Meal Plan", link: "mealplanlist" },
-                  { label: "Add New Meal Plan", link: "addnewmealplan" },
-                ]}
-              />
+                <CustomNavList
+                  name="menu"
+                  open={listKey === 'menu'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="MENU"
+                  navList={[
+                    { label: "All Menu", link: "menulist" },
+                    { label: "Add New Menu", link: "addmenu" },
+                    { label: "All Categories", link: "categories" },
+                    { label: "Add New Categories", link: "addcategories" },
+                    { label: "All Menu Items", link: "menuitemslist" },
+                    { label: "Add New Menu Items", link: "addnewmenuitems" },
+                  ]}
+                />
+                <CustomNavList
+                  name="mealPlan"
+                  open={listKey === 'mealPlan'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="MEAL PLAN"
+                  navList={[
+                    { label: "All Meal Plan", link: "mealplanlist" },
+                    { label: "Add New Meal Plan", link: "addnewmealplan" },
+                  ]}
+                />
 
-              <CustomNavList
-                name="order"
-                open={listKey === 'order'}
-                handleClick={handleMenuOpen}
-                primaryLabel="ORDER"
-                navList={[
-                  { label: "All Meal Purchase", link: "mealpurchaselist" },
-                  {
-                    label: "All Consultation Purchase",
-                    link: "Consultationpurchaselist",
-                  },
-                ]}
-              />
-              <CustomNavList
-                name="coupon"
-                open={listKey === 'coupon'}
-                handleClick={handleMenuOpen}
-                primaryLabel="COUPON / DISCOUNT"
-                navList={[
-                  { label: "List of Coupon", link: "couponlist" },
-                  { label: "Add Coupon", link: "addcoupon" },
-                ]}
-              />
-              <CustomNavList
-                name="blog"
-                open={listKey === 'blog'}
-                handleClick={handleMenuOpen}
-                primaryLabel="BLOGS"
-                navList={[
-                  { label: "List of Blogs", link: "bloglist" },
-                  { label: "Add Blog", link: "addblog" },
-                ]}
-              />
+                <CustomNavList
+                  name="order"
+                  open={listKey === 'order'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="ORDER"
+                  navList={[
+                    { label: "All Meal Purchase", link: "mealpurchaselist" },
+                    {
+                      label: "All Consultation Purchase",
+                      link: "Consultationpurchaselist",
+                    },
+                  ]}
+                />
+                <CustomNavList
+                  name="coupon"
+                  open={listKey === 'coupon'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="COUPON / DISCOUNT"
+                  navList={[
+                    { label: "List of Coupon", link: "couponlist" },
+                    { label: "Add Coupon", link: "addcoupon" },
+                  ]}
+                />
+                <CustomNavList
+                  name="blog"
+                  open={listKey === 'blog'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="BLOGS"
+                  navList={[
+                    { label: "List of Blogs", link: "bloglist" },
+                    { label: "Add Blog", link: "addblog" },
+                  ]}
+                />
 
-              <CustomNavList
-                name="duration"
-                open={listKey === 'duration'}
-                handleClick={handleMenuOpen}
-                primaryLabel="DURATION"
-                navList={[
-                  { label: "List Duration", link: "durationlist" },
-                  { label: "Add Duration", link: "addduration" },
-                ]}
-              />
-            </List>
+                <CustomNavList
+                  name="duration"
+                  open={listKey === 'duration'}
+                  handleClick={handleMenuOpen}
+                  primaryLabel="DURATION"
+                  navList={[
+                    { label: "List Duration", link: "durationlist" },
+                    { label: "Add Duration", link: "addduration" },
+                  ]}
+                />
+              </List>
+              <LogoutContainer onClick={handleLogout}><AccountCircleIcon style={{fontSize: "56px", margin: "0 12px"}} /><span>LOGOUT</span></LogoutContainer>
+            </div>
           </Menu>
           <main
             id="page-wrap"

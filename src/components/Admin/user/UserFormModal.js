@@ -20,7 +20,6 @@ const UserFormModal = (props) => {
 			then: Yup.string().required('Please enter Password'),
 			otherwise: Yup.string().nullable(),
 		}),
-		firebaseUid: Yup.string().required('Please enter Firebase UID'),
 		age: Yup.number(),
 		gender: Yup.string().required('Please enter Gender'),
 		phoneNumber: Yup.string(),
@@ -29,6 +28,8 @@ const UserFormModal = (props) => {
 		secondaryAddressLine1: Yup.string(),
 		secondaryAddressLine2: Yup.string(),
 		role: Yup.string(),
+		bmi: Yup.string(),
+		calories: Yup.string(),
 	});
 
 	return (
@@ -81,11 +82,6 @@ const UserFormModal = (props) => {
 								type="password"
 							/>}
 							<Field
-								name="firebaseUid"
-								component={TextField}
-								label="Firebase UID"
-							/>
-							<Field
 								name="phoneNumber"
 								component={TextField}
 								label="Phone Number"
@@ -119,6 +115,22 @@ const UserFormModal = (props) => {
 										name="secondaryAddressLine2"
 										component={TextField}
 										label="Secondary Address Line 2"
+									/>
+								</Grid>
+							</Grid>
+							<Grid container spacing={2}>
+								<Grid item xs>
+									<Field
+										name="bmi"
+										component={TextField}
+										label="BMI"
+									/>
+								</Grid>
+								<Grid item xs>
+									<Field
+										name="calories"
+										component={TextField}
+										label="Recommended Calories"
 									/>
 								</Grid>
 							</Grid>

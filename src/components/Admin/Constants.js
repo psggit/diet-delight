@@ -24,3 +24,5 @@ export const CONSULTATION_STATUS = [{ id: 0, name: 'Booked' }, { id: 1, name: 'C
 export const CONSULTANT_STATUS = [{ id: 0, name: 'Available' }, { id: 1, name: 'Leave' }, { id: 2, name: 'Left' }]
 
 export const CONSULTATION_MODE = [{ id: 0, name: 'Offline' }, { id: 1, name: 'Online' }]
+
+export const CONSULTATION_PACKAGE_STATUS = [{ id: 0, name: 'Available' }, { id: 1, name: 'Unavailable' }]

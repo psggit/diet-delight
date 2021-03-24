@@ -2,71 +2,34 @@ import React, { useState, useEffect } from "react";
 import CustomSkeleton from "../../../CustomSkeleton";
 import axios from "../../../axiosInstance";
 
-import {
-  makeStyles,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Snackbar,
-  Select,
-  MenuItem,
-} from "@material-ui/core";
+import { Snackbar } from "@material-ui/core";
 
 import MuiAlert from "@material-ui/lab/Alert";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setConsultationPackage,
-  selectConsultationPackage,
-  resetConsultationPackage,
-} from "../../../features/adminSlice";
+import { useSelector } from "react-redux";
+import { selectConsultationPackage } from "../../../features/adminSlice";
 
-import {
-  Main,
-  HContainer,
-  Con,
-  Input,
-  Title,
-  Set,
-  Mini,
-  Info,
-  Container,
-} from "./QuestionElements";
+import { Main } from "./QuestionElements";
 import Table from '../../reusable/Table';
 import { Edit, Delete } from '@material-ui/icons';
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { CSVLink } from "react-csv";
 import TableHeader from '../../reusable/TableHeader';
+import ConsultantPackageFormModal from './ConsultantPackageFormModal';
+import Modal from '../../reusable/Modal';
 
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-
-  table: {
-    minWidth: 650,
-  },
-});
-
-// const validationSchema = Yup.object().shape({
-//     question: Yup.string().required().label("Question"),
-//     type: Yup.number().required().max(3).label("Type"),
-//     order: Yup.number().required().label("Order")
-// });
+const initialValue = {
+  id: '',
+  name: '',
+  duration: '',
+  order: '',
+  status: '',
+  subtitle: '',
+  details: '',
+  price: '',
+  salePrice: '',
+}
 
 const ListConsultationPackage = () => {
-  const dispatch = useDispatch();
-
   const [consultantPackages, setConsultationPackages] = useState([]);
-  const consultationPackage = useSelector(selectConsultationPackage);
   const [rowsPerPage, setRowsPerPage] = useState(20)
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
@@ -78,6 +41,10 @@ const ListConsultationPackage = () => {
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
   const [isupdate, setISUpdate] = useState(false);
+  const [mode, setMode] = useState('Add');
+  const [showForm, setShowForm] = useState(false);
+  const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
+  const [currentPackage, setCurrentPackage] = useState(initialValue);
 
   let current_date_Time = new Date();
   const csvReport = {
@@ -91,7 +58,7 @@ const ListConsultationPackage = () => {
 
   const handleShow = () => {
     axios
-      .get(`consultation-packages?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`consultation-packages?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setConsultationPackages(res.data.data);
         setShow(true);
@@ -109,286 +76,76 @@ const ListConsultationPackage = () => {
     if (reason === "clickaway") {
       return;
     }
-    setIsSuccess(false);
+    setNotificationConf([false, 'success', '']);
   };
 
-  const handleUpdate = async (consultationPack) => {
-    await dispatch(
-      setConsultationPackage({
-        id: consultationPack.id,
-        name: consultationPack.name,
-        status: consultationPack.status,
-        duration: consultationPack.duration,
-        order: consultationPack.order,
-        subtitle: consultationPack.subtitle,
-        details: consultationPack.details,
-        picture: consultationPack.picture,
-        price: consultationPack.price,
-        sale_price: consultationPack.sale_price,
-      })
-    );
-    await setISUpdate(true);
-  };
+  const handleFormSubmit = (values) => {
+    const data = {
+      name: values.name,
+      status: values.status,
+      duration: parseInt(values.duration, 10),
+      order: parseInt(values.order, 10),
+      subtitle: values.subtitle,
+      details: values.details,
+      price: values.price,
+      sale_price: values.salePrice,
+    };
+    if (mode === 'Add') {
+      axios.post(`consultation-packages`, data).then((res) => {
+        setNotificationConf([true, 'success', 'Consultation Package Added Successfully !'])
+        handleShow();
+      }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+    } else {
+      axios
+        .put(`consultation-packages/${currentPackage.id}`, data)
+        .then((res) => {
+          setNotificationConf([true, 'success', 'Consultation Package Updated Successfully !'])
+          handleShow();
+        })
+        .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+    }
+    setShowForm(false);
+  }
 
-  const handleDelete = async (consultationPack) => {
-    await dispatch(resetConsultationPackage());
-    await dispatch(
-      setConsultationPackage({
-        id: consultationPack.id,
-      })
-    );
-    await setIsDelete(true);
-  };
-
-  const CloseDelete = () => setIsDelete(false);
-  const CloseUpdate = () => setISUpdate(false);
-
-  const classes = useStyles();
+  const [showNotification, notificationType, notification] = notificationConf;
 
   return (
     <>
       {isdelete && (
-        <>
-          {" "}
-          <Dialog
-            open={isdelete}
-            onClose={CloseDelete}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick
-            disableEscapeKeyDown
-          >
-            <DialogTitle id="form-dialog-title">Delete Question</DialogTitle>
-            <DialogContent>
-              <Mini>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    axios
-                      .delete(`consultation-packages/${consultationPackage.id}`)
-                      .then((res) => {
-                        setIsSuccess(true);
-                        setIsDelete(false);
-                        handleShow();
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  color="primary"
-                  onClick={CloseDelete}
-                >
-                  Close
-                </Button>
-              </Mini>
-            </DialogContent>
-          </Dialog>
-        </>
+        <Modal
+          visible={isdelete}
+          onClose={() => setIsDelete(false)}
+          title="Delete Consultation Package"
+          acceptButtonConfig={{
+            color: 'secondary',
+            text: 'Delete',
+            onClick: () => {
+              setIsDelete(false);
+              axios
+                .delete(`consultation-packages/${currentPackage.id}`)
+                .then(() => {
+                  setNotificationConf([true, 'success', 'Consultation Package Deleted Successfully !'])
+                  handleShow();
+                })
+                .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+            }
+          }}
+        />
       )}
 
-      {isupdate && (
-        <>
-          {" "}
-          <Dialog
-            open={isupdate}
-            onClose={CloseUpdate}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick
-            disableEscapeKeyDown
-          >
-            <DialogTitle id="form-dialog-title">
-              Update Consultation Packages
-            </DialogTitle>
-            <DialogContent>
-              <Formik
-                initialValues={{
-                  name: consultationPackage.name,
-                  status: consultationPackage.status,
-                  duration: consultationPackage.duration,
-                  order: consultationPackage.order,
-                  subtitle: consultationPackage.subtitle,
-                  details: consultationPackage.details,
-                  picture: consultationPackage.picture,
-                  price: consultationPackage.price,
-                  sale_price: consultationPackage.sale_price,
-                }}
-                // validationSchema={validationSchema}
-                onSubmit={(values) => {
-                  axios
-                    .put(`consultation-packages/${consultationPackage.id}`, {
-                      headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "access_token"
-                        )}`,
-                      },
-                      name: values.name,
-                      status: values.status,
-                      duration: values.duration,
-                      order: values.order,
-                      subtitle: values.subtitle,
-                      details: values.details,
-                      picture: values.picture,
-                      price: values.price,
-                      sale_price: values.sale_price,
-                    })
-                    .then((res) => {
-                      setIsSuccess(true);
-                      setISUpdate(false);
-                      handleShow();
-                    })
-                    .catch((err) => console.log(err));
-                }}
-              >
-                {({ handleSubmit, handleChange, errors, touched, values }) => (
-                  <>
-                    <Container>
-                      <Mini>
-                        <Title>ID :</Title>
-                        <Input
-                          value={values.id}
-                          placeholder="ID"
-                          onChange={handleChange("id")}
-                        />
-                      </Mini>
-                      {errors.id && touched && <Info error>{errors.id}</Info>}
-                      <Mini>
-                        <Title>Name :</Title>
-                        <Input
-                          value={values.name}
-                          placeholder="Name"
-                          onChange={handleChange("name")}
-                        />
-                      </Mini>
-                      {errors.name && touched && (
-                        <Info error>{errors.name}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Status :</Title>
-                        <Input
-                          value={values.status}
-                          placeholder="Status"
-                          onChange={handleChange("status")}
-                        />
-                      </Mini>
-                      {errors.status && touched && (
-                        <Info error>{errors.status}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Duration :</Title>
-                        <Input
-                          value={values.duration}
-                          placeholder="Duration"
-                          onChange={handleChange("duration")}
-                        />
-                      </Mini>
-                      {errors.duration && touched && (
-                        <Info error>{errors.duration}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Order :</Title>
-                        <Input
-                          value={values.order}
-                          placeholder="Order"
-                          onChange={handleChange("order")}
-                        />
-                      </Mini>
-                      {errors.order && touched && (
-                        <Info error>{errors.order}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Subtitle :</Title>
-                        <Input
-                          value={values.subtitle}
-                          placeholder="Subtitle"
-                          onChange={handleChange("subtitle")}
-                        />
-                      </Mini>
-                      {errors.subtitle && touched && (
-                        <Info error>{errors.subtitle}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Details :</Title>
-                        <Input
-                          value={values.details}
-                          placeholder="Details"
-                          onChange={handleChange("details")}
-                        />
-                      </Mini>
-                      {errors.details && touched && (
-                        <Info error>{errors.details}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Picture :</Title>
-                        <Input
-                          type="text"
-                          value={values.picture}
-                          placeholder="Picture"
-                          onChange={handleChange("picture")}
-                        />
-                      </Mini>
-                      {errors.picture && touched && (
-                        <Info error>{errors.picture}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Price :</Title>
-                        <Input
-                          value={values.price}
-                          placeholder="Price"
-                          onChange={handleChange("price")}
-                        />
-                      </Mini>
-                      {errors.price && touched && (
-                        <Info error>{errors.price}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Sale Price :</Title>
-                        <Input
-                          value={values.sale_price}
-                          placeholder="Sale Price"
-                          onChange={handleChange("sale_price")}
-                        />
-                      </Mini>
-                      {errors.sale_price && touched && (
-                        <Info error>{errors.sale_price}</Info>
-                      )}
-
-                      <Mini style={{ marginTop: "10px" }}>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          style={{ margin: "10px" }}
-                          onClick={handleSubmit}
-                        >
-                          Submit
-                        </Button>
-                        <Button
-                          variant="contained"
-                          style={{ margin: "10px", background: "#800080" }}
-                          color="primary"
-                          onClick={CloseUpdate}
-                        >
-                          Close
-                        </Button>
-                      </Mini>
-                    </Container>
-                  </>
-                )}
-              </Formik>
-            </DialogContent>
-          </Dialog>
-        </>
+      {showForm && (
+        <ConsultantPackageFormModal
+          visible={showForm}
+          onClose={() => {
+            setShowForm(false)
+            if (mode === 'Update') {
+              setCurrentPackage(initialValue)
+            }
+          }}
+          mode={mode}
+          values={currentPackage}
+          onSubmit={handleFormSubmit}
+        />
       )}
 
       {loading ? (
@@ -400,7 +157,8 @@ const ListConsultationPackage = () => {
               title="List of All Consultation Packages"
               csvReport={csvReport}
               addHandler={() => {
-                // TODO: Handle add
+                setMode('Add');
+                setShowForm(true);
               }}
               searchHandler={(value) => {
                 setSearch(value);
@@ -437,14 +195,16 @@ const ListConsultationPackage = () => {
                       <>
                         <Edit
                           onClick={() => {
-                            // setMode('Update')
-                            // setCurrentQuestion(cPackage);
-                            // handleUpdate(cPackage);
-                            // setShowForm(true);
+                            setMode('Update')
+                            setCurrentPackage({...cPackage, salePrice: cPackage.sale_price});
+                            setShowForm(true);
                           }}
                           style={{ margin: '0 6px', cursor: 'pointer' }}
                         />
-                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                        <Delete onClick={() => {
+                          setIsDelete(true)
+                          setCurrentPackage(cPackage);
+                        }} style={{ margin: '0 6px', cursor: 'pointer' }} />
                       </>
                     ]
                   })
@@ -472,11 +232,11 @@ const ListConsultationPackage = () => {
               autoHideDuration={3000}
               anchorOrigin={{ vertical: "top", horizontal: "center" }}
               message="Success"
-              open={Issuccess}
+              open={showNotification}
               onClose={handleClose}
             >
-              <Alert onClose={handleClose} severity="success">
-                Success Message !
+              <Alert onClose={handleClose} severity={notificationType}>
+                {notification}
               </Alert>
             </Snackbar>
           </Main>

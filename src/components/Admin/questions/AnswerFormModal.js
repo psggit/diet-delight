@@ -9,19 +9,19 @@ import { Mini } from "../Elements";
 import { QUESTION_TYPES } from '../Constants';
 
 const validationSchema = Yup.object().shape({
-	question: Yup.string().required('Please enter Question'),
-	type: Yup.string().required('Please select Type'),
-	order: Yup.number().required('Pleae enter Order'),
+	question: Yup.string().required('Please select Question'),
+	user: Yup.string().required('Please select User'),
+	answer: Yup.string().required('Pleae enter Answer'),
 });
 
-const QuestionFormModal = (props) => {
-	const { visible, onClose, onSubmit, mode, values = {} } = props;
+const AnswerFormModal = (props) => {
+	const { visible, onClose, onSubmit, mode, values = {}, users = [], questions = [] } = props;
 
 	return (
 		<Modal
 			visible={visible}
 			onClose={onClose}
-			title={`${mode} Question`}
+			title={`${mode} Answer`}
 			requireFooter={false}
 		>
 			<Formik
@@ -32,22 +32,23 @@ const QuestionFormModal = (props) => {
 				{() => (
 					<Form>
 						<Field
-							name="question"
-							component={TextField}
-							label="Question*"
-							placeholder="Question"
-						/>
-						<Field
-							name="order"
-							component={TextField}
-							label="Order*"
-							placeholder="Order"
-						/>
-						<Field
-							name="type"
+							name="user"
 							component={Select}
-							label="Type*"
-							options={QUESTION_TYPES}
+							label="User*"
+							options={users}
+						/>
+						<Field
+							name="question"
+							component={Select}
+							label="Question*"
+							options={questions}
+						/>
+						<Field
+							name="answer"
+							component={TextField}
+							label="Answer*"
+							multiline
+							rows={6}
 						/>
 						<Mini style={{ marginTop: "10px" }}>
 							<Button
@@ -74,4 +75,4 @@ const QuestionFormModal = (props) => {
 	)
 }
 
-export default QuestionFormModal;
+export default AnswerFormModal;

@@ -3,6 +3,7 @@ import axios from "../../../axiosInstance";
 
 import { Snackbar } from "@material-ui/core";
 import { Edit } from '@material-ui/icons';
+import { v4 as uuidv4 } from 'uuid';
 
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -30,7 +31,8 @@ const userInitialValue = {
   role: '',
   age: '',
   gender: '',
-  firebaseUid: '',
+  bmi: '',
+  calories: '',
 }
 
 const ListofUser = () => {
@@ -114,10 +116,12 @@ const ListofUser = () => {
       age: values.age,
       gender: values.gender,
       roles: [values.role || 1],
-      firebase_uid: values.firebaseUid,
+      bmi: values.bmi || '',
+      ...(values.calories && { recommended_calories: parseInt(values.calories, 10) }),
     }
+
     if (mode === 'Add') {
-      axios.post(`users`, { ...data, password: values.password }).then(() => {
+      axios.post(`users`, { ...data, password: values.password, firebase_uid: uuidv4() }).then(() => {
         setNotificationConf([true, 'success', 'User Added Successfully !'])
         handleShow();
       }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
@@ -173,59 +177,68 @@ const ListofUser = () => {
             {show && (
               <Table
                 dataSource={{
-                  columns: [
+                  columns: customerPage ? [
                     { id: 'first_name', label: 'Name', sort: true },
-                    { id: 'email', label: 'Email', sort: true },
-                    { id: 'email_verified_at', label: 'Email Verified At', sort: false },
-                    { id: 'status', label: 'Status', sort: true },
-                    { id: 'firebase_uid', label: 'Firebase UID', sort: false },
                     { id: 'mobile', label: 'Mobile No.', sort: true },
+                    { id: 'email', label: 'Email', sort: true },
                     { id: 'primary_address', label: 'Primary Address', sort: false },
                     { id: 'secondary_address', label: 'Secondary Address', sort: false },
+                    { id: 'email_verified_at', label: 'Email Verified At', sort: false },
                     { id: 'questionnaire_status', label: 'Questionnaire Status', sort: false },
                     { id: 'age', label: 'Age', sort: true },
                     { id: 'gender', label: 'Gender', sort: false },
                     { id: 'bmi', label: 'BMI', sort: true },
                     { id: 'recommended_calories', label: 'Recommended Calories', sort: true },
                     { id: 'actions', label: '', sort: false },
+                  ] : [
+                    { id: 'first_name', label: 'Name', sort: true },
+                    { id: 'email', label: 'Email', sort: true },
+                    { id: 'role', label: 'Role', sort: true },
+                    { id: 'actions', label: '', sort: false },
                   ],
                   rows: users.map((user) => {
-                    return [
+                    const actionButton = <Edit
+                      onClick={() => {
+                        setMode('Update')
+                        setCurrentUser({
+                          id: user.id,
+                          firstName: user.first_name,
+                          lastName: user.last_name,
+                          email: user.email,
+                          phoneNumber: user.mobile || '',
+                          primaryAddressLine1: user.primary_address_line1 || '',
+                          primaryAddressLine2: user.primary_address_line2 || '',
+                          secondaryAddressLine1: user.secondary_address_line1 || '',
+                          secondaryAddressLine2: user.secondary_address_line2 || '',
+                          age: user.age,
+                          gender: user.gender,
+                          bmi: user.bmi,
+                          calories: user.recommended_calories,
+                          role: (user.roles || []).length ? user.roles[0].id : '',
+                        });
+                        setShowForm(true);
+                      }}
+                      style={{ margin: '0 6px', cursor: 'pointer' }}
+                    />
+
+                    return customerPage ? [
                       `${user.first_name || ''} ${user.last_name || ''}`,
-                      user.email,
-                      user.email_verified_at,
-                      user.status,
-                      user.firebase_uid,
                       user.mobile,
+                      user.email,
                       `${user.primary_address_line1 || ''} ${user.primary_address_line2 || ''}`,
                       `${user.secondary_address_line1 || ''} ${user.secondary_address_line2 || ''}`,
+                      user.email_verified_at,
                       user.questionnaire_status,
                       user.age,
                       getGender(user.gender),
                       user.bmi,
                       user.recommended_calories,
-                      <Edit
-                        onClick={() => {
-                          setMode('Update')
-                          setCurrentUser({
-                            id: user.id,
-                            firstName: user.first_name,
-                            lastName: user.last_name,
-                            email: user.email,
-                            phoneNumber: user.mobile || '',
-                            primaryAddressLine1: user.primary_address_line1 || '',
-                            primaryAddressLine2: user.primary_address_line2 || '',
-                            secondaryAddressLine1: user.secondary_address_line1 || '',
-                            secondaryAddressLine2: user.secondary_address_line2 || '',
-                            age: user.age,
-                            gender: user.gender,
-                            role: (user.roles || []).length ? user.roles[0].id : '',
-                            firebaseUid: user.firebase_uid,
-                          });
-                          setShowForm(true);
-                        }}
-                        style={{ margin: '0 6px', cursor: 'pointer' }}
-                      />
+                      actionButton
+                    ] : [
+                      `${user.first_name || ''} ${user.last_name || ''}`,
+                      user.email,
+                      (user.roles || []).length ? user.roles[0].name : '',
+                      actionButton
                     ]
                   })
                 }}

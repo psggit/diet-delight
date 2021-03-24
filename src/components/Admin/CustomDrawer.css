@@ -5,3 +5,7 @@
 .app-drawer .MuiList-root:focus {
 	outline: none;
 }
+
+.app-drawer .bm-item:focus{
+	outline: none;
+}

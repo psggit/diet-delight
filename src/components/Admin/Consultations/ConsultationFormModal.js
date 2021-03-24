@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const ConsultationFormModal = (props) => {
-	const { visible, onClose, onSubmit, mode, values = {}, customers, consultants, consultationPackages } = props;
+	const { visible, onClose, onSubmit, mode, values = {}, customers = [], consultants, consultationPackages } = props;
 
 	return (
 		<Modal
@@ -43,8 +43,10 @@ const ConsultationFormModal = (props) => {
 							label="Customer*"
 							options={customers}
 							onChange={(value) => {
-								setFieldValue('email', value.email);
-								setFieldValue('mobile', value.mobile);
+								const selectedCustomer = customers.find((c) => c.id === value) || { email: '', mobile: '' }
+
+								setFieldValue('email', selectedCustomer.email);
+								setFieldValue('mobile', selectedCustomer.mobile);
 							}}
 						/>
 						<Field

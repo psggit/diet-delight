@@ -101,27 +101,20 @@ const ListofQuestions = () => {
   }
 
   const handleFormSubmit = (values) => {
+    const data = {
+      question: values.question,
+      type: values.type,
+      order: values.order,
+      additional_text: 0,
+    }
     if (mode === 'Add') {
-      console.log(values)
-
-      axios.post(`questions`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`
-        },
-        question: values.question,
-        type: values.type,
-        order: values.order,
-      }).then((res) => {
+      axios.post(`questions`, data).then((res) => {
         setNotificationConf([true, 'success', 'Question Added Successfully !'])
         handleShow();
       }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
     } else {
       axios
-        .put(`questions/${currentQuestion.id}`, {
-          question: values.question,
-          type: values.type,
-          order: values.order,
-        })
+        .put(`questions/${currentQuestion.id}`, data)
         .then((res) => {
           setNotificationConf([true, 'success', 'Question Updated Successfully !'])
           handleShow();

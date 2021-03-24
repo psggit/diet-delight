@@ -28,8 +28,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Table from '../../reusable/Table';
 
 import { Formik } from "formik";
-import * as Yup from "yup";
-import { CSVLink } from "react-csv";
+import AnswerFormModal from './AnswerFormModal';
+import Modal from '../../reusable/Modal';
 
 import {
   Main,
@@ -60,32 +60,12 @@ const useStyles = makeStyles({
   },
 });
 
-// const validationSchema = Yup.object().shape({
-//     user_id: Yup.string().required().label("User ID"),
-//     menu_item_id: Yup.string().required().label("Menu Item ID"),
-//     menu_category_id: Yup.string().required().label("Menu Category ID"),
-//     meal_purchase_id: Yup.string().required().label("Meal Purchase ID"),
-//     status: Yup.string().required().label("Status"),
-//     kcal: Yup.string().required().label("Kcal"),
-//     menu_item_date: Yup.string().required().label("Menu Item Date"),
-//     menu_item_day: Yup.number().required().label("Menu Item Day"),
-//     menu_item_name: Yup.string().required().label("Menu Item Name"),
-//     first_name: Yup.number().required().label("First Name"),
-//     last_name: Yup.string().required().label("Last Name"),
-//     mobile: Yup.number().required().label("Mobile"),
-//     delivery_address: Yup.string().required().label("Delivery Address"),
-//     notes: Yup.number().required().label("Notes"),
-// });
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  code: Yup.string().required().label("Code"),
-  flat_discount: Yup.string().required().label("Flat Discount"),
-  percentage_discount: Yup.string().required().label("Percentage Discount"),
-  expiry_date: Yup.string().required().label("Expiry Date"),
-  times_usable: Yup.string().required().label("Times Usable"),
-  times_used: Yup.string().required().label("Times Used"),
-});
+const answerInitialValue = {
+  id: '',
+  question: '',
+  user: '',
+  answer: '',
+}
 
 const ListofAnswer = () => {
   const dispatch = useDispatch();
@@ -103,9 +83,37 @@ const ListofAnswer = () => {
   const [sort, setSort] = useState('answer');
   const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
-  const [Issuccess, setIsSuccess] = useState(false);
+  const [mode, setMode] = useState('Add');
   const [isdelete, setIsDelete] = useState(false);
-  const [isupdate, setISUpdate] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [isUpdate, setISUpdate] = useState(false);
+  const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
+  const [currentAnswer, setCurrentAnswer] = useState(answerInitialValue);
+  const [customers, setCustomers] = useState([]);
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    axios.get(`users?role_id=${1}`).then((res) => {
+      setCustomers((res?.data?.data || []).map((user) => {
+        return {
+          id: user.id,
+          name: `${user.first_name || ''} ${user.last_name || ''}`,
+          email: user.email,
+          mobile: user.mobile,
+        }
+      }));
+    });
+    axios.get(`questions`).then((res) => {
+      setQuestions((res?.data?.data || []).map((question) => {
+        return {
+          id: question.id,
+          name: question.question,
+          type: question.type,
+          additionalText: question.additional_text,
+        }
+      }));
+    });
+  }, [])
 
   useEffect(() => {
     handleShow();
@@ -114,7 +122,7 @@ const ListofAnswer = () => {
 
   const handleShow = () => {
     axios
-      .get(`answers?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`answers?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfAnswers(res.data.data);
         setLoading(false);
@@ -130,12 +138,12 @@ const ListofAnswer = () => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
 
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
-    setIsSuccess(false);
+    setNotificationConf([false, 'success', '']);
   };
 
   const handleUpdate = async (answerlist) => {
@@ -172,9 +180,6 @@ const ListofAnswer = () => {
     data: listOfAnswers,
     filename: `List_of_listOfAnswers_${current_date_Time}.csv`,
   };
-
-  // getting unique ids from all answer model
-  console.log(listOfAnswers);
 
   useEffect(() => {
     var ids = [];
@@ -214,234 +219,77 @@ const ListofAnswer = () => {
     // console.log("uniqueIds users", uniqueIds);
   }, [uniqueIds, users]);
 
-  const CloseDelete = () => setIsDelete(false);
-  const CloseUpdate = () => setISUpdate(false);
+  const handleFormSubmit = (values) => {
+    const question = questions.find(q => q.id === values.question) || { id: '', name: '', type: 0, additionalText: '' }
+    const data = {
+      user_id: values.user,
+      question_id: question.id,
+      question_question: question.name,
+      question_type: question.type,
+      question_additional_text: question.additionalText,
+      answer: values.answer,
+    }
+
+    if (mode === 'Add') {
+      axios.post(`answers`, data).then((res) => {
+        setNotificationConf([true, 'success', 'Answer Added Successfully !'])
+        handleShow();
+      }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+    } else {
+      axios
+        .put(`answers/${currentAnswer.id}`, data)
+        .then((res) => {
+          setNotificationConf([true, 'success', 'Answer Updated Successfully !'])
+          handleShow();
+        })
+        .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+    }
+
+    console.log(values)
+    setShowForm(false);
+  }
+
+  const [showNotification, notificationType, notification] = notificationConf;
 
   return (
     <>
       {isdelete && (
-        <>
-          {" "}
-          <Dialog
-            open={isdelete}
-            onClose={CloseDelete}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick
-            disableEscapeKeyDown
-          >
-            <DialogTitle id="form-dialog-title">Delete Question</DialogTitle>
-            <DialogContent>
-              <Mini>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    axios
-                      .delete(`answers/${listOfAnswer.id}`)
-                      .then((res) => {
-                        setIsSuccess(true);
-                        setIsDelete(false);
-                        handleShow();
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  color="primary"
-                  onClick={CloseDelete}
-                >
-                  Close
-                </Button>
-              </Mini>
-            </DialogContent>
-          </Dialog>
-        </>
+        <Modal
+          visible={isdelete}
+          onClose={() => setIsDelete(false)}
+          title="Delete Answer"
+          acceptButtonConfig={{
+            color: 'secondary',
+            text: 'Delete',
+            onClick: () => {
+              setIsDelete(false);
+              axios
+                .delete(`answers/${currentAnswer.id}`)
+                .then(() => {
+                  setNotificationConf([true, 'success', 'Answer Deleted Successfully !'])
+                  handleShow();
+                })
+                .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+            }
+          }}
+        />
       )}
 
-      {isupdate && (
-        <>
-          {" "}
-          <Dialog
-            open={isupdate}
-            onClose={CloseUpdate}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick
-            disableEscapeKeyDown
-          >
-            <DialogTitle id="form-dialog-title">Update Coupon</DialogTitle>
-            <DialogContent>
-              <Formik
-                initialValues={{
-                  user_id: listOfAnswer.user_id,
-                  question_id: listOfAnswer.question_id,
-                  answer_option_id: listOfAnswer.answer_option_id,
-                  answer: listOfAnswer.answer,
-                  question_question: listOfAnswer.question_question,
-                  question_type: listOfAnswer.question_type,
-                  question_additional_text:
-                    listOfAnswer.question_additional_text,
-                  answer_option_option: listOfAnswer.answer_option_option,
-                }}
-                validationSchema={validationSchema}
-                onSubmit={(values) => {
-                  axios
-                    .put(`answers/${listOfAnswer.id}`, {
-                      headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "access_token"
-                        )}`,
-                      },
-                      user_id: values.user_id,
-                      question_id: values.question_id,
-                      answer_option_id: values.answer_option_id,
-                      answer: values.answer,
-                      question_question: values.question_question,
-                      question_type: values.question_type,
-                      question_additional_text: values.question_additional_text,
-                      answer_option_option: values.answer_option_option,
-                    })
-                    .then((res) => {
-                      setIsSuccess(true);
-                      setISUpdate(false);
-                      handleShow();
-                    })
-                    .catch((err) => console.log(err));
-                }}
-              >
-                {({ handleChange, handleSubmit, errors, touched, values }) => (
-                  <>
-                    <Container>
-                      <Mini>
-                        <Title>User ID :</Title>
-                        <Input
-                          value={values.user_id}
-                          placeholder="User ID"
-                          onChange={handleChange("user_id")}
-                        />
-                      </Mini>
-                      {errors.user_id && touched && (
-                        <Info error>{errors.user_id}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Question ID :</Title>
-                        <Input
-                          value={values.question_id}
-                          placeholder="Question ID"
-                          onChange={handleChange("question_id")}
-                        />
-                      </Mini>
-                      {errors.question_id && touched && (
-                        <Info error>{errors.question_id}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Answer Option ID :</Title>
-                        <Input
-                          value={values.answer_option_id}
-                          placeholder="Answer Option ID"
-                          onChange={handleChange("answer_option_id")}
-                        />
-                      </Mini>
-                      {errors.answer_option_id && touched && (
-                        <Info error>{errors.answer_option_id}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Answer :</Title>
-                        <Input
-                          value={values.answer}
-                          placeholder="Answer"
-                          onChange={handleChange("answer")}
-                        />
-                      </Mini>
-                      {errors.answer && touched && (
-                        <Info error>{errors.answer}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Question Question :</Title>
-                        <Input
-                          value={values.question_question}
-                          placeholder="Question Question"
-                          onChange={handleChange("question_question")}
-                        />
-                      </Mini>
-                      {errors.question_question && touched && (
-                        <Info error>{errors.question_question}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Question Type :</Title>
-                        <Input
-                          value={values.question_type}
-                          placeholder="Question Type"
-                          onChange={handleChange("question_type")}
-                        />
-                      </Mini>
-                      {errors.question_type && touched && (
-                        <Info error>{errors.question_type}</Info>
-                      )}
-                      <Mini>
-                        <Title>Question Additional Text :</Title>
-                        <Input
-                          value={values.question_additional_text}
-                          placeholder="question_additional_text"
-                          onChange={handleChange("question_additional_text")}
-                        />
-                      </Mini>
-                      {errors.question_additional_text && touched && (
-                        <Info error>{errors.question_additional_text}</Info>
-                      )}
-                      <Mini>
-                        <Title>Answer Option Option :</Title>
-                        <Input
-                          value={values.answer_option_option}
-                          placeholder="Answer Option Option"
-                          onChange={handleChange("answer_option_option")}
-                        />
-                      </Mini>
-                      {errors.answer_option_option && touched && (
-                        <Info error>{errors.answer_option_option}</Info>
-                      )}
-
-                      <Mini>
-                        <Button
-                          variant="contained"
-                          style={{
-                            margin: "20px",
-                            padding: "5px",
-                            background: "#800080",
-                          }}
-                          color="primary"
-                          onClick={handleSubmit}
-                        >
-                          submit
-                        </Button>
-                        <Button
-                          variant="contained"
-                          style={{
-                            margin: "20px",
-                            padding: "5px",
-                            background: "#800080",
-                          }}
-                          color="primary"
-                          onClick={CloseUpdate}
-                        >
-                          Close
-                        </Button>
-                      </Mini>
-                    </Container>
-                  </>
-                )}
-              </Formik>
-            </DialogContent>
-          </Dialog>
-        </>
+      {showForm && (
+        <AnswerFormModal
+          visible={showForm}
+          onClose={() => {
+            setShowForm(false)
+            if (mode === 'Update') {
+              setCurrentAnswer(answerInitialValue)
+            }
+          }}
+          mode={mode}
+          values={currentAnswer}
+          onSubmit={handleFormSubmit}
+          users={customers}
+          questions={questions}
+        />
       )}
 
       {loading ? (
@@ -450,13 +298,14 @@ const ListofAnswer = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Answers"
+              title="List of All Customer Response"
               csvReport={csvReport}
               addHandler={() => {
-                // TODO: Handle add
+                setMode('Add');
+                setShowForm(true);
               }}
               searchHandler={(value) => {
-                // TODO: Handle search
+                setSearch(value);
               }}
             />
             {show && (
@@ -478,14 +327,21 @@ const ListofAnswer = () => {
                       <>
                         <Edit
                           onClick={() => {
-                            // setMode('Update')
-                            // setCurrentQuestion(answer);
-                            // handleUpdate(answer);
-                            // setShowForm(true);
+                            setMode('Update')
+                            setCurrentAnswer({
+                              id: answer.id,
+                              question: answer.question_id,
+                              user: answer.user_id,
+                              answer: answer.answer,
+                            });
+                            setShowForm(true);
                           }}
                           style={{ margin: '0 6px', cursor: 'pointer' }}
                         />
-                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                        <Delete onClick={() => {
+                          setCurrentAnswer(answer);
+                          setIsDelete(true)
+                        }} style={{ margin: '0 6px', cursor: 'pointer' }} />
                       </>
                     ]
                   })
@@ -513,11 +369,11 @@ const ListofAnswer = () => {
               autoHideDuration={3000}
               anchorOrigin={{ vertical: "top", horizontal: "center" }}
               message="Success"
-              open={Issuccess}
+              open={showNotification}
               onClose={handleClose}
             >
-              <Alert onClose={handleClose} severity="success">
-                Success Message !
+              <Alert onClose={handleClose} severity={notificationType}>
+                {notification}
               </Alert>
             </Snackbar>
           </Main>
