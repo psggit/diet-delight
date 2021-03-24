@@ -123,8 +123,10 @@ const Navbar = ({ toggle }) => {
                   <div
                     style={{
                       display: "flex",
+                      justifyContent: "center",
                       alignItems: "center",
-                      cursor: "pointer",
+                      height: "48px",
+                      textDecoration: "none",
                     }}
                   >
                     <h3
@@ -134,48 +136,10 @@ const Navbar = ({ toggle }) => {
                         fontFamily: "Roboto Condensed Regular",
                         letterSpacing: "1px",
                       }}
-                    >{`Hello ${user.first_name}`}</h3>
-
-                    <Link to="/UserDashboardMain">
-                      <FaUserCircle
-                        style={{
-                          color: "purple",
-                          height: "23px",
-                          width: "23px",
-                          margin: "0px 10px 0 5px",
-                        }}
-                      />
-                    </Link>
-                    <Link to="/FavouriteMain">
-                      <FaRegHeart
-                        style={{
-                          color: "purple",
-                          height: "23px",
-                          width: "23px",
-                          margin: "0px 10px 0 5px",
-                        }}
-                      />
-                    </Link>
-                    <Link to="/OrderHistory">
-                      <FaShoppingBag
-                        style={{
-                          color: "purple",
-                          height: "23px",
-                          width: "23px",
-                          margin: "0px 10px 0 5px",
-                        }}
-                      />
-                    </Link>
-                    <Link to="/OngoingMain">
-                      <FaRegClock
-                        style={{
-                          color: "purple",
-                          height: "23px",
-                          width: "23px",
-                          margin: "0px 10px 0 5px",
-                        }}
-                      />
-                    </Link>
+                    >{`Hello, ${user.first_name}`}</h3>
+                    <NavButton style={{marginTop: "0"}}>
+                      <NavBtnlink onClick={handleLogout}>Logout</NavBtnlink>
+                    </NavButton>
                   </div>
                 </>
               ) : (
@@ -257,34 +221,57 @@ const Navbar = ({ toggle }) => {
                 </NavLinks>
               </NavItem>
 
-              {user ? (
-                <>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "48px",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <p
+              {!!user && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    marginLeft: "1rem",
+                  }}
+                >
+                  <Link to="/UserDashboardMain">
+                    <FaUserCircle
                       style={{
                         color: "purple",
-                        fontFamily: "Roboto Condensed Regular",
-                        fontSize: "1rem",
-                        fontWeight: "bold",
-                        cursor: "pointer",
-                        textDecoration: "none",
-                        marginTop: "30%",
+                        height: "23px",
+                        width: "23px",
+                        margin: "0px 10px 0 5px",
                       }}
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </p>
-                  </div>
-                </>
-              ) : null}
+                    />
+                  </Link>
+                  <Link to="/FavouriteMain">
+                    <FaRegHeart
+                      style={{
+                        color: "purple",
+                        height: "23px",
+                        width: "23px",
+                        margin: "0px 10px 0 5px",
+                      }}
+                    />
+                  </Link>
+                  <Link to="/OrderHistory">
+                    <FaShoppingBag
+                      style={{
+                        color: "purple",
+                        height: "23px",
+                        width: "23px",
+                        margin: "0px 10px 0 5px",
+                      }}
+                    />
+                  </Link>
+                  <Link to="/OngoingMain">
+                    <FaRegClock
+                      style={{
+                        color: "purple",
+                        height: "23px",
+                        width: "23px",
+                        margin: "0px 10px 0 5px",
+                      }}
+                    />
+                  </Link>
+                </div>
+              )}
             </NavMenuDown>
           </NavMenu>
         </NavbarContainer>
