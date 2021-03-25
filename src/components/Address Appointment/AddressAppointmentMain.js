@@ -24,10 +24,16 @@ export default function AddressAppointmentMain(props) {
       
   const [changeAddressData,setChangeAddressData] = useState(false) 
   const [selectAddress,setSelectedAddress] = useState("")
+  const [selectedPaymentMode,setSelectedPaymentMode] = useState("online");
 
-  function handleAdrress(data){
+  function handleAddress(data){
     console.log(data)
     setSelectedAddress(data)
+    var changeAddress = document.getElementById('w3review');
+    let primaryAddress = (user.primary_address_line1 === null || user.primary_address_line1 === '') ? " " : user.primary_address_line1+ " " + ((user.primary_address_line2 === null || user.primary_address_line2 === '') ? " " : user.primary_address_line2)
+    let secondaryAddress = (user.secondary_address_line1 === null || user.secondary_address_line1 === '') ? "" : user.secondary_address_line1  + " " + ((user.secondary_address_line2 == null || user.secondary_address_line2 === '')? " ": user.secondary_address_line2)
+    let addressValue = data === 'primary_address' ? primaryAddress : secondaryAddress;
+    changeAddress.value = addressValue;
 
   } 
 
@@ -48,6 +54,21 @@ export default function AddressAppointmentMain(props) {
   }
 
   console.log(props);
+
+
+
+  useEffect(() => {
+    if(props.location.state.packageMode === 'online'){
+      var disableOfflineMode = document.getElementById('clinic');
+      console.log(disableOfflineMode)
+      disableOfflineMode.disabled = true;
+      var selectOnlineMode = document.getElementById('online');
+      console.log(selectOnlineMode)
+      selectOnlineMode.checked = "checked";
+      setSelectedPaymentMode("online")
+    }
+    setSelectedPaymentMode("online")
+  },[props.location.state.packageMode])
   useEffect(() => {
     setTotalCharge(parseInt(props.location.state.packagePrice));
     console.log(props.location.state.packagePrice);
@@ -59,9 +80,10 @@ export default function AddressAppointmentMain(props) {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setUser(res.data);
-        setAddress(res.data.primary_address_line1);
+        console.log(res.data.primary_address_line1)
+        setAddress((user.primary_address_line1 === null || user.primary_address_line2 === null) ? " " : user.primary_address_line1+" " +user.primary_address_line2)
       });
   }, [props.location.state.packagePrice]);
 
@@ -82,7 +104,7 @@ export default function AddressAppointmentMain(props) {
   useEffect(() => {
     console.log(discountAmount, taxAmount);
     let totalChargeUpdated = 0;
-    if (discountAmount > 0 || taxAmount > 0 || extraCharge > 0) {
+    if (discountAmount   > 0 || taxAmount > 0 || extraCharge > 0) {
       totalChargeUpdated =
         totalCharge + taxAmount + extraCharge - discountAmount;
       setTotalCharge(totalChargeUpdated);
@@ -115,19 +137,25 @@ export default function AddressAppointmentMain(props) {
 
 
 
-    var time = props.location.state.packageTime;
+    if(props.location.state.packageTime){
+      var time = props.location.state.packageTime;
      
-    var timeFormated = time.split(' ');
-    if(timeFormated[1] === 'AM'){
-      var timeFormat = timeFormated[0].split(":");
-      hour = timeFormat[0];
-      minutes = timeFormat[1];
+      var timeFormated = time.split(' ');
+      if(timeFormated[1] === 'AM'){
+        var timeFormat = timeFormated[0].split(":");
+        hour = timeFormat[0];
+        minutes = timeFormat[1];
+      }else{
+        var timeFormat = timeFormated[0].split(":");
+        hour = timeFormat[0] + 12;
+        minutes = timeFormat[1];
+      }
+      console.log(hour,minutes)
     }else{
-      var timeFormat = timeFormated[0].split(":");
-      hour = timeFormat[0] + 12;
-      minutes = timeFormat[1];
+      hour = dateTime.getHours();
+      minutes = dateTime.getMinutes();
     }
-    console.log(hour,minutes)
+    
 
     setDateTime(year+"-"+month+"-"+date+" " + hour+":" + minutes)
     console.log(setDateTime)
@@ -148,7 +176,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
       .post(`my-consultation-purchases`, {
         user_id: user.user_id,
         consultation_package_id: props.location.state.packageId,
-        payment_id: 12345,
+        payment_id: (selectedPaymentMode === 'online' ? 12345 : 0),
         status: 0,
         billing_address_line1: address,
         billing_address_line2: "",
@@ -165,8 +193,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
             status: 0,
             consultation_link: "",
             consultation_time: dateTime,
-            consultation_mode:
-              props.location.state.packageMode === "offline" ? "0" : "1",
+            consultation_mode:(props.location.state.packageMode === "offline" ? 0 : 1),
             consultant_name: "Not Assigned",
             notes: "",
           })
@@ -199,6 +226,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
           } else {
             var errorMessage = document.getElementById('successCoupon');
             errorMessage.innerHTML = 'Coupon applied Successfully';
+            errorMessage.style.color = 'green';
             console.log(errorMessage)
            
             console.log(res.data.data[verifyCoupon]);
@@ -226,7 +254,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
                           changeAddressBox={changeAddressData} 
                          makeAddressBox={handleChangeAdrress}
                          userData ={user}
-                         makeChangeAdderess={handleAdrress}
+                         makeChangeAdderess={handleAddress}
 
                         />
 
@@ -242,15 +270,14 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
                 <div className="col-md-8 col-sm-12">
                   <textarea
                     id="w3review"
-                  
                     defaultValue={user.primary_address_line1}
                     placeholder="Enter Address"
-                  
+                    disabled
                     name="w3review"
                     rows="2"
                     cols="20"
                     className="textarea_addressAppoinment"
-                  >{selectAddress === "primary_address" ? user.primary_address_line1 : user.secondary_address_line2}</textarea>
+                  ></textarea>
                 </div>
                 <div className="col-md-4 col-sm-12">
                   <h6
@@ -298,8 +325,9 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
                   className="male_clinic_input_submeal "
                   id="clinic"
                   name="clinic"
-                  value="online"
+                  value="offline"
                   style={{ cursor: "pointer" }}
+                  onClick={() => setSelectedPaymentMode("offline")}
                 ></input>
                 <span className="checkmark"></span> <br></br>
                 <label htmlFor="online" className="online_clinic_text_submeal">
@@ -308,10 +336,11 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
                 <input
                   type="radio"
                   className="male_clinic_input_submeal "
-                  id="clinic"
-                  name="clinic"
+                  id="online"
+                  name="online"
                   value="online"
                   style={{ cursor: "pointer" }}
+                  onClick={() => setSelectedPaymentMode("online")}
                 ></input>
                 <span className="checkmark"></span>
               </div>
@@ -334,7 +363,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
 
             <div className="col-md-6 col-sm-6">
               <h6 className="cost_breakdown_totalappointment_title">
-                Cost Breackdown
+                Cost Breakdown
               </h6>
 
               <div className="silverConsultancy_container">
@@ -360,7 +389,15 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
               <div className="taxes_totalappointment_container">
                 <p className="taxes_totalappointment_title">Taxes</p>
                 <h5 className="taxes_totalappointment_subtitle">
-                  {taxAmount} BHD
+                {taxAmount > 0 ? taxAmount : '--'} BHD
+                </h5>
+              </div>
+
+
+              <div className="taxes_totalappointment_container">
+                <p className="taxes_totalappointment_title">Discount</p>
+                <h5 className="taxes_totalappointment_subtitle">
+                {discountAmount > 0 ? discountAmount : '--'} BHD
                 </h5>
               </div>
 

@@ -177,7 +177,7 @@ export default function Appointmentmain(props) {
                   type="checkbox"
                   id="switch"
                 />
-                <label className="switch_toggle" for="switch"></label>
+                <label className="switch_toggle" htmlFor="switch"></label>
               </div>
 
               {/* <div className="male_container mt-3">

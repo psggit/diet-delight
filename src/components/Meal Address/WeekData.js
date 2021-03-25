@@ -27,13 +27,15 @@ import React,{useState, useEffect, useMemo, useRef} from 'react'
             console.log(color)
             if(props.mealType === 1 && selectedWeekDays.current.length >= 5 && color === '#fafafa'){
                 console.log(selectedWeekDays)
-                alert('you already have selected 5 days per week')
-                alert('Please unselect one weekDay')
+                props.handleMaximumSelection("you already have selected 5 days per week, Please Unselect one weekDay");
+                // alert('you already have selected 5 days per week')
+                // alert('Please unselect one weekDay')
             }else{
                 focusColorChange.style.backgroundColor === "rgb(139, 196, 65)" ? removeElement(weekDay) : addElement(weekDay)
                 focusColorChange.style.backgroundColor === "rgb(139, 196, 65)" ? focusColorChange.style.backgroundColor = "#fafafa" : focusColorChange.style.backgroundColor = '#8BC441'
                 focusColorChange.style.backgroundColor === "rgb(139, 196, 65)" ? focusColorChange.style.color = "#fff" : focusColorChange.style.color = '#000'
                 focusColorChange.style.backgroundColor === "rgb(139, 196, 65)" ? focusColorChange.style.borderColor = "#fff" : focusColorChange.style.borderColor = '#CFCFCF'
+                props.handleMaximumSelection("");
                 }
             console.log(selectedWeekDays)
             props.handleWeekDays(selectedWeekDays.current);
