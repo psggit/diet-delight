@@ -11,7 +11,7 @@ const Menubox = (props) => {
         {props.meal.name}
       </Heading>
       <Line back="rgba(137,197,63,1)" width="100px" />
-      <Para size="0.8rem" weight="800" width="250px">
+      <Para size="0.8rem" weight="800" width="250px" color="#303960">
         {props.meal.details}
       </Para>
       <MenubtnBox

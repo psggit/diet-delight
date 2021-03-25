@@ -31,8 +31,8 @@ const MenuPackage = () => {
             OUR MENU PACKAGE
           </Subheading>
           <Line height="5px" back="rgba(137,197,63,1)" />
-          <Para weight="800" width="350px">
-            Our menus are fit--perfectlty balanced, calorie controlled, and
+          <Para weight="800" width="350px" color="#303960">
+            Our menus are fit—perfectly balanced, calorie controlled, and
             portioned to satisfy.
           </Para>
         </Packup>

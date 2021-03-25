@@ -83,6 +83,12 @@ export const Menubtn = styled.button`
   border-radius: 10px;
   font-size: 14px;
   cursor: pointer;
+
+  :hover{
+    color: purple;
+    background-color: white;
+    border: 1px solid rgba(139, 197, 63, 1);
+  }
 `;
 
 export const Downup = styled.div`
