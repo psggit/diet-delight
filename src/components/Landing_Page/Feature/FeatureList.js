@@ -7,7 +7,7 @@ const FeatureList = ({ picture, name }) => {
     return (
         <>
             <Main>
-                <Image alt="meal" src={picture} width="320px" />
+                <Image alt="meal" src={picture} width="320px" fit="cover"/>
                 <Subheading color="rgba(137,197,63,1)" size="1.5rem" weight="500">
                     {name}
                 </Subheading>

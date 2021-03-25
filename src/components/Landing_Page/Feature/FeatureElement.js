@@ -163,3 +163,4 @@ export const Message = styled(BsEnvelope)`
     width:30px;
     background:transparent;
 `
+
