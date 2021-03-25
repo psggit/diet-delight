@@ -35,6 +35,9 @@ export default function SubMealAddress(props){
     function handleAdrress(data){
       console.log(data)
       setSelectedAddress(data)
+      var changeAddress = document.getElementById('addressValue');
+      let addressValue = data === 'primary_address' ? user.primary_address_line1 + " " + user.primary_address_line2 : user.secondary_address_line1 + " " + user.secondary_address_line2;
+      changeAddress.value = addressValue;
 
     } 
 
@@ -196,6 +199,10 @@ export default function SubMealAddress(props){
                     <div className="row weekdata_mealaddress">
                      <WeekDataMemo  mealType={props.mealType} handleWeekDays={handleWeekDays}/> 
                     </div>
+
+                    <div className="row">
+                        <span id="maximumSelectionMessage" style={{color:'red', fontWeight:800, fontSize:".8rem"}}></span>
+                    </div>
                     
                     <div className="row">
                     <div className="col-md-6">
@@ -243,9 +250,11 @@ export default function SubMealAddress(props){
                     <div className="row">
                     
                     <div className="col-md-12 col-sm-12">
-                    <textarea 
+                    <textarea
+                    id="addressValue" 
                      placeholder="Enter your Address" cols="30" className="textarea_mealaddress" 
                      defaultValue={user.primary_address_line1}
+                     disabled
                     // onChange={(e) => {
                     //     console.log(e.target.value)
                     //     setAddress(e.target.value);
