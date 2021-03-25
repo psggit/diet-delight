@@ -25,22 +25,22 @@ export default function MainCourse(props){
 
     //         console.log(res.data.data)
     //         setMenuItems(res.data.data)
-    //     })
+    //     }) 
     // }, [props.categoryData.menu_id,props.categoryData.id])
     
     // const [like ,setLike] = useState("")
 
 
-    useEffect(() => {
-        if(props.favouriteItem){
-            setLikeColor("fa fa-heart heart_menu_pkg_fill")
-        }else{
-            setLikeColor("fa fa-heart-o heart_menu_pkg")
-        }
+    // useEffect(() => {
+    //     if(props.favouriteItem){
+    //         setLikeColor("fa fa-heart heart_menu_pkg_fill")
+    //     }else{
+    //         setLikeColor("fa fa-heart-o heart_menu_pkg")
+    //     }
 
-    }, [props.favouriteItem])
+    // }, [props.favouriteItem]) 
     
-    function handleLike(id){  
+    function handleLike(id){   
 
         if(likeColor === 'fa fa-heart-o heart_menu_pkg'){
             axios.post(`favourites`, {
@@ -49,7 +49,7 @@ export default function MainCourse(props){
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 },
                 
-                menu_item_id: id
+                menu_item_id: id 
                 
             }).then((res) => {
                 console.log(res)
@@ -95,7 +95,7 @@ export default function MainCourse(props){
     <div className="col-lg-2 col-md-2 col-xs-12">
 
        
-         {/*<VegComponent/> */}
+         {/*<VegComponent/> */} 
 
          {props.menuItem.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
       
