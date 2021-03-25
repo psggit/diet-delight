@@ -6,7 +6,11 @@ import { Heading, Image, Line, Para } from "../../MainComponents";
 const Menubox = (props) => {
   return (
     <Menu>
-      <Image alt="mealbox" src={props.meal.picture} />
+      <Image
+        alt="mealbox"
+        src={props.meal.picture}
+        style={{ maxHeight: "170px" }}
+      />
       <Heading color="purple" length="1px" size="2rem">
         {props.meal.name}
       </Heading>

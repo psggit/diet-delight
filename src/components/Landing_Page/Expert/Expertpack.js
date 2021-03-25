@@ -17,12 +17,12 @@ const Expertpack = ({ imagepackage, title, data, type, color, id }) => {
           {title}
         </Heading>
         <Para
-          style={{ height: "140px", maxHeight: "140px" }}
+          style={{ height: "120px", maxHeight: "120px" }}
           width="250px"
           size="0.9rem"
           weight="600"
           top="30px"
-          color="#303030"
+          color="#303960"
         >
           {data}
         </Para>

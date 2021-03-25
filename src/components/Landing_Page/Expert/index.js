@@ -36,7 +36,7 @@ const Expert = () => {
               Consulting Package
             </Subheading>
             <Line height="4px" width="90px" back="rgba(137,197,63,1)" />
-            <Para align="none" size="0.9rem" weight="600" color="#303030">
+            <Para align="none" size="0.9rem" weight="600" color="#303960">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an unknown printer took a galley of

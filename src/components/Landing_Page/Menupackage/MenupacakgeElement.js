@@ -42,7 +42,6 @@ export const Menu = styled.div`
   min-width: 300px;
   padding-bottom: 30px;
 `;
-// margin-left: 20px;
 
 export const MenuImage = styled.img`
   src: ${(props) => props.src};
@@ -83,8 +82,9 @@ export const Menubtn = styled.button`
   border-radius: 10px;
   font-size: 14px;
   cursor: pointer;
+  font-weight: bold;
 
-  :hover{
+  :hover {
     color: purple;
     background-color: white;
     border: 1px solid rgba(139, 197, 63, 1);

@@ -61,11 +61,9 @@ export const Container = styled.div`
     align-items:center;
     border: 1px solid rgba(139,197,63,1);
     max-width: 300px;
-    min-width: 200px;
-    height:482px;
-
-  
-`
+    min-width: 200px;    
+    height: 420px;
+    `
 
 export const Title = styled.h2`
     color: black;
@@ -106,4 +104,11 @@ export const Btn = styled.button`
     font-family:"Open Sans";
     margin-bottom:10px;
     border: 1px solid rgba(139,197,63,1);
+    font-weight: bold;
+    
+    :hover {
+        border: 1px solid rgba(139,197,63,1);
+        color: rgba(139,197,63,1);
+        background-color: white;
+    }
 `

@@ -135,9 +135,12 @@ const Navbar = ({ toggle }) => {
                         padding: "5px 5px 0px 5px",
                         fontFamily: "Roboto Condensed Regular",
                         letterSpacing: "1px",
+                        textTransform: "capitalize",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
                       }}
                     >{`Hello, ${user.first_name}`}</h3>
-                    <NavButton style={{marginTop: "0"}}>
+                    <NavButton style={{ marginTop: "0" }}>
                       <NavBtnlink onClick={handleLogout}>Logout</NavBtnlink>
                     </NavButton>
                   </div>
