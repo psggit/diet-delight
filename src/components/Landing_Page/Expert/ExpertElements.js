@@ -96,7 +96,7 @@ export const Btnbox = styled.div`
     margin-top:auto;
 `
 export const Btn = styled.button`
-    height:30px;
+    height: 35px;
     width:180px;
     background-color: rgba(139,197,63,1);
     color: white;
