@@ -40,10 +40,11 @@ export const Mealbox = styled.div`
     margin-right: 30px;
     max-width: 250px;
     margin-left:20px;
-    min-height: 380px;
+    min-height: 400px;
     background-color:rgba(139,197,63,1);
     margin-bottom: 30px;
 `
+
 export const Title = styled.h2`
     font-size: 2.2rem;
     margin-top:15px;
@@ -86,13 +87,18 @@ export const Mealbtn = styled(LinkR)`
     font-size: 14px;
     text-decoration: none;
     background-color: white;
-    color:purple;
     text-decoration:none;
-
+    color: rgba(139,197,63,1);
+    font-family: 'Roboto';
+    font-weight: bold;
+    
     &:hover{
-        color:rgba(139,197,63,1);
-        text-decoration:none;
+        background-color: purple;
+        color: white;
     }
-   
+    &:active{
+        background-color: purple;
+        color: white;
+    }
 `
 
