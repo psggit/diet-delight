@@ -1,9 +1,14 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Main, FeatIcons, Add, Heart, IconBox } from './FeatureElement'
-
+import '../../Menu Package/TabMenuPkg.css'
 import { Image, Subheading } from '../../MainComponents'
 
 const FeatureList = ({ picture, name }) => {
+    // const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_menu_pkg")
+
+    // function colorHandle(){
+    //      likeColor === "fa fa-heart-o heart_menu_pkg" ? setLikeColor("fa fa-heart heart_menu_pkg_fill") : setLikeColor("fa fa-heart-o heart_menu_pkg")
+    // }
     return (
         <>
             <Main>
@@ -15,8 +20,9 @@ const FeatureList = ({ picture, name }) => {
                     <IconBox>
                         <Add />
                     </IconBox>
-                    <IconBox>
-                        <Heart />
+                    <IconBox>  
+                        <Heart/>                    
+                        {/* <i className={likeColor} aria-hidden="true" onClick={colorHandle}></i> */}
                     </IconBox>
                 </FeatIcons>
             </Main>
