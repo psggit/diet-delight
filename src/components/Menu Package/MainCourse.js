@@ -15,30 +15,16 @@ export default function MainCourse(props){
         likeColor === "fa fa-heart-o heart_menu_pkg" ? setLikeColor("fa fa-heart heart_menu_pkg_fill") : setLikeColor("fa fa-heart-o heart_menu_pkg")
         handleLike(menu_item_id)
     }
-    // useEffect(() => {
-    //     axios.get(`menu-items?menu_id=`+props.categoryData.menu_id+`&menu_category_id=`+props.categoryData.id, {
-
-    //         headers: {
-    //             Authorization: `Bearer ${localStorage.getItem('access_token')}`
-    //         }
-    //     }).then((res) => {
-
-    //         console.log(res.data.data)
-    //         setMenuItems(res.data.data)
-    //     }) 
-    // }, [props.categoryData.menu_id,props.categoryData.id])
-    
-    // const [like ,setLike] = useState("")
 
 
-    // useEffect(() => {
-    //     if(props.favouriteItem){
-    //         setLikeColor("fa fa-heart heart_menu_pkg_fill")
-    //     }else{
-    //         setLikeColor("fa fa-heart-o heart_menu_pkg")
-    //     }
+    useEffect(() => {
+        if(props.favouriteItem){
+            setLikeColor("fa fa-heart heart_menu_pkg_fill")
+        }else{
+            setLikeColor("fa fa-heart-o heart_menu_pkg")
+        }
 
-    // }, [props.favouriteItem]) 
+    }, [props.favouriteItem]) 
     
     function handleLike(id){   
 
@@ -57,14 +43,33 @@ export default function MainCourse(props){
                 console.log("meet")
             }).catch(err => console.log(err))
         }else{
-            axios.delete(`favourites/`+props.menuItem.id , {
+            axios.get(`favourites?menu_item_id=`+id, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                   },
             }).then((res) =>{
-                
-                props.notifyAddedFavourite(props.menuItem.id)
-                console.log(res)}).catch((err) => console.log(err));
+                console.log(res)
+                let favouritesList = res.data.data;
+                favouritesList.forEach(favourite => {
+                    axios.delete(`favourites/`+favourite.id , {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+                          },
+                    }).then((res) =>{
+                        
+                        props.notifyAddedFavourite(props.menuItem.id)
+                        console.log(res)}).catch((err) =>{
+                            console.log(err)
+                           
+        
+        
+                        } );
+                    
+                });
+            
+            }).catch((err) =>{
+                console.log(err)
+            } );
         }
 
 
