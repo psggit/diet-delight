@@ -8,6 +8,7 @@ import NonvegComponent from '../veg non veg component/NonvegComponent.js'
 
 export default function MainCourse(props){
 
+    console.log(props)
     const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_menu_pkg")
     
     function colorHandle(menu_item_id){
@@ -53,9 +54,15 @@ export default function MainCourse(props){
             }).then((res) => {
                 console.log(res)
                 props.notifyAddedFavourite(props.menuItem.id)
+                console.log("meet")
             }).catch(err => console.log(err))
         }else{
-            axios.delete('favourites/'+props.menuItem.id).then((res) =>{
+            axios.delete(`favourites/`+props.menuItem.id , {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+                  },
+            }).then((res) =>{
+                
                 props.notifyAddedFavourite(props.menuItem.id)
                 console.log(res)}).catch((err) => console.log(err));
         }
@@ -63,7 +70,7 @@ export default function MainCourse(props){
 
         
     } 
-    
+     
     
     return(
         <div className="col-md-6 col-xs-12">
