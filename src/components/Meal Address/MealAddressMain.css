@@ -218,7 +218,7 @@ label.male_text_submeal {
     width: 15px;
     height: 15px;
     border-radius: 100%;
-    top: -9px;
+    top: -3px;
     left: -1px;
     position: relative;
     background-color: rgb(139, 196, 65);
@@ -231,8 +231,8 @@ label.male_text_submeal {
    width: 15px;
    height: 15px;
    border-radius: 100%;
-   top: -9px;
-   left: -2px;
+   top: -3px;
+   left: -1px;
    position: relative;
    background-color: rgb(139, 196, 65);
    content: "";
@@ -443,18 +443,18 @@ label.male_text_submeal {
     border: 2px solid rgba(139, 196, 65, 0.049);
   }
   input.male_input_submeal_second:checked:after{
-    background-color: rgb(139, 196, 65);
-    content: "";
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    position: relative;
-    top: -9px;
-    left: -1px;
-    display: inline-block;
-    visibility: visible;
-    border: 2px solid rgba(139, 196, 65, 0.049);
-  }
+   background-color: rgb(139, 196, 65);
+   content: "";
+   width: 15px;
+   height: 15px;
+   border-radius: 15px;
+   position: relative;
+   top: -4px;
+   left: -1px;
+   display: inline-block;
+   visibility: visible;
+   border: 2px solid rgba(139, 196, 65, 0.049);
+ }
 }
 
 @media only screen and (min-width: 992px) {
@@ -478,7 +478,7 @@ label.male_text_submeal {
     height: 15px;
     border-radius: 15px;
     position: relative;
-    top: -9px;
+    top: -4px;
     left: -1px;
     display: inline-block;
     visibility: visible;
@@ -490,7 +490,7 @@ label.male_text_submeal {
    border-radius: 5px;
    background-color: #fff;
    padding: 2%;
-   width: 140px;
+   width: 132px;
    font-size: 13px;
    box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
    outline: none;
@@ -666,7 +666,7 @@ div.btn_Mealadresscontainer {
     background-color: #fff;
     padding: 2%;
     width: 81%;
-    font-size: 18px;
+    font-size: 13px;
     box-shadow: 1px 3px 4px -2px rgb(61 61 61 / 66%);
     outline: none;
   }
@@ -690,7 +690,7 @@ div.btn_Mealadresscontainer {
    width: 15px;
    height: 15px;
    border-radius: 15px;
-   top: -9px;
+   top: -4px;
    left: -1px;
    position: relative;
    background-color: rgb(139, 196, 65);
@@ -798,8 +798,8 @@ h5.week_text_title {
 h6.subtitle_mealaddress {
   color: grey;
   font-size: 10px;
-  margin-top: 4px;
-  margin-left: -49px;
+  margin-top: 6px;
+  margin-left: -42px;
   width: 150%;
   position: relative;
 }

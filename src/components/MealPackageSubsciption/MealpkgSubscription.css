@@ -285,7 +285,7 @@ div.vertical_line {
     }
     button.mealbtn_subscription {
       color: white;
-      margin-top: 0rem;
+      margin-top: 15px;
       background: #8bc53f;
       width: 11rem;
       /* float: right; */
@@ -408,63 +408,62 @@ div.vertical_line {
     border-radius: 9rem;
   }
   p.breakfast_text_mealpkgsub {
-    font-weight: 600;
-    font-size: 20px;
-    text-indent: -8px;
-    font-family: Roboto;
-    font-weight: 700;
-    color: #303960;
-  }
-  p.something_text {
-    color: #303960;
-    font-weight: bold;
-    margin-bottom: 0;
-    margin-top: 0;
-    font-size: 11px;
-    font-weight: 600;
-    text-indent: -7px;
-  }
-  div.meal_dropdown_container {
-    border: 1px solid #000;
-    width: 9rem;
-    border-radius: 0.3rem;
-    margin-top: 1.2rem;
-    margin-left: 2rem;
-  }
-  span.meal_caret_icon {
-    margin-left: 0.4rem;
-  }
-  button.mealbtn_subscription {
-    color: white;
-    font-size: 15px;
-    background: #8bc53f;
-    width: 8rem;
-    position: relative;
-    height: 2rem;
-    margin-left: 0;
-    border: 1px solid #808080bf;
-  }
-  p.with_weekend_text {
-    margin-top: 0px;
-    font-size: 10px;
-    color: #303960;
-    font-weight: 600;
-  }
-  div.col_grid {
-    margin-left: 0px;
-  }
+   font-size: 15px;
+   text-indent: 0px;
+   font-family: Roboto;
+   font-weight: 600;
+   color: #303960;
+ }
+ p.something_text {
+  color: #303960;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 11px;
+  font-weight: 600;
+  text-indent: -7px;
+}
+div.meal_dropdown_container {
+  border: 1px solid #000;
+  width: 9rem;
+  border-radius: 0.3rem;
+  margin-top: 1.2rem;
+  margin-left: 2rem;
+}
+span.meal_caret_icon {
+  margin-left: 0.4rem;
+}
+button.mealbtn_subscription {
+ color: white;
+ font-size: 14px;
+ background: #8bc53f;
+ width: 8rem;
+ position: relative;
+ height: 38px;
+ margin-left: 0;
+ border: 1px solid #808080bf;
+}
+p.with_weekend_text {
+  margin-top: 0px;
+  font-size: 10px;
+  color: #303960;
+  font-weight: 600;
+}
+div.col_grid {
+  margin-left: 0px;
+}
 }
 
 @media only screen and (min-width: 280px) {
   a.choose_your_meal_text {
-     padding: 0;
-    font-weight: 900;
-    letter-spacing: 0.4px;
-    margin-top: 40px;
-    font-size: 14px;
-    color: #78288b;
-    font-family: Roboto;
-    margin-left: -47px;
+   padding: 0;
+   font-weight: 900;
+   letter-spacing: 0.4px;
+   margin-top: 40px;
+   font-size: 14px;
+   color: #78288b;
+   font-family: Roboto;
+   margin-left: -47px;
  }
 }
 
@@ -595,7 +594,7 @@ p.breakfast_text_mealpkgsub {
   font-family: Roboto;
   font-weight: 700;
   color: #303960;
-  font-size: 20px;
+  font-size: 18px;
   text-indent: -9px;
   margin-left: 4%;
 }
@@ -620,16 +619,16 @@ span.meal_caret_icon {
   margin-left: 0.4rem;
 }
 button.mealbtn_subscription {
- color: white;
- font-size: 14px;
- background: #8bc53f;
- width: 8rem;
- bottom: 0;
- position: relative;
- height: 2rem;
- margin-left: 0;
- border: 1px solid #808080bf;
- letter-spacing: 1px;
+  color: white;
+  font-size: 14px;
+  background: #8bc53f;
+  width: 141px;
+  bottom: 0;
+  position: relative;
+  height: 2.1rem;
+  margin-left: 0;
+  border: 1px solid #808080bf;
+  letter-spacing: 1px;
 }
 p.with_weekend_text {
  margin-top: -2px;
@@ -767,16 +766,16 @@ span.meal_caret_icon {
   margin-left: 0.4rem;
 }
 button.mealbtn_subscription {
- color: white;
- font-size: 15px;
- background: #8bc53f;
- width: 8rem;
- bottom: 0;
- position: relative;
- height: 2rem;
- margin-left: 0;
- border: 1px solid #808080bf;
- letter-spacing: 1px;
+  color: white;
+  font-size: 15px;
+  background: #8bc53f;
+  width: 9.5rem;
+  bottom: 0;
+  position: relative;
+  height: 2.3rem;
+  margin-left: 0;
+  border: 1px solid #808080bf;
+  letter-spacing: 1px;
 }
 p.with_weekend_text {
   margin-top: 0px;
