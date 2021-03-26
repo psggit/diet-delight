@@ -33,6 +33,82 @@
 		}
 		},[])
 
+
+		useEffect(() =>{
+			var currentDate = new Date();
+			function generateCalendar(d) {
+			  function monthDays(month, year) {
+				var result = [];
+				var days = new Date(year, month, 0).getDate();
+				for (var i = 1; i <= days; i++) {
+				  result.push(i);
+				}
+				return result;
+			  }
+			  Date.prototype.monthDays = function() {
+				var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
+				return d.getDate();
+			  };
+			  var details = {
+				// totalDays: monthDays(d.getMonth(), d.getFullYear()),
+				totalDays: d.monthDays(),
+				weekDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+				months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+			  };
+			  var start = new Date(d.getFullYear(), d.getMonth()).getDay();
+			  var cal = [];
+			  var day = 1;
+			  for (var i = 0; i <= 6; i++) {
+				cal.push(['<tr>']);
+				for (var j = 0; j < 7; j++) {
+				  if (i === 0) {
+					cal[i].push('<td>' + details.weekDays[j] + '</td>');
+				  } else if (day > details.totalDays) {
+					cal[i].push('<td>&nbsp;</td>');
+				  } else {
+					if (i === 1 && j < start) {
+					  cal[i].push('<td>&nbsp;</td>');
+					} else {
+					  cal[i].push('<td class="day">' + day++ + '</td>');
+					}
+				  }
+				}
+				cal[i].push('</tr>');
+			  }
+			  cal = cal.reduce(function(a, b) {
+				return a.concat(b);
+			  }, []).join('');
+			  document.getElementsByTagName('table').append(cal);
+			  document.getElementById('month').text(details.months[d.getMonth()]);
+			  document.getElementById('year').text(d.getFullYear());
+			  document.getElementsByClassName('day').mouseover(function() {
+			  }).mouseout(function() {
+			  });
+			}
+			document.getElementById('left').onclick = function() {
+			  document.getElementsByTagName('table').text('');
+			  if (currentDate.getMonth() === 0) {
+				currentDate = new Date(currentDate.getFullYear() - 1, 11);
+				generateCalendar(currentDate);
+			  } else {
+				currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
+				generateCalendar(currentDate);
+			  }
+			};
+			document.getElementById('right').onclick = function() {
+			  document.getElementsByTagName('table').html('<tr></tr>');
+			  if (currentDate.getMonth() === 11) {
+				currentDate = new Date(currentDate.getFullYear() + 1, 0);
+				generateCalendar(currentDate);
+			  } else {
+				currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
+				generateCalendar(currentDate);
+			  }
+			};
+			console.log(generateCalendar(currentDate));
+		},[])
+	
+
 		useEffect(() => {
 			let dateRange = [];
 			dateRange.push(props.startDate, props.endDate)
@@ -78,8 +154,8 @@
 
 			<div className="month">      
   <ul>
-    <li className="prev">&#10094;</li>
-    <li className="next">&#10095;</li>
+    <li className="prev" id="left">&#10094;</li>
+    <li className="next" id="right">&#10095;</li>
     <li>
       August<br></br>
       <span style={{fontSize:"18px"}}>2021</span>
