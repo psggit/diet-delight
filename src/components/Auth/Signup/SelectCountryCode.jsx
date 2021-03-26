@@ -15,6 +15,12 @@ const SelectCountryCode = ({ handleOnChange }) => {
       placeholder="select"
       defaultValue=""
       onChange={handleOnChange}
+      style={{
+        height: "28px",
+        border: "1.2px solid #909090",
+        color: "#909090",
+        borderRadius: "5px",
+      }}
     >
       <option value="" disabled style={{ color: "#909090" }}>
         Select

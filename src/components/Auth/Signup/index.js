@@ -14,7 +14,7 @@ import {
   SetBg,
   RouteContainer,
   ErrorPara,
-  BackgroundImageContainer
+  BackgroundImageContainer,
 } from "./SignupElements";
 
 import { useHistory } from "react-router-dom";
@@ -507,155 +507,164 @@ const Signup = () => {
                 </DialogActions>
               </Dialog>
 
-              <Formik
-                initialValues={{
-                  countryCode: "",
-                  phone: "",
-                  fname: "",
-                  lname: "",
-                  email: "",
-                  password: "",
-                  check: "",
-                  firebase_uid: "",
-                }}
-                validationSchema={ValidateSchema}
-                onSubmit={(values) => {
-                  console.log("Values :", values);
-                  phoneAuth(values);
+              <div
+                style={{
+                  display: "flex",
+                  maxWidth: "300px",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
                 }}
               >
-                {({ handleChange, handleSubmit, errors, touched }) => (
-                  <>
-                    <Para
-                      color="rgba(137,197,63,1)"
-                      size="0.8rem"
-                      weight="700"
-                      align="none"
-                    >
-                      PHONE NUMBER
-                    </Para>
-                    <Section width="auto">
-                      <SelectCountryCode
-                        handleOnChange={handleChange("countryCode")}
-                      />
-                      <Phone
-                        type="number"
-                        placeholder="Enter Phone Number"
-                        onChange={handleChange("phone")}
-                        onKeyPress={(e) => {
+                <Formik
+                  initialValues={{
+                    countryCode: "",
+                    phone: "",
+                    fname: "",
+                    lname: "",
+                    email: "",
+                    password: "",
+                    check: "",
+                    firebase_uid: "",
+                  }}
+                  validationSchema={ValidateSchema}
+                  onSubmit={(values) => {
+                    console.log("Values :", values);
+                    phoneAuth(values);
+                  }}
+                >
+                  {({ handleChange, handleSubmit, errors, touched }) => (
+                    <>
+                      <Para
+                        color="rgba(137,197,63,1)"
+                        size="0.8rem"
+                        weight="700"
+                        align="none"
+                      >
+                        PHONE NUMBER
+                      </Para>
+                      <Section width="auto">
+                        <SelectCountryCode
+                          handleOnChange={handleChange("countryCode")}
+                        />
+                        <Phone
+                          type="number"
+                          placeholder="Enter Phone Number"
+                          onChange={handleChange("phone")}
+                          onKeyPress={(e) => {
+                            if (e.code === "Enter") {
+                              handleSubmit();
+                            }
+                          }}
+                        />
+                      </Section>
+                      {errors.countryCode && touched.countryCode ? (
+                        <ErrorPara>{errors.countryCode}</ErrorPara>
+                      ) : (
+                        errors.phone &&
+                        touched.phone && <ErrorPara>{errors.phone}</ErrorPara>
+                      )}
+
+                      <InputTextBox
+                        label="FIRST NAME"
+                        placeholder="Enter First Name"
+                        error={errors.fname}
+                        isTouched={touched.fname}
+                        handleOnChange={handleChange("fname")}
+                        handleOnKeyPress={(e) => {
                           if (e.code === "Enter") {
                             handleSubmit();
                           }
                         }}
                       />
-                    </Section>
-                    {errors.countryCode && touched.countryCode ? (
-                      <ErrorPara>{errors.countryCode}</ErrorPara>
-                    ) : (
-                      errors.phone &&
-                      touched.phone && <ErrorPara>{errors.phone}</ErrorPara>
-                    )}
+                      <InputTextBox
+                        label="LAST NAME"
+                        placeholder="Enter Last Name"
+                        error={errors.lname}
+                        isTouched={touched.lname}
+                        handleOnChange={handleChange("lname")}
+                        handleOnKeyPress={(e) => {
+                          if (e.code === "Enter") {
+                            handleSubmit();
+                          }
+                        }}
+                      />
+                      <InputTextBox
+                        label="EMAIL ADDRESS"
+                        placeholder="Enter Email"
+                        error={errors.email}
+                        inputType="email"
+                        isTouched={touched.email}
+                        handleOnChange={handleChange("email")}
+                        handleOnKeyPress={(e) => {
+                          if (e.code === "Enter") {
+                            handleSubmit();
+                          }
+                        }}
+                      />
+                      <InputTextBox
+                        label="PASSWORD"
+                        placeholder="Enter Password"
+                        error={errors.password}
+                        inputType="password"
+                        isTouched={touched.password}
+                        handleOnChange={handleChange("password")}
+                        handleOnKeyPress={(e) => {
+                          if (e.code === "Enter") {
+                            handleSubmit();
+                          }
+                        }}
+                      />
+                      <InputTextBox
+                        label="CONFIRM PASSWORD"
+                        placeholder="Confirm Password"
+                        // error={errors.password}
+                        // isTouched={touched.password}
+                        inputType="password"
+                        handleOnChange={handleChange("check")}
+                        handleOnKeyPress={(e) => {
+                          if (e.code === "Enter") {
+                            handleSubmit();
+                          }
+                        }}
+                      />
 
-                    <InputTextBox
-                      label="FIRST NAME"
-                      placeholder="Enter First Name"
-                      error={errors.fname}
-                      isTouched={touched.fname}
-                      handleOnChange={handleChange("fname")}
-                      handleOnKeyPress={(e) => {
-                        if (e.code === "Enter") {
-                          handleSubmit();
-                        }
-                      }}
-                    />
-                    <InputTextBox
-                      label="LAST NAME"
-                      placeholder="Enter Last Name"
-                      error={errors.lname}
-                      isTouched={touched.lname}
-                      handleOnChange={handleChange("lname")}
-                      handleOnKeyPress={(e) => {
-                        if (e.code === "Enter") {
-                          handleSubmit();
-                        }
-                      }}
-                    />
-                    <InputTextBox
-                      label="EMAIL ADDRESS"
-                      placeholder="Enter Email"
-                      error={errors.email}
-                      inputType="email"
-                      isTouched={touched.email}
-                      handleOnChange={handleChange("email")}
-                      handleOnKeyPress={(e) => {
-                        if (e.code === "Enter") {
-                          handleSubmit();
-                        }
-                      }}
-                    />
-                    <InputTextBox
-                      label="PASSWORD"
-                      placeholder="Enter Password"
-                      error={errors.password}
-                      inputType="password"
-                      isTouched={touched.password}
-                      handleOnChange={handleChange("password")}
-                      handleOnKeyPress={(e) => {
-                        if (e.code === "Enter") {
-                          handleSubmit();
-                        }
-                      }}
-                    />
-                    <InputTextBox
-                      label="CONFIRM PASSWORD"
-                      placeholder="Confirm Password"
-                      // error={errors.password}
-                      // isTouched={touched.password}
-                      inputType="password"
-                      handleOnChange={handleChange("check")}
-                      handleOnKeyPress={(e) => {
-                        if (e.code === "Enter") {
-                          handleSubmit();
-                        }
-                      }}
-                    />
-
-                    <Section width="auto">
-                      <Line back="rgba(137,197,63,1)" height="1px" />
-                      <Para
-                        width="30px"
-                        color="rgba(137,197,63,1)"
-                        size="0.8rem"
-                        weight="700"
+                      <Section width="auto">
+                        <Line back="rgba(137,197,63,1)" height="1px" />
+                        <Para
+                          width="30px"
+                          color="rgba(137,197,63,1)"
+                          size="0.8rem"
+                          weight="700"
+                        >
+                          OR
+                        </Para>
+                        <Line back="rgba(137,197,63,1)" height="1px" />
+                      </Section>
+                      <Section>
+                        <IconBox
+                          back="darkblue"
+                          onClick={() => signInWithFaceBook(handleSignUp)}
+                        >
+                          <Facebook />
+                        </IconBox>
+                        <IconBox
+                          back="red"
+                          onClick={() => signInWithGoogle(handleSignUp)}
+                        >
+                          <Google />
+                        </IconBox>
+                      </Section>
+                      <CustomButton
+                        id="sign-up"
+                        type="submit"
+                        onClick={handleSubmit}
                       >
-                        OR
-                      </Para>
-                      <Line back="rgba(137,197,63,1)" height="1px" />
-                    </Section>
-                    <Section>
-                      <IconBox
-                        back="darkblue"
-                        onClick={() => signInWithFaceBook(handleSignUp)}
-                      >
-                        <Facebook />
-                      </IconBox>
-                      <IconBox
-                        back="red"
-                        onClick={() => signInWithGoogle(handleSignUp)}
-                      >
-                        <Google />
-                      </IconBox>
-                    </Section>
-                    <CustomButton
-                      id="sign-up"
-                      type="submit"
-                      onClick={handleSubmit}
-                    >
-                      SIGN UP
-                    </CustomButton>
-                  </>
-                )}
-              </Formik>
+                        SIGN UP
+                      </CustomButton>
+                    </>
+                  )}
+                </Formik>
+              </div>
             </Container>
           </SetBg>
         </Main>
