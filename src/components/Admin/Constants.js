@@ -26,3 +26,11 @@ export const CONSULTANT_STATUS = [{ id: 0, name: 'Available' }, { id: 1, name: '
 export const CONSULTATION_MODE = [{ id: 0, name: 'Offline' }, { id: 1, name: 'Online' }]
 
 export const CONSULTATION_PACKAGE_STATUS = [{ id: 0, name: 'Available' }, { id: 1, name: 'Unavailable' }]
+
+export const USER_TYPE = {
+    CUSTOMER: 'customer',
+    ADMIN: 'admin',
+    CONSULTANT: 'consultant',
+    ACCOUNTANT: 'accountant',
+    KITCHEN: 'kitchen',
+}

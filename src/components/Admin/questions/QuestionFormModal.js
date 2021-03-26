@@ -11,7 +11,7 @@ import { QUESTION_TYPES } from '../Constants';
 const validationSchema = Yup.object().shape({
 	question: Yup.string().required('Please enter Question'),
 	type: Yup.string().required('Please select Type'),
-	order: Yup.number().required('Pleae enter Order'),
+	order: Yup.number().required('Please enter Order'),
 });
 
 const QuestionFormModal = (props) => {

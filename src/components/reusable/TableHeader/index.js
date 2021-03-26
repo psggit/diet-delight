@@ -34,7 +34,7 @@ const TableHeader = (props) => {
 						onChange={(e) => setSearch(e.target.value)}
 						placeholder="Search"
 					/>
-					{searchMessage && <span style={{marginTop: '4px', fontSize: '10px', opacity: '0.5'}}>{searchMessage}</span>}
+					{searchMessage && <span style={{ marginTop: '4px', fontSize: '10px', opacity: '0.5' }}>{searchMessage}</span>}
 				</SearchBox>
 				<Button
 					variant="contained"

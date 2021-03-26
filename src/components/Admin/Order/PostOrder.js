@@ -320,7 +320,7 @@ const PostOrder = () => {
 			{loading ? (<CustomSkeleton />) : (<>
 				<Main>
 					<TableHeader
-						title="List of All Consultation Purchase"
+						title="List of Consultation Purchase"
 						csvReport={csvReport}
 						addHandler={() => {
 							// TODO: Handle add

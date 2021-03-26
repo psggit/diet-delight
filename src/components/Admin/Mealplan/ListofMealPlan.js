@@ -445,7 +445,7 @@ const ListofMealPlan = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All MealPlans"
+              title="List of MealPlans"
               csvReport={csvReport}
               addHandler={() => {
                 // TODO: Handle add

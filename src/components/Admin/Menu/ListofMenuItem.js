@@ -363,7 +363,7 @@ const ListofMenuItem = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Menu Items"
+              title="List of Menu Items"
               csvReport={csvReport}
               addHandler={() => {
                 // TODO: Handle add

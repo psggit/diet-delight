@@ -169,7 +169,7 @@ const ListofQuestions = () => {
       ) : (
         <Main>
           <TableHeader
-            title="List of All Question"
+            title="List of Question"
             csvReport={csvReport}
             addHandler={() => {
               setMode('Add');

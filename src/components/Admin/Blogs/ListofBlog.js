@@ -346,7 +346,7 @@ const ListofBlog = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Blogs"
+              title="List of Blogs"
               csvReport={csvReport}
               addHandler={() => {
                 // TODO: Handle add

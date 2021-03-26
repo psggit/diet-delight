@@ -6,10 +6,10 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import logo from "../../assets/logo.png";
 import './CustomDrawer.css';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { ExitToApp } from '@material-ui/icons';
 
 import CustomNavList from "./components/CustomNavList";
-
+import { USER_TYPE } from './Constants';
 import axios from "../../axiosInstance";
 
 import {
@@ -271,9 +271,11 @@ export default function PersistentDrawerLeft() {
                   handleClick={handleMenuOpen}
                   primaryLabel="USER"
                   navList={[
-                    { label: "Customers", link: "userlist?type=customer" },
+                    { label: "Accountant", link: `userlist?type=${USER_TYPE.ACCOUNTANT}` },
+                    { label: "Admin", link: `userlist?type=${USER_TYPE.ADMIN}` },
                     { label: "Consultants", link: "consultantlist" },
-                    { label: "Others", link: "userlist" },
+                    { label: "Customer", link: `userlist?type=${USER_TYPE.CUSTOMER}` },
+                    { label: "Kitchen", link: `userlist?type=${USER_TYPE.KITCHEN}` },
                   ]}
                 />
                 <CustomNavList
@@ -380,7 +382,7 @@ export default function PersistentDrawerLeft() {
                   ]}
                 />
               </List>
-              <LogoutContainer onClick={handleLogout}><AccountCircleIcon style={{fontSize: "56px", margin: "0 12px"}} /><span>LOGOUT</span></LogoutContainer>
+              <LogoutContainer onClick={handleLogout}><ExitToApp style={{ fontSize: "56px", margin: "0 12px", width: '50px' }} /><span>LOGOUT</span></LogoutContainer>
             </div>
           </Menu>
           <main

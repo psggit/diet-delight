@@ -26,46 +26,11 @@ import * as Yup from "yup";
 import { CSVLink } from "react-csv";
 import Modal from '../../reusable/Modal';
 
-import {
-  Main,
-  HContainer,
-  Con,
-  Input,
-  Title,
-  Set,
-  Mini,
-  Info,
-  Container,
-} from "./ConsultantElements";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setConsultation,
-  resetConsultation,
-  selectConsultation,
-} from "../../../features/adminSlice";
+import { Main } from "./ConsultantElements";
 import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';
-import { Edit, Delete, DateRangeOutlined } from '@material-ui/icons';
+import { Edit, Delete } from '@material-ui/icons';
 import ConsultationFormModal from './ConsultationFormModal';
-
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-
-  table: {
-    minWidth: 650,
-  },
-});
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  status: Yup.string().required().label("Status"),
-  qualification: Yup.string().required().label("Qualification"),
-  bio: Yup.string().required().label("Bio"),
-  order: Yup.number().required().label("Order"),
-});
 
 const consultationInitialValues = {
   id: '',
@@ -81,9 +46,6 @@ const consultationInitialValues = {
 }
 
 const ListofConsultation = () => {
-  const dispatch = useDispatch();
-  const consultation = useSelector(selectConsultation);
-
   const [consultations, setConsultations] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(20)
   const [page, setPage] = useState(0);
@@ -96,9 +58,7 @@ const ListofConsultation = () => {
   const [mode, setMode] = useState('Add');
   const [showForm, setShowForm] = useState(false);
   const [currentConsultation, setCurrentConsultation] = useState(consultationInitialValues);
-  const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
-  const [isupdate, setISUpdate] = useState(false);
   const [customers, setCustomers] = useState([]);
   const [consultants, setConsultants] = useState([]);
   const [consultationPackages, setConsultationPackages] = useState([]);
@@ -155,8 +115,6 @@ const ListofConsultation = () => {
       .catch((err) => console.log(err));
   };
 
-  const classes = useStyles();
-
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
@@ -166,40 +124,8 @@ const ListofConsultation = () => {
       return;
     }
 
-    setIsSuccess(false);
+    setNotificationConf([false, 'success', '']);
   };
-
-  const handleUpdate = async (consul) => {
-    await dispatch(
-      setConsultation({
-        id: consul.id,
-        user_id: consul.user_id,
-        consultation_purchase_id: consul.consultation_purchase_id,
-        consultant_id: consul.consultant_id,
-        status: consul.status,
-        consultation_link: consul.consultation_link,
-        consultation_time: consul.consultation_time,
-        consultation_mode: consul.consultation_mode,
-        consultant_name: consul.consultant_name,
-        notes: consul.notes,
-      })
-    );
-
-    await setISUpdate(true);
-  };
-
-  const handleDelete = async (consul) => {
-    await dispatch(resetConsultation());
-    await dispatch(
-      setConsultation({
-        id: consul.id,
-      })
-    );
-    await setIsDelete(true);
-  };
-
-  const CloseDelete = () => setIsDelete(false);
-  const CloseUpdate = () => setISUpdate(false);
 
   const handleFormSubmit = (values) => {
     const { appointmentTime, appointmentDate } = values;
@@ -287,7 +213,7 @@ const ListofConsultation = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Consultations"
+              title="List of Consultations"
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');

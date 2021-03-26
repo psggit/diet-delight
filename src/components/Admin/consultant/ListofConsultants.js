@@ -3,61 +3,15 @@ import React, { useState, useEffect } from "react";
 import axios from "../../../axiosInstance";
 import CustomSkeleton from "../../../CustomSkeleton";
 
-import {
-  makeStyles,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Snackbar,
-  Select,
-  MenuItem,
-} from "@material-ui/core";
+import { Snackbar } from "@material-ui/core";
 import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
-import { Formik } from "formik";
-import * as Yup from "yup";
 import Table from '../../reusable/Table';
-
-import {
-  Main,
-  HContainer,
-  Con,
-  Input,
-  Title,
-  Set,
-  Mini,
-  Info,
-  Container,
-} from "./ConsultantElements";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setConsultant,
-  resetConsultant,
-  selectConsultant,
-} from "../../../features/adminSlice";
+import { Main } from "./ConsultantElements";
 import TableHeader from '../../reusable/TableHeader';
 import ConsultantFormModal from './ConsultantFormModal';
 import Modal from '../../reusable/Modal';
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-
-  table: {
-    minWidth: 650,
-  },
-});
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  status: Yup.string().required().label("Status"),
-  qualification: Yup.string().required().label("Qualification"),
-  bio: Yup.string().required().label("Bio"),
-  order: Yup.number().required().label("Order"),
-});
 
 const consultantInitialValue = {
   id: '',
@@ -69,9 +23,6 @@ const consultantInitialValue = {
 }
 
 const ListofConsultants = () => {
-  const dispatch = useDispatch();
-  const consultant = useSelector(selectConsultant);
-
   const [consultants, setConsultants] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(20)
   const [page, setPage] = useState(0);
@@ -81,9 +32,7 @@ const ListofConsultants = () => {
   const [sort, setSort] = useState('name');
   const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
-  const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
-  const [isupdate, setISUpdate] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [mode, setMode] = useState('Add');
   const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
@@ -128,8 +77,6 @@ const ListofConsultants = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  const classes = useStyles();
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -216,7 +163,7 @@ const ListofConsultants = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Consultants"
+              title="List of Consultants"
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');
@@ -260,7 +207,10 @@ const ListofConsultants = () => {
                           }}
                           style={{ margin: '0 6px', cursor: 'pointer' }}
                         />
-                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                        <Delete onClick={() => {
+                          setIsDelete(true)
+                          setCurrentConsultant(consultant);
+                        }} style={{ margin: '0 6px', cursor: 'pointer' }} />
                       </>
                     ]
                   })

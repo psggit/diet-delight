@@ -390,7 +390,7 @@ const ListofCoupon = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Coupons"
+              title="List of Coupons"
               csvReport={csvReport}
               addHandler={() => {
                 // TODO: Handle add

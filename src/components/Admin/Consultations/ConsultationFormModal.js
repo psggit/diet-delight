@@ -31,9 +31,13 @@ const ConsultationFormModal = (props) => {
 			requireFooter={false}
 		>
 			<Formik
-				initialValues={values}
+				initialValues={{ 
+					...values, 
+					mode: (typeof values.mode === 'number') ? values.mode + 1 : '', 
+					status: (typeof values.status === 'number') ? values.status + 1 : '',
+				}}
 				validationSchema={validationSchema}
-				onSubmit={onSubmit}
+				onSubmit={(values) => onSubmit({...values, status: values.status - 1, mode: values.mode - 1})}
 			>
 				{({ setFieldValue, values: { email, mobile } }) => (
 					<Form>
@@ -83,7 +87,7 @@ const ConsultationFormModal = (props) => {
 									name="status"
 									component={Select}
 									label="Status*"
-									options={CONSULTATION_STATUS}
+									options={CONSULTATION_STATUS.map((option) => ({ ...option, id: option.id + 1 }))}
 								/>
 							</Grid>
 							<Grid item xs>
@@ -91,7 +95,7 @@ const ConsultationFormModal = (props) => {
 									name="mode"
 									component={Select}
 									label="Mode"
-									options={CONSULTATION_MODE}
+									options={CONSULTATION_MODE.map((option) => ({ ...option, id: option.id + 1 }))}
 								/>
 							</Grid>
 						</Grid>
@@ -127,7 +131,7 @@ const ConsultationFormModal = (props) => {
 								style={{ margin: "8px 8px 8px 0", background: "#800080", padding: '8px 20px' }}
 							>
 								Submit
-              </Button>
+              				</Button>
 							<Button
 								variant="contained"
 								color="primary"
@@ -135,7 +139,7 @@ const ConsultationFormModal = (props) => {
 								onClick={onClose}
 							>
 								Close
-              	</Button>
+              				</Button>
 						</Mini>
 					</Form>
 				)}

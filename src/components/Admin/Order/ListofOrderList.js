@@ -463,7 +463,7 @@ const ListofOrder = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Meal Purchase"
+              title="List of Meal Purchase"
               csvReport={csvReport}
               addHandler={() => {
                 // TODO: Handle add

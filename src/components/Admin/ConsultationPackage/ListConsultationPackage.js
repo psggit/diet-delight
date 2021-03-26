@@ -154,7 +154,7 @@ const ListConsultationPackage = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Consultation Packages"
+              title="List of Consultation Packages"
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');

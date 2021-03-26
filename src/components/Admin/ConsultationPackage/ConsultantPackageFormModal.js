@@ -11,12 +11,12 @@ import { CONSULTATION_PACKAGE_STATUS } from '../Constants';
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required('Please enter Name'),
 	duration: Yup.number().required('Please enter Duration'),
-	order: Yup.string().required('Pleae enter Order'),
-	status: Yup.string().required('Pleae select Status'),
+	order: Yup.string().required('Please enter Order'),
+	status: Yup.string().required('Please select Status'),
 	subtitle: Yup.string(),
 	details: Yup.string(),
-	price: Yup.number().required('Pleae enter Price'),
-	salePrice: Yup.number().required('Pleae enter Sale Price'),
+	price: Yup.number().required('Please enter Price'),
+	salePrice: Yup.number().required('Please enter Sale Price'),
 
 });
 
@@ -74,14 +74,14 @@ const ConsultantPackageFormModal = (props) => {
 								<Field
 									name="price"
 									component={TextField}
-									label="Price"
+									label="Price*"
 								/>
 							</Grid>
 							<Grid item xs>
 								<Field
 									name="salePrice"
 									component={TextField}
-									label="Sale Price"
+									label="Sale Price*"
 								/>
 							</Grid>
 						</Grid>

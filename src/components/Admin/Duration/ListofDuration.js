@@ -375,7 +375,7 @@ const ListofDuration = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Durations"
+              title="List of Durations"
               csvReport={csvReport}
               addHandler={() => {
                 // TODO: Handle add
