@@ -66,6 +66,7 @@ export const IconBox = styled.div`
     width:40px;
     cursor:pointer;
     margin-right: 10px;
+   
 
 `
 

@@ -1,4 +1,4 @@
-	import React, { useState } from 'react';
+	import React, { useState, useEffect } from 'react';
 	import Button from '@material-ui/core/Button';
 	import Dialog from '@material-ui/core/Dialog';
 	import DialogActions from '@material-ui/core/DialogActions';
@@ -26,8 +26,10 @@
 			setOpen(false);
 		};
 
-		const [value, onChange] = useState(new Date());
-
+		const [value, onChange] = useState(new Date(new Date(2017, 0, 1), new Date(2017, 7, 1)));
+		useEffect(() => {
+			console.log(value)
+		},[value])
 		return (
 			<div>
 
@@ -43,20 +45,20 @@
 			
 			<DialogTitle className="calender_dialog_bg_new" id="responsive-dialog-title">
 
-			<h6 className="breaks_header">Breaks</h6>
+			<span style={{fontSize:"0.75em"}} className="breaks_header">Breaks</span>
 
 			
 			<div>
 			<Calendar
 			onChange={onChange}
-			value={value}
+			defaultValue={value}
 			/>
 
 			</div>
 
 			
 			<div className="btn_container_dialog_calender mt-3">
-			<button className="btn calender_btn_dialog"><span class="material-icons done_all_icon">done_all</span></button>
+			<button className="btn calender_btn_dialog"><span className="material-icons done_all_icon">done_all</span></button>
 			</div>
 
 
