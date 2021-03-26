@@ -7,8 +7,7 @@ import axios from '../../axiosInstance';
 import { Link ,useHistory} from 'react-router-dom';
 import WeekDataMemo from './WeekData';
 
-import AddressDialogBoxDropDown from '../Address Appointment/AddressDialogBoxDropDown'
-import AddressDialogBox from '../Address Appointment/AddressDialogBox'
+import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog'
 
 
 export default function SubMealAddress(props){
@@ -33,7 +32,7 @@ export default function SubMealAddress(props){
       const [maximumSelectionMessage, setmaximumSelectionMessage] = useState('');
      
 
-    function handleAdrress(data){
+    function handleAddress(data){
       console.log(data)
       setSelectedAddress(data)
       var changeAddress = document.getElementById('addressValue');
@@ -165,13 +164,17 @@ export default function SubMealAddress(props){
                     <div className="row">
  
                         {/* <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}  addressValue={changeAddressValue}/> */}
-                        <AddressDialogBox
+                        {/* <AddressDialogBox
                           changeAddressBox={changeAddressData} 
                          makeAddressBox={handleChangeAdrress}
                          userData ={user}
                          makeChangeAdderess={handleAdrress}
 
-                        />
+                        /> */}
+                        <PrimaryaddDialog  changeAddressBox={changeAddressData} 
+                         makeAddressBox={handleChangeAdrress}
+                         userData ={user}
+                         makeChangeAdderess={handleAddress}/> 
                     
                     <div className="col-md-5 col-sm-12">
                    
@@ -260,7 +263,7 @@ export default function SubMealAddress(props){
                     <textarea
                     id="addressValue" 
                      placeholder="Enter your Address" cols="30" className="textarea_mealaddress" 
-                     defaultValue={user.primary_address_line1 + " "+ user.primary_address_line2}
+                     defaultValue={user.primary_address_line1+" "+user.primary_address_line2}
                      disabled
                     // onChange={(e) => {
                     //     console.log(e.target.value)
