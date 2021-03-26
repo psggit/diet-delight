@@ -12,7 +12,7 @@ export default function FavComponent(props) {
   const [likeColor, setLikeColor] = useState("fa fa-heart heart_menu_pkg_fill");
 
 
- 
+  
  
   function colorHandle(menu_id) {
     
@@ -26,7 +26,7 @@ export default function FavComponent(props) {
 
  
   const handleUnlike = (id) => {
-    console.log("menuId Data")
+    console.log("menuId Data") 
     console.log(id)
     axios
     .delete(`favourites/`+id, {

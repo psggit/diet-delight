@@ -9,7 +9,8 @@
 	import { useTheme } from '@material-ui/core/styles';
 	import './SelectionCalenderMain.css'
 	import CalenderComponent from './CalenderComponent.js'
-	import TextareaComponent from '../Primary address Dialog/TextareaComponent.js'
+	import TextfieldnewComponent from './TextfieldnewComponent.js'
+	import './TextFieldCalenderDialog.css'
 
 
 	export default function SelectionCalenderMain() {
@@ -35,23 +36,31 @@
 			open={open}
 			onClose={handleCloseOtp}
 			style={{borderRadius:40}}
+			className="dialog_textfield_calender_new"
 			aria-labelledby="responsive-dialog-title">
 			
 			<DialogTitle className="calender_selection_dialog_bg" id="responsive-dialog-title">
 
-			<div className="row">
+			<div className="row row_texe_field">
+
 			<div className="col-md-6">
-			<TextareaComponent textareaDialogName="Primary Address 
+
+			<TextfieldnewComponent textareaDialogName="Primary Address 
 			Jane Doe,
 			3 Newbridge Court 
 			Chino Hills, CA 91709 " />
+
 			</div>
+
 			<div className="col-md-6">
-			<TextareaComponent textareaDialogName="Secondary Address 
+
+			<TextfieldnewComponent textareaDialogName="Secondary Address 
 			Jane Doe,
 			3 Newbridge Court 
 			Chino Hills, CA 91709 " />
+
 			</div>
+
 			</div>
 			
 			<CalenderComponent/>
