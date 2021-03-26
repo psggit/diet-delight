@@ -14,6 +14,7 @@ import {
   CustomButton,
   SetBg,
   RouteContainer,
+  ErrorPara,
 } from "./SignupElements";
 
 import { useHistory } from "react-router-dom";
@@ -46,6 +47,8 @@ import countryList from "react-select-country-list";
 import OtpDialog from "../OtpDialog";
 import firebase from "../SignInMethods/firebaseConfig";
 import logo_img from "../../../assets/logoweb.png";
+import SelectCountryCode from "./SelectCountryCode";
+import InputTextBox from "./InputTextBox";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -55,16 +58,16 @@ const Signup = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   let cookie = new Cookies();
-  var callingCountries = require("country-data").callingCodes;
-  console.log(callingCountries);
-  console.log(typeof callingCountries);
+
   const options = useMemo(() => countryList().getValues(), []);
   const [otpDialog, setOtpDialog] = useState(false);
   const [disabled, setDisabled] = useState(false);
   let phoneNumber = useRef("");
 
   const [open, setOpen] = useState(false);
-  const code = useRef("");
+  // const code = useRef("");
+  const [countryCode, setCountryCode] = useState("");
+
   const reCaptcha = useRef("");
   const [otp, setOtp] = useState("");
 
@@ -72,20 +75,23 @@ const Signup = () => {
   const [successErrorMessage, setSuccessErrorMessage] = useState(
     "Account Created SuccessFully"
   );
-  const [autofocus, setAutoFocus] = useState(true);
+  // const [autofocus, setAutoFocus] = useState(true);
+
   const [num1, setNum1] = useState("");
   const [num2, setNum2] = useState("");
   const [num3, setNum3] = useState("");
   const [num4, setNum4] = useState("");
   const [num5, setNum5] = useState("");
   const [num6, setNum6] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [firebaseUid, setFirebaseUid] = useState("");
+  const [formValues, setFormValues] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    password: "",
+    check: "",
+    firebase_uid: "",
+  });
 
   useEffect(() => {
     localStorage.setItem(
@@ -112,14 +118,15 @@ const Signup = () => {
 
   const resendOtp = () => {
     grecaptcha.reset();
-    const values = {
-      fname: fname,
-      lname: lname,
-      email: email,
-      password: password,
-      check: confirmPassword,
-      firebase_uid: firebaseUid,
-    };
+    // const values = {
+    //   fname: fname,
+    //   lname: lname,
+    //   email: email,
+    //   password: password,
+    //   check: confirmPassword,
+    //   firebase_uid: firebaseUid,
+    // };
+    const values = { ...formValues };
     phoneAuth(values);
   };
 
@@ -128,10 +135,6 @@ const Signup = () => {
     dispatch(setNew());
     history.push("/");
   };
-
-  useEffect(() => {
-    console.log(code.current);
-  }, [code.current]);
 
   useEffect(() => {
     renderCaptcha();
@@ -220,7 +223,8 @@ const Signup = () => {
   };
 
   const phoneAuth = async (values) => {
-    let number = code.current + phoneNumber.current;
+    // let number = code.current + phoneNumber.current;
+    let number = countryCode + phoneNumber.current;
     console.log(number);
 
     await firebase
@@ -252,11 +256,11 @@ const Signup = () => {
       callback: (response) => {
         // phoneAuth();
         // this.resendOtp();
-        console.log(response);
+        console.log("Re Captcha res", response);
       },
     });
     reCaptcha.current = recaptcha;
-
+    console.log("Re Captcha", recaptcha);
     console.log("Phone auth");
   };
 
@@ -342,14 +346,6 @@ const Signup = () => {
         });
     }
   };
-
-  const renderCountryCode = callingCountries.all.map((option) => {
-    return (
-      <option key={Math.random()} value={option}>
-        {option}
-      </option>
-    );
-  });
 
   return (
     <>
@@ -528,15 +524,14 @@ const Signup = () => {
               }}
               onSubmit={(values) => {
                 if (phoneNumber.current != "") {
-                  if (code.current != "") {
-                    setFname(values.fname);
-                    setLname(values.lname);
-                    setPassword(values.password);
-                    setConfirmPassword(values.check);
-                    setEmail(values.email);
-                    setFirebaseUid(values.firebase_uid);
+                  if (countryCode != "") {
+                    const _values = { ...values };
+                    delete _values.phone;
+                    setFormValues({ ...formValues, ..._values });
+
                     document.getElementById("phoneError").innerHTML = "";
                     phoneAuth(values);
+                    console.log("Values :", values);
                   } else {
                     document.getElementById("phoneError").innerHTML =
                       "Select Country Code";
@@ -560,17 +555,10 @@ const Signup = () => {
                     PHONE NUMBER
                   </Para>
                   <Section width="auto">
-                    <select
-                      name="country"
-                      id="country"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        console.log(e.target.value);
-                        code.current = e.target.value;
-                      }}
-                    >
-                      {renderCountryCode}
-                    </select>
+                    <SelectCountryCode
+                      value={countryCode}
+                      handleOnChange={(e) => setCountryCode(e.target.value)}
+                    />
                     <Phone
                       type="text"
                       placeholder="Enter Phone Number"
@@ -599,138 +587,71 @@ const Signup = () => {
                       top: "0",
                     }}
                   ></p>
-                  ,
-                  <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.8rem"
-                    weight="700"
-                    align="none"
-                    top="0"
-                  >
-                    FIRST NAME
-                  </Para>
-                  <Input
-                    type="text"
+
+                  <InputTextBox
+                    label="FIRST NAME"
                     placeholder="Enter First Name"
-                    onChange={handleChange("fname")}
-                    onKeyPress={(e) => {
-                      console.log("called");
-                      console.log(e);
+                    error={errors.fname}
+                    isTouched={touched.fname}
+                    handleOnChange={handleChange("fname")}
+                    handleOnKeyPress={(e) => {
                       if (e.code === "Enter") {
-                        console.log("called");
-                        e.preventDefault();
                         handleSubmit();
                       }
                     }}
                   />
-                  {errors.fname && touched.fname ? (
-                    <Para color="red" size="0.8rem" weight="700">
-                      {errors.fname}{" "}
-                    </Para>
-                  ) : null}
-                  <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.8rem"
-                    weight="700"
-                    align="none"
-                  >
-                    LAST NAME
-                  </Para>
-                  <Input
-                    type="text"
+                  <InputTextBox
+                    label="LAST NAME"
                     placeholder="Enter Last Name"
-                    onChange={handleChange("lname")}
-                    onKeyPress={(e) => {
-                      console.log("called");
-                      console.log(e);
+                    error={errors.lname}
+                    isTouched={touched.lname}
+                    handleOnChange={handleChange("lname")}
+                    handleOnKeyPress={(e) => {
                       if (e.code === "Enter") {
-                        console.log("called");
-                        e.preventDefault();
                         handleSubmit();
                       }
                     }}
                   />
-                  {errors.lname && touched.lname ? (
-                    <Para color="red" size="0.8rem" weight="700">
-                      {errors.lname}{" "}
-                    </Para>
-                  ) : null}
-                  <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.8rem"
-                    weight="700"
-                    align="none"
-                  >
-                    EMAIL ADDRESS
-                  </Para>
-                  <Input
-                    type="email"
-                    placeholder="Enter Email "
-                    onChange={handleChange("email")}
-                    onKeyPress={(e) => {
-                      console.log("called");
-                      console.log(e);
+                  <InputTextBox
+                    label="EMAIL ADDRESS"
+                    placeholder="Enter Email"
+                    error={errors.email}
+                    inputType="email"
+                    isTouched={touched.email}
+                    handleOnChange={handleChange("email")}
+                    handleOnKeyPress={(e) => {
                       if (e.code === "Enter") {
-                        console.log("called");
-                        e.preventDefault();
                         handleSubmit();
                       }
                     }}
                   />
-                  {errors.email && touched.email ? (
-                    <Para color="red" size="0.8rem" weight="700">
-                      {errors.email}{" "}
-                    </Para>
-                  ) : null}
-                  <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.8rem"
-                    weight="700"
-                    align="none"
-                  >
-                    PASSWORD
-                  </Para>
-                  <Input
-                    type="password"
+                  <InputTextBox
+                    label="PASSWORD"
                     placeholder="Enter Password"
-                    onChange={handleChange("password")}
-                    onKeyPress={(e) => {
-                      console.log("called");
-                      console.log(e);
+                    error={errors.password}
+                    inputType="password"
+                    isTouched={touched.password}
+                    handleOnChange={handleChange("password")}
+                    handleOnKeyPress={(e) => {
                       if (e.code === "Enter") {
-                        console.log("called");
-                        e.preventDefault();
                         handleSubmit();
                       }
                     }}
                   />
-                  {errors.password && touched.password ? (
-                    <Para color="red" size="0.8rem" weight="700">
-                      {errors.password}{" "}
-                    </Para>
-                  ) : null}
-                  <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.8rem"
-                    weight="700"
-                    align="none"
-                  >
-                    CONFIRM PASSWORD
-                  </Para>
-                  <Input
-                    type="password"
+                  <InputTextBox
+                    label="CONFIRM PASSWORD"
                     placeholder="Confirm Password"
-                    onChange={handleChange("check")}
-                    onKeyPress={(e) => {
-                      console.log("called");
-                      console.log(e);
+                    // error={errors.password}
+                    // isTouched={touched.password}
+                    inputType="password"
+                    handleOnChange={handleChange("check")}
+                    handleOnKeyPress={(e) => {
                       if (e.code === "Enter") {
-                        console.log("called");
-                        e.preventDefault();
                         handleSubmit();
                       }
                     }}
                   />
+
                   <Section width="auto">
                     <Line back="rgba(137,197,63,1)" height="1px" />
                     <Para

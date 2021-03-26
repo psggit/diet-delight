@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link as LinkR } from "react-router-dom";
 import back from "../../../assets/mealplan.jpg";
+import { Para } from "../../MainComponents";
 
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
@@ -79,6 +80,9 @@ export const Phone = styled.input`
   &:focus {
     outline: none;
   }
+  ::placeholder {
+    color: #909090;
+  }
 `;
 
 export const Input = styled.input`
@@ -90,6 +94,9 @@ export const Input = styled.input`
   padding: 10px;
   &:focus {
     outline: none;
+  }
+  ::placeholder {
+    color: #909090;
   }
 `;
 
@@ -135,3 +142,14 @@ export const CustomButton = styled.button`
     border: none;
   }
 `;
+
+
+export const ErrorPara = styled(Para)`
+  color: red;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  margin-left: 1.3rem;
+`
