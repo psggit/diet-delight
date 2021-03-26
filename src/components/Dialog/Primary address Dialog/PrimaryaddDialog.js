@@ -12,7 +12,7 @@
 	import TitleComponents from './TitleComponent.js'
 
 	export default function PrimaryaddDialog(props) {
-		const [open, setOpen] = React.useState(true);
+		const [open, setOpen] = React.useState(true); 
 		console.log(props)
 		
  
@@ -48,6 +48,8 @@
 			else{
 				return(
 					<>
+					
+	
 					</>
 				)
 			}

@@ -33,7 +33,7 @@ export default function MenuPkg(props){
     
     
     useEffect(() => {
-        axios.get(`menu-categories?menu_id=`+props.location.state.mealData.id, {
+        axios.get(`menu-categories?menu_id=`+props.location.state.mealData.id, { 
             
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -86,7 +86,7 @@ export default function MenuPkg(props){
 
         var ifFavourite = mergedFavouriteList.includes(menuItem.id)
 
-        if(ifFavourite){
+        if(ifFavourite){ 
             return(
                 <MainCourse filterId = {filter}
         key={Math.random()}
@@ -136,7 +136,7 @@ export default function MenuPkg(props){
         
         </div>
         
-        </div>
+        </div> 
         
         </div> 
         {/* vertical line  start*/}

@@ -7,6 +7,7 @@ import axios from "../../axiosInstance";
 import { Link, useHistory } from "react-router-dom";
 import Mealchoose from "../Mealchoose.js";
 import AddressDialogBox from '../Address Appointment/AddressDialogBox'
+import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog'
 
 export default function AddressAppointmentMain(props) {
   console.log(props)
@@ -248,7 +249,8 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
   // }
 
   return (
-    <div className="address_appointment_container">
+    <div className="address_appointment_container">nlklknk
+      <PrimaryaddDialog/> 
       {/* <img src={logo_web} alt="logo" className="logo_web"></img> */}
       <AddressDialogBox
                           changeAddressBox={changeAddressData} 
@@ -257,7 +259,7 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
                          makeChangeAdderess={handleAddress}
 
                         />
-
+  
       <Mealchoose name="Book an Appointment" />
 
       <div className="address_appointment_main_container">
