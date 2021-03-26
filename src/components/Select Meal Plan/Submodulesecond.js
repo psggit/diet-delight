@@ -5,7 +5,30 @@ import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog'
 import CalenderDialogMain from '../Dialog/Calender Dialog/CalenderDialogMain'
  
 export default function Submodulesecond(props){ 
+    console.log(props)
     const [addressDialog,setAddressDialog] = useState(false) 
+    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState("");
+
+
+    useEffect(() => {
+
+        var dateTime = new Date(props.startDate);
+        console.log(dateTime)
+
+        let lastDate = addDays(dateTime,props.recentPurchase.duration)
+        console.log(lastDate)
+        setEndDate(lastDate)
+        setStartDate(new Date(props.startDate))
+
+    },[props.startDate, props.recentPurchase])
+
+
+    function addDays(date, days) {
+        date.setDate(date.getDate() + days);
+        return date;
+      }
+
 
     function handleAdrress(data){
         if(data === true){
@@ -21,7 +44,7 @@ export default function Submodulesecond(props){
          
         <div> 
             {/* <PrimaryaddDialog changeAddress={addressDialog} makeAddress={handleAdrress} /> */}
-           <CalenderDialogMain changeAddress={addressDialog} makeAddress={handleAdrress}/>
+           <CalenderDialogMain changeAddress={addressDialog} makeAddress={handleAdrress} startDate={startDate} endDate={endDate}/>
 {/* 
         <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}/>
         <AddressDialogBox/> */}
