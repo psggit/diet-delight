@@ -5,37 +5,14 @@ import { Heading, Line, Para } from '../../MainComponents'
 import axios from '../../../axiosInstance'
 
 import FeatureList from './FeatureList'
-import feat1 from '../../../assets/feature1.jpg'
-import feat2 from '../../../assets/feature2.jpg'
-import feat3 from '../../../assets/feature3.jpg'
+
 
 
 const Feature = () => {
-    // const [feature, setFeature] = useState([]);
+    
 
-    // useEffect(() => {
-
-    //     axios.get(`menu-items?`, {
-    //         headers: {
-    //             Authorization: `Bearer ${localStorage.getItem('access_token')}`
-    //         }
-    //     }).then((res) => {
-    //         console.log(res)
-    //         var resData = res.data.data;
-    //         resData.forEach(myFunction);
-    //         function myFunction(data, index) {
-             
-    //             if(data.featured === 1){
-    //                 setFeature(...feature , [data])
-    //             }
-    //           }
-    //           console.log(feature)
-
-            
-    //     })
-
-    // },[])
     const [feature, setFeature] = useState([]);
+    const [favouritesList, setFavouritesList] = useState([]);
 
     useEffect(() => {
 
@@ -48,26 +25,49 @@ const Feature = () => {
             var resData = res.data.data;
             setFeature(resData)        
         })
+        fetchFavourites()
 
     },[])
 
+    const fetchFavourites = () => {
+        axios.get('favourites').then((res) => {
+            var favourites = [];
+            res.data.data.forEach(favourite => {
+                favourites.push(favourite.menu_item_id);
+            });
+            setFavouritesList([...favourites]);
+            console.log(setFavouritesList)
+        }).catch((err) => console.log(err))
+    }
 
 
 
-    // const Featured = [
-    //     {
-    //         image: feat1,
-    //         name: "Honey Garlic Chicken Stir Fry",
-    //     },
-    //     {
-    //         image: feat2,
-    //         name: "Crunchy Chickpea Salad",
-    //     },
-    //     {
-    //         image: feat3,
-    //         name: "White Fish with Pomegranate Salsa",
-    //     },
-    // ]
+    const renderFavourites =  feature.map((meal) => {
+
+        var ifFavourite = favouritesList.includes(meal.id)
+        if(ifFavourite){ 
+            return(
+        <FeatureList
+            key={Math.random() * 100}
+            // picture={meal.picture}
+            // name={meal.name}
+            meal={meal}
+            favouriteItem={true}
+           
+        />)}else{
+            return(
+                <FeatureList
+                key={Math.random() * 100}
+                meal={meal}
+                // picture={meal.picture}
+                // name={meal.name}
+               
+            />
+
+            )
+        }
+    })
+
 
     return (
         <>
@@ -77,22 +77,7 @@ const Feature = () => {
                 </Heading>
                 <Line back="rgba(137,197,63,1)" />
                 <Set>
-                    {
-                        // feature.map((meal) => (
-                        //     <FeatureList
-                        //         key={Math.random() * 100}
-                        //         photo={meal.picture}
-                        //         name={meal.name}
-                        //     />
-                        // ))
-                        feature.map((meal) => (
-                            <FeatureList
-                                key={Math.random() * 100}
-                                picture={meal.picture}
-                                name={meal.name}
-                            />
-                        ))
-                    }
+                    {renderFavourites}
                 </Set>
             </Feat>
             <Banner>
