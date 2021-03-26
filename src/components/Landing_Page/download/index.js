@@ -17,7 +17,7 @@ const Download = () => {
                             DOWNLOAD OUR APP
                     </Heading>
                         <Line top="20px" back="rgba(137,197,63,1)" />
-                        <Para width="550px" weight="600" Mwidth="300px">
+                        <Para width="550px" weight="600" Mwidth="300px" color="#303960">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ullamcorper lacus at turpis tincidunt ullamcorper.
                     </Para>
                     </Up>

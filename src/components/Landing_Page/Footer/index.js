@@ -31,7 +31,7 @@ const Footer = () => {
                             <Link to="/Termcondition">
                             <Items>Privacy Policy</Items>
                             </Link>
-                            <Items>Carrers</Items>
+                            <Items>Careers</Items>
                         </Lists>
                     </Container>
                     <Container>
@@ -62,17 +62,17 @@ const Footer = () => {
                     </Container>
                     <Container>
                         <Subheading color="white" size="1.2rem" weight="400" align="none">
-                            COUSTEMER SERVICE
+                            CUSTOMER SERVICE
                         </Subheading>
                         <Line back="white" width="50px" height="2px" />
                         <Lists>
                             <Items>FAQs</Items>
                             <Items>Delivery</Items>
-                            <Items>Secured Payemnt Methods</Items>
+                            <Items>Secured Payment Methods</Items>
                             <Items>Exchanges & Returns</Items>
                             <Items>Order Status</Items>
                             <Link to="/ConatctUsMain">
-                            <Items>Contact Us</Items>
+                                <Items>Contact Us</Items>
                             </Link>
                         </Lists>
                     </Container>
