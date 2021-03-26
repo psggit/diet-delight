@@ -168,8 +168,8 @@ export const RightArrow = styled(RiArrowRightSLine)`
 export const Icons = styled.div`
   display:flex;
   flex-direction:column;
-  position:absolute;
-  top:75%;
+  position: fixed;
+  top: 78%;
   right:2%;
   margin-top: auto;
   margin-left:auto;
