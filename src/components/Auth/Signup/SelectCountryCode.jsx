@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const SelectCountryCode = ({ value, handleOnChange }) => {
+const SelectCountryCode = ({ handleOnChange }) => {
   const [callingCountries, setCallingCountries] = useState([]);
 
   useEffect(() => {
@@ -12,10 +12,13 @@ const SelectCountryCode = ({ value, handleOnChange }) => {
     <select
       name="country"
       id="country"
-      value={value}
+      placeholder="select"
+      defaultValue=""
       onChange={handleOnChange}
     >
-      <option value=""></option>
+      <option value="" disabled style={{ color: "#909090" }}>
+        Select
+      </option>
       {callingCountries.map((option, index) => (
         <option key={index} value={option}>
           {option}

@@ -7,7 +7,6 @@ import {
   Container,
   Section,
   Phone,
-  Input,
   Facebook,
   Google,
   IconBox,
@@ -15,6 +14,7 @@ import {
   SetBg,
   RouteContainer,
   ErrorPara,
+  BackgroundImageContainer
 } from "./SignupElements";
 
 import { useHistory } from "react-router-dom";
@@ -47,6 +47,7 @@ import countryList from "react-select-country-list";
 import OtpDialog from "../OtpDialog";
 import firebase from "../SignInMethods/firebaseConfig";
 import logo_img from "../../../assets/logoweb.png";
+
 import SelectCountryCode from "./SelectCountryCode";
 import InputTextBox from "./InputTextBox";
 
@@ -59,14 +60,15 @@ const Signup = () => {
   const dispatch = useDispatch();
   let cookie = new Cookies();
 
-  const options = useMemo(() => countryList().getValues(), []);
   const [otpDialog, setOtpDialog] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  let phoneNumber = useRef("");
+  // const options = useMemo(() => countryList().getValues(), []);
+  // const [disabled, setDisabled] = useState(false);
 
   const [open, setOpen] = useState(false);
+
   // const code = useRef("");
-  const [countryCode, setCountryCode] = useState("");
+  // let phoneNumber = useRef("");
+  // const [countryCode, setCountryCode] = useState("");
 
   const reCaptcha = useRef("");
   const [otp, setOtp] = useState("");
@@ -111,21 +113,14 @@ const Signup = () => {
   const ValidateSchema = Yup.object().shape({
     fname: Yup.string().required().label("First Name"),
     lname: Yup.string().required().label("Last Name"),
-    // phone: Yup.number().required().label("Phone"),
+    phone: Yup.number().required().label("Phone"),
+    countryCode: Yup.string().required().label("Country Code"),
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(6).label("Password"),
   });
 
   const resendOtp = () => {
     grecaptcha.reset();
-    // const values = {
-    //   fname: fname,
-    //   lname: lname,
-    //   email: email,
-    //   password: password,
-    //   check: confirmPassword,
-    //   firebase_uid: firebaseUid,
-    // };
     const values = { ...formValues };
     phoneAuth(values);
   };
@@ -223,21 +218,20 @@ const Signup = () => {
   };
 
   const phoneAuth = async (values) => {
-    // let number = code.current + phoneNumber.current;
-    let number = countryCode + phoneNumber.current;
-    console.log(number);
+    // let number = countryCode + phoneNumber.current;
+    const fullMobileNumber = values.countryCode + values.phone;
+    console.log("Full Number : ", fullMobileNumber);
 
     await firebase
       .auth()
-      .signInWithPhoneNumber(number, reCaptcha.current)
+      .signInWithPhoneNumber(fullMobileNumber, reCaptcha.current)
       .then((confirmationResult) => {
-        console.log(window.confirmationResult);
         window.confirmationResult = confirmationResult;
-        console.log(confirmationResult);
+        console.log("Phone Auth : ", confirmationResult);
         handleCodeByUser(confirmationResult, values);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Phone Auth Error : ", error);
         grecaptcha.reset();
       });
   };
@@ -470,227 +464,202 @@ const Signup = () => {
         </Dialog>
       </div>
 
-      <Main>
-        <Route to="/">
-          <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
-        </Route>
-        <RouteContainer>
-          <Route opacity="0.7" to="/signin">
-            <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
-              SIGN IN
-            </Subheading>
+      <BackgroundImageContainer>
+        <Main>
+          <Route to="/">
+            <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
           </Route>
-          <Route to="/signup">
-            <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
-              SIGN UP
-            </Subheading>
-            <Line back="rgba(137,197,63,1)" top="0" height="3px" />
-          </Route>
-        </RouteContainer>
-        <SetBg>
-          <Container>
-            <Dialog
-              open={open}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleClose}
-              aria-labelledby="alert-dialog-slide-title"
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogTitle id="alert-dialog-slide-title">
-                {"Diet Delight!"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                  {successErrorMessage}
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                  OK
-                </Button>
-              </DialogActions>
-            </Dialog>
+          <RouteContainer>
+            <Route opacity="0.7" to="/signin">
+              <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
+                SIGN IN
+              </Subheading>
+            </Route>
+            <Route to="/signup">
+              <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
+                SIGN UP
+              </Subheading>
+              <Line back="rgba(137,197,63,1)" top="0" height="3px" />
+            </Route>
+          </RouteContainer>
+          <SetBg>
+            <Container>
+              <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle id="alert-dialog-slide-title">
+                  {"Diet Delight!"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    {successErrorMessage}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
 
-            <Formik
-              initialValues={{
-                phone: "",
-                fname: "",
-                lname: "",
-                email: "",
-                password: "",
-                check: "",
-                firebase_uid: "",
-              }}
-              onSubmit={(values) => {
-                if (phoneNumber.current != "") {
-                  if (countryCode != "") {
-                    const _values = { ...values };
-                    delete _values.phone;
-                    setFormValues({ ...formValues, ..._values });
+              <Formik
+                initialValues={{
+                  countryCode: "",
+                  phone: "",
+                  fname: "",
+                  lname: "",
+                  email: "",
+                  password: "",
+                  check: "",
+                  firebase_uid: "",
+                }}
+                validationSchema={ValidateSchema}
+                onSubmit={(values) => {
+                  console.log("Values :", values);
+                  phoneAuth(values);
+                }}
+              >
+                {({ handleChange, handleSubmit, errors, touched }) => (
+                  <>
+                    <Para
+                      color="rgba(137,197,63,1)"
+                      size="0.8rem"
+                      weight="700"
+                      align="none"
+                    >
+                      PHONE NUMBER
+                    </Para>
+                    <Section width="auto">
+                      <SelectCountryCode
+                        handleOnChange={handleChange("countryCode")}
+                      />
+                      <Phone
+                        type="number"
+                        placeholder="Enter Phone Number"
+                        onChange={handleChange("phone")}
+                        onKeyPress={(e) => {
+                          if (e.code === "Enter") {
+                            handleSubmit();
+                          }
+                        }}
+                      />
+                    </Section>
+                    {errors.countryCode && touched.countryCode ? (
+                      <ErrorPara>{errors.countryCode}</ErrorPara>
+                    ) : (
+                      errors.phone &&
+                      touched.phone && <ErrorPara>{errors.phone}</ErrorPara>
+                    )}
 
-                    document.getElementById("phoneError").innerHTML = "";
-                    phoneAuth(values);
-                    console.log("Values :", values);
-                  } else {
-                    document.getElementById("phoneError").innerHTML =
-                      "Select Country Code";
-                    phoneAuth(values);
-                  }
-                } else {
-                  document.getElementById("phoneError").innerHTML =
-                    "Enter Mobile No";
-                }
-              }}
-              validationSchema={ValidateSchema}
-            >
-              {({ handleChange, handleSubmit, errors, touched }) => (
-                <>
-                  <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.8rem"
-                    weight="700"
-                    align="none"
-                  >
-                    PHONE NUMBER
-                  </Para>
-                  <Section width="auto">
-                    <SelectCountryCode
-                      value={countryCode}
-                      handleOnChange={(e) => setCountryCode(e.target.value)}
-                    />
-                    <Phone
-                      type="text"
-                      placeholder="Enter Phone Number"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        phoneNumber.current = e.target.value;
-                      }}
-                      onKeyPress={(e) => {
-                        console.log("called");
-                        console.log(e);
+                    <InputTextBox
+                      label="FIRST NAME"
+                      placeholder="Enter First Name"
+                      error={errors.fname}
+                      isTouched={touched.fname}
+                      handleOnChange={handleChange("fname")}
+                      handleOnKeyPress={(e) => {
                         if (e.code === "Enter") {
-                          console.log("called");
-                          e.preventDefault();
                           handleSubmit();
                         }
                       }}
                     />
-                  </Section>
-                  <p
-                    id="phoneError"
-                    style={{
-                      color: "red",
-                      size: "0.8rem",
-                      weight: "700",
-                      align: "none",
-                      top: "0",
-                    }}
-                  ></p>
+                    <InputTextBox
+                      label="LAST NAME"
+                      placeholder="Enter Last Name"
+                      error={errors.lname}
+                      isTouched={touched.lname}
+                      handleOnChange={handleChange("lname")}
+                      handleOnKeyPress={(e) => {
+                        if (e.code === "Enter") {
+                          handleSubmit();
+                        }
+                      }}
+                    />
+                    <InputTextBox
+                      label="EMAIL ADDRESS"
+                      placeholder="Enter Email"
+                      error={errors.email}
+                      inputType="email"
+                      isTouched={touched.email}
+                      handleOnChange={handleChange("email")}
+                      handleOnKeyPress={(e) => {
+                        if (e.code === "Enter") {
+                          handleSubmit();
+                        }
+                      }}
+                    />
+                    <InputTextBox
+                      label="PASSWORD"
+                      placeholder="Enter Password"
+                      error={errors.password}
+                      inputType="password"
+                      isTouched={touched.password}
+                      handleOnChange={handleChange("password")}
+                      handleOnKeyPress={(e) => {
+                        if (e.code === "Enter") {
+                          handleSubmit();
+                        }
+                      }}
+                    />
+                    <InputTextBox
+                      label="CONFIRM PASSWORD"
+                      placeholder="Confirm Password"
+                      // error={errors.password}
+                      // isTouched={touched.password}
+                      inputType="password"
+                      handleOnChange={handleChange("check")}
+                      handleOnKeyPress={(e) => {
+                        if (e.code === "Enter") {
+                          handleSubmit();
+                        }
+                      }}
+                    />
 
-                  <InputTextBox
-                    label="FIRST NAME"
-                    placeholder="Enter First Name"
-                    error={errors.fname}
-                    isTouched={touched.fname}
-                    handleOnChange={handleChange("fname")}
-                    handleOnKeyPress={(e) => {
-                      if (e.code === "Enter") {
-                        handleSubmit();
-                      }
-                    }}
-                  />
-                  <InputTextBox
-                    label="LAST NAME"
-                    placeholder="Enter Last Name"
-                    error={errors.lname}
-                    isTouched={touched.lname}
-                    handleOnChange={handleChange("lname")}
-                    handleOnKeyPress={(e) => {
-                      if (e.code === "Enter") {
-                        handleSubmit();
-                      }
-                    }}
-                  />
-                  <InputTextBox
-                    label="EMAIL ADDRESS"
-                    placeholder="Enter Email"
-                    error={errors.email}
-                    inputType="email"
-                    isTouched={touched.email}
-                    handleOnChange={handleChange("email")}
-                    handleOnKeyPress={(e) => {
-                      if (e.code === "Enter") {
-                        handleSubmit();
-                      }
-                    }}
-                  />
-                  <InputTextBox
-                    label="PASSWORD"
-                    placeholder="Enter Password"
-                    error={errors.password}
-                    inputType="password"
-                    isTouched={touched.password}
-                    handleOnChange={handleChange("password")}
-                    handleOnKeyPress={(e) => {
-                      if (e.code === "Enter") {
-                        handleSubmit();
-                      }
-                    }}
-                  />
-                  <InputTextBox
-                    label="CONFIRM PASSWORD"
-                    placeholder="Confirm Password"
-                    // error={errors.password}
-                    // isTouched={touched.password}
-                    inputType="password"
-                    handleOnChange={handleChange("check")}
-                    handleOnKeyPress={(e) => {
-                      if (e.code === "Enter") {
-                        handleSubmit();
-                      }
-                    }}
-                  />
-
-                  <Section width="auto">
-                    <Line back="rgba(137,197,63,1)" height="1px" />
-                    <Para
-                      width="30px"
-                      color="rgba(137,197,63,1)"
-                      size="0.8rem"
-                      weight="700"
+                    <Section width="auto">
+                      <Line back="rgba(137,197,63,1)" height="1px" />
+                      <Para
+                        width="30px"
+                        color="rgba(137,197,63,1)"
+                        size="0.8rem"
+                        weight="700"
+                      >
+                        OR
+                      </Para>
+                      <Line back="rgba(137,197,63,1)" height="1px" />
+                    </Section>
+                    <Section>
+                      <IconBox
+                        back="darkblue"
+                        onClick={() => signInWithFaceBook(handleSignUp)}
+                      >
+                        <Facebook />
+                      </IconBox>
+                      <IconBox
+                        back="red"
+                        onClick={() => signInWithGoogle(handleSignUp)}
+                      >
+                        <Google />
+                      </IconBox>
+                    </Section>
+                    <CustomButton
+                      id="sign-up"
+                      type="submit"
+                      onClick={handleSubmit}
                     >
-                      OR
-                    </Para>
-                    <Line back="rgba(137,197,63,1)" height="1px" />
-                  </Section>
-                  <Section>
-                    <IconBox
-                      back="darkblue"
-                      onClick={() => signInWithFaceBook(handleSignUp)}
-                    >
-                      <Facebook />
-                    </IconBox>
-                    <IconBox
-                      back="red"
-                      onClick={() => signInWithGoogle(handleSignUp)}
-                    >
-                      <Google />
-                    </IconBox>
-                  </Section>
-                  <CustomButton
-                    id="sign-up"
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    SIGN UP
-                  </CustomButton>
-                </>
-              )}
-            </Formik>
-          </Container>
-        </SetBg>
-      </Main>
+                      SIGN UP
+                    </CustomButton>
+                  </>
+                )}
+              </Formik>
+            </Container>
+          </SetBg>
+        </Main>
+      </BackgroundImageContainer>
     </>
   );
 };

@@ -5,17 +5,21 @@ import { Para } from "../../MainComponents";
 
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
-// overflow:hidden;
-export const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const BackgroundImageContainer = styled.div`
   width: 100%;
   height: 100vh;
+  overflow: hidden;
   background: url(${back}) no-repeat center center;
   background-size: cover;
   @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
   }
+  `
+export const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow: auto;
 `;
 
 export const RouteContainer = styled.div`
@@ -61,6 +65,7 @@ export const Container = styled.div`
     min-width: 320px;
   }
 `;
+
 export const Section = styled.div`
   display: flex;
   justify-content: space-between;
