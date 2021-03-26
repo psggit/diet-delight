@@ -11,7 +11,7 @@ import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog'
 
 export default function AddressAppointmentMain(props) {
   console.log(props)
-  let history = useHistory();
+  let history = useHistory(); 
   const [address, setAddress] = useState("");
   const [user, setUser] = useState([]);
   const [coupon, setCoupon] = useState("");
@@ -250,15 +250,18 @@ var newDate = new Date(year, month - 1, date, hour, minutes);
 
   return (
     <div className="address_appointment_container">nlklknk
-      <PrimaryaddDialog/> 
+      <PrimaryaddDialog  changeAddressBox={changeAddressData} 
+                         makeAddressBox={handleChangeAdrress}
+                         userData ={user}
+                         makeChangeAdderess={handleAddress}/> 
       {/* <img src={logo_web} alt="logo" className="logo_web"></img> */}
-      <AddressDialogBox
+      {/* <AddressDialogBox
                           changeAddressBox={changeAddressData} 
                          makeAddressBox={handleChangeAdrress}
                          userData ={user}
                          makeChangeAdderess={handleAddress}
 
-                        />
+                        /> */}
   
       <Mealchoose name="Book an Appointment" />
 

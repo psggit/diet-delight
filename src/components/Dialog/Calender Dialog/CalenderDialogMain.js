@@ -14,7 +14,7 @@
 	import './customStyleForCalendar.css'
 
 
- 
+
 	export default function CalenderDialogMain(props) {
 		const [open, setOpen] = React.useState(true);
 		const theme = useTheme();
@@ -28,9 +28,9 @@
 
 		useEffect(() =>{
 			if(value.length > 0){
-			var calendar = document.getElementById('calendar');
-			console.log(calendar)
-		}
+				var calendar = document.getElementById('calendar');
+				console.log(calendar)
+			}
 		},[])
 
 
@@ -129,102 +129,103 @@
 		}
 
 		if(props.changeAddress === true && value.length > 0){
-		return (
-			<div>
+			return (
+				<div>
 
-			<Dialog
-			open={open}
-		
-			style={{borderRadius:40}}
-			aria-labelledby="responsive-dialog-title">
-			
-			<DialogTitle className="calender_dialog_bg_new" id="responsive-dialog-title">
-			<div className="breaks_header">
-			<span >Breaks</span>
-			</div>
-			
-			<div>
+				<Dialog
+				open={open}
+
+				style={{borderRadius:40}}
+				aria-labelledby="responsive-dialog-title">
+
+				<DialogTitle className="calender_dialog_bg_new" id="responsive-dialog-title">
+				<div className="breaks_header text-light text-center">
+				<span >Breaks</span>
+				</div>
+
+				<div>
 			{/* <Calendar
 			maxDate={props.endDate}
 			minDate={props.startDate}
 			onClickDay={daySelected}
-			/> */}
+<<<<<<< HEAD
+		/> */}
 
-			{/* <input type="date" id="calendar" name="calendar" min={props.startDate} max={props.endDate} /> */}
+	{/* <input type="date" id="calendar" name="calendar" min={props.startDate} max={props.endDate} /> */}
 
-			<div className="month">      
-  <ul>
-    <li className="prev" id="left">&#10094;</li>
-    <li className="next" id="right">&#10095;</li>
-    <li>
-      August<br></br>
-      <span style={{fontSize:"18px"}}>2021</span>
-    </li>
-  </ul>
-</div>
+	<div className="month">      
+	<ul>
+	<li className="prev">&#10094;</li>
+	<li className="next">&#10095;</li>
+	<li className="month_dialog_text">
+	August
+	<span className="year_dialog_text ml-1 mr-1">2021</span>
+	</li>
+	</ul>
+	</div>
 
-<ul className="weekdays">
-  <li>Mo</li>
-  <li>Tu</li>
-  <li>We</li>
-  <li>Th</li>
-  <li>Fr</li>
-  <li>Sa</li>
-  <li>Su</li>
-</ul>
+	<ul className="weekdays">
+	<li>Mo</li>
+	<li>Tu</li>
+	<li>We</li>
+	<li>Th</li>
+	<li>Fr</li>
+	<li>Sa</li>
+	<li>Su</li>
+	</ul>
 
-<ul className="days">  
-  <li>1</li>
-  <li>2</li>
-  <li>3</li>
-  <li>4</li>
-  <li>5</li>
-  <li>6</li>
-  <li>7</li>
-  <li>8</li>
-  <li>9</li>
-  <li><span className="active">10</span></li>
-  <li>11</li>
-  <li>12</li>
-  <li>13</li>
-  <li>14</li>
-  <li>15</li>
-  <li>16</li>
-  <li>17</li>
-  <li>18</li>
-  <li>19</li>
-  <li>20</li>
-  <li>21</li>
-  <li>22</li>
-  <li>23</li>
-  <li>24</li>
-  <li>25</li>
-  <li>26</li>
-  <li>27</li>
-  <li>28</li>
-  <li>29</li>
-  <li>30</li>
-  <li>31</li>
-</ul>	
-
-
-			</div>
-
-			
-			<div className="btn_container_dialog_calender mt-3">
-			<button className="btn calender_btn_dialog"  onClick ={() =>props.makeAddress(false)}><span className="material-icons done_all_icon">done_all</span></button>
-			</div>
+	<ul className="days">  
+	<li>1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+	<li>6</li>
+	<li>7</li>
+	<li>8</li>
+	<li>9</li>
+	<li><span className="active_grey">10</span></li>
+	<li><span className="active_light_grey">11</span></li>
+	<li>12</li>
+	<li>13</li>
+	<li>14</li>
+	<li>15</li>
+	<li>16</li>
+	<li>17</li>
+	<li>18</li>
+	<li>19</li>
+	<li>20</li>
+	<li>21</li>
+	<li>22</li>
+	<li>23</li>
+	<li>24</li>
+	<li><label className="active_break_grey">25 <br></br> break </label></li>
+	<li>26</li>
+	<li>27</li>
+	<li>28</li>
+	<li>29</li>
+	<li>30</li>
+	<li>31</li>
+	</ul>	
 
 
-			</DialogTitle>
+	</div>
 
 
-			</Dialog>
-			</div>
-			);}else{
-				return(
-					<>
-					</>
-				)
-			}
+	<div className="btn_container_dialog_calender mt-3">
+	<button className="btn calender_btn_dialog"  onClick ={() =>props.makeAddress(false)}><span className="material-icons done_all_icon">done_all</span></button>
+	</div>
+
+
+	</DialogTitle>
+
+
+	</Dialog>
+	</div>
+	);}else{
+		return(
+		<>
+		</>
+		)
 	}
+}
