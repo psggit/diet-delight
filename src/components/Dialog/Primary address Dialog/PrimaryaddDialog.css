@@ -12,7 +12,7 @@ h6.select_text_dialog{
 h6.title_dialog_name{
 
 }
-textarea.text_area_dialog:focus{
+p.text_area_dialog:focus{
     outline: none;
 
 }
@@ -44,7 +44,7 @@ textarea.text_area_dialog:focus{
       margin-top: 10px;
       margin-bottom: 10px;
   }
-  textarea.text_area_dialog{
+  p.text_area_dialog{
      font-size: 13px;
      background: #77838f59;
      border-radius: 6px;
@@ -98,7 +98,7 @@ h6.title_dialog_name{
  margin-top: 10px;
  margin-bottom: 10px;
 }
-textarea.text_area_dialog{
+p.text_area_dialog{
    font-size: 17px;
    background: #77838f59;
    border-radius: 6px;
