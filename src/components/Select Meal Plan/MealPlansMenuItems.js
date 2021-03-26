@@ -6,7 +6,7 @@ import axios from '../../axiosInstance';
 import NonvegComponent from '../veg non veg component/NonvegComponent.js'
 import VegComponent from '../veg non veg component/VegComponent.js'
  
-export default function MealPlansMenuItems(props){
+export default function MealPlansMenuItems(props){ 
     console.log(props)
    
     const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_border_selectedMeal")
@@ -46,7 +46,7 @@ export default function MealPlansMenuItems(props){
             setUser(res.data)
        
            
-        })
+        }) 
 
        
 

@@ -21,7 +21,7 @@ const FeatureList = (props) => {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
                 },
                 
-                menu_item_id: id 
+                menu_item_id: id  
                 
             }).then((res) => {
                 console.log(res)
@@ -60,7 +60,7 @@ const FeatureList = (props) => {
 
 
         
-    } 
+    }  
      useEffect(() => {
         if(props.favouriteItem){
             setLikeColor("fa fa-heart heart_fav_pkg_fill")
