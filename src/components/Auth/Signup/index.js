@@ -287,7 +287,7 @@ const Signup = () => {
             phone:phone,
             check:password
         }
-        handleRegistration(values, phone); 
+        handleRegistration(values, phone, firebase_uid); 
     }
     
     
@@ -297,7 +297,7 @@ const Signup = () => {
         if (values.check === values.password) {
             
             let Name = values.fname + " " + values.lname;
-            let firebaseUid = firebase_uid === '' ? values.firebase_uid : firebase_uid;
+            let firebase_Uid = firebase_uid === '' ? values.firebase_uid : firebase_uid;
             
             axios.post('register', {
                 name: Name,
@@ -306,7 +306,7 @@ const Signup = () => {
                 first_name: values.fname,
                 last_name: values.lname,
                 mobile: mobileNumber,
-                firebase_uid:firebaseUid,
+                firebase_uid:firebase_Uid,
             }).then(
                 (res) => {
                     console.log(res)
@@ -444,7 +444,7 @@ const Signup = () => {
                         email: '',
                         password: '',
                         check: '',
-                        firebase_uid:0,
+                        firebase_uid:'',
                     }}
                     
                     onSubmit={(values) => {

@@ -30,11 +30,17 @@ export default function SubMealAddress(props){
     
       const [changeAddressData,setChangeAddressData] = useState(false) 
       const [selectAddress,setSelectedAddress] = useState("")
+      const [maximumSelectionMessage, setmaximumSelectionMessage] = useState('');
      
 
     function handleAdrress(data){
       console.log(data)
       setSelectedAddress(data)
+      var changeAddress = document.getElementById('addressValue');
+      let primaryAddress = (user.primary_address_line1 === null || user.primary_address_line1 === '') ? " " : user.primary_address_line1+ " " + ((user.primary_address_line2 === null || user.primary_address_line2 === '') ? " " : user.primary_address_line2)
+      let secondaryAddress = (user.secondary_address_line1 === null || user.secondary_address_line1 === '') ? "" : user.secondary_address_line1  + " " + ((user.secondary_address_line2 == null || user.secondary_address_line2 === '')? " ": user.secondary_address_line2)
+      let addressValue = data === 'primary_address' ? primaryAddress : secondaryAddress;
+      changeAddress.value = addressValue;
 
     } 
 
@@ -80,6 +86,10 @@ export default function SubMealAddress(props){
         })
         .catch((err) => console.log(err))
         console.log(timeSlot)
+    }
+
+    const handleMaximumSelection = (message) => {
+        setmaximumSelectionMessage(message)
     }
 
             
@@ -194,7 +204,11 @@ export default function SubMealAddress(props){
                     
                     </div>
                     <div className="row weekdata_mealaddress">
-                     <WeekDataMemo  mealType={props.mealType} handleWeekDays={handleWeekDays}/> 
+                     <WeekDataMemo  mealType={props.mealType} handleWeekDays={handleWeekDays} handleMaximumSelection={handleMaximumSelection}/> 
+                    </div>
+
+                    <div className="row">
+                        <span id="maximumSelectionMessage" style={{color:'red', fontWeight:800, fontSize:".8rem"}}>{maximumSelectionMessage}</span>
                     </div>
                     
                     <div className="row">
@@ -243,9 +257,11 @@ export default function SubMealAddress(props){
                     <div className="row">
                     
                     <div className="col-md-12 col-sm-12">
-                    <textarea 
+                    <textarea
+                    id="addressValue" 
                      placeholder="Enter your Address" cols="30" className="textarea_mealaddress" 
-                     defaultValue={user.primary_address_line1}
+                     defaultValue={user.primary_address_line1 + " "+ user.primary_address_line2}
+                     disabled
                     // onChange={(e) => {
                     //     console.log(e.target.value)
                     //     setAddress(e.target.value);

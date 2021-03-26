@@ -190,12 +190,16 @@ span.month_text_dialog{
   padding: 10px 0;
   margin: 0;
 }
-h6.breaks_header{
+.breaks_header{
   font-size: 17px;
   color: #fff;
-  text-align: center;
   letter-spacing: 2px;
   font-weight: 600;
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  align-items:center;
+  width: 100%;
 }
 div.dialog_signup_new{
   margin-top: 15px;

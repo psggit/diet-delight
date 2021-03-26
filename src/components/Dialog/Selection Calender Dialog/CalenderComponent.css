@@ -387,11 +387,13 @@ div.dialog_signup_new{
   margin-top: 15px;
 }
 div.month{
-  width: 100%;
-  text-align: center;
-  padding: 0%;
-  margin-bottom: 33px;
-  margin-top: 9px;
+ width: 100%;
+ display: grid;
+ place-items: center;
+ text-align: center;
+ padding: 0%;
+ margin-bottom: 33px;
+ margin-top: 9px;
 }
 div.btn_container_dialog_calender{
   display: flex;

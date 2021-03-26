@@ -1,0 +1,82 @@
+
+textarea.textarea_textfield_calender{
+	width: 100%;
+	border: none;
+	border-radius: 8;
+	outline: none;
+	border-radius: 5px;
+	margin: 2%;
+	background: #8BC53F;
+	color: #fff;
+	padding: 2%
+
+}
+
+
+@media only screen and (max-width: 767px) {
+
+	textarea.textarea_textfield_calender{
+		width: 100%;
+		border: none;
+		border-radius: 8;
+		outline: none;
+		border-radius: 5px;
+		margin: 2%;
+		background: #8BC53F;
+		color: #fff;
+	}
+
+}
+
+
+@media only screen and (min-width: 768px) {
+	div.row_texe_field{
+		display: flex;
+	}
+	textarea.textarea_textfield_calender{
+
+	}
+	.dialog_textfield_calender_new{
+		max-width: 358px;
+		display: grid;
+		place-item:center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+}
+
+
+@media only screen and (min-width: 992px) {
+	div.row_texe_field{
+		display: flex;
+	}
+	textarea.textarea_textfield_calender{
+
+	}
+	.dialog_textfield_calender_new{
+		max-width: 378px;
+		display: grid;
+		place-item:center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+}
+
+@media only screen and (min-width: 992px) {
+	div.row_texe_field{
+		display: flex;
+	}
+	textarea.textarea_textfield_calender{
+
+	}
+	.dialog_textfield_calender_new{
+		max-width: 478px;
+		display: grid;
+		place-item:center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+}
