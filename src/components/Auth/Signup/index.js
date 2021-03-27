@@ -32,7 +32,7 @@ import { setNew } from "../../../features/userSlice";
 import firebase from "../SignInMethods/firebaseConfig";
 import logo_img from "../../../assets/logoweb.png";
 import SignUpForm from "./SignUpForm";
-
+import OTPInput from "../OTPInput";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -46,19 +46,12 @@ const Signup = () => {
   const [otpDialog, setOtpDialog] = useState(false);
   const [open, setOpen] = useState(false);
   const reCaptcha = useRef("");
-  const [otp, setOtp] = useState("");
+  const verificationOTP = useRef("");
 
   const [token, setToken] = useState({});
   const [successErrorMessage, setSuccessErrorMessage] = useState(
     "Account Created SuccessFully"
   );
-
-  const [num1, setNum1] = useState("");
-  const [num2, setNum2] = useState("");
-  const [num3, setNum3] = useState("");
-  const [num4, setNum4] = useState("");
-  const [num5, setNum5] = useState("");
-  const [num6, setNum6] = useState("");
 
   const [formValues, setFormValues] = useState({
     fname: "",
@@ -104,20 +97,14 @@ const Signup = () => {
 
   const handleCodeByUser = (confirmationResult, userValues) => {
     setOtpDialog(true);
-    var captureButtonClick = document.getElementById("verifyOtp");
+    const captureButtonClick = document.getElementById("verifyOtp");
+
     captureButtonClick.onclick = (e) => {
-      console.log(e);
-      var otpEnteredList = document.getElementsByClassName(
-        "input_dialog_signup"
-      );
-      var otpEntered = "";
-      for (var i = 0; i < otpEnteredList.length; i++) {
-        console.log(otpEnteredList[i].value);
-        otpEntered = otpEntered + otpEnteredList[i].value.toString();
-      }
-      console.log(otpEntered);
+      console.log("OTP : ", verificationOTP);
+      if (verificationOTP.current.length !== 6) return;
+
       confirmationResult
-        .confirm(otpEntered)
+        .confirm(verificationOTP.current)
         .then(async (result) => {
           // User signed in successfully.
           const user = result.user;
@@ -142,19 +129,14 @@ const Signup = () => {
           errorMessage.innerHTML = "Invalid Otp Please try Again";
         });
     };
+
     captureButtonClick.onKeyPress = (e) => {
       if (e.code === "Enter") {
-        var otpEnteredList = document.getElementsByClassName(
-          "input_dialog_signup"
-        );
-        var otpEntered = "";
-        for (var i = 0; i < otpEnteredList.length; i++) {
-          console.log(otpEnteredList[i].value);
-          otpEntered = otpEntered + otpEnteredList[i].value.toString();
-        }
-        console.log(otpEntered);
+        console.log("OTP : ", verificationOTP);
+        if (verificationOTP.current.length !== 6) return;
+
         confirmationResult
-          .confirm(otpEntered)
+          .confirm(verificationOTP.current)
           .then(async (result) => {
             // User signed in successfully.
             const user = result.user;
@@ -180,13 +162,11 @@ const Signup = () => {
           });
       }
     };
-
-    // return otpEntered;
   };
 
   const phoneAuth = async (values) => {
     setFormValues({ ...formValues, ...values });
-    
+
     const fullMobileNumber = values.countryCode + values.phone;
     console.log("Full Number : ", fullMobileNumber);
 
@@ -204,13 +184,6 @@ const Signup = () => {
       });
   };
 
-  const storeOtp = (e) => {
-    console.log("Hello");
-    if (e.target.value.length <= 6) {
-      setOtp(e.target.value);
-    }
-  };
-
   const renderCaptcha = () => {
     firebase.auth().languageCode = "en";
     let recaptcha = new firebase.auth.RecaptchaVerifier("sign-up", {
@@ -224,28 +197,6 @@ const Signup = () => {
     reCaptcha.current = recaptcha;
     console.log("Re Captcha", recaptcha);
     console.log("Phone auth");
-  };
-
-  const validateIfNumeric = (e, relatedTo) => {
-    const data = e.target.value;
-    console.log(data, relatedTo);
-    var numeric = "^[0-9]*$";
-    if (data.match(numeric)) {
-      if (relatedTo === "num1") {
-        console.log("hello num1");
-        setNum1(data);
-      } else if (relatedTo === "num2") {
-        setNum2(data);
-      } else if (relatedTo === "num3") {
-        setNum3(data);
-      } else if (relatedTo === "num4") {
-        setNum4(data);
-      } else if (relatedTo === "num5") {
-        setNum5(data);
-      } else {
-        setNum6(data);
-      }
-    }
   };
 
   const handleSignUp = (token, user) => {
@@ -346,69 +297,13 @@ const Signup = () => {
 
             <h6 className="enter_otp_text">Enter OTP</h6>
 
-            <div className="row justify-content-center">
-              <input
-                type="text"
-                required
-                value={num1}
-                minlength="1"
-                maxlength="1"
-                className="input_dialog_signup"
-                id="num1"
-                onInput={(e) => validateIfNumeric(e, "num1")}
-                autofocus
-              ></input>
-              <input
-                type="text"
-                required
-                value={num2}
-                minlength="1"
-                maxlength="1"
-                className="input_dialog_signup"
-                id="num2"
-                onInput={(e) => validateIfNumeric(e, "num2")}
-              ></input>
-              <input
-                type="text"
-                required
-                value={num3}
-                minlength="1"
-                maxlength="1"
-                className="input_dialog_signup"
-                id="num3"
-                onInput={(e) => validateIfNumeric(e, "num3")}
-              ></input>
-              <input
-                type="text"
-                required
-                value={num4}
-                minlength="1"
-                maxlength="1"
-                className="input_dialog_signup"
-                id="num4"
-                onInput={(e) => validateIfNumeric(e, "num4")}
-              ></input>
-              <input
-                type="text"
-                required
-                value={num5}
-                minlength="1"
-                maxlength="1"
-                className="input_dialog_signup"
-                id="num5"
-                onInput={(e) => validateIfNumeric(e, "num5")}
-              ></input>
-              <input
-                type="text"
-                required
-                value={num6}
-                minlength="1"
-                maxlength="1"
-                className="input_dialog_signup"
-                id="num6"
-                onInput={(e) => validateIfNumeric(e, "num6")}
-              ></input>
-            </div>
+            <OTPInput
+              autoFocus
+              isNumberInput
+              length={6}
+              className="row justify-content-center"
+              onChangeOTP={(otp) => (verificationOTP.current = otp)}
+            />
 
             <span
               id="successErrorMessageForWrongOtp"
