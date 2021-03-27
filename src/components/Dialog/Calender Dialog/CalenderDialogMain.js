@@ -176,7 +176,7 @@
 			var startDateYear = startDate.getFullYear();
 			var endDateYear = endDate.getFullYear();
 
-
+			console.log(startDateDay, endDateDay, startDateMonth, endDateMonth, startDateYear, endDateYear, startDate, endDate)
 			let daysFromStartDay = [];
 			let daysFromEndDay = [];
 
