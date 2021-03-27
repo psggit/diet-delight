@@ -200,6 +200,7 @@ const ListofUser = () => {
               <Table
                 dataSource={{
                   columns: customerPage ? [
+                    { id: 'id', label: 'User Id', sort: false },
                     { id: 'first_name', label: 'Name', sort: true },
                     { id: 'mobile', label: 'Mobile No.', sort: true },
                     { id: 'email', label: 'Email', sort: true },
@@ -246,6 +247,7 @@ const ListofUser = () => {
                     )
 
                     return customerPage ? [
+                      user.id,
                       `${user.first_name || ''} ${user.last_name || ''}`,
                       user.mobile,
                       user.email,

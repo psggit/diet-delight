@@ -25,6 +25,7 @@
     "formik": "^2.2.6",
     "moment": "^2.29.1",
     "notistack": "^1.0.5",
+    "lodash.get": "4.4.2",
     "react": "^17.0.1",
     "react-burger-menu": "3.0.6",
     "react-calendar": "^3.3.1",

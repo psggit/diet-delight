@@ -94,7 +94,7 @@ const ConsultationFormModal = (props) => {
 								<Field
 									name="mode"
 									component={Select}
-									label="Mode"
+									label="Mode*"
 									options={CONSULTATION_MODE.map((option) => ({ ...option, id: option.id + 1 }))}
 								/>
 							</Grid>

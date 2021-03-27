@@ -9,7 +9,7 @@ import './CustomDrawer.css';
 import { ExitToApp } from '@material-ui/icons';
 
 import CustomNavList from "./components/CustomNavList";
-import { USER_TYPE } from './Constants';
+import { USER_TYPE, CONSULTATION_STATUS_TYPE, CONSULTATION_MODE } from './Constants';
 import axios from "../../axiosInstance";
 
 import {
@@ -284,7 +284,7 @@ export default function PersistentDrawerLeft() {
                   handleClick={handleMenuOpen}
                   primaryLabel="QUESTIONNAIRE"
                   navList={[
-                    { label: "All Questions", link: "questionlist" },
+                    { label: "Questions", link: "questionlist" },
                     { label: "Customer Responses", link: "customer-response" },
                   ]}
                 />
@@ -307,8 +307,8 @@ export default function PersistentDrawerLeft() {
                   handleClick={handleMenuOpen}
                   primaryLabel="CONSULTATION"
                   navList={[
-                    { label: "Consultations", link: "consultationlist" },
-                    { label: "Past Consultations", link: "consultationlist?type=past" },
+                    { label: "Booked Consultations", link: `consultationlist?type=${CONSULTATION_STATUS_TYPE.BOOKED}` },
+                    { label: "Cancelled Consultations", link: `consultationlist?type=${CONSULTATION_STATUS_TYPE.CANCELLED}` },
                   ]}
                 />
 

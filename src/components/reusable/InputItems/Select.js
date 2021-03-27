@@ -2,6 +2,7 @@ import React from "react";
 import { Select as DefaultSelect, MenuItem, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import './index.css';
+import get from 'lodash.get';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -10,10 +11,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Select = (props) => {
-	const { label, onChange, field = {}, form = {}, options, disabled } = props;
+	const { label, onChange, field = {}, form = {}, options, disabled, fieldPath } = props;
 	const { setFieldValue, errors = {}, touched = {} } = form;
-	const helperText = errors[field.name]
-	const error = helperText && touched[field.name]
+	const helperText = fieldPath ? get(errors, fieldPath, '') : errors[field.name]
+	let error = false;
+
+	if (helperText) {
+		error = fieldPath ? get(touched, fieldPath, false) : touched[field.name]
+	}
 
 	const classes = useStyles();
 

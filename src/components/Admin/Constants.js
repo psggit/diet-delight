@@ -34,3 +34,8 @@ export const USER_TYPE = {
     ACCOUNTANT: 'accountant',
     KITCHEN: 'kitchen',
 }
+
+export const CONSULTATION_STATUS_TYPE = {
+    CANCELLED: 'cancelled',
+    BOOKED: 'booked',
+}

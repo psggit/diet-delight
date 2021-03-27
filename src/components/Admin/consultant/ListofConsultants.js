@@ -12,6 +12,7 @@ import { Main } from "./ConsultantElements";
 import TableHeader from '../../reusable/TableHeader';
 import ConsultantFormModal from './ConsultantFormModal';
 import Modal from '../../reusable/Modal';
+import { CONSULTANT_STATUS } from '../Constants';
 
 const consultantInitialValue = {
   id: '',
@@ -88,6 +89,24 @@ const ListofConsultants = () => {
     }
     setNotificationConf([false, 'success', '']);
   };
+
+  const getConsultantStatus = (status) => {
+    switch (status) {
+      case 0:
+        return CONSULTANT_STATUS[0].name;
+      case 1:
+        return CONSULTANT_STATUS[1].name;
+      case 2:
+        return CONSULTANT_STATUS[2].name;
+
+    }
+  }
+
+  const getJoinedOn = (date) => {
+    const temp = new Date(date);
+
+    return `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`
+  }
 
   const handleFormSubmit = (values) => {
     const data = {
@@ -177,20 +196,24 @@ const ListofConsultants = () => {
               <Table
                 dataSource={{
                   columns: [
+                    { id: 'userId', label: 'User Id', sort: false },
                     { id: 'name', label: 'Name', sort: true },
                     { id: 'qualification', label: 'Qualification', sort: true },
                     { id: 'bio', label: 'Bio', sort: true },
                     { id: 'status', label: 'Status', sort: true },
                     { id: 'order', label: 'Order', sort: true },
+                    { id: 'created_at', label: 'Joined On', sort: true },
                     { id: 'actions', label: '', sort: false },
                   ],
                   rows: consultants.map((consultant) => {
                     return [
+                      consultant.user_id,
                       consultant.name,
                       consultant.qualification,
                       consultant.bio,
-                      consultant.status,
+                      getConsultantStatus(consultant.status),
                       consultant.order,
+                      getJoinedOn(consultant.created_at),
                       <>
                         <Edit
                           onClick={() => {

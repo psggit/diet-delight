@@ -61,3 +61,9 @@ export const Info = styled.p`
     font-size:${props => props.error ? "0.6rem" : "0.8rem"};
     margin:5px 0 5px 250px;
 `
+
+export const AddButtonDiv = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`

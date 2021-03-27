@@ -21,6 +21,7 @@ const questInitialValue = {
   question: '',
   type: '',
   order: '',
+  options: [{ option: '' }],
 }
 
 const ListofQuestions = () => {
@@ -53,7 +54,7 @@ const ListofQuestions = () => {
 
   const handleShow = () => {
     axios
-      .get(`questions?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`questions?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setQuestions(res.data.data);
         setShow(true);
@@ -183,8 +184,8 @@ const ListofQuestions = () => {
             <Table
               dataSource={{
                 columns: [
-                  { id: 'question', label: 'Question', sort: true }, 
-                  { id: 'type', label: 'Type', sort: true }, 
+                  { id: 'question', label: 'Question', sort: true },
+                  { id: 'type', label: 'Type', sort: true },
                   { id: 'order', label: 'Order', sort: true },
                   { id: 'actions', label: '', sort: false },
                 ],
@@ -203,12 +204,12 @@ const ListofQuestions = () => {
                         }}
                         style={{ margin: '0 6px', cursor: 'pointer' }}
                       />
-                      <Delete 
+                      <Delete
                         onClick={() => {
                           setCurrentQuestion(q);
                           setIsDelete(true)
-                        }} 
-                        style={{ margin: '0 6px', cursor: 'pointer' }} 
+                        }}
+                        style={{ margin: '0 6px', cursor: 'pointer' }}
                       />
                     </>
                   ]

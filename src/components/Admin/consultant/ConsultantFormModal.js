@@ -27,9 +27,9 @@ const ConsultantFormModal = (props) => {
 			requireFooter={false}
 		>
 			<Formik
-				initialValues={values}
+				initialValues={{...values, status: (typeof values.status === 'number') ? values.status + 1 : '',}}
 				validationSchema={validationSchema}
-				onSubmit={onSubmit}
+				onSubmit={(values) => onSubmit({...values, status: values.status - 1})}
 			>
 				{() => (
 					<Form>
@@ -44,7 +44,7 @@ const ConsultantFormModal = (props) => {
 							name="status"
 							component={Select}
 							label="Status"
-							options={CONSULTANT_STATUS}
+							options={CONSULTANT_STATUS.map((option) => ({ ...option, id: option.id + 1 }))}
 						/>
 						<Field
 							name="qualification"
@@ -71,7 +71,7 @@ const ConsultantFormModal = (props) => {
 								style={{ margin: "8px 8px 8px 0", background: "#800080", padding: '8px 20px' }}
 							>
 								Submit
-              </Button>
+              				</Button>
 							<Button
 								variant="contained"
 								color="primary"
@@ -79,7 +79,7 @@ const ConsultantFormModal = (props) => {
 								onClick={onClose}
 							>
 								Close
-              </Button>
+              				</Button>
 						</Mini>
 					</Form>
 				)}

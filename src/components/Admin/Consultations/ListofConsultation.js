@@ -31,6 +31,7 @@ import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';
 import { Edit, Delete } from '@material-ui/icons';
 import ConsultationFormModal from './ConsultationFormModal';
+import { CONSULTATION_MODE } from '../Constants';
 
 const consultationInitialValues = {
   id: '',
@@ -126,6 +127,15 @@ const ListofConsultation = () => {
 
     setNotificationConf([false, 'success', '']);
   };
+
+  const getConsultationMode = (mode) => {
+    switch (mode) {
+      case 0:
+        return CONSULTATION_MODE[0].name;
+      case 1:
+        return CONSULTATION_MODE[1].name;
+    }
+  }
 
   const handleFormSubmit = (values) => {
     const { appointmentTime, appointmentDate } = values;
@@ -227,29 +237,25 @@ const ListofConsultation = () => {
               <Table
                 dataSource={{
                   columns: [
-                    { id: 'user_id', label: 'User', sort: false },
-                    { id: 'consultation_purchase_id', label: 'Consultation Purchase ID', sort: true },
-                    { id: 'consultant_id', label: 'Consultant ID', sort: true },
-                    { id: 'status', label: 'Status', sort: true },
-                    { id: 'consultation_link', label: 'Consultation Link', sort: false },
-                    { id: 'consultation_time', label: 'Consultation Time', sort: false },
-                    { id: 'consultation_mode', label: 'Consultation Mode', sort: true },
+                    { id: 'user_id', label: 'Customer ID', sort: false },
+                    { id: 'user_name', label: 'Customer Name', sort: false },
+                    { id: 'user_email', label: 'Customer Email', sort: false },
+                    { id: 'user_mobile', label: 'Customer Phone Number', sort: false },
                     { id: 'consultant_name', label: 'Consultant Name', sort: true },
-                    { id: 'notes', label: 'Notes', sort: false },
+                    { id: 'consultation_time', label: 'Appointment Time', sort: false },
+                    { id: 'consultation_mode', label: 'Consultation Mode', sort: true },
+                    { id: 'notes', label: 'Consultant Feedback', sort: false },
                     { id: 'actions', label: '', sort: false },
                   ],
                   rows: consultations.map((consultation) => {
                     return [
+                      consultation.user_id,
                       `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
-                      consultation.consultation_purchase_id,
-                      consultation.consultant_id,
-                      consultation.status,
-                      <a href={consultation.consultation_link} target="_blank" rel="noopener noreferrer">
-                        link
-                      </a>,
-                      consultation.consultation_time,
-                      consultation.consultation_mode,
+                      consultation?.user?.email || '',
+                      consultation?.user?.mobile || '',
                       consultation.consultant_name,
+                      consultation.consultation_time,
+                      getConsultationMode(consultation.consultation_mode),
                       consultation.notes,
                       <>
                         <Edit
