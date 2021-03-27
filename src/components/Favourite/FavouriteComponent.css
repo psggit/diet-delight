@@ -1,0 +1,52 @@
+#FavWrapper {
+  margin-bottom: 30px;
+  width: 320px;
+}
+
+#FavWrapper .imageContainer {
+  margin-bottom: 10px;
+}
+
+#FavWrapper .imageContainer img {
+  width: 320px;
+  height: 200px;
+  object-fit: cover;
+}
+
+#FavWrapper .note {
+  display: flex;
+  justify-content: space-between;
+}
+
+#FavWrapper .note p {
+  color: #8bc53f;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#FavWrapper .note .icon {
+  display: flex;
+  align-items: center;
+}
+
+#FavWrapper .note .icon i.heart_menu_pkg_fill {
+  color: red;
+  cursor: pointer;
+  position: relative;
+  margin-top: 0;
+}
+
+#FavWrapper .note .icon i.loader {
+  color: purple;
+}
+
+#FavWrapper .note .icon div {
+  right: 0;
+}
+
+#FavWrapper .note .icon .action-icon {
+  width: 20px;
+  right: 0;
+  margin-right: 20px;
+}

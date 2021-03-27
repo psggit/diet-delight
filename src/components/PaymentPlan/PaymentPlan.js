@@ -106,6 +106,7 @@ export default function PaymentPlan(props){
                   }else{
                     var errorMessage = document.getElementById('successCoupon');
                     errorMessage.innerHTML = 'Coupon applied Successfully';
+                    errorMessage.style.color = 'green';
                  
                     console.log(res.data.data[verifyCoupon])
                     setCouponScheme(res.data.data[verifyCoupon])

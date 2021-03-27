@@ -121,6 +121,12 @@ span.active_text{
 }
 
 @media only screen and (max-width: 767px) {
+  div.dialog_container_cale{
+    height: 325px;
+  }
+  .calender_dialog_bg_new{
+    font-size:10px;
+  }
   label.active {
    padding: 0px;
    background: #77838F;
