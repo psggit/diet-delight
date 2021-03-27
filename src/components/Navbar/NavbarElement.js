@@ -4,7 +4,6 @@ import { Link as LinkS } from "react-scroll";
 
 export const Nav = styled.nav`
   background-color: ${(props) => (props.nav ? "#f4f4f8" : "white")};
-  min-height: 15vh;
   display: flex;
   font-family: "Roboto Condensed bold";
   justify-content: center;
@@ -22,7 +21,6 @@ export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   overflow: hidden;
-  min-height: 15vh;
   z-index: 1;
   width: 100%;
   padding: 30px 70px;
