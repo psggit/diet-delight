@@ -139,18 +139,19 @@ li span.active_light_grey{
 }
 label.active_break_grey{
   padding: 0px;
-  width: 30px;
-  height: 30px;
-  font-size: 10px;
-  border-radius: 30px;
+  width: 29px;
+  height: 28px;
+  font-size: 8px;
+  border-radius: 25px;
   background: #77838F;
   color: #fff;
   text-align: center;
-  padding-top: 6px;
-  line-height: 5px;
+  padding-top: 7px;
+  line-height: 4px;
+  letter-spacing: 1px;
 }
 span.break_text_calender{
-  
+
 }
 
 @media only screen and (max-width: 767px) {
@@ -258,7 +259,7 @@ span.break_text_calender{
     margin-top: 15px;
   }
   .calender_dialog_bg{
-    
+
     height: 100%; /* You must set a specified height */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
@@ -300,6 +301,7 @@ span.break_text_calender{
   }
   
 }
+
 
 @media only screen and (min-width: 768px) {
   .month ul li {
@@ -348,7 +350,7 @@ span.break_text_calender{
     margin-top: 15px;
   }
   .calender_dialog_bg{
-    
+
     height: 500px;
     background-position: center;
     background-repeat: no-repeat;
@@ -472,4 +474,19 @@ span.break_text_calender{
   
   
   
+}
+
+@media only screen and (min-width: 1200px){
+  .days {
+    padding: 24px 0;
+    margin: 0;
+    background: transparent;
+  }
+  .calender_dialog_bg_new {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 337px;
+}
 }
