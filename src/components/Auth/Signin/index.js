@@ -307,7 +307,11 @@ const Signin = () => {
   };
 
   const handleCloseOtp = () => {
-    // props.handleOtpDialog();
+    setOtpDialog(false);
+  };
+
+  const handleCloseMobileDialog = () => {
+    setMobileDialog(false);
   };
 
   return (
@@ -428,7 +432,7 @@ const Signin = () => {
       <div style={{ zIndex: 5 }}>
         <Dialog
           open={mobileDialog}
-          onClose={handleCloseOtp}
+          onClose={handleCloseMobileDialog}
           style={{ borderRadius: 40 }}
           aria-labelledby="responsive-dialog-title"
         >

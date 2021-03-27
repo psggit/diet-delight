@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link as LinkR } from "react-router-dom";
 import back from "../../../assets/mealplan.jpg";
+import { Para } from "../../MainComponents";
 
 export const BackgroundImageContainer = styled.div`
   width: 100%;
@@ -103,3 +104,15 @@ export const Button = styled.button`
     border: none;
   }
 `;
+
+export const ForgotPasswordPara = styled(Para)`
+  color : rgba(137,197,63,1);
+  font-size : 0.9rem;
+  font-weight: 700;
+  text-align: end;
+  cursor: pointer;
+
+  :hover{
+    color : purple;
+  }
+`

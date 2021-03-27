@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import { Section, Facebook, Google, IconBox } from "./../Signup/SignupElements";
-import { Button } from "./SignInElements";
+import { Button, ForgotPasswordPara } from "./SignInElements";
 
 import { Para, Line } from "../../MainComponents";
 
@@ -12,7 +12,12 @@ import signInWithGoogle from "../SignInMethods/GoogleSignIn";
 import signInWithFaceBook from "../SignInMethods/FaceBookSignIn";
 import InputTextBox from "./../Signup/InputTextBox";
 
-const SignInForm = ({ handleLogin, handleSignUp, handleForgotPassword, err }) => {
+const SignInForm = ({
+  handleLogin,
+  handleSignUp,
+  handleForgotPassword,
+  err,
+}) => {
   const ValidateSchema = Yup.object().shape({
     email_phone: Yup.string().required().label("Email/Phone"),
     password: Yup.string().required().label("Password"),
@@ -64,16 +69,9 @@ const SignInForm = ({ handleLogin, handleSignUp, handleForgotPassword, err }) =>
               }}
             />
 
-            <Para
-              color="rgba(137,197,63,1)"
-              size="0.9rem"
-              weight="700"
-              align="end"
-              cursor="pointer"
-              onClick={handleForgotPassword}
-            >
+            <ForgotPasswordPara onClick={handleForgotPassword}>
               Forgot password ?
-            </Para>
+            </ForgotPasswordPara>
 
             {err && (
               <Para color="purple" size="0.8rem" weight="700">
