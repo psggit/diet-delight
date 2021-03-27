@@ -27,7 +27,7 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
     countryCode: Yup.string().required().label("Country Code"),
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(6).label("Password"),
-    check: Yup.string().when("password", {
+    check: Yup.string().required("Confirm Password is a required field").when("password", {
       is: (val) => (val && val.length > 0 ? true : false),
       then: Yup.string().oneOf(
         [Yup.ref("password")],
@@ -150,6 +150,10 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
               }}
             />
 
+            <CustomButton style={{marginTop: "1.5rem"}} id="sign-up" type="submit" onClick={handleSubmit}>
+              SIGN UP
+            </CustomButton>
+
             <Section width="auto">
               <Line back="rgba(137,197,63,1)" height="1px" />
               <Para
@@ -176,9 +180,6 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
                 <Google />
               </IconBox>
             </Section>
-            <CustomButton id="sign-up" type="submit" onClick={handleSubmit}>
-              SIGN UP
-            </CustomButton>
           </>
         )}
       </Formik>

@@ -4,7 +4,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { Image, Para, Line, Subheading } from "../../MainComponents";
 import {
   Main,
-  Input,
   Container,
   Route,
   Button,
@@ -12,7 +11,6 @@ import {
   RouteContainer,
   BackgroundImageContainer,
 } from "./SignInElements";
-import { IconBox, Section, Facebook, Google } from "../Signup/SignupElements";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import dotenv from "dotenv";
@@ -25,8 +23,7 @@ import { Cookies } from "react-cookie";
 import logo from "../../../assets/logo.png";
 import ClientOAuth2 from "client-oauth2";
 import { SetTrue, login, selectUser } from "../../../features/userSlice";
-// import signInWithGoogle from "../SignInMethods/GoogleSignIn";
-// import signInWithFaceBook from "../SignInMethods/FaceBookSignIn";
+
 import firebase from "../SignInMethods/firebaseConfig";
 import logo_img from "../../../assets/logoweb.png";
 import ChangePassword from "../ResetChangePassword/ChangePassword";
@@ -34,6 +31,8 @@ import ChangePassword from "../ResetChangePassword/ChangePassword";
 import SignInForm from "./SignInForm";
 
 import "../Signin/Signin.css";
+
+import { callingCodes } from "country-data";
 
 dotenv.config();
 
@@ -78,10 +77,6 @@ const Signin = () => {
   );
   const [toggleChangePassword, setToggleChangePassword] = useState(false);
   const [firebaseUid, setFirebaseUid] = useState("");
-
-  var callingCountries = require("country-data").callingCodes;
-
-  console.log(callingCountries);
 
   useEffect(() => {
     localStorage.setItem(
@@ -217,20 +212,24 @@ const Signin = () => {
   };
 
   const handleSignIn = (token, user) => {
-    console.log(token, user);
+    console.log("handleSignIn : ", token, user);
     console.log(user.email);
     setEmail(user.email);
     setPassword("DietDelight@123ForEnigmaty");
-    handleLogin();
+
+    handleLogin({
+      email_phone: user.email,
+      password: "DietDelight@123ForEnigmaty",
+    });
   };
 
-  const renderCountryCode = callingCountries.all.map((option) => {
-    return (
-      <option key={Math.random()} value={option}>
-        {option}
-      </option>
-    );
-  });
+  // var callingCountries = require("country-data").callingCodes;
+  // console.log(callingCountries);
+  // const renderCountryCode = callingCodes.all.map((option) => (
+  //   <option key={Math.random()} value={option}>
+  //     {option}
+  //   </option>
+  // ));
 
   const handleLogin = (values) => {
     console.log("E : ", values);
@@ -306,10 +305,6 @@ const Signin = () => {
     //   })
     phoneAuth();
   };
-
-  // const handleSearch = (e) => {
-  //   console.log("Clicked for the user get");
-  // };
 
   const handleCloseOtp = () => {
     // props.handleOtpDialog();
@@ -453,7 +448,11 @@ const Signin = () => {
                     code.current = e.target.value;
                   }}
                 >
-                  {renderCountryCode}
+                  {callingCodes.all.map((option) => (
+                    <option key={Math.random()} value={option}>
+                      {option}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -484,7 +483,6 @@ const Signin = () => {
               <Button
                 onClick={(e) => {
                   e.preventDefault();
-                  // phoneAuth();
                   phoneAuth();
                 }}
               >
@@ -543,87 +541,6 @@ const Signin = () => {
                     handleLogin={handleLogin}
                     err={err}
                   />
-
-                  {/* <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.8rem"
-                    weight="700"
-                    align="none"
-                  >
-                    EMAIL / PHONE
-                  </Para>
-                  <Input
-                    value={email}
-                    type="text"
-                    placeholder="Enter Email/ Phone"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.8rem"
-                    weight="700"
-                    align="none"
-                  >
-                    ENTER PASSWORD
-                  </Para>
-                  <Input
-                    type="password"
-                    placeholder="Enter Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-
-                  <Para
-                    color="rgba(137,197,63,1)"
-                    size="0.9rem"
-                    weight="700"
-                    align="end"
-                    cursor="pointer"
-                    onClick={handleForgotPassword}
-                  >
-                    Forgot password ?
-                  </Para>
-                  {err && (
-                    <Para color="red" size="0.9rem" weight="700">
-                      Email or Password is Wrong !
-                    </Para>
-                  )}
-
-                  <Button
-                    id="sign-in-btn"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      // phoneAuth();
-                      handleLogin();
-                    }}
-                  >
-                    SIGN IN
-                  </Button>
-
-                  <Section width="auto">
-                    <Line back="rgba(137,197,63,1)" height="1px" />
-                    <Para
-                      width="30px"
-                      color="rgba(137,197,63,1)"
-                      size="0.8rem"
-                      weight="700"
-                    >
-                      OR
-                    </Para>
-                    <Line back="rgba(137,197,63,1)" height="1px" />
-                  </Section>
-
-                  <Section>
-                    <IconBox
-                      back="darkblue"
-                      onClick={() => signInWithFaceBook(handleSignIn)}
-                    >
-                      <Facebook />
-                    </IconBox>
-                    <IconBox back="red">
-                      <Google onClick={() => signInWithGoogle(handleSignIn)} />
-                    </IconBox>
-                  </Section> */}
                 </Container>
               </SetBg>
             </>
