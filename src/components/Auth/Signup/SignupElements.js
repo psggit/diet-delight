@@ -11,9 +11,8 @@ export const BackgroundImageContainer = styled.div`
   overflow: hidden;
   background: url(${back}) no-repeat center center;
   background-size: cover;
-  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-  }
-  `
+`;
+
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,8 +78,8 @@ export const Section = styled.div`
 export const Phone = styled.input`
   height: 28px;
   text-decoration: none;
-  width: 200px;
-  margin: 5px 10px;
+  width: 220px;
+  margin: 5px 0 5px 10px;
   padding: 10px;
   border: 1.2px solid #909090;
   color: #909090;
@@ -97,18 +96,12 @@ export const Input = styled.input`
   height: 28px;
   color: #909090;
   text-decoration: none;
-  width: 288px;
+  width: 320px;
   align-self: flex-start;
   margin: 5px 10px;
   padding: 10px;
   border: 1.2px solid #909090;
   border-radius: 5px;
-  &:focus {
-    outline: none;
-  }
-  ::placeholder {
-    color: #909090;
-  }
 `;
 
 export const Facebook = styled(FaFacebook)`
@@ -154,13 +147,12 @@ export const CustomButton = styled.button`
   }
 `;
 
-
 export const ErrorPara = styled(Para)`
-  color: red;
-  font-size: 0.8rem;
+  color: purple;
+  font-size: 0.7rem;
   font-weight: 700;
   margin: 0;
   padding: 0;
   text-align: left;
   margin-left: 1.3rem;
-`
+`;

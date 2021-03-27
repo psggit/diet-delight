@@ -20,11 +20,10 @@ const SelectCountryCode = ({ handleOnChange }) => {
         border: "1.2px solid #909090",
         color: "#909090",
         borderRadius: "5px",
+        width: "90px"
       }}
     >
-      <option value="" disabled style={{ color: "#909090" }}>
-        Select
-      </option>
+      <option value="" disabled></option>
       {callingCountries.map((option, index) => (
         <option key={index} value={option}>
           {option}

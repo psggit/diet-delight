@@ -5,15 +5,8 @@ import {
   Main,
   Route,
   Container,
-  Section,
-  Phone,
-  Facebook,
-  Google,
-  IconBox,
-  CustomButton,
   SetBg,
   RouteContainer,
-  ErrorPara,
   BackgroundImageContainer,
 } from "./SignupElements";
 
@@ -21,9 +14,6 @@ import { useHistory } from "react-router-dom";
 
 import axios from "../../../axiosInstance";
 import { Cookies } from "react-cookie";
-
-import signInWithGoogle from "../SignInMethods/GoogleSignIn";
-import signInWithFaceBook from "../SignInMethods/FaceBookSignIn";
 
 import {
   Dialog,
@@ -35,21 +25,14 @@ import {
   Button,
 } from "@material-ui/core";
 
-import { Formik } from "formik";
-
-import * as Yup from "yup";
-
 import logo from "../../../assets/logo.png";
-import { Image, Para, Line, Subheading } from "../../MainComponents";
+import { Image, Line, Subheading } from "../../MainComponents";
 import { useDispatch } from "react-redux";
 import { setNew } from "../../../features/userSlice";
-import countryList from "react-select-country-list";
-import OtpDialog from "../OtpDialog";
 import firebase from "../SignInMethods/firebaseConfig";
 import logo_img from "../../../assets/logoweb.png";
+import SignUpForm from "./SignUpForm";
 
-import SelectCountryCode from "./SelectCountryCode";
-import InputTextBox from "./InputTextBox";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -61,15 +44,7 @@ const Signup = () => {
   let cookie = new Cookies();
 
   const [otpDialog, setOtpDialog] = useState(false);
-  // const options = useMemo(() => countryList().getValues(), []);
-  // const [disabled, setDisabled] = useState(false);
-
   const [open, setOpen] = useState(false);
-
-  // const code = useRef("");
-  // let phoneNumber = useRef("");
-  // const [countryCode, setCountryCode] = useState("");
-
   const reCaptcha = useRef("");
   const [otp, setOtp] = useState("");
 
@@ -77,7 +52,6 @@ const Signup = () => {
   const [successErrorMessage, setSuccessErrorMessage] = useState(
     "Account Created SuccessFully"
   );
-  // const [autofocus, setAutoFocus] = useState(true);
 
   const [num1, setNum1] = useState("");
   const [num2, setNum2] = useState("");
@@ -92,6 +66,8 @@ const Signup = () => {
     email: "",
     password: "",
     check: "",
+    countryCode: "",
+    phone: "",
     firebase_uid: "",
   });
 
@@ -109,15 +85,6 @@ const Signup = () => {
   const handleCloseOtp = () => {
     // props.handleOtpDialog();
   };
-
-  const ValidateSchema = Yup.object().shape({
-    fname: Yup.string().required().label("First Name"),
-    lname: Yup.string().required().label("Last Name"),
-    phone: Yup.number().required().label("Phone"),
-    countryCode: Yup.string().required().label("Country Code"),
-    email: Yup.string().required().email().label("Email"),
-    password: Yup.string().required().min(6).label("Password"),
-  });
 
   const resendOtp = () => {
     grecaptcha.reset();
@@ -218,7 +185,8 @@ const Signup = () => {
   };
 
   const phoneAuth = async (values) => {
-    // let number = countryCode + phoneNumber.current;
+    setFormValues({ ...formValues, ...values });
+    
     const fullMobileNumber = values.countryCode + values.phone;
     console.log("Full Number : ", fullMobileNumber);
 
@@ -507,164 +475,7 @@ const Signup = () => {
                 </DialogActions>
               </Dialog>
 
-              <div
-                style={{
-                  display: "flex",
-                  maxWidth: "300px",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                }}
-              >
-                <Formik
-                  initialValues={{
-                    countryCode: "",
-                    phone: "",
-                    fname: "",
-                    lname: "",
-                    email: "",
-                    password: "",
-                    check: "",
-                    firebase_uid: "",
-                  }}
-                  validationSchema={ValidateSchema}
-                  onSubmit={(values) => {
-                    console.log("Values :", values);
-                    phoneAuth(values);
-                  }}
-                >
-                  {({ handleChange, handleSubmit, errors, touched }) => (
-                    <>
-                      <Para
-                        color="rgba(137,197,63,1)"
-                        size="0.8rem"
-                        weight="700"
-                        align="none"
-                      >
-                        PHONE NUMBER
-                      </Para>
-                      <Section width="auto">
-                        <SelectCountryCode
-                          handleOnChange={handleChange("countryCode")}
-                        />
-                        <Phone
-                          type="number"
-                          placeholder="Enter Phone Number"
-                          onChange={handleChange("phone")}
-                          onKeyPress={(e) => {
-                            if (e.code === "Enter") {
-                              handleSubmit();
-                            }
-                          }}
-                        />
-                      </Section>
-                      {errors.countryCode && touched.countryCode ? (
-                        <ErrorPara>{errors.countryCode}</ErrorPara>
-                      ) : (
-                        errors.phone &&
-                        touched.phone && <ErrorPara>{errors.phone}</ErrorPara>
-                      )}
-
-                      <InputTextBox
-                        label="FIRST NAME"
-                        placeholder="Enter First Name"
-                        error={errors.fname}
-                        isTouched={touched.fname}
-                        handleOnChange={handleChange("fname")}
-                        handleOnKeyPress={(e) => {
-                          if (e.code === "Enter") {
-                            handleSubmit();
-                          }
-                        }}
-                      />
-                      <InputTextBox
-                        label="LAST NAME"
-                        placeholder="Enter Last Name"
-                        error={errors.lname}
-                        isTouched={touched.lname}
-                        handleOnChange={handleChange("lname")}
-                        handleOnKeyPress={(e) => {
-                          if (e.code === "Enter") {
-                            handleSubmit();
-                          }
-                        }}
-                      />
-                      <InputTextBox
-                        label="EMAIL ADDRESS"
-                        placeholder="Enter Email"
-                        error={errors.email}
-                        inputType="email"
-                        isTouched={touched.email}
-                        handleOnChange={handleChange("email")}
-                        handleOnKeyPress={(e) => {
-                          if (e.code === "Enter") {
-                            handleSubmit();
-                          }
-                        }}
-                      />
-                      <InputTextBox
-                        label="PASSWORD"
-                        placeholder="Enter Password"
-                        error={errors.password}
-                        inputType="password"
-                        isTouched={touched.password}
-                        handleOnChange={handleChange("password")}
-                        handleOnKeyPress={(e) => {
-                          if (e.code === "Enter") {
-                            handleSubmit();
-                          }
-                        }}
-                      />
-                      <InputTextBox
-                        label="CONFIRM PASSWORD"
-                        placeholder="Confirm Password"
-                        // error={errors.password}
-                        // isTouched={touched.password}
-                        inputType="password"
-                        handleOnChange={handleChange("check")}
-                        handleOnKeyPress={(e) => {
-                          if (e.code === "Enter") {
-                            handleSubmit();
-                          }
-                        }}
-                      />
-
-                      <Section width="auto">
-                        <Line back="rgba(137,197,63,1)" height="1px" />
-                        <Para
-                          width="30px"
-                          color="rgba(137,197,63,1)"
-                          size="0.8rem"
-                          weight="700"
-                        >
-                          OR
-                        </Para>
-                        <Line back="rgba(137,197,63,1)" height="1px" />
-                      </Section>
-                      <Section>
-                        <IconBox
-                          back="darkblue"
-                          onClick={() => signInWithFaceBook(handleSignUp)}
-                        >
-                          <Facebook />
-                        </IconBox>
-                        <IconBox
-                          back="red"
-                          onClick={() => signInWithGoogle(handleSignUp)}
-                        >
-                          <Google />
-                        </IconBox>
-                      </Section>
-                      <CustomButton
-                        id="sign-up"
-                        type="submit"
-                        onClick={handleSubmit}
-                      >
-                        SIGN UP
-                      </CustomButton>
-                    </>
-                  )}
-                </Formik>
-              </div>
+              <SignUpForm handleSignUp={handleSignUp} phoneAuth={phoneAuth} />
             </Container>
           </SetBg>
         </Main>
