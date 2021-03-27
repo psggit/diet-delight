@@ -3,29 +3,10 @@ import React, { useState, useEffect } from "react";
 import axios from "../../../axiosInstance";
 import CustomSkeleton from "../../../CustomSkeleton";
 
-import {
-  makeStyles,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Snackbar,
-  Select,
-  MenuItem,
-} from "@material-ui/core";
+import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { CSVLink } from "react-csv";
 import Modal from '../../reusable/Modal';
-
 import { Main } from "./ConsultantElements";
 import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';

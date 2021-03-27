@@ -67,13 +67,13 @@ import PostCoupon from "./Coupon/PostCoupon";
 import ListofConsultants from "./consultant/ListofConsultants";
 
 import ListofMealPlan from "./Mealplan/ListofMealPlan";
+import ListofDuration from "./Mealplan/ListofDuration";
 import AddMealPlan from "./Mealplan/AddMealPlan";
 import PostConsultant from "./consultant/PostConsultant";
 
 import ListofOrderList from "./Order/ListofOrderList";
 import PostOrder from "./Order/PostOrder";
 
-import ListofDuration from "./Duration/ListofDuration";
 import PostDuration from "./Duration/PostDuration";
 
 import ListofAnswer from "./questions/ListofAnswer";
@@ -295,12 +295,11 @@ export default function PersistentDrawerLeft() {
                   primaryLabel="CONSULTATION PACKAGE"
                   navList={[
                     {
-                      label: "Consultation Package List",
+                      label: "Consultation Packages",
                       link: "consultationPackageList",
                     },
                   ]}
                 />
-
                 <CustomNavList
                   name="consultation"
                   open={listKey === 'consultation'}
@@ -332,8 +331,8 @@ export default function PersistentDrawerLeft() {
                   handleClick={handleMenuOpen}
                   primaryLabel="MEAL PLAN"
                   navList={[
-                    { label: "All Meal Plan", link: "mealplanlist" },
-                    { label: "Add New Meal Plan", link: "addnewmealplan" },
+                    { label: "Duration", link: "durationlist" },
+                    { label: "Meal Plan", link: "mealplanlist" },
                   ]}
                 />
 
@@ -341,11 +340,11 @@ export default function PersistentDrawerLeft() {
                   name="order"
                   open={listKey === 'order'}
                   handleClick={handleMenuOpen}
-                  primaryLabel="ORDER"
+                  primaryLabel="TRANSACTION"
                   navList={[
-                    { label: "All Meal Purchase", link: "mealpurchaselist" },
+                    { label: "Meal Plan Subsciption", link: "mealpurchaselist" },
                     {
-                      label: "All Consultation Purchase",
+                      label: "Consultation Package",
                       link: "Consultationpurchaselist",
                     },
                   ]}
@@ -368,17 +367,6 @@ export default function PersistentDrawerLeft() {
                   navList={[
                     { label: "List of Blogs", link: "bloglist" },
                     { label: "Add Blog", link: "addblog" },
-                  ]}
-                />
-
-                <CustomNavList
-                  name="duration"
-                  open={listKey === 'duration'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="DURATION"
-                  navList={[
-                    { label: "List Duration", link: "durationlist" },
-                    { label: "Add Duration", link: "addduration" },
                   ]}
                 />
               </List>

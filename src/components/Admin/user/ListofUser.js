@@ -130,7 +130,7 @@ const ListofUser = () => {
       secondary_address_line2: values.secondaryAddressLine2,
       email: values.email,
       age: values.age,
-      gender: values.gender,
+      ...(values.gender > 0 ? { gender: values.gender } : {}),
       roles: [values.role || 1],
       bmi: values.bmi || '',
       ...(values.calories && { recommended_calories: parseInt(values.calories, 10) }),

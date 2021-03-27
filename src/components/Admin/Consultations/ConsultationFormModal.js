@@ -31,13 +31,13 @@ const ConsultationFormModal = (props) => {
 			requireFooter={false}
 		>
 			<Formik
-				initialValues={{ 
-					...values, 
-					mode: (typeof values.mode === 'number') ? values.mode + 1 : '', 
+				initialValues={{
+					...values,
+					mode: (typeof values.mode === 'number') ? values.mode + 1 : '',
 					status: (typeof values.status === 'number') ? values.status + 1 : '',
 				}}
 				validationSchema={validationSchema}
-				onSubmit={(values) => onSubmit({...values, status: values.status - 1, mode: values.mode - 1})}
+				onSubmit={(values) => onSubmit({ ...values, status: values.status - 1, mode: values.mode - 1 })}
 			>
 				{({ setFieldValue, values: { email, mobile } }) => (
 					<Form>

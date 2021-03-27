@@ -1,26 +1,22 @@
 import React, { useState } from "react";
-import { Button, Grid } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 
-import { TextField, Select } from '../../reusable/InputItems';
+import { TextField } from '../../reusable/InputItems';
 import Modal from '../../reusable/Modal';
 import { Mini } from "../Elements";
-import { CONSULTATION_PACKAGE_STATUS } from '../Constants';
 
 const validationSchema = Yup.object().shape({
-	name: Yup.string().required('Please enter Name'),
-	duration: Yup.number().required('Please enter Duration'),
-	order: Yup.string().required('Please enter Order'),
-	status: Yup.string().required('Please select Status'),
+	title: Yup.string().required('Please enter Title'),
 	subtitle: Yup.string(),
+	duration: Yup.number().required('Please enter Duration'),
+	order: Yup.number().required('Please enter Order'),
 	details: Yup.string(),
-	price: Yup.number().required('Please enter Price'),
-	salePrice: Yup.number().required('Please enter Sale Price'),
-
 });
 
-const ConsultantPackageFormModal = (props) => {
+const DurationFormModal = (props) => {
 	const { visible, onClose, onSubmit, mode, values = {} } = props;
 	const [file, setFile] = useState('');
 
@@ -37,20 +33,20 @@ const ConsultantPackageFormModal = (props) => {
 		<Modal
 			visible={visible}
 			onClose={onClose}
-			title={`${mode} Consultation Package`}
+			title={`${mode} Duration`}
 			requireFooter={false}
 		>
 			<Formik
-				initialValues={{ ...values, status: (typeof values.status === 'number') ? values.status + 1 : '' }}
+				initialValues={values}
 				validationSchema={validationSchema}
-				onSubmit={(values) => onSubmit({ ...values, status: values.status - 1, picture: file ? file : '' })}
+				onSubmit={(values) => onSubmit({ ...values, picture: file ? file : '' })}
 			>
 				{() => (
 					<Form>
 						<Field
-							name="name"
+							name="title"
 							component={TextField}
-							label="Name*"
+							label="Title*"
 						/>
 						<Field
 							name="subtitle"
@@ -58,43 +54,16 @@ const ConsultantPackageFormModal = (props) => {
 							label="Subtitle"
 						/>
 						<Field
+							name="duration"
+							component={TextField}
+							label="Duration*"
+						/>
+						<Field
 							name="order"
 							component={TextField}
 							label="Order*"
+							placeholder="Order"
 						/>
-						<Grid container spacing={2}>
-							<Grid item xs>
-								<Field
-									name="duration"
-									component={TextField}
-									label="Duration*"
-								/>
-							</Grid>
-							<Grid item xs>
-								<Field
-									name="status"
-									component={Select}
-									label="Status*"
-									options={CONSULTATION_PACKAGE_STATUS.map((option) => ({ ...option, id: option.id + 1 }))}
-								/>
-							</Grid>
-						</Grid>
-						<Grid container spacing={2}>
-							<Grid item xs>
-								<Field
-									name="price"
-									component={TextField}
-									label="Price*"
-								/>
-							</Grid>
-							<Grid item xs>
-								<Field
-									name="salePrice"
-									component={TextField}
-									label="Sale Price*"
-								/>
-							</Grid>
-						</Grid>
 						{mode === 'Add' && (
 							<Field
 								name="picture"
@@ -120,7 +89,7 @@ const ConsultantPackageFormModal = (props) => {
 							component={TextField}
 							label="Details"
 							multiline
-							rows={4}
+							rows={3}
 						/>
 						<Mini style={{ marginTop: "10px" }}>
 							<Button
@@ -147,4 +116,4 @@ const ConsultantPackageFormModal = (props) => {
 	)
 }
 
-export default ConsultantPackageFormModal;
+export default DurationFormModal;
