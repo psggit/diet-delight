@@ -12,6 +12,7 @@
 	import 'react-calendar/dist/Calendar.css';
 	import './CustomcalenderStyle.css'
 	import './customStyleForCalendar.css'
+	import './CalenderDialogMain.css'
 
 
 
@@ -132,45 +133,45 @@
 			setCurrentMonthInNumber(newValue)
 			switch(newValue){
 				case 1:
-					setCurrentMonth('January')
-					break;
+				setCurrentMonth('January')
+				break;
 				case 2:
-					setCurrentMonth('February')
-					break;
+				setCurrentMonth('February')
+				break;
 				case 3:
-					setCurrentMonth('March')
-					break;
+				setCurrentMonth('March')
+				break;
 				case 4:
-					setCurrentMonth('April')
-					break;
+				setCurrentMonth('April')
+				break;
 				case 5:
-					setCurrentMonth('May')
-					break;
+				setCurrentMonth('May')
+				break;
 				case 6:
-					setCurrentMonth('June')
-					break;
+				setCurrentMonth('June')
+				break;
 				case 7:
-					setCurrentMonth('July')
-					break;
+				setCurrentMonth('July')
+				break;
 				case 8:
-					setCurrentMonth('August')
-					break;
+				setCurrentMonth('August')
+				break;
 				case 9:
-					setCurrentMonth('September')
-					break;
+				setCurrentMonth('September')
+				break;
 				case 10:
-					setCurrentMonth('October')
-					break;
+				setCurrentMonth('October')
+				break;
 				case 11:
-					setCurrentMonth('November')
-					break;
+				setCurrentMonth('November')
+				break;
 				case 12:
-					setCurrentMonth('December')
-					break;
+				setCurrentMonth('December')
+				break;
 			}
 		}
 
-	
+
 
 		useEffect(() => {
 			setStartDate(props.startDate)
@@ -220,10 +221,10 @@
 			var createLabelElement = document.createElement('label');
 			createLabelElement.className = 'active_break_grey';
 			createLabelElement.innerHTML = day+'<br></br>'+'break';
-			// var appendElement = <label className="active_break_grey">${day}<br></br> break </label>;
-			var listElement = document.getElementById(e.target.id);
-			listElement.innerHTML = '';
-			listElement.appendChild(createLabelElement);
+		{/* var appendElement = <label className="active_break_grey">${day}<br></br> break </label>; */}
+		var listElement = document.getElementById(e.target.id);
+		listElement.innerHTML = '';
+		listElement.appendChild(createLabelElement);
 		}
 
 		useEffect(() => {
@@ -240,65 +241,65 @@
 		const renderWeeks = weekDays.map((weekDay) => <li key={Math.random()} id={Math.random()}>{weekDay}</li>)
 
 
-		const renderMonthDays = totalDays.map((day) => <li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}>{day}</li>)
+			const renderMonthDays = totalDays.map((day) => <li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}>{day}</li>)
 
 
-		if(props.changeAddress === true){
-			if(props.startDate != "" && props.endDate != ''){
-				return (
+			if(props.changeAddress === true){
+				if(props.startDate != "" && props.endDate != ''){
+					return (
 					<div>
-	
+
 					<Dialog
 					open={open}
-	
+
 					style={{borderRadius:40}}
 					aria-labelledby="responsive-dialog-title">
-	
+
 					<DialogTitle className="calender_dialog_bg_new" id="responsive-dialog-title">
 					<div className="breaks_header text-light text-center">
 					<span >Breaks</span>
 					</div>
-	
-					<div>
-		<div className="month">      
-		<ul>
-		<li className="prev" onClick={() => handleMonth("prev")}>&#10094;</li>
-		<li className="next" onClick={() => handleMonth("next")}>&#10095;</li>
-		<li className="month_dialog_text">
-		{currentMonth}
-		<span className="year_dialog_text ml-1 mr-1">{currentYear}</span>
-		</li>
-		</ul>
-		</div>
-	
-		<ul className="weekdays">
-		{renderWeeks}
-		</ul>
-	
-		<ul className="days">  
-		{renderMonthDays}
-		</ul>	
-	
-	
-		</div>
-	
-	
-		<div className="btn_container_dialog_calender mt-3">
-		<button className="btn calender_btn_dialog"  onClick ={() =>props.makeAddress(false)}><span className="material-icons done_all_icon">done_all</span></button>
-		</div>
-	
-	
-		</DialogTitle>
-	
-	
-		</Dialog>
-		</div>
-		);
-			}
+
+					<div className="dialog_container_cale">
+					<div className="month">      
+					<ul>
+					<li className="prev" onClick={() => handleMonth("prev")}>&#10094;</li>
+					<li className="next" onClick={() => handleMonth("next")}>&#10095;</li>
+					<li className="month_dialog_text">
+					{currentMonth}
+					<span className="year_dialog_text ml-1 mr-1">{currentYear}</span>
+					</li>
+					</ul>
+					</div>
+
+					<ul className="weekdays">
+					{renderWeeks}
+					</ul>
+
+					<ul className="days">  
+					{renderMonthDays}
+					</ul>	
+
+
+					</div>
+
+
+					<div className="btn_container_dialog_calender mt-1">
+					<button className="btn calender_btn_dialog"  onClick ={() =>props.makeAddress(false)}><span className="material-icons done_all_icon">done_all</span></button>
+					</div>
+
+
+					</DialogTitle>
+
+
+					</Dialog>
+					</div>
+					);
+				}
 			}else{
-		return(
-		<>
-		</>
-		)
-	}
-}
+				return(
+				<>
+				</>
+				)
+			}
+		}
