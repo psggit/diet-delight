@@ -10,6 +10,7 @@ import {
   Button,
   SetBg,
   RouteContainer,
+  BackgroundImageContainer,
 } from "./SignInElements";
 import { IconBox, Section, Facebook, Google } from "../Signup/SignupElements";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -24,11 +25,13 @@ import { Cookies } from "react-cookie";
 import logo from "../../../assets/logo.png";
 import ClientOAuth2 from "client-oauth2";
 import { SetTrue, login, selectUser } from "../../../features/userSlice";
-import signInWithGoogle from "../SignInMethods/GoogleSignIn";
-import signInWithFaceBook from "../SignInMethods/FaceBookSignIn";
+// import signInWithGoogle from "../SignInMethods/GoogleSignIn";
+// import signInWithFaceBook from "../SignInMethods/FaceBookSignIn";
 import firebase from "../SignInMethods/firebaseConfig";
 import logo_img from "../../../assets/logoweb.png";
 import ChangePassword from "../ResetChangePassword/ChangePassword";
+
+import SignInForm from "./SignInForm";
 
 import "../Signin/Signin.css";
 
@@ -229,11 +232,16 @@ const Signin = () => {
     );
   });
 
-  const handleLogin = () => {
+  const handleLogin = (values) => {
+    console.log("E : ", values);
+    setEmail(values.email_phone);
+    setPassword(values.password);
+    const { email_phone, password: _password } = values;
+
     Auth.owner
-      .getToken(email, password)
+      .getToken(email_phone, _password)
       .then((res) => {
-        console.log(res.data);
+        console.log("Result : ", res.data);
         setToken(res.data);
         setErr(false);
         cookie.set("access_token", res.data.access_token, {
@@ -299,9 +307,9 @@ const Signin = () => {
     phoneAuth();
   };
 
-  const handleSearch = (e) => {
-    console.log("Clicked for the user get");
-  };
+  // const handleSearch = (e) => {
+  //   console.log("Clicked for the user get");
+  // };
 
   const handleCloseOtp = () => {
     // props.handleOtpDialog();
@@ -493,124 +501,135 @@ const Signin = () => {
           firebaseUid={firebaseUid}
         />
       )}
-      <Main>
-        <Route to="/">
-          <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
-        </Route>
-        {user?.id ? (
-          <>
-            <Para color="red" size="2rem" weight="700">
-              Already Logged IN
-            </Para>
-            <Button
-              onClick={() => {
-                history.push("/");
-              }}
-            >
-              GO Back
-            </Button>
-          </>
-        ) : (
-          <>
-            <RouteContainer>
-              <Route to="/signin">
-                <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
-                  SIGN IN
-                </Subheading>
-                <Line back="rgba(137,197,63,1)" top="0" height="3px" />
-              </Route>
-              <Route opacity="0.7" to="/signup">
-                <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
-                  SIGN UP
-                </Subheading>
-              </Route>
-            </RouteContainer>
-            <SetBg>
-              <Container>
-                <Para
-                  color="rgba(137,197,63,1)"
-                  size="0.8rem"
-                  weight="700"
-                  align="none"
-                >
-                  EMAIL / PHONE
-                </Para>
-                <Input
-                  value={email}
-                  type="text"
-                  placeholder="Enter Email/ Phone"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <Para
-                  color="rgba(137,197,63,1)"
-                  size="0.8rem"
-                  weight="700"
-                  align="none"
-                >
-                  ENTER PASSWORD
-                </Para>
-                <Input
-                  type="password"
-                  placeholder="Enter Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Para
-                  color="rgba(137,197,63,1)"
-                  size="0.9rem"
-                  weight="700"
-                  align="end"
-                  cursor="pointer"
-                  onClick={handleForgotPassword}
-                >
-                  Forgot password ?
-                </Para>
-                {err && (
-                  <Para color="red" size="0.9rem" weight="700">
-                    Email or Password is Wrong !
-                  </Para>
-                )}
 
-                <Button
-                  id="sign-in-btn"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // phoneAuth();
-                    handleLogin();
-                  }}
-                >
-                  SIGN IN
-                </Button>
+      <BackgroundImageContainer>
+        <Main>
+          <Route to="/">
+            <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
+          </Route>
+          {user?.id ? (
+            <>
+              <Para color="red" size="2rem" weight="700">
+                Already Logged IN
+              </Para>
+              <Button
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                GO Back
+              </Button>
+            </>
+          ) : (
+            <>
+              <RouteContainer>
+                <Route to="/signin">
+                  <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
+                    SIGN IN
+                  </Subheading>
+                  <Line back="rgba(137,197,63,1)" top="0" height="3px" />
+                </Route>
+                <Route opacity="0.7" to="/signup">
+                  <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
+                    SIGN UP
+                  </Subheading>
+                </Route>
+              </RouteContainer>
+              <SetBg>
+                <Container>
+                  <SignInForm
+                    handleSignUp={handleSignIn}
+                    handleForgotPassword={handleForgotPassword}
+                    handleLogin={handleLogin}
+                    err={err}
+                  />
 
-                <Section width="auto">
-                  <Line back="rgba(137,197,63,1)" height="1px" />
-                  <Para
-                    width="30px"
+                  {/* <Para
                     color="rgba(137,197,63,1)"
                     size="0.8rem"
                     weight="700"
+                    align="none"
                   >
-                    OR
+                    EMAIL / PHONE
                   </Para>
-                  <Line back="rgba(137,197,63,1)" height="1px" />
-                </Section>
-
-                <Section>
-                  <IconBox
-                    back="darkblue"
-                    onClick={() => signInWithFaceBook(handleSignIn)}
+                  <Input
+                    value={email}
+                    type="text"
+                    placeholder="Enter Email/ Phone"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <Para
+                    color="rgba(137,197,63,1)"
+                    size="0.8rem"
+                    weight="700"
+                    align="none"
                   >
-                    <Facebook />
-                  </IconBox>
-                  <IconBox back="red">
-                    <Google onClick={() => signInWithGoogle(handleSignIn)} />
-                  </IconBox>
-                </Section>
-              </Container>
-            </SetBg>
-          </>
-        )}
-      </Main>
+                    ENTER PASSWORD
+                  </Para>
+                  <Input
+                    type="password"
+                    placeholder="Enter Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+
+                  <Para
+                    color="rgba(137,197,63,1)"
+                    size="0.9rem"
+                    weight="700"
+                    align="end"
+                    cursor="pointer"
+                    onClick={handleForgotPassword}
+                  >
+                    Forgot password ?
+                  </Para>
+                  {err && (
+                    <Para color="red" size="0.9rem" weight="700">
+                      Email or Password is Wrong !
+                    </Para>
+                  )}
+
+                  <Button
+                    id="sign-in-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // phoneAuth();
+                      handleLogin();
+                    }}
+                  >
+                    SIGN IN
+                  </Button>
+
+                  <Section width="auto">
+                    <Line back="rgba(137,197,63,1)" height="1px" />
+                    <Para
+                      width="30px"
+                      color="rgba(137,197,63,1)"
+                      size="0.8rem"
+                      weight="700"
+                    >
+                      OR
+                    </Para>
+                    <Line back="rgba(137,197,63,1)" height="1px" />
+                  </Section>
+
+                  <Section>
+                    <IconBox
+                      back="darkblue"
+                      onClick={() => signInWithFaceBook(handleSignIn)}
+                    >
+                      <Facebook />
+                    </IconBox>
+                    <IconBox back="red">
+                      <Google onClick={() => signInWithGoogle(handleSignIn)} />
+                    </IconBox>
+                  </Section> */}
+                </Container>
+              </SetBg>
+            </>
+          )}
+        </Main>
+      </BackgroundImageContainer>
     </>
   );
 };

@@ -2,16 +2,22 @@ import styled from "styled-components";
 import { Link as LinkR } from "react-router-dom";
 import back from "../../../assets/mealplan.jpg";
 
-// overflow:hidden;
+export const BackgroundImageContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: url(${back}) no-repeat center center;
+  background-size: cover;
+`;
+
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  width: 100%;
-  background: url(${back}) no-repeat center center;
-  background-size: cover;
+  overflow: auto;
 `;
+
 export const Subheading = styled.div`
   text-decoration: none;
   &:hover {
