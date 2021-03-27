@@ -12,7 +12,6 @@ export const Nav = styled.nav`
   font-size: 1rem;
   position: sticky;
   top: 0;
-  padding-top: 15px;
   z-index: 10;
 
   @media screen and (max-width: 960px) {
@@ -26,11 +25,10 @@ export const NavbarContainer = styled.div`
   min-height: 15vh;
   z-index: 1;
   width: 100%;
-  padding: 0px 70px;
+  padding: 30px 70px;
 `;
 
 export const NavLogo = styled.div`
-  height: 15vh;
   cursor: pointer;
 `;
 

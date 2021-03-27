@@ -17,24 +17,14 @@
 		const [open, setOpen] = React.useState(true);
 		const theme = useTheme();
  
-		const handleOpenOtp = () => {
-			setOpen(true);
-		};
-
-		const handleCloseOtp = () => {
-			setOpen(false);
-		};
-
+		
 		return (
 			<div>
 
-			<Button variant="outlined" color="primary" onClick={handleOpenOtp}>
-			Open responsive dialog
-			</Button>
+			
 
 			<Dialog
 			open={open}
-			onClose={handleCloseOtp}
 			style={{borderRadius:40}}
 			className="dialog_textfield_calender_new"
 			aria-labelledby="responsive-dialog-title">

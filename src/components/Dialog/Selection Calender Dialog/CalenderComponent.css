@@ -119,6 +119,39 @@ span.active_text{
 label.active_violet{
   cursor: pointer;
 }
+li span.active_grey {
+  padding: 5px;
+  width: 20px;
+  height: 20px;
+  font-size: 13px;
+  border-radius: 20px;
+  background: #77838F;
+  color: white !important;
+}
+li span.active_light_grey{
+ padding: 5px;
+ width: 20px;
+ height: 20px;
+ font-size: 13px;
+ border-radius: 20px;
+ background: #77838fc7;
+ color: #ffffff8c;
+}
+label.active_break_grey{
+  padding: 0px;
+  width: 28px;
+  height: 28px;
+  font-size: 9px;
+  border-radius: 28px;
+  background: #77838F;
+  color: #fff;
+  text-align: center;
+  padding-top: 2px;
+  line-height: 9px;
+}
+span.break_text_calender{
+
+}
 
 @media only screen and (max-width: 767px) {
   label.active_violet{
@@ -197,6 +230,7 @@ span.active_text{
  font-size: 11.5px;
  display: flex;
  justify-content: space-between;
+ background: transparent;
 
 }
 span.year_text_dialog{
@@ -209,6 +243,7 @@ span.month_text_dialog{
  color: #77838F;
 }
 .days {
+  background: transparent;
   padding: 10px 0;
   margin: 0;
 }
@@ -231,11 +266,12 @@ div.dialog_signup_new{
 }
 
 div.month{
-  width: 100%;
+  width: 108%;
   text-align: center;
   padding: 0%;
-  margin-bottom: 33px;
+  margin-bottom: 9px;
   margin-top: 9px;
+  background: transparent;
 }
 div.btn_container_dialog_calender{
   display: flex;
@@ -255,10 +291,26 @@ button.calender_btn_dialog{
 span.done_all_icon{
   font-size: 20px;
 }
+.month ul li {
+  color: white;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-top: -10px;
+}
 
 }
 
 @media only screen and (min-width: 768px) {
+  .month ul li {
+   color: white;
+   font-size: 16px;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   margin-top: -3px;
+   padding-top: 9px;
+  }
+
   .month ul {
     margin: 0;
     padding: 0;
@@ -360,6 +412,7 @@ span.active_text{
  width: 100%;
  font-size: 14.5px;
  display: flex;
+ background: transparent;
  justify-content: space-between;
 
 }
@@ -375,6 +428,7 @@ span.month_text_dialog{
 .days {
   padding: 10px 0;
   margin: 0;
+  background: transparent;
 }
 h6.breaks_header{
   font-size: 17px;
@@ -392,8 +446,9 @@ div.month{
  place-items: center;
  text-align: center;
  padding: 0%;
- margin-bottom: 33px;
- margin-top: 9px;
+ margin-bottom: 21px;
+ margin-top: 12px;
+ background: transparent;
 }
 div.btn_container_dialog_calender{
   display: flex;

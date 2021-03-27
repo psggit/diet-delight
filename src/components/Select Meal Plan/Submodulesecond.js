@@ -3,12 +3,14 @@ import './SelectMealPlan.css'
 import './Submodulessecond.css' 
 import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog';
 import CalenderDialogMain from '../Dialog/Calender Dialog/CalenderDialogMain'
+import SelectionCalenderMain from '../Dialog/Selection Calender Dialog/SelectionCalenderMain.js'
  
 export default function Submodulesecond(props){ 
     console.log(props)
     const [addressDialog,setAddressDialog] = useState(false) 
     const [endDate, setEndDate] = useState("");
     const [startDate, setStartDate] = useState("");
+    const [breakDialog,setBreakDialog] = useState(false)
 
 
     useEffect(() => {
@@ -30,7 +32,7 @@ export default function Submodulesecond(props){
       }
 
 
-    function handleAdrress(data){
+    function handleAddress(data){
         if(data === true){
             setAddressDialog(true)
         }else{
@@ -38,13 +40,28 @@ export default function Submodulesecond(props){
         } 
           
     } 
+
+      function handleBreak(data){
+        if(data === true){
+            setBreakDialog(true)
+        }else{
+            setBreakDialog(false) 
+        } 
+          
+    } 
   
 
     return( 
+
+        <>
+
+        {
+            addressDialog && <SelectionCalenderMain toggleAddressDialog = {handleAddress} />
+        }
          
         <div> 
             {/* <PrimaryaddDialog changeAddress={addressDialog} makeAddress={handleAdrress} /> */}
-        <CalenderDialogMain changeAddress={addressDialog} makeAddress={handleAdrress} startDate={startDate} endDate={endDate}/>
+        <CalenderDialogMain changeAddress={breakDialog} makeAddress={handleBreak} startDate={startDate} endDate={endDate}/>
 {/* 
         <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}/>
         <AddressDialogBox/> */}
@@ -75,14 +92,14 @@ export default function Submodulesecond(props){
         
         <div className="col-md-2 col-sm-12"> 
      
-        <button className="btn btn-default address_btn_submodule_second" 
-        //  onClick={() => setAddressDialog(true)}
-        >
+        <button className="btn btn-default address_btn_submodule_second" onClick={() => {
+console.log("hello")
+            setAddressDialog(true)}}>
         Address
         
         </button>
         
-        <button className="btn btn-default breaks_btn_submodule_second_" onClick={() => setAddressDialog(true)}>
+        <button className="btn btn-default breaks_btn_submodule_second_" onClick={() => setBreakDialog(true)}>
         Breaks
         
         </button>
@@ -94,6 +111,8 @@ export default function Submodulesecond(props){
         </div>
         </div>
         </div>
+
+        </>
         
         
         )
