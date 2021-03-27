@@ -84,10 +84,6 @@ i.heart_menu_pkg_fill {
   cursor: pointer;
 }
 
-i.loader {
-  color: purple;
-}
-
 i.heart_menu_pkg {
   cursor: pointer;
 }
@@ -96,13 +92,6 @@ i.heart_menu_pkg {
 @media screen and (max-width: 767px) {
   i.heart_menu_pkg_fill {
     color: red;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -20px;
-    font-size: 20px;
-  }
-  i.loader {
-    color: purple;
     display: flex;
     justify-content: flex-end;
     margin-top: -20px;
@@ -189,11 +178,6 @@ i.heart_menu_pkg {
     bottom: 0;
     left: 8px;
   }
-  i.loader {
-    position: absolute;
-    bottom: 0;
-    left: 8px;
-  }
   div.vertical_line_Menupkg {
     border-left: 4px solid #bdbdbd;
     border-radius: 9rem;
@@ -273,11 +257,6 @@ i.heart_menu_pkg {
     bottom: 0;
     right: 3px;
   }
-  i.loader {
-    position: absolute;
-    bottom: 0;
-    right: 3px;
-  }
   div.vertical_line_Menupkg {
     border-left: 4px solid #bdbdbd;
     border-radius: 9rem;
@@ -348,7 +327,6 @@ i.heart_menu_pkg {
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   div.menupkg_container_main_1 {
-    margin-left: -20%;
     display: grid;
     place-items: center;
   }
@@ -360,12 +338,6 @@ i.heart_menu_pkg {
     font-size: 20px;
   }
   i.heart_menu_pkg {
-    position: absolute;
-    bottom: 0;
-    left: 0px;
-    font-size: 20px;
-  }
-  i.loader {
     position: absolute;
     bottom: 0;
     left: 0px;

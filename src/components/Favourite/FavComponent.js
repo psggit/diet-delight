@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../Menu Package/MenuPkg.css";
 import "../Menu Package/TabMenuPkg.css";
 import "./Favmain.css";
+import "./FavouriteComponent.css";
 import axios from "../../axiosInstance";
-import card_img_rounded from "../../assets/food1.jpg";
-// import veg_icon from "../../assets/vegicon.png";
 import VegComponent from "../veg non veg component/VegComponent.js";
 import NonvegComponent from "../veg non veg component/NonvegComponent.js";
 
@@ -30,9 +29,6 @@ function FavComponent(props) {
         setUnmarkingFav(false);
         console.log(res);
         console.log("Delete Data");
-        // likeColor === "fa fa-heart-o heart_menu_pkg"
-        //   ? setLikeColor("fa fa-heart heart_menu_pkg_fill")
-        //   : setLikeColor("fa fa-heart-o heart_menu_pkg");
         props.handleFavourites();
       })
       .catch((err) => {
@@ -44,31 +40,14 @@ function FavComponent(props) {
   if (props.favourite.menu_item != null) {
     return (
       <>
-        {" "}
-        <div className="col-md-6 col-xs-12" key={Math.random()}>
-          <div className="card text-center card_border_menupkg">
-            <div className="row">
-              <div className="col-md-3 col-sm-12">
-                <img
-                  src={props.favourite.menu_item.picture}
-                  alt="food"
-                  className="rounded-circle tabmenu_roundedimg"
-                ></img>
-              </div>
-              <div className="col-md-7 col-sm-12">
-                <div className="media-body content_media">
-                  <h5 className="something_text">
-                    {props.favourite.menu_item.name}
-                  </h5>
-                </div>
-              </div>
-
-              <div className="col-lg-2 col-md-2 col-xs-12">
-                {props.favourite.menu_item.veg === 0 ? (
-                  <VegComponent />
-                ) : (
-                  <NonvegComponent />
-                )}
+        <div id="FavWrapper">
+          <div className="imageContainer">
+            <img src={props.favourite.menu_item.picture} alt="food" />
+          </div>
+          <div className="note">
+            <p>{props.favourite.menu_item.name}</p>
+            <div className="icon">
+              <div className="action-icon">
                 {unmarkingFav && (
                   <i
                     className="fa fa-spinner fa-spin loader"
@@ -83,6 +62,11 @@ function FavComponent(props) {
                   ></i>
                 )}
               </div>
+              {props.favourite.menu_item.veg === 0 ? (
+                <VegComponent />
+              ) : (
+                <NonvegComponent />
+              )}
             </div>
           </div>
         </div>

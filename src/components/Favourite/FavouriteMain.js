@@ -38,14 +38,22 @@ export default function FavouriteMain(props) {
       });
   };
 
-  const renderFavourites = favouriteData.map((favourite) => (
-    <FavouriteMemo
-      favourite={favourite}
-      key={Math.random()}
-      handleFavourites={handleFavourites}
-      loadingFav={loadingFav}
-    />
-  ));
+  const RenderFavourites = () => {
+    return (
+      <div className="favContainer">
+        {favouriteData.map((favourite) => {
+          return (
+            <FavouriteMemo
+              favourite={favourite}
+              key={Math.random()}
+              handleFavourites={handleFavourites}
+              loadingFav={loadingFav}
+            />
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <div className="fav_bg_container">
@@ -57,18 +65,7 @@ export default function FavouriteMain(props) {
 
       <div className="menupkg_container_main_1">
         <div className="container">
-          {/* only for starter card */}
-          <br />
-          <br />
-          <br />
-
-          {/* <h4 className="d-flex justify-content-center mt-2 mb-2 font-weight-bold">Starter</h4> */}
-          <div className="row">
-            <div className="col-md-10">
-              {!loadingFav && <div className="row">{renderFavourites}</div>}
-            </div>
-            <div className="col-md-1"></div>
-          </div>
+          {!loadingFav && <div className="row">{<RenderFavourites />}</div>}
         </div>
       </div>
     </div>
