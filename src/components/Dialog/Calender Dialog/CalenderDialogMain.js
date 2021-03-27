@@ -39,81 +39,7 @@
 		},[])
 
 
-		// useEffect(() =>{
-		// 	var currentDate = new Date();
-		// 	function generateCalendar(d) {
-		// 	  function monthDays(month, year) {
-		// 		var result = [];
-		// 		var days = new Date(year, month, 0).getDate();
-		// 		for (var i = 1; i <= days; i++) {
-		// 		  result.push(i);
-		// 		}
-		// 		return result;
-		// 	  }
-		// 	  Date.prototype.monthDays = function() {
-		// 		var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
-		// 		return d.getDate();
-		// 	  };
-		// 	  var details = {
-		// 		// totalDays: monthDays(d.getMonth(), d.getFullYear()),
-		// 		totalDays: d.monthDays(),
-		// 		weekDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-		// 		months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-		// 	  };
-		// 	  var start = new Date(d.getFullYear(), d.getMonth()).getDay();
-		// 	  var cal = [];
-		// 	  var day = 1;
-		// 	  for (var i = 0; i <= 6; i++) {
-		// 		cal.push(['<tr>']);
-		// 		for (var j = 0; j < 7; j++) {
-		// 		  if (i === 0) {
-		// 			cal[i].push('<td>' + details.weekDays[j] + '</td>');
-		// 		  } else if (day > details.totalDays) {
-		// 			cal[i].push('<td>&nbsp;</td>');
-		// 		  } else {
-		// 			if (i === 1 && j < start) {
-		// 			  cal[i].push('<td>&nbsp;</td>');
-		// 			} else {
-		// 			  cal[i].push('<td class="day">' + day++ + '</td>');
-		// 			}
-		// 		  }
-		// 		}
-		// 		cal[i].push('</tr>');
-		// 	  }
-		// 	  cal = cal.reduce(function(a, b) {
-		// 		return a.concat(b);
-		// 	  }, []).join('');
-		// 	  document.getElementsByTagName('table').append(cal);
-		// 	  document.getElementById('month').text(details.months[d.getMonth()]);
-		// 	  document.getElementById('year').text(d.getFullYear());
-		// 	  document.getElementsByClassName('day').mouseover(function() {
-		// 	  }).mouseout(function() {
-		// 	  });
-		// 	}
-		// 	var prevMonth = document.getElementById('left');
-		// 	prevMonth.onclick = function() {
-		// 	  document.getElementsByTagName('table').text('');
-		// 	  if (currentDate.getMonth() === 0) {
-		// 		currentDate = new Date(currentDate.getFullYear() - 1, 11);
-		// 		generateCalendar(currentDate);
-		// 	  } else {
-		// 		currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
-		// 		generateCalendar(currentDate);
-		// 	  }
-		// 	};
-		// 	var nextMonth = document.getElementById('right');
-		// 	nextMonth.onclick = function() {
-		// 	  document.getElementsByTagName('table').html('<tr></tr>');
-		// 	  if (currentDate.getMonth() === 11) {
-		// 		currentDate = new Date(currentDate.getFullYear() + 1, 0);
-		// 		generateCalendar(currentDate);
-		// 	  } else {
-		// 		currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
-		// 		generateCalendar(currentDate);
-		// 	  }
-		// 	};
-		// 	console.log(generateCalendar(currentDate));
-		// },[])
+	
 
 		const checkCurrentMonth = (value) => {
 			console.log(value)
@@ -240,7 +166,46 @@
 		const renderWeeks = weekDays.map((weekDay) => <li key={Math.random()} id={Math.random()}>{weekDay}</li>)
 
 
-		const renderMonthDays = totalDays.map((day) => <li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}>{day}</li>)
+		const renderMonthDays = totalDays.map((day) => {
+			const startDate = new Date(props.startDate)
+			const endDate = new Date(props.endDate)
+			var startDateDay = startDate.getDate();
+			var endDateDay = endDate.getDate();
+			var startDateMonth = startDate.getMonth() + 1;
+			var endDateMonth = endDate.getMonth() + 1;
+			var startDateYear = startDate.getFullYear();
+			var endDateYear = endDate.getFullYear();
+
+
+			let daysFromStartDay = [];
+			let daysFromEndDay = [];
+
+			var lastDateForStartMonth = getMonthDays(startDateMonth, startDateYear)
+
+
+			if(startDateMonth != endDateMonth){
+				for(var i=1; i<=endDateDay; i++){
+					daysFromEndDay.push(i);
+				}
+			}
+
+			for(var j=startDateDay; j<=lastDateForStartMonth; j++){
+				daysFromStartDay.push(j);
+			}
+
+			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay)
+
+
+			if((currentMonthInNumber === startDateMonth || currentMonthInNumber === endDateMonth) && (currentYear === startDateYear || currentYear === endDateYear) && (daysFromStartDay.includes(day) || daysFromEndDay.includes(day))){
+				return(
+					<li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}><span className="active_grey">{day}</span></li>
+				)
+			}else{
+				return(
+					<li key={Math.random()} id={Math.random()}>{day}</li>
+				)
+ 			}
+			})
 
 
 		if(props.changeAddress === true){
