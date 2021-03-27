@@ -40,8 +40,6 @@ const Signup = () => {
     const dispatch = useDispatch();
     let cookie = new Cookies();
     var callingCountries = require('country-data').callingCodes;
-    console.log(callingCountries)
-    console.log(typeof(callingCountries))
     const options = useMemo(() => countryList().getValues (), [])
     const [otpDialog, setOtpDialog] = useState(false)
     const [disabled,setDisabled] = useState(false)
@@ -98,16 +96,25 @@ const Signup = () => {
     }) 
     
     
-    const resendOtp = () => {
-        grecaptcha.reset();
-        const values = {
-            'fname':fname,
-            'lname':lname,
-            'email':email,
-            'password':password,
-            'check':confirmPassword,
-            'firebase_uid':firebaseUid,
-        };
+    const resendOtp = (values) => {
+        console.log("called")
+        console.log(window)
+        window.recaptchaVerifier.render().then(function(widgetId) {
+            console.log(widgetId)
+            grecaptcha.reset(widgetId);
+          });
+          console.log(window)
+          var container = document.getElementById('recaptcha-container')
+          console.log(container)
+          console.log(values)
+        // const values = {
+        //     'fname':fname,
+        //     'lname':lname,
+        //     'email':email,
+        //     'password':password,
+        //     'check':confirmPassword,
+        //     'firebase_uid':firebaseUid,
+        // };
         phoneAuth(values)
 
 
@@ -119,19 +126,22 @@ const Signup = () => {
         history.push("/")
     };
 
-    useEffect(() => {
-        console.log(code.current)
-    }, [code.current])
-
-
-    useEffect(() => {
-        renderCaptcha()
-    }, [])
+  
 
 
     const handleCodeByUser = (confirmationResult, userValues) => {
+        console.log(confirmationResult, userValues)
         setOtpDialog(true)
         var captureButtonClick = document.getElementById('verifyOtp');
+        var resendOtpText = document.getElementById('resend_otp_text');
+        console.log(resendOtpText)
+        resendOtpText.onclick = (e) => {
+            console.log("called")
+            window.recaptchaVerifier.render().then(function(widgetId) {
+                grecaptcha.reset(widgetId);
+              });
+              return resendOtp(userValues);
+        }
         captureButtonClick.onclick =  (e) => {
             console.log(e)
             var otpEnteredList = document.getElementsByClassName('input_dialog_signup');
@@ -168,6 +178,7 @@ const Signup = () => {
                     console.log(otpEnteredList[i].value);
                     otpEntered = otpEntered + otpEnteredList[i].value.toString();
                 }
+
                 console.log(otpEntered)
                         confirmationResult.confirm(otpEntered).then(async (result) => {
                         // User signed in successfully.
@@ -194,24 +205,41 @@ const Signup = () => {
         // return otpEntered;
     }
 
+    const renderCaptcha = () => {
+        console.log("called")
+        firebase.auth().languageCode = 'en';
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+            'size': 'invisible',
+            'callback': (response) => {
+                console.log("callback")
+            }
+          });
+    }
 
 
-    const phoneAuth = async (values) => {
-
-        let number = code.current+phoneNumber.current;
-        console.log(number)
-            
-
-    await firebase.auth().signInWithPhoneNumber(number, reCaptcha.current)
+    const phoneAuth = async (values,e) => {
+    console.log(e)
+    if(e){
+        console.log("insode")
+        renderCaptcha();    
+    }
+    console.log("outsided")
+    let number = code.current+phoneNumber.current;
+    console.log(number)
+    console.log(window)
+    let appVerifier = window.recaptchaVerifier;            
+    await firebase.auth().signInWithPhoneNumber(number, appVerifier)
     .then((confirmationResult) => {
-      console.log(window.confirmationResult)
-      window.confirmationResult = confirmationResult;
+      window.confirmationResult = confirmationResult;      
       console.log(confirmationResult)
       handleCodeByUser(confirmationResult, values)
     }).catch((error) => {
         console.log(error)
-        grecaptcha.reset();
-    });
+        console.log("hello")
+        window.recaptchaVerifier.render().then(function(widgetId) {
+            grecaptcha.reset(widgetId);
+          });    
+        });
     }
 
     
@@ -222,20 +250,7 @@ const Signup = () => {
         }
     }
 
-    const renderCaptcha = () => {
-        firebase.auth().languageCode = 'en';
-        let recaptcha = new firebase.auth.RecaptchaVerifier('sign-up', {
-            'size': 'invisible',
-            'callback': (response) => {
-                // phoneAuth();
-                // this.resendOtp();
-                console.log(response)
-            }
-          });
-        reCaptcha.current = recaptcha;
-          
-        console.log("Phone auth")
-    }
+
 
 
     const validateIfNumeric = (e, relatedTo) => {
@@ -244,15 +259,22 @@ const Signup = () => {
         var numeric = '^[0-9]*$'
         if(data.match(numeric)){
             if(relatedTo === 'num1'){
+                var num2 = document.getElementById('num2')
+                num2.focus()
+                console.log(num2)
                 console.log("hello num1")
                 setNum1(data)
             }else if(relatedTo === 'num2'){
+                document.getElementById('num3').focus()
                 setNum2(data)
             }else if(relatedTo === 'num3'){
+                document.getElementById('num4').focus()
                 setNum3(data)
             }else if(relatedTo === 'num4'){
+                document.getElementById('num5').focus()
                 setNum4(data)
             }else if(relatedTo === 'num5'){
+                document.getElementById('num6').focus()
                 setNum5(data)
             }else{
                 setNum6(data)
@@ -337,6 +359,7 @@ const Signup = () => {
             
             return (
                 <>
+                <div id="recaptcha-container"></div>
                 <div style={{zIndex:5}}>
                 <Dialog
         open={otpDialog}
@@ -369,17 +392,17 @@ const Signup = () => {
         <h6 className="enter_otp_text">Enter OTP</h6>
         
         <div className="row justify-content-center">
-        <input type="text" required value={num1}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num1" onInput={(e) => validateIfNumeric(e, 'num1')} autofocus></input>
-        <input type="text" required value={num2}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num2" onInput={(e) => validateIfNumeric(e, 'num2')}></input>
-        <input type="text" required value={num3}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num3" onInput={(e) => validateIfNumeric(e, 'num3')}></input>
-        <input type="text" required value={num4}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num4" onInput={(e) => validateIfNumeric(e, 'num4')}></input>
-        <input type="text" required value={num5}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num5" onInput={(e) => validateIfNumeric(e, 'num5')}></input>
-        <input type="text" required value={num6}  minlength="1" maxlength="1" className="input_dialog_signup"  id="num6" onInput={(e) => validateIfNumeric(e, 'num6')} ></input>
+        <input type="text" required value={num1}  minLength="1" maxLength="1" className="input_dialog_signup"  id="num1" onInput={(e) => validateIfNumeric(e, 'num1')} autoFocus></input>
+        <input type="text" required value={num2}  minLength="1" maxLength="1" className="input_dialog_signup"  id="num2" onInput={(e) => validateIfNumeric(e, 'num2')} autoFocus={false}></input>
+        <input type="text" required value={num3}  minLength="1" maxLength="1" className="input_dialog_signup"  id="num3" onInput={(e) => validateIfNumeric(e, 'num3')} autoFocus={false}></input>
+        <input type="text" required value={num4}  minLength="1" maxLength="1" className="input_dialog_signup"  id="num4" onInput={(e) => validateIfNumeric(e, 'num4')} autoFocus={false}></input>
+        <input type="text" required value={num5}  minLength="1" maxLength="1" className="input_dialog_signup"  id="num5" onInput={(e) => validateIfNumeric(e, 'num5')} autoFocus={false}></input>
+        <input type="text" required value={num6}  minLength="1" maxLength="1" className="input_dialog_signup"  id="num6" onInput={(e) => validateIfNumeric(e, 'num6')} autoFocus={false}></input>
 </div>
 
 <span id="successErrorMessageForWrongOtp" style={{color:'red', size:"0.8rem", weight:"700", align:"none", top:'0'}}></span>
 
-<h6 className="resend_otp_text" onClick = {() => resendOtp()}>Resend OTP</h6>
+<h6 className="resend_otp_text" id="resend_otp_text">Resend OTP</h6>
 
 <button className="btn verify_btn_dialog" id="verifyOtp" >VERIFY</button>
 
@@ -447,7 +470,8 @@ const Signup = () => {
                         firebase_uid:'',
                     }}
                     
-                    onSubmit={(values) => {
+                    onSubmit={(values,e) => {
+                        console.log(values)
                         if(phoneNumber.current != ''){
                             if(code.current != ''){
                                 setFname(values.fname)
@@ -457,10 +481,9 @@ const Signup = () => {
                                 setEmail(values.email)
                                 setFirebaseUid(values.firebase_uid)
                                 document.getElementById('phoneError').innerHTML = "";
-                                phoneAuth(values)
+                                phoneAuth(values,e)
                             }else{
                                 document.getElementById('phoneError').innerHTML = "Select Country Code";
-                                phoneAuth(values)
                             }
                         }else{
                             document.getElementById('phoneError').innerHTML = "Enter Mobile No";
@@ -610,7 +633,7 @@ const Signup = () => {
                                             <Google />
                                             </IconBox>
                                             </Section>
-                                            <CustomButton id="sign-up" type="submit" onClick={handleSubmit}>
+                                            <CustomButton id="sign-up" type="submit" onClick={(e) => handleSubmit(e)}>
                                             SIGN UP
                                             </CustomButton>
                                             
