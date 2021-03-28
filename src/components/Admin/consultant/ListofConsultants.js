@@ -105,7 +105,7 @@ const ListofConsultants = () => {
   const getJoinedOn = (date) => {
     const temp = new Date(date);
 
-    return `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear()}`
+    return `${temp.getDate()}/${temp.getMonth() + 1}/${temp.getFullYear()}`
   }
 
   const handleFormSubmit = (values) => {

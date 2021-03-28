@@ -31,6 +31,18 @@ export const CONSULTATION_MODE = [{ id: 0, name: 'Offline' }, { id: 1, name: 'On
 
 export const CONSULTATION_PACKAGE_STATUS = [{ id: 0, name: 'Available' }, { id: 1, name: 'Unavailable' }]
 
+export const TRANSACTION_PURCHASE_STATUS = [{ id: 0, name: 'Processing' }, { id: 1, name: 'Success' }, { id: 2, name: 'Failed' }]
+
+export const WEEK_DAYS = [
+    { id: 'Sun', name: 'Sun' },
+    { id: 'Mon', name: 'Mon' },
+    { id: 'Tue', name: 'Tue' },
+    { id: 'Wed', name: 'Wed' },
+    { id: 'Thur', name: 'Thur' },
+    { id: 'Fri', name: 'Fri' },
+    { id: 'Sat', name: 'Sat' },
+]
+
 export const USER_TYPE = {
     CUSTOMER: 'customer',
     ADMIN: 'admin',

@@ -122,7 +122,7 @@ const ListofConsultation = () => {
     const { appointmentTime, appointmentDate } = values;
     let date = '';
     if (appointmentTime && appointmentDate) {
-      date = `${appointmentDate.getFullYear()}-${appointmentDate.getMonth()}-${appointmentDate.getDate()} ${appointmentTime.getHours()}:${appointmentTime.getMinutes()}:${appointmentTime.getSeconds()}`
+      date = `${appointmentDate.getFullYear()}-${appointmentDate.getMonth() + 1}-${appointmentDate.getDate()} ${appointmentTime.getHours()}:${appointmentTime.getMinutes()}:${appointmentTime.getSeconds()}`
     }
 
     const selectedConsultant = consultants.find(c => c.id === values.consultant);

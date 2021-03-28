@@ -21,20 +21,17 @@ export const TimePicker = (props) => {
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<KeyboardTimePicker
+				autoOk
 				label={label}
 				style={{ margin: '8px 0' }}
 				helperText={error ? helperText : ''}
-				fullWidth
 				margin="normal"
-				variant="outlined"
+				inputVariant="outlined"
+				variant="inline"
 				error={error}
 				onChange={onFieldChange}
 				value={field.value}
-				type={type}
 				disabled={disabled}
-				KeyboardButtonProps={{
-					'aria-label': 'change time',
-				}}
 			/>
 		</MuiPickersUtilsProvider>
 

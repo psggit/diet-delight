@@ -21,22 +21,19 @@ export const DatePicker = (props) => {
 	return (
 		<MuiPickersUtilsProvider utils={DateFnsUtils}>
 			<KeyboardDatePicker
-				disableToolbar
+				autoOk
 				label={label}
 				style={{ margin: '8px 0' }}
 				helperText={error ? helperText : ''}
-				fullWidth
-				format="MM/dd/yyyy"
+				format="dd/MM/yyyy"
 				margin="normal"
-				variant="outlined"
+				inputVariant="outlined"
+				variant="inline"
 				error={error}
 				onChange={onFieldChange}
 				value={field.value}
-				type={type}
 				disabled={disabled}
-				KeyboardButtonProps={{
-					'aria-label': 'change date',
-				}}
+				InputAdornmentProps={{ position: "start" }}
 			/>
 		</MuiPickersUtilsProvider>
 	)

@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectListOfOrder, resetListOfOrder, setListOfOrder } from '../../../features/adminSlice'
 import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';
+import { CONSULTATION_MODE, TRANSACTION_PURCHASE_STATUS } from "../Constants";
 
 const useStyles = makeStyles({
 	root: {
@@ -65,7 +66,7 @@ const PostOrder = () => {
 	}, [rowsPerPage, page, search, sort, order]);
 
 	const handleShow = () => {
-		axios.get(`consultation-purchases?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`).then((res) => {
+		axios.get(`consultation-purchases?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`).then((res) => {
 			setListOfOrders(res.data.data)
 			setLoading(false)
 			setShow(true)
@@ -117,6 +118,24 @@ const PostOrder = () => {
 
 	const CloseDelete = () => setIsDelete(false)
 	const CloseUpdate = () => setISUpdate(false)
+
+	const getConsultationMode = (mode) => {
+		switch (mode) {
+			case 0:
+				return CONSULTATION_MODE[0].name;
+			case 1:
+				return CONSULTATION_MODE[1].name;
+		}
+	}
+
+	const getConsultationPurchaseStatus = (status) => {
+		switch (status) {
+			case 0:
+				return TRANSACTION_PURCHASE_STATUS[0].name;
+			case 1:
+				return TRANSACTION_PURCHASE_STATUS[1].name;
+		}
+	}
 
 	return (
 		<>
@@ -334,24 +353,24 @@ const PostOrder = () => {
 							dataSource={{
 								columns: [
 									{ id: 'user_id', label: 'User ID', sort: true },
-									{ id: 'consultation_package_id', label: 'Consultation Package ID', sort: true },
+									{ id: 'customer_name', label: 'Customer Name', sort: true },
+									{ id: 'consultation_package_name', label: 'Consultation Package', sort: true },
 									{ id: 'payment_id', label: 'Payment ID', sort: false },
-									{ id: 'satus', label: 'Satus', sort: true },
+									{ id: 'status', label: 'Status', sort: true },
 									{ id: 'billing_address', label: 'Billing Address', sort: false },
-									{ id: 'consultation_package_name', label: 'Consultation Package Name', sort: true },
-									{ id: 'consultation_package_duration', label: 'Consultation Package Duration', sort: true },
+									{ id: 'consultation_mode', label: 'Mode of Consultation', sort: false },
 									{ id: 'amount_paid', label: 'Amount Paid', sort: true },
 									{ id: 'actions', label: '', sort: false },
 								],
 								rows: listoforders.map((order) => {
 									return [
 										order.user_id,
-										order.consultation_package_id,
-										order.payment_id,
-										order.satus,
-										`${order.billing_address_line1 || ''} ${order.billing_address_line2 || ''}`,
+										order?.user?.name || '',
 										order.consultation_package_name,
-										order.consultation_package_duration,
+										order.payment_id,
+										getConsultationPurchaseStatus(order.status),
+										`${order.billing_address_line1 || ''} ${order.billing_address_line2 || ''}`,
+										getConsultationMode((order?.consultations || [])[0]?.consultation_mode || ''),
 										order.amount_paid,
 										<>
 											<Edit

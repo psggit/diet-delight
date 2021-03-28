@@ -6,9 +6,6 @@ import { Snackbar } from "@material-ui/core";
 import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
-import { useDispatch } from "react-redux";
-import { setQuestion } from "../../../features/adminSlice";
-
 import { Main } from "./QuestionElements";
 import QuestionFormModal from './QuestionFormModal';
 import Modal from '../../reusable/Modal';
@@ -25,8 +22,6 @@ const questInitialValue = {
 }
 
 const ListofQuestions = () => {
-  const dispatch = useDispatch();
-
   const [questions, setQuestions] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(20)
   const [page, setPage] = useState(0);
@@ -73,19 +68,6 @@ const ListofQuestions = () => {
       return;
     }
     setNotificationConf([false, 'success', '']);
-  };
-
-  const handleUpdate = async (user) => {
-    await dispatch(
-      setQuestion({
-        id: user.id,
-        question: user.question,
-        type: user.type,
-        order: user.order,
-      })
-    );
-
-    setShowForm(true);
   };
 
   function handleType(type) {
@@ -198,7 +180,6 @@ const ListofQuestions = () => {
                         onClick={() => {
                           setMode('Update')
                           setCurrentQuestion(q);
-                          handleUpdate(q);
                           setShowForm(true);
                         }}
                         style={{ margin: '0 6px', cursor: 'pointer' }}
