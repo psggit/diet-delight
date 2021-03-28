@@ -150,11 +150,11 @@ const ListofOrder = () => {
       shipping_address_line2: values.shippingAddressLine2 || '',
       meal_plan_name: selectedMealPlan.name,
       meal_plan_duration: selectedMealPlan.duration,
-      amount_paid: values.amountPaid,
+      amount_paid: parseInt(values.amountPaid, 10),
       start_date: startDate,
       ...(endDate ? { end_date: endDate } : {}),
-      kcal: values.kcal || 0,
-      portions: values.portions || 0,
+      kcal: parseInt(values.kcal || 0, 10),
+      portions: parseInt(values.portions || 0, 10),
       ...((values.weekdays || []).length ? { weekdays: JSON.stringify(values.weekdays) } : {}),
     }
     if (mode === 'Add') {

@@ -12,7 +12,7 @@ import { WEEK_DAYS, TRANSACTION_PURCHASE_STATUS } from '../Constants';
 const validationSchema = Yup.object().shape({
 	user: Yup.string().required('Please select User'),
 	mealPlan: Yup.string().required('Please select Meal Plan'),
-	paymentId: Yup.string().required('Please enter Amount paid'),
+	paymentId: Yup.string().required('Please enter Payment Id'),
 	amountPaid: Yup.number().required('Please enter Amount paid'),
 	status: Yup.string(),
 	startDate: Yup.date().required('Please select Start Date'),
@@ -59,7 +59,7 @@ const MealPurchaseFormModal = (props) => {
 						<Field
 							name="paymentId"
 							component={TextField}
-							label="Payment Id"
+							label="Payment Id*"
 						/>
 						<Grid container spacing={2}>
 							<Grid item xs>

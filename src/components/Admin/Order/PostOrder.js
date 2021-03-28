@@ -1,46 +1,30 @@
 import React, { useState, useEffect } from 'react'
 
-import axios from '../../../axiosInstance';
-import CustomSkeleton from '../../../CustomSkeleton';
-
-import { makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog, DialogContent, DialogTitle, Snackbar, Select, MenuItem } from '@material-ui/core'
+import { Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 import { Edit, Delete } from '@material-ui/icons';
 
-import { Formik } from 'formik'
-// import * as Yup from 'yup'
-
-import { Main, HContainer, Con, Input, Title, Set, Mini, Info, Container } from './ConsultantElements'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectListOfOrder, resetListOfOrder, setListOfOrder } from '../../../features/adminSlice'
+import axios from '../../../axiosInstance';
+import CustomSkeleton from '../../../CustomSkeleton';
+import { Main } from './ConsultantElements'
 import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';
+import ConsultationPurchaseFormModal from "./ConsultationPurchaseFormModal";
 import { CONSULTATION_MODE, TRANSACTION_PURCHASE_STATUS } from "../Constants";
+import Modal from '../../reusable/Modal';
 
-const useStyles = makeStyles({
-	root: {
-		width: '100%',
-	},
-
-	table: {
-		minWidth: 650,
-	},
-});
-
-// const validationSchema = Yup.object().shape({
-//     name: Yup.string().required().label("Name"),
-//     status: Yup.string().required().label("Status"),
-//     qualification: Yup.string().required().label("Qualification"),
-//     bio: Yup.string().required().label("Bio"),
-//     order: Yup.number().required().label("Order"),
-// });
-
+const consultationPurchaseInitialValue = {
+	id: '',
+	user: '',
+	consultationPackage: '',
+	paymentId: '',
+	amountPaid: '',
+	status: '',
+	billingAddressLine1: '',
+	billingAddressLine2: '',
+}
 
 const PostOrder = () => {
-
-	const dispatch = useDispatch();
-	const listoforder = useSelector(selectListOfOrder);
-
 	const [listoforders, setListOfOrders] = useState([]);
 	const [rowsPerPage, setRowsPerPage] = useState(20)
 	const [page, setPage] = useState(0);
@@ -50,9 +34,13 @@ const PostOrder = () => {
 	const [sort, setSort] = useState('consultation_package_name')
 	const [order, setOrder] = useState('asc');
 	const [show, setShow] = useState(false)
-	const [Issuccess, setIsSuccess] = useState(false);
 	const [isdelete, setIsDelete] = useState(false);
-	const [isupdate, setISUpdate] = useState(false);
+	const [mode, setMode] = useState('Add');
+	const [showForm, setShowForm] = useState(false);
+	const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
+	const [currentConsultaionPurchase, setCurrentConsultationPurchase] = useState(consultationPurchaseInitialValue);
+	const [customers, setCustomers] = useState([]);
+	const [consultationPackages, setConsoltationPackages] = useState([]);
 
 	let current_date_Time = new Date();
 	const csvReport = {
@@ -60,6 +48,27 @@ const PostOrder = () => {
 		filename: `List_of_listoforders_${current_date_Time}.csv`,
 	};
 
+	useEffect(() => {
+		axios.get(`users?role_id=${1}`).then((res) => {
+			setCustomers((res?.data?.data || []).map((user) => {
+				return {
+					id: user.id,
+					name: `${user.first_name || ''} ${user.last_name || ''}`,
+					email: user.email,
+					mobile: user.mobile,
+				}
+			}));
+		});
+		axios.get(`consultation-packages`).then((res) => {
+			setConsoltationPackages((res?.data?.data || []).map((cPackage) => {
+				return {
+					id: cPackage.id,
+					name: cPackage.name,
+					duration: cPackage.duration,
+				}
+			}));
+		});
+	}, [])
 
 	useEffect(() => {
 		handleShow();
@@ -74,8 +83,6 @@ const PostOrder = () => {
 		}).catch(err => console.log(err));
 	}
 
-	const classes = useStyles();
-
 	function Alert(props) {
 		return <MuiAlert elevation={6} variant="filled" {...props} />;
 	}
@@ -84,40 +91,8 @@ const PostOrder = () => {
 		if (reason === 'clickaway') {
 			return;
 		}
-
-		setIsSuccess(false);
+		setNotificationConf([false, 'success', '']);
 	};
-
-
-	const handleUpdate = async (orderlist) => {
-		console.log(orderlist)
-		await dispatch(setListOfOrder({
-			id: orderlist.id,
-			user_id: orderlist.user_id,
-			consultation_package_id: orderlist.consultation_package_id,
-			payment_id: orderlist.payment_id,
-			status: orderlist.status,
-			billing_address_line1: orderlist.billing_address_line1,
-			billing_address_line2: orderlist.billing_address_line2,
-			consultation_package_name: orderlist.consultation_package_name,
-			consultation_package_duration: orderlist.consultation_package_duration,
-			amount_paid: orderlist.amount_paid,
-
-		}))
-
-		await setISUpdate(true);
-	}
-
-	const handleDelete = async (orderlist) => {
-		await dispatch(resetListOfOrder())
-		await dispatch(setListOfOrder({
-			id: orderlist.id
-		}))
-		await setIsDelete(true)
-	}
-
-	const CloseDelete = () => setIsDelete(false)
-	const CloseUpdate = () => setISUpdate(false)
 
 	const getConsultationMode = (mode) => {
 		switch (mode) {
@@ -134,215 +109,94 @@ const PostOrder = () => {
 				return TRANSACTION_PURCHASE_STATUS[0].name;
 			case 1:
 				return TRANSACTION_PURCHASE_STATUS[1].name;
+			case 2:
+				return TRANSACTION_PURCHASE_STATUS[2].name;
 		}
 	}
+
+	const handleFormSubmit = (values) => {
+		const selectedpackage = consultationPackages.find(i => i.id === values.consultationPackage);
+
+		const data = {
+			user_id: values.user,
+			consultation_package_id: values.consultationPackage,
+			payment_id: values.paymentId,
+			...(values.status >= 0 ? { status: values.status } : {}),
+			billing_address_line1: values.billingAddressLine1 || '',
+			billing_address_line2: values.billingAddressLine2 || '',
+			consultation_package_name: selectedpackage.name,
+			consultation_package_duration: selectedpackage.duration,
+			amount_paid: parseInt(values.amountPaid, 10),
+		}
+		if (mode === 'Add') {
+			axios.post(`consultation-purchases`, data).then((res) => {
+				setNotificationConf([true, 'success', 'Consultation Purchase Added Successfully !'])
+				handleShow();
+			}).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+		} else {
+			axios
+				.put(`consultation-purchases/${currentConsultaionPurchase.id}`, data)
+				.then((res) => {
+					setNotificationConf([true, 'success', 'Consultation Purchase Updated Successfully !'])
+					handleShow();
+				})
+				.catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+		}
+		setShowForm(false);
+	}
+
+	const [showNotification, notificationType, notification] = notificationConf;
 
 	return (
 		<>
 
-			{isdelete && (<>  <Dialog
-				open={isdelete}
-				onClose={CloseDelete}
-				aria-labelledby="form-dialog-title"
-				disableBackdropClick
-				disableEscapeKeyDown
-			>
-				<DialogTitle id="form-dialog-title">Delete Question</DialogTitle>
-				<DialogContent>
-					<Mini>
-						<Button variant="contained" color="secondary"
-							onClick={() => {
-								axios.delete(`consultation-purchases/${listoforder.id}`).then(
-									(res) => {
-										setIsSuccess(true)
-										setIsDelete(false)
-										handleShow()
-									}
-								).catch(err => console.log(err))
-							}}
-						>Delete</Button>
-						<Button variant="contained" style={{ margin: "10px", background: "#800080" }} color="primary" onClick={CloseDelete}>Close</Button>
-					</Mini>
-				</DialogContent>
-			</Dialog>
-			</>)}
-
-			{isupdate && (<>  <Dialog
-				open={isupdate}
-				onClose={CloseUpdate}
-				aria-labelledby="form-dialog-title"
-				disableBackdropClick
-				disableEscapeKeyDown
-			>
-				<DialogTitle id="form-dialog-title">Update Question</DialogTitle>
-				<DialogContent>
-					<Formik
-						initialValues={{
-							user_id: listoforder.user_id,
-							consultation_package_id: listoforder.consultation_package_id,
-							payment_id: listoforder.payment_id,
-							status: listoforder.status,
-							billing_address_line1: listoforder.billing_address_line1,
-							billing_address_line2: listoforder.billing_address_line2,
-							consultation_package_name: listoforder.consultation_package_name,
-							consultation_package_duration: listoforder.consultation_package_duration,
-							amount_paid: listoforder.amount_paid,
-						}}
-
-						onSubmit={(values) => {
-							axios.put(`meal-purchases/${listoforder.id}`, {
-								headers: {
-									Authorization: `Bearer ${localStorage.getItem('access_token')}`
-								},
-								user_id: values.user_id,
-								consultation_package_id: values.consultation_package_id,
-								payment_id: values.payment_id,
-								status: values.status,
-								billing_address_line1: values.billing_address_line1,
-								billing_address_line2: values.billing_address_line2,
-								consultation_package_name: values.consultation_package_name,
-								consultation_package_duration: values.consultation_package_duration,
-								amount_paid: values.amount_paid,
-							}).then((res) => {
-								setIsSuccess(true)
-								setISUpdate(false)
-								handleShow()
-							}).catch(err => console.log(err))
-						}}
-					>
-						{({ handleChange, handleSubmit, errors, touched, values }) => (
-							< >
-								<Container>
-									<Mini>
-										<Title>
-											User ID
-                                            </Title>
-										<Input
-											value={values.user_id}
-											placeholder="User ID"
-											onChange={handleChange("user_id")}>
-										</Input>
-									</Mini>
-									{errors.user_id && touched && (
-										<Info error>{errors.user_id}</Info>
-									)}
-
-									<Mini>
-										<Title>
-											Consultation Package ID
-                                            </Title>
-										<Input
-											placeholder=" Consultation Package ID"
-											value={values.consultation_package_id}
-											onChange={handleChange("consultation_package_id")}>
-										</Input>
-									</Mini>
-									{errors.consultation_package_id && touched && (
-										<Info error>{errors.consultation_package_id}</Info>
-									)}
-									<Mini>
-										<Title>
-											Payment ID
-                                            </Title>
-										<Input
-											placeholder="Payment ID"
-											value={values.payment_id}
-											onChange={handleChange("payment_id")}>
-										</Input>
-									</Mini>
-									{errors.payment_id && touched && (
-										<Info error>{errors.payment_id}</Info>
-									)}
-									<Mini>
-										<Title>Status</Title>
-										<Input
-											placeholder="Status"
-											value={values.status}
-											onChange={handleChange("status")} />
-									</Mini>
-									{errors.status && touched && (
-										<Info error>{errors.status}</Info>
-									)}
-									<Mini>
-										<Title>Billing Address Line1</Title>
-										<Input
-											placeholder="Billing Address Line1"
-											value={values.billing_address_line1}
-											onChange={handleChange("billing_address_line1")} />
-									</Mini>
-									{errors.billing_address_line1 && touched && (
-										<Info error>{errors.billing_address_line1}</Info>
-									)}
-									<Mini>
-										<Title>Billing Address Line2</Title>
-										<Input
-											placeholder="Billing Address Line2"
-											value={values.billing_address_line2}
-											onChange={handleChange("billing_address_line2")} />
-									</Mini>
-									{errors.billing_address_line2 && touched && (
-										<Info error>{errors.billing_address_line2}</Info>
-									)}
-									<Mini>
-										<Title>Consultation Package Name</Title>
-										<Input
-											placeholder="Consultation Package Name"
-											value={values.consultation_package_name}
-											onChange={handleChange("consultation_package_name")} />
-									</Mini>
-									{errors.consultation_package_name && touched && (
-										<Info error>{errors.consultation_package_name}</Info>
-									)}
-									<Mini>
-										<Title>Consultation Package Duration</Title>
-										<Input
-											placeholder="Consultation Package Duration"
-											value={values.consultation_package_duration}
-											onChange={handleChange("consultation_package_duration")} />
-									</Mini>
-									{errors.consultation_package_duration && touched && (
-										<Info error>{errors.consultation_package_duration}</Info>
-									)}
-									<Mini>
-										<Title>Amount Paid</Title>
-										<Input
-											placeholder="Amount Paid"
-											value={values.amount_paid}
-											onChange={handleChange("amount_paid")} />
-									</Mini>
-									{errors.amount_paid && touched && (
-										<Info error>{errors.amount_paid}</Info>
-									)}
-
-									<Mini>
-										<Button
-											variant="contained"
-											style={{ margin: "20px", padding: "5px", background: "#800080" }}
-											color="primary"
-											onClick={handleSubmit}
-										>submit</Button>
-										<Button
-											variant="contained"
-											style={{ margin: "20px", padding: "5px", background: "#800080" }}
-											color="primary"
-											onClick={CloseUpdate}
-										>Close</Button>
-									</Mini>
-								</Container>
-							</>
-						)}
-
-					</Formik>
-				</DialogContent>
-			</Dialog>
-			</>)}
-			{loading ? (<CustomSkeleton />) : (<>
+			{isdelete && (
+				<Modal
+					visible={isdelete}
+					onClose={() => setIsDelete(false)}
+					title="Delete Consultation Purchase"
+					acceptButtonConfig={{
+						color: 'secondary',
+						text: 'Delete',
+						onClick: () => {
+							setIsDelete(false);
+							axios
+								.delete(`consultation-purchases/${currentConsultaionPurchase.id}`)
+								.then(() => {
+									setNotificationConf([true, 'success', 'Consultation Purchase Deleted Successfully !'])
+									handleShow();
+								})
+								.catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+						}
+					}}
+				/>
+			)}
+			{showForm && (
+				<ConsultationPurchaseFormModal
+					visible={showForm}
+					onClose={() => {
+						setShowForm(false)
+						if (mode === 'Update') {
+							setCurrentConsultationPurchase(consultationPurchaseInitialValue)
+						}
+					}}
+					mode={mode}
+					values={currentConsultaionPurchase}
+					onSubmit={handleFormSubmit}
+					customers={customers}
+					consultationPackages={consultationPackages}
+				/>
+			)}
+			{loading ? (
+				<CustomSkeleton />
+			) : (
 				<Main>
 					<TableHeader
 						title="List of Consultation Purchase"
 						csvReport={csvReport}
 						addHandler={() => {
-							// TODO: Handle add
+							setMode('Add');
+							setShowForm(true);
 						}}
 						searchHandler={(value) => {
 							setSearch(value);
@@ -375,14 +229,25 @@ const PostOrder = () => {
 										<>
 											<Edit
 												onClick={() => {
-													// setMode('Update')
-													// setCurrentQuestion(order);
-													// handleUpdate(order);
-													// setShowForm(true);
+													setMode('Update')
+													setCurrentConsultationPurchase({
+														id: order.id,
+														user: order.user_id,
+														consultationPackage: order.consultation_package_id,
+														paymentId: order.payment_id,
+														amountPaid: order.amount_paid,
+														status: order.status,
+														billingAddressLine1: order.billing_address_line1 || '',
+														billingAddressLine2: order.billing_address_line2 || '',
+													});
+													setShowForm(true);
 												}}
 												style={{ margin: '0 6px', cursor: 'pointer' }}
 											/>
-											<Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+											<Delete onClick={() => {
+												setCurrentConsultationPurchase(order);
+												setIsDelete(true)
+											}} style={{ margin: '0 6px', cursor: 'pointer' }} />
 										</>
 									]
 								})
@@ -408,17 +273,17 @@ const PostOrder = () => {
 					)}
 					<Snackbar
 						autoHideDuration={3000}
-						anchorOrigin={{ vertical: 'top', horizontal: "center" }}
+						anchorOrigin={{ vertical: "top", horizontal: "center" }}
 						message="Success"
-						open={Issuccess}
+						open={showNotification}
 						onClose={handleClose}
 					>
-						<Alert onClose={handleClose} severity="success">
-							Success Message !
-                        </Alert>
+						<Alert onClose={handleClose} severity={notificationType}>
+							{notification}
+						</Alert>
 					</Snackbar>
 				</Main>
-			</>)}
+			)}
 		</>
 	)
 }
