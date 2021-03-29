@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 
 import { useHistory } from "react-router-dom";
 import { Snackbar, Tooltip } from "@material-ui/core";
@@ -52,11 +52,11 @@ const ListofConsultation = () => {
   const searchParams = new URLSearchParams(history.location.search);
   const status = searchParams.get('type') || CONSULTATION_STATUS_TYPE.BOOKED;
 
-  let current_date_Time = new Date();
+  let current_date_Time = new Date()
   const csvReport = {
     data: consultations,
     filename: `List_of_consultations_${current_date_Time}.csv`,
-  };
+  }
 
   useEffect(() => {
     axios.get(`users`).then((res) => {
@@ -71,21 +71,25 @@ const ListofConsultation = () => {
       }));
     });
     axios.get(`consultants`).then((res) => {
-      setConsultants((res?.data?.data || []).map((user) => {
-        return {
-          id: user.id,
-          name: user.name
-        }
-      }));
-    });
+      setConsultants(
+        (res?.data?.data || []).map((user) => {
+          return {
+            id: user.id,
+            name: user.name,
+          }
+        }),
+      )
+    })
     axios.get(`consultation-packages`).then((res) => {
-      setConsultationPackages((res?.data?.data || []).map((user) => {
-        return {
-          id: user.id,
-          name: user.name
-        }
-      }));
-    });
+      setConsultationPackages(
+        (res?.data?.data || []).map((user) => {
+          return {
+            id: user.id,
+            name: user.name,
+          }
+        }),
+      )
+    })
   }, [])
 
   useEffect(() => {
@@ -121,12 +125,12 @@ const ListofConsultation = () => {
   };
 
   function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
+    return <MuiAlert elevation={6} variant="filled" {...props} />
   }
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
 
     setNotificationConf([false, 'success', '']);
@@ -142,13 +146,15 @@ const ListofConsultation = () => {
   }
 
   const handleFormSubmit = (values) => {
-    const { appointmentTime, appointmentDate } = values;
-    let date = '';
+    const { appointmentTime, appointmentDate } = values
+    let date = ''
     if (appointmentTime && appointmentDate) {
       date = `${appointmentDate.getFullYear()}-${appointmentDate.getMonth() + 1}-${appointmentDate.getDate()} ${appointmentTime.getHours()}:${appointmentTime.getMinutes()}:${appointmentTime.getSeconds()}`
     }
 
-    const selectedConsultant = consultants.find(c => c.id === values.consultant);
+    const selectedConsultant = consultants.find(
+      (c) => c.id === values.consultant,
+    )
 
     const data = {
       user_id: values.customer,
@@ -159,23 +165,46 @@ const ListofConsultation = () => {
       ...(date && { consultation_time: date }),
       consultation_mode: values.mode,
       notes: values.notes || '',
-    };
+    }
 
     if (mode === 'Add') {
-      axios.post(`consultations`, data).then((res) => {
-        setNotificationConf([true, 'success', 'Consultation Added Successfully !'])
-        handleShow();
-      }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+      axios
+        .post(`consultations`, data)
+        .then((res) => {
+          setNotificationConf([
+            true,
+            'success',
+            'Consultation Added Successfully !',
+          ])
+          handleShow()
+        })
+        .catch(() =>
+          setNotificationConf([
+            true,
+            'error',
+            'Something went wrong. Please try again later!',
+          ]),
+        )
     } else {
       axios
         .put(`consultations/${currentConsultation.id}`, data)
         .then((res) => {
-          setNotificationConf([true, 'success', 'Consultation Updated Successfully !'])
-          handleShow();
+          setNotificationConf([
+            true,
+            'success',
+            'Consultation Updated Successfully !',
+          ])
+          handleShow()
         })
-        .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
+        .catch(() =>
+          setNotificationConf([
+            true,
+            'error',
+            'Something went wrong. Please try again later!',
+          ]),
+        )
     }
-    setShowForm(false);
+    setShowForm(false)
   }
 
   const [showNotification, notificationType, notification] = notificationConf;
@@ -196,15 +225,25 @@ const ListofConsultation = () => {
             color: 'secondary',
             text: 'Delete',
             onClick: () => {
-              setIsDelete(false);
+              setIsDelete(false)
               axios
                 .delete(`consultations/${currentConsultation.id}`)
                 .then(() => {
-                  setNotificationConf([true, 'success', 'Consultation Deleted Successfully !'])
-                  handleShow();
+                  setNotificationConf([
+                    true,
+                    'success',
+                    'Consultation Deleted Successfully !',
+                  ])
+                  handleShow()
                 })
-                .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
-            }
+                .catch(() =>
+                  setNotificationConf([
+                    true,
+                    'error',
+                    'Something went wrong. Please try again later!',
+                  ]),
+                )
+            },
           }}
         />
       )}
@@ -235,33 +274,69 @@ const ListofConsultation = () => {
               title={`List of ${nameMap[status]} Consultations`}
               csvReport={csvReport}
               addHandler={() => {
-                setMode('Add');
-                setShowForm(true);
+                setMode('Add')
+                setShowForm(true)
               }}
               searchHandler={(value) => {
-                setSearch(value);
+                setSearch(value)
               }}
             />
             {show && (
               <Table
                 dataSource={{
                   columns: [
-                    { id: 'user_id', label: 'Customer ID', sort: false },
-                    { id: 'user_name', label: 'Customer Name', sort: false },
-                    { id: 'user_email', label: 'Customer Email', sort: false },
-                    { id: 'user_mobile', label: 'Customer Phone Number', sort: false },
-                    { id: 'consultant_name', label: 'Consultant Name', sort: true },
-                    { id: 'consultation_time', label: 'Appointment Time', sort: false },
-                    { id: 'consultation_mode', label: 'Consultation Mode', sort: true },
-                    { id: 'notes', label: 'Consultant Feedback', sort: false },
+                    { id: 'user_id', label: 'User Id', sort: false },
+                    {
+                      id: 'user_id',
+                      label: 'Customer Name',
+                      sort: true,
+                    },
+                    {
+                      id: 'customer_phone',
+                      label: 'Customer Phone',
+                      sort: false,
+                    },
+                    {
+                      id: 'customer_email',
+                      label: 'Customer Email',
+                      sort: false,
+                    },
+                    {
+                      id: 'consultation_package',
+                      label: 'Consultation Package',
+                      sort: true,
+                    },
+                    {
+                      id: 'consultation_time',
+                      label: 'Consultation Time',
+                      sort: false,
+                    },
+                    {
+                      id: 'consultation_mode',
+                      label: 'Consultation Mode',
+                      sort: false,
+                    },
+                    {
+                      id: 'consultant_name',
+                      label: 'Consultant Name',
+                      sort: true,
+                    },
+                    { id: 'notes', label: 'Notes', sort: false },
+                    { id: 'status', label: 'Status', sort: true },
                     { id: 'actions', label: '', sort: false },
                   ],
                   rows: consultations.map((consultation) => {
                     return [
                       consultation.user_id,
-                      `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
-                      consultation?.user?.email || '',
-                      consultation?.user?.mobile || '',
+                      `${consultation?.user?.first_name || ''} ${
+                        consultation?.user?.last_name || ''
+                      }`,
+                      consultation.user?.mobile || '',
+                      consultation.user?.email || '',
+                      consultation.consultation_purchase
+                        ?.consultation_package_name || '',
+                      consultation.consultation_time,
+                      consultation.consultation_mode,
                       consultation.consultant_name,
                       consultation.consultation_time,
                       getConsultationMode(consultation.consultation_mode),
@@ -309,30 +384,30 @@ const ListofConsultation = () => {
                         </Tooltip>
                       </div>
                     ]
-                  })
+                  }),
                 }}
                 order={order}
                 orderBy={sort}
                 onSortClick={(key) => {
-                  setOrder(order === 'asc' ? 'desc' : 'asc');
-                  setSort(key);
+                  setOrder(order === 'asc' ? 'desc' : 'asc')
+                  setSort(key)
                 }}
                 pagination
                 page={page}
                 totalCount={totalCount}
                 rowsPerPage={rowsPerPage}
                 onChangePage={(_, newPage) => {
-                  setPage(newPage);
+                  setPage(newPage)
                 }}
                 onChangeRowsPerPage={(event) => {
-                  setRowsPerPage(parseInt(event.target.value, 10));
-                  setPage(0);
+                  setRowsPerPage(parseInt(event.target.value, 10))
+                  setPage(0)
                 }}
               />
             )}
             <Snackbar
               autoHideDuration={3000}
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
               message="Success"
               open={showNotification}
               onClose={handleClose}
@@ -345,7 +420,7 @@ const ListofConsultation = () => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ListofConsultation;
+export default ListofConsultation
