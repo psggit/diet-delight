@@ -1,16 +1,57 @@
 import React, { useState, useEffect } from "react";
 import "./Appointmentmain.css";
-import {useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SelectdatePicker from "../SelectdatePicker";
 import TimeSlotByShift from "./TimeSlotByShift";
 import "./toggle.css";
+import axios from "../../axiosInstance";
 import Mealchoose from "../Mealchoose.js";
-import * as Yup from 'yup';
- 
+import {
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+} from "@material-ui/core";
+import clsx from "clsx";
+import { makeStyles, createStyles } from "@material-ui/core";
+import * as Yup from "yup";
+
+const DEFAULT_CONSULTATION_TYPE = "online";
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    formLabel: {
+      fontSize: 19,
+      color: "#303960",
+      fontWeight: 700,
+      marginBottom: 30,
+    },
+    radioGroupRoot: {
+      "& .Mui-checked": {
+        color: "#8BC441",
+      },
+    },
+    formLabelRootWithBorder: {
+      border: "2px solid #8BC441",
+    },
+    formLabelRoot: {
+      padding: "10px 20px",
+      marginBottom: 10,
+      textAlign: "left",
+      background: "#ffffff",
+      color: "black",
+      marginLeft: 0,
+    },
+    radioRoot: {
+      color: "#8BC441",
+    },
+  })
+);
 
 export default function Appointmentmain(props) {
   console.log(props);
-  let history = useHistory(); 
+  let history = useHistory();
+  const classes = useStyles();
 
   const [date, setDate] = useState("");
   const [minDate, setMinDate] = useState("");
@@ -19,8 +60,10 @@ export default function Appointmentmain(props) {
   const [appointmentMode, setAppointmentMode] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [checked, setChecked] = useState();
-
-  
+  const [consultationType, setConsultationType] = useState(
+    DEFAULT_CONSULTATION_TYPE
+  );
+  const [packageDetails, setPackageDetails] = useState({});
 
   useEffect(() => {
     var todayDate = new Date();
@@ -37,11 +80,29 @@ export default function Appointmentmain(props) {
     console.log(formatedDate);
   }, []);
 
-  function handleDateChange(date){
+  useEffect(() => {
+    console.log(props);
+    axios
+      .get(`consultation-packages/` + props.location.state.packageId, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      })
+      .then((res) => {
+        console.log("package details", res);
+        setPackageDetails(res.data.data);
+      });
+  }, []);
+
+  function handleDateChange(date) {
     setDate(date);
-      var errorMessage = document.getElementById('successDate');
-      errorMessage.innerHTML = '';
-      console.log(errorMessage)
+    var errorMessage = document.getElementById("successDate");
+    errorMessage.innerHTML = "";
+    console.log(errorMessage);
+  }
+
+  function handleRadioChange(e) {
+    setConsultationType(e.target.value);
   }
 
   function handleDayPeriod(period) {
@@ -50,12 +111,11 @@ export default function Appointmentmain(props) {
   }
 
   function handleSelectedTimeSlot(selectedTimeSlot) {
-  
     console.log(selectedTimeSlot);
     setTimeSlot(selectedTimeSlot);
-    var errorMessage = document.getElementById('successTime');
-    errorMessage.innerHTML = '';
-    console.log(errorMessage)
+    var errorMessage = document.getElementById("successTime");
+    errorMessage.innerHTML = "";
+    console.log(errorMessage);
   }
 
   function handleColorTheme(period) {
@@ -77,62 +137,63 @@ export default function Appointmentmain(props) {
     }
     setRenderShift(period);
   }
- 
+
   function handleDate() {
-    if (date != "") {
-  
-
-      if(appointmentMode === "offline"){
-        if( timeSlot != ""){
-          history.push({
-            pathname: "/GrandtotalAppointmentmain",
-            state: {
-              packageId: props.location.state.packageId,
-              date: date,
-              time: timeSlot,
-              appointmentMode: appointmentMode,
-              picture: props.location.state.packagePicture,
-            },
-          });
-        }else {
-          var errorMessage = document.getElementById('successTime');
-          errorMessage.innerHTML = 'please enter time ';
-        }
-
-      }else{
+    if (consultationType === "offline") {
+      if (date !== "" && timeSlot != "") {
         history.push({
           pathname: "/GrandtotalAppointmentmain",
           state: {
             packageId: props.location.state.packageId,
             date: date,
             time: timeSlot,
-            appointmentMode: appointmentMode,
+            appointmentMode: consultationType,
             picture: props.location.state.packagePicture,
+            packageDetails: packageDetails.details,
           },
         });
-
+      } else if (date === "") {
+        var errorMessage = document.getElementById("successDate");
+        errorMessage.innerHTML = "please enter date";
+      } else {
+        var errorMessage = document.getElementById("successTime");
+        errorMessage.innerHTML = "please enter time ";
       }
-    
     } else {
-      var errorMessage = document.getElementById('successDate');
-      errorMessage.innerHTML = 'please enter date';
-
+      history.push({
+        pathname: "/AddressAppointmentMain",
+        state: {
+          packageId: props.location.state.packageId,
+          date: date,
+          time: timeSlot,
+          appointmentMode: consultationType,
+          picture: props.location.state.packagePicture,
+          packageName: packageDetails.name,
+          packagePrice: packageDetails.price,
+          packageDuration: packageDetails.duration,
+        },
+      });
     }
+
+    // else {
+    //   var errorMessage = document.getElementById("successDate");
+    //   errorMessage.innerHTML = "please enter date";
+    // }
     // alert("Please Select Date & Time");
   }
 
-  useEffect(() => {
-    if (checked) {
-      setDisabled(true);
-      setRenderShift("");
-      setTimeSlot("");
-      setAppointmentMode("online");
-      handleColorTheme();
-    } else {
-      setDisabled(false);
-      setAppointmentMode("offline");
-    }
-  }, [checked]);
+  // useEffect(() => {
+  //   if (checked) {
+  //     setDisabled(true);
+  //     setRenderShift("");
+  //     setTimeSlot("");
+  //     setAppointmentMode("online");
+  //     handleColorTheme();
+  //   } else {
+  //     setDisabled(false);
+  //     setAppointmentMode("offline");
+  //   }
+  // }, [checked]);
 
   return (
     <div className="main_container_appoi">
@@ -147,37 +208,84 @@ export default function Appointmentmain(props) {
               <img
                 src={props.location.state.packagePicture}
                 alt="silver"
-                className="silver_img_appointment" 
+                className="silver_img_appointment"
               ></img>
- 
+
               <p className="silver_subtitle">
                 {props.location.state.packageDetails}
               </p>
 
-              <h6 className="appointmentdate_title">Select Appointment date</h6>
+              {consultationType !== DEFAULT_CONSULTATION_TYPE && (
+                <>
+                  <h6 className="appointmentdate_title">
+                    Select Appointment date
+                  </h6>
 
-              <SelectdatePicker
-                dateChange={handleDateChange}
-              
-                minValue={minDate}
-              />
-              <span id="successDate" className="enter_text_red_alert" style={{color:'red', fontWeight:800}}></span>
+                  <SelectdatePicker
+                    dateChange={handleDateChange}
+                    minValue={minDate}
+                  />
+                </>
+              )}
+              <span
+                id="successDate"
+                className="enter_text_red_alert"
+                style={{ color: "red", fontWeight: 800 }}
+              ></span>
               {/*         
             <div className="row toggle_container">
             <h6 className="online_text">Online</h6>
             <input type="checkbox" id="switch" /><label className="switch_toggle" for="switch"></label>
-            
-        </div> */}
+            </div> */}
 
               <div className="row toggle_container">
-                <h6 className="online_text">Online Consultation</h6>
-                {/* <h6 className="online_text">Consultation at Clinic</h6> */}
+                {/* <h6 className="online_text">Online Consultation</h6>
                 <input
                   onChange={(e) => setChecked(!checked)}
                   type="checkbox"
                   id="switch"
                 />
-                <label className="switch_toggle" htmlFor="switch"></label>
+                <label className="switch_toggle" htmlFor="switch"></label> */}
+                <FormLabel
+                  component="legend"
+                  classes={{ root: classes.formLabel }}
+                >
+                  Select Mode of Consultation
+                </FormLabel>
+                <FormControl component="fieldset">
+                  <RadioGroup
+                    name="controlled-radio-buttons-group"
+                    value={consultationType}
+                    onChange={handleRadioChange}
+                    classes={{ root: classes.radioGroupRoot }}
+                  >
+                    <FormControlLabel
+                      value="online"
+                      control={<Radio classes={{ root: classes.radioRoot }} />}
+                      label="Online Consultation"
+                      labelPlacement="start"
+                      className={clsx(
+                        classes.formLabelRoot,
+                        consultationType === "online"
+                          ? classes.formLabelRootWithBorder
+                          : ""
+                      )}
+                    />
+                    <FormControlLabel
+                      value="offline"
+                      control={<Radio classes={{ root: classes.radioRoot }} />}
+                      label="Consultation for clinic"
+                      labelPlacement="start"
+                      //classes={{ root: classes.formLabelRoot }}
+                      className={clsx(
+                        classes.formLabelRoot,
+                        consultationType === "offline"
+                          ? classes.formLabelRootWithBorder
+                          : ""
+                      )}
+                    />
+                  </RadioGroup>
+                </FormControl>
               </div>
 
               {/* <div className="male_container mt-3">
@@ -227,7 +335,7 @@ export default function Appointmentmain(props) {
               <h5 className="timeslot_title">Select Prefered Timeslot</h5>
 
               {/* tabs start */}
-              {checked ? (
+              {consultationType === DEFAULT_CONSULTATION_TYPE ? (
                 <div>
                   <h3 className="heading heading_text_appointmain">
                     You have Selected an online consultation!
@@ -273,7 +381,7 @@ export default function Appointmentmain(props) {
                         id="evening"
                         disabled={disabled}
                         onClick={() => handleDayPeriod("evening")}
-                      > 
+                      >
                         Evening
                       </button>
                       <p className="morning_tabs_subtitle">3 PM to 6 PM</p>
@@ -287,7 +395,10 @@ export default function Appointmentmain(props) {
                         selectedTimeSlot={handleSelectedTimeSlot}
                         disabled={disabled}
                       />
-                        <span id="successTime" style={{color:'red', fontWeight:800}}></span>
+                      <span
+                        id="successTime"
+                        style={{ color: "red", fontWeight: 800 }}
+                      ></span>
                     </div>
                   </div>
                 </div>
