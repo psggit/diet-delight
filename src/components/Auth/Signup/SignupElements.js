@@ -156,3 +156,33 @@ export const ErrorPara = styled(Para)`
   text-align: left;
   margin-left: 1.3rem;
 `;
+
+export const ResendOTPBtn = styled.button`
+  color: #000000b5;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 12px;
+
+  :hover{
+    color: purple;
+  }
+`;
+
+export const VerifyOTPBtn = styled.button`
+  width: 100%;
+  background: #8BC53F;
+  font-size: 11px;
+  color: #fff;
+  letter-spacing: 2px;
+  border-radius: 15px;
+  margin-top: 22px;
+  border: 2px solid #8BC53F;
+  font-weight: bold;
+  
+  :hover{
+    background-color: transparent;
+    color: purple;
+  }
+`
