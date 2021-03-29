@@ -210,8 +210,8 @@ export default function SubMealAddress(props){
                      <WeekDataMemo  mealType={props.mealType} handleWeekDays={handleWeekDays} handleMaximumSelection={handleMaximumSelection}/> 
                     </div>
 
-                    <div className="row">
-                        <span id="maximumSelectionMessage" style={{color:'red', fontWeight:800, fontSize:".8rem"}}>{maximumSelectionMessage}</span>
+                    <div className="row" style={{paddingLeft: '30px'}}>
+                        <span id="maximumSelectionMessage" style={{color:'#800080', fontWeight:600, fontSize:".8rem"}}>{maximumSelectionMessage}</span>
                     </div>
                     
                     <div className="row">
@@ -220,7 +220,7 @@ export default function SubMealAddress(props){
                     
                     <div className="datepicker_container_mealaddress">
                     <SelectdatePicker dateChange={handleDateChange} minValue={incrementedDate}/>
-                    <span id="successDate" style={{color:'red', fontWeight:800}}></span>
+                    <span id="successDate" style={{color:'#800080', fontWeight:600}}></span>
                     </div>
                     </div>
                     <div className="col-md-6">
