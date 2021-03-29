@@ -1,6 +1,6 @@
 /* global grecaptcha */
 
-import React, { useState, forwardRef, useEffect, useMemo, useRef } from "react";
+import React, { useState, forwardRef, useEffect, useRef } from "react";
 import {
   Main,
   Route,
@@ -10,29 +10,21 @@ import {
   BackgroundImageContainer,
 } from "./SignupElements";
 
+import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
-
-import axios from "../../../axiosInstance";
 import { Cookies } from "react-cookie";
+import { Slide } from "@material-ui/core";
 
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Slide,
-  Button,
-} from "@material-ui/core";
+import "./signup.css"
+import axios from "../../../axiosInstance";
 
 import logo from "../../../assets/logo.png";
 import { Image, Line, Subheading } from "../../MainComponents";
 import { useDispatch } from "react-redux";
 import { setNew } from "../../../features/userSlice";
 import firebase from "../SignInMethods/firebaseConfig";
-import logo_img from "../../../assets/logoweb.png";
 import SignUpForm from "./SignUpForm";
-import OTPInput from "../OTPInput";
+import VerifyOTP from "./VerifyOTP";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -43,15 +35,12 @@ const Signup = () => {
   const dispatch = useDispatch();
   let cookie = new Cookies();
 
-  const [otpDialog, setOtpDialog] = useState(false);
-  const [open, setOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const reCaptcha = useRef("");
   const verificationOTP = useRef("");
+  const [verifyingOTP, setVerifyingOTP] = useState(false);
 
   const [token, setToken] = useState({});
-  const [successErrorMessage, setSuccessErrorMessage] = useState(
-    "Account Created SuccessFully"
-  );
 
   const [formValues, setFormValues] = useState({
     fname: "",
@@ -75,28 +64,20 @@ const Signup = () => {
     );
   }, [token]);
 
-  const handleCloseOtp = () => {
-    // props.handleOtpDialog();
-  };
+  useEffect(() => {
+    if (!verifyingOTP) {
+      renderCaptcha();
+    }
+  }, []);
 
   const resendOtp = () => {
     grecaptcha.reset();
-    const values = { ...formValues };
-    phoneAuth(values);
+    const _values = { ...formValues };
+    phoneAuth(_values);
   };
-
-  const handleClose = () => {
-    setOpen(false);
-    dispatch(setNew());
-    history.push("/");
-  };
-
-  useEffect(() => {
-    renderCaptcha();
-  }, []);
 
   const handleCodeByUser = (confirmationResult, userValues) => {
-    setOtpDialog(true);
+    setVerifyingOTP(true);
     const captureButtonClick = document.getElementById("verifyOtp");
 
     captureButtonClick.onclick = (e) => {
@@ -106,61 +87,21 @@ const Signup = () => {
       confirmationResult
         .confirm(verificationOTP.current)
         .then(async (result) => {
-          // User signed in successfully.
           const user = result.user;
-          var errorMessage = document.getElementById(
-            "successErrorMessageForWrongOtp"
-          );
-          errorMessage.innerHTML = "";
-          console.log(user);
+          console.log("User : ", user);
           console.log(user.phoneNumber);
+
+          enqueueSnackbar("Otp Verification Completed");
           handleRegistration(userValues, user.phoneNumber, user.uid);
-          setSuccessErrorMessage("Otp Verification Completed");
-          setOpen(true);
+
           setTimeout(() => {
-            setOtpDialog(false);
+            setVerifyingOTP(false);
           }, 1000);
         })
         .catch((error) => {
           console.log(error);
-          var errorMessage = document.getElementById(
-            "successErrorMessageForWrongOtp"
-          );
-          errorMessage.innerHTML = "Invalid Otp Please try Again";
+          enqueueSnackbar("Invalid Otp Please try Again");
         });
-    };
-
-    captureButtonClick.onKeyPress = (e) => {
-      if (e.code === "Enter") {
-        console.log("OTP : ", verificationOTP);
-        if (verificationOTP.current.length !== 6) return;
-
-        confirmationResult
-          .confirm(verificationOTP.current)
-          .then(async (result) => {
-            // User signed in successfully.
-            const user = result.user;
-            var errorMessage = document.getElementById(
-              "successErrorMessageForWrongOtp"
-            );
-            errorMessage.innerHTML = "";
-            console.log(user);
-            console.log(user.phoneNumber);
-            handleRegistration(userValues, user.phoneNumber, user.uid);
-            setSuccessErrorMessage("Otp Verification Completed");
-            setOpen(true);
-            setTimeout(() => {
-              setOtpDialog(false);
-            }, 1000);
-          })
-          .catch((error) => {
-            console.log(error);
-            var errorMessage = document.getElementById(
-              "successErrorMessageForWrongOtp"
-            );
-            errorMessage.innerHTML = "Invalid Otp Please try Again";
-          });
-      }
     };
   };
 
@@ -248,134 +189,67 @@ const Signup = () => {
             path: "/",
             maxAge: res.data.expires_in,
           });
-          setOpen(true);
+          enqueueSnackbar("Account Created SuccessFully");
+
+          setTimeout(() => {
+            dispatch(setNew());
+            history.push("/");
+          }, 6000);
         })
         .catch((err) => {
           console.log(err);
-          setSuccessErrorMessage(
-            "Failed To Create Account!! Please try Again....."
-          );
-          setOpen(true);
+          enqueueSnackbar("Failed To Create Account!! Please try Again.....");
         });
     }
   };
 
   return (
-    <>
-      <div style={{ zIndex: 5 }}>
-        <Dialog
-          open={otpDialog}
-          onClose={handleCloseOtp}
-          aria-labelledby="responsive-dialog-title"
-        >
-          <DialogTitle className="otp_bg" id="responsive-dialog-title">
-            <div className="row dialog_signup_new">
-              <div className="col-2">
-                <i
-                  className="fa fa-long-arrow-left left_icon_dialog"
-                  aria-hidden="true"
-                  onClick={() => setOtpDialog(false)}
-                ></i>
-              </div>
-
-              <div className="col-10">
-                <div className="img_container_dialog">
-                  <img
-                    src={logo_img}
-                    className="logo_dialog_signup"
-                    alt="logo"
-                  ></img>
-                </div>
-              </div>
-            </div>
-
-            <h6 className="your_phone_text">VERIFY YOUR PHONE NUMBER</h6>
-
-            <h6 className="received_text">
-              You would have received an otp on your phone...
-            </h6>
-
-            <h6 className="enter_otp_text">Enter OTP</h6>
-
-            <OTPInput
-              autoFocus
-              isNumberInput
-              length={6}
-              className="row justify-content-center"
-              onChangeOTP={(otp) => (verificationOTP.current = otp)}
-            />
-
-            <span
-              id="successErrorMessageForWrongOtp"
-              style={{
-                color: "red",
-                size: "0.8rem",
-                weight: "700",
-                align: "none",
-                top: "0",
-              }}
-            ></span>
-
-            <h6 className="resend_otp_text" onClick={() => resendOtp()}>
-              Resend OTP
-            </h6>
-
-            <button className="btn verify_btn_dialog" id="verifyOtp">
-              VERIFY
-            </button>
-          </DialogTitle>
-        </Dialog>
-      </div>
-
-      <BackgroundImageContainer>
-        <Main>
-          <Route to="/">
-            <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
-          </Route>
-          <RouteContainer>
-            <Route opacity="0.7" to="/signin">
-              <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
-                SIGN IN
-              </Subheading>
+    <BackgroundImageContainer>
+      <Main>
+        {verifyingOTP ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              height: "inherit",
+              alignItems: "center",
+            }}
+          >
+            <SetBg>
+              <VerifyOTP
+                setVerifyingOTP={setVerifyingOTP}
+                resendOtp={resendOtp}
+                verificationOTP={verificationOTP}
+              />
+            </SetBg>
+          </div>
+        ) : (
+          <>
+            <Route to="/">
+              <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
             </Route>
-            <Route to="/signup">
-              <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
-                SIGN UP
-              </Subheading>
-              <Line back="rgba(137,197,63,1)" top="0" height="3px" />
-            </Route>
-          </RouteContainer>
-          <SetBg>
-            <Container>
-              <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-              >
-                <DialogTitle id="alert-dialog-slide-title">
-                  {"Diet Delight!"}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    {successErrorMessage}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose} color="primary">
-                    OK
-                  </Button>
-                </DialogActions>
-              </Dialog>
-
-              <SignUpForm handleSignUp={handleSignUp} phoneAuth={phoneAuth} />
-            </Container>
-          </SetBg>
-        </Main>
-      </BackgroundImageContainer>
-    </>
+            <RouteContainer>
+              <Route opacity="0.7" to="/signin">
+                <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
+                  SIGN IN
+                </Subheading>
+              </Route>
+              <Route to="/signup">
+                <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
+                  SIGN UP
+                </Subheading>
+                <Line back="rgba(137,197,63,1)" top="0" height="3px" />
+              </Route>
+            </RouteContainer>
+            <SetBg>
+              <Container>
+                <SignUpForm formValues={formValues} handleSignUp={handleSignUp} phoneAuth={phoneAuth} />
+              </Container>
+            </SetBg>
+          </>
+        )}
+      </Main>
+    </BackgroundImageContainer>
   );
 };
 
