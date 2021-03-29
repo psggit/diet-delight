@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 import { Cookies } from "react-cookie";
 import { Slide } from "@material-ui/core";
 
-import "./signup.css"
+import "./signup.css";
 import axios from "../../../axiosInstance";
 
 import logo from "../../../assets/logo.png";
@@ -68,17 +68,18 @@ const Signup = () => {
     if (!verifyingOTP) {
       renderCaptcha();
     }
-  }, []);
+  }, [verifyingOTP]);
 
   const resendOtp = () => {
-    grecaptcha.reset();
+    // grecaptcha.reset();
+    if (reCaptcha.current) reCaptcha.current.reset();
     const _values = { ...formValues };
     phoneAuth(_values);
   };
 
   const handleCodeByUser = (confirmationResult, userValues) => {
     setVerifyingOTP(true);
-    const captureButtonClick = document.getElementById("verifyOtp");
+    const captureButtonClick = document.getElementById("sign-up");
 
     captureButtonClick.onclick = (e) => {
       console.log("OTP : ", verificationOTP);
@@ -121,7 +122,8 @@ const Signup = () => {
       })
       .catch((error) => {
         console.log("Phone Auth Error : ", error);
-        grecaptcha.reset();
+        // grecaptcha.reset();
+        if (reCaptcha.current) reCaptcha.current.reset();
       });
   };
 
@@ -198,7 +200,7 @@ const Signup = () => {
         })
         .catch((err) => {
           console.log(err);
-          enqueueSnackbar("Failed To Create Account!! Please try Again.....");
+          enqueueSnackbar("Something went wrong. Try again later");
         });
     }
   };
@@ -243,7 +245,11 @@ const Signup = () => {
             </RouteContainer>
             <SetBg>
               <Container>
-                <SignUpForm formValues={formValues} handleSignUp={handleSignUp} phoneAuth={phoneAuth} />
+                <SignUpForm
+                  formValues={formValues}
+                  handleSignUp={handleSignUp}
+                  phoneAuth={phoneAuth}
+                />
               </Container>
             </SetBg>
           </>
