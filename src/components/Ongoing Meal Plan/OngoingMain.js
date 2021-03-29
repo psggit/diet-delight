@@ -18,7 +18,7 @@ export default function OngoingMain() {
         },
       })
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res);
         setMeal(res.data.data);
       });
   }, []);
@@ -67,7 +67,7 @@ export default function OngoingMain() {
 
                   <div className="col-md-11 col-sm-12">
                     <h6 className="date_content_ongoing">
-                     {meal.start_date}
+                      Start Date - {meal.start_date}
                     </h6>
                     <h6 className="date_content_ongoing_subtext">
                       {meal.meal_plan.details}

@@ -22,7 +22,7 @@ const Feature = () => {
             }
         }).then((res) => {
             console.log(res)
-            var resData = res.data.data;
+            var resData = res.data.data; 
             setFeature(resData)        
         })
         fetchFavourites()

@@ -28,7 +28,7 @@ export default function Daytabs(props){
             return (
                 <div className="day_text_container" key={Math.random()} onClick={() => {props.notifyParent(day)
                     }} >
-                <p className="day_text">{day}</p>
+                <p className="day_text">Day {day}</p>
                 </div>
                 );
             })}
