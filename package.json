@@ -45,6 +45,7 @@
     "react-select-country-list": "^2.2.3",
     "react-tabs": "^3.1.2",
     "react-to-pdf": "^0.0.13",
+    "recharts": "^2.0.9",
     "semantic-ui-react": "^2.0.3",
     "styled-components": "^5.2.1",
     "uuid": "8.3.2",

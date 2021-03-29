@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { useHistory } from "react-router-dom";
-import { Snackbar } from "@material-ui/core";
+import { Snackbar, Tooltip } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
 import axios from "../../../axiosInstance";
@@ -10,7 +10,7 @@ import Modal from '../../reusable/Modal';
 import { Main } from "./ConsultantElements";
 import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';
-import { Edit, Delete } from '@material-ui/icons';
+import { Edit, Delete, CheckCircleOutline } from '@material-ui/icons';
 import ConsultationFormModal from './ConsultationFormModal';
 import { CONSULTATION_MODE, CONSULTATION_STATUS_TYPE } from '../Constants';
 
@@ -259,33 +259,46 @@ const ListofConsultation = () => {
                       consultation.consultation_time,
                       getConsultationMode(consultation.consultation_mode),
                       consultation.notes,
-                      <>
-                        <Edit
-                          onClick={() => {
-                            setMode('Update')
-                            setCurrentConsultation({
-                              id: consultation.id,
-                              customer: consultation.user_id,
-                              email: consultation?.user?.email || '',
-                              mobile: consultation?.user?.mobile || '',
-                              consultant: consultation.consultant_id,
-                              consultationPackage: consultation.consultation_purchase_id,
-                              status: consultation.status,
-                              mode: consultation.consultation_mode,
-                              appointmentDate: new Date(consultation.consultation_time),
-                              appointmentTime: new Date(consultation.consultation_time),
-                              notes: consultation.notes,
-                            });
-                            setShowForm(true);
-                          }}
-                          style={{ margin: '0 6px', cursor: 'pointer' }}
-                        />
-                        <Delete
-                          onClick={() => {
-                            setIsDelete(true);
-                            setCurrentConsultation(consultation);
-                          }} style={{ margin: '0 6px', cursor: 'pointer' }} />
-                      </>
+                      <div style={{ minWidth: 112 }}>
+                        {status === CONSULTATION_STATUS_TYPE.BOOKED && (
+                          <Tooltip title="Mark as Complete">
+                            <CheckCircleOutline style={{ margin: '0 6px', cursor: 'pointer' }} onClick={() => {
+                              axios.put(`consultations/${consultation.id}`, { status: 2 }).then(() => {
+                                setNotificationConf([true, 'success', 'Consultation Marked as Complete !'])
+                              }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+                            }} />
+                          </Tooltip>
+                        )}
+                        <Tooltip title="Edit">
+                          <Edit
+                            onClick={() => {
+                              setMode('Update')
+                              setCurrentConsultation({
+                                id: consultation.id,
+                                customer: consultation.user_id,
+                                email: consultation?.user?.email || '',
+                                mobile: consultation?.user?.mobile || '',
+                                consultant: consultation.consultant_id,
+                                consultationPackage: consultation.consultation_purchase_id,
+                                status: consultation.status,
+                                mode: consultation.consultation_mode,
+                                appointmentDate: new Date(consultation.consultation_time),
+                                appointmentTime: new Date(consultation.consultation_time),
+                                notes: consultation.notes,
+                              });
+                              setShowForm(true);
+                            }}
+                            style={{ margin: '0 6px', cursor: 'pointer' }}
+                          />
+                        </Tooltip>
+                        <Tooltip title="Delete">
+                          <Delete
+                            onClick={() => {
+                              setIsDelete(true);
+                              setCurrentConsultation(consultation);
+                            }} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                        </Tooltip>
+                      </div>
                     ]
                   })
                 }}
