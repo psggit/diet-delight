@@ -29,19 +29,14 @@ const Home = () => {
                             </HomeIcon>
                         </HomeSearch> */}
                     </Containerup>
-                    {/* <Icons>
-                        <Icon>
-                            
-                            
+                    <Icons>
+                        {/* <Icon>
                             <Message />
-          
-                           
-                        </Icon>
-                        
+                        </Icon> */}
                         <Icon>
                             <Whatsapp />
                         </Icon>
-                    </Icons> */}
+                    </Icons>
                 </HomeContainer>
             </HomeMain>
         </div>

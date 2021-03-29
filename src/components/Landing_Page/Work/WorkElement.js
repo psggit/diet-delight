@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link as LinkS } from "react-scroll";
 
 import back from '../../../assets/workbg.jpg'
 
@@ -64,8 +65,10 @@ margin-bottom:30px;
 
 `
 export const WorkImage = styled.img`
-src: ${props => props.src ? props.src : ""};
-alt:"Icon";
+    src: ${props => props.src ? props.src : ""};
+    alt:"Icon";
+    max-height: 5rem;
+    min-height: 5rem;
 `
 export const Title = styled.h3`
 font-size:1.3rem;
@@ -106,4 +109,26 @@ color: purple;
 border: 1px solid purple;
 margin-bottom:20px;
 border-radius: 10px;
+
+    :hover{
+        background-color: purple;
+        color: white;
+    }
 `
+
+export const NavLinks = styled(LinkS)`
+    cursor:pointer;
+    width:max-content;
+    height: 32px;
+    padding: 0px 25px;
+    background-color: transparent;
+    color: purple !important;
+    border: 1px solid purple;
+    margin-bottom:20px;
+    border-radius: 10px;
+
+    :hover{
+        background-color: purple;
+        color: white !important;
+    }
+`;

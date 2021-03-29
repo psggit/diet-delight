@@ -1,229 +1,199 @@
-
-.vegsquare{
-	width:16px;
-    height:16px;
-    border:1px solid green;
-    text-align:center;
-    display:flex;
-    align-items:center;
-
+.vegsquare {
+  width: 16px;
+  height: 16px;
+  border: 1px solid green;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
-.vegcircle{
-	width:10px;
-    height:10px;
-    margin-right:auto;
-    margin-left:auto;
-    border-radius:50%;
-    background:green;
-    margin-left: 1.5px;
-
-
+.vegcircle {
+  width: 10px;
+  height: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 50%;
+  background: green;
+  margin-left: 1.5px;
 }
 
-.nonvegsquare{
-    width:16px;
-    height:16px;
-    border:1px solid red;
-    text-align:center;
-    display:flex;
-    align-items:center;
+.nonvegsquare {
+  width: 16px;
+  height: 16px;
+  border: 1px solid red;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
-.nonvegcircle{
- width:10px;
- height:10px;
- margin-right:auto;
- margin-left:auto;
- border-radius:50%;
- background:red;
- margin-left: 1.5px;
-
+.nonvegcircle {
+  width: 10px;
+  height: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 50%;
+  background: red;
+  margin-left: 1.5px;
 }
-
-
 
 @media screen and (max-width: 767px) {
+  .vegsquare {
+    width: 16px;
+    height: 16px;
+    border: 1px solid green;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+  .vegcircle {
+    width: 10px;
+    height: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    background: green;
+    margin-left: 1.8px;
+  }
 
-    .vegsquare{
-        width:16px;
-        height:16px;
-        border:1px solid green;
-        text-align:center;
-        display:flex;
-        align-items:center;
-    }
-    .vegcircle{
-        width:10px;
-        height:10px;
-        margin-right:auto;
-        margin-left:auto;
-        border-radius:50%;
-        background:green;
-        margin-left: 1.8px;
-
-    }
-
-    .nonvegsquare{
-        width:16px;
-        height:16px;
-        border:1px solid red;
-        text-align:center;
-        display:flex;
-        align-items:center;
-    }
-    .nonvegcircle{
-     width:10px;
-     height:10px;
-     margin-right:auto;
-     margin-left:auto;
-     border-radius:50%;
-     background:red;
-     margin-left: 1.8px;
-
- }
-
+  .nonvegsquare {
+    width: 16px;
+    height: 16px;
+    border: 1px solid red;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+  .nonvegcircle {
+    width: 10px;
+    height: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    background: red;
+    margin-left: 1.8px;
+  }
 }
-
-
 
 @media screen and (min-width: 768px) {
+  .vegsquare {
+    width: 16px;
+    height: 16px;
+    border: 1px solid green;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: 9px;
+  }
+  .vegcircle {
+    width: 10px;
+    height: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    background: green;
+    margin-left: 1.8px;
+  }
 
-    .vegsquare{
-        width:16px;
-        height:16px;
-        border:1px solid green;
-        text-align:center;
-        display:flex;
-        align-items:center;
-        position: relative;
-        right: 9px;
-    }
-    .vegcircle{
-        width:10px;
-        height:10px;
-        margin-right:auto;
-        margin-left:auto;
-        border-radius:50%;
-        background:green;
-        margin-left: 1.8px;
-
-    }
-
-    .nonvegsquare{
-        width:16px;
-        height:16px;
-        border:1px solid red;
-        text-align:center;
-        display:flex;
-        align-items:center;
-        position: relative;
-        right: 9px;
-    }
-    .nonvegcircle{
-     width:10px;
-     height:10px;
-     margin-right:auto;
-     margin-left:auto;
-     border-radius:50%;
-     background:red;
-     margin-left: 1.8px;
-
- }
-
+  .nonvegsquare {
+    width: 16px;
+    height: 16px;
+    border: 1px solid red;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: 9px;
+  }
+  .nonvegcircle {
+    width: 10px;
+    height: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    background: red;
+    margin-left: 1.8px;
+  }
 }
-
-
 
 @media screen and (min-width: 992px) {
+  .vegsquare {
+    width: 16px;
+    height: 16px;
+    border: 1px solid green;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: -9px;
+  }
+  .vegcircle {
+    width: 10px;
+    height: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    background: green;
+    margin-left: 1.8px;
+  }
 
-    .vegsquare{
-        width:16px;
-        height:16px;
-        border:1px solid green;
-        text-align:center;
-        display:flex;
-        align-items:center;
-        position: relative;
-        right: -9px;
-    }
-    .vegcircle{
-        width:10px;
-        height:10px;
-        margin-right:auto;
-        margin-left:auto;
-        border-radius:50%;
-        background:green;
-        margin-left: 1.8px;
-
-    }
-
-    .nonvegsquare{
-        width:16px;
-        height:16px;
-        border:1px solid red;
-        text-align:center;
-        display:flex;
-        align-items:center;
-        position: relative;
-        right: -9px;
-    }
-    .nonvegcircle{
-     width:10px;
-     height:10px;
-     margin-right:auto;
-     margin-left:auto;
-     border-radius:50%;
-     background:red;
-     margin-left: 1.8px;
-
- }
-
+  .nonvegsquare {
+    width: 16px;
+    height: 16px;
+    border: 1px solid red;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: -9px;
+  }
+  .nonvegcircle {
+    width: 10px;
+    height: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    background: red;
+    margin-left: 1.8px;
+  }
 }
 
-
-
 @media screen and (min-width: 1200px) {
+  .vegsquare {
+    width: 16px;
+    height: 16px;
+    border: 1px solid green;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: -11px;
+  }
+  .vegcircle {
+    width: 10px;
+    height: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    background: green;
+    margin-left: 1.8px;
+  }
 
-    .vegsquare{
-        width:16px;
-        height:16px;
-        border:1px solid green;
-        text-align:center;
-        display:flex;
-        align-items:center;
-        position: relative;
-        right: -11px;
-
-    }
-    .vegcircle{
-        width:10px;
-        height:10px;
-        margin-right:auto;
-        margin-left:auto;
-        border-radius:50%;
-        background:green;
-        margin-left: 1.8px;
-
-    }
-
-    .nonvegsquare{
-        width:16px;
-        height:16px;
-        border:1px solid red;
-        text-align:center;
-        display:flex;
-        align-items:center;
-        position: relative;
-        right: -11px;
-    }
-    .nonvegcircle{
-     width:10px;
-     height:10px;
-     margin-right:auto;
-     margin-left:auto;
-     border-radius:50%;
-     background:red;
-     margin-left: 1.8px;
-
- }
-
+  .nonvegsquare {
+    width: 16px;
+    height: 16px;
+    border: 1px solid red;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: -11px;
+  }
+  .nonvegcircle {
+    width: 10px;
+    height: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 50%;
+    background: red;
+    margin-left: 1.8px;
+  }
 }

@@ -70,7 +70,7 @@ export const NavItem = styled.li`
   height: 50px;
 `;
 export const NavLinks = styled(LinkS)`
-  color: purple;
+  color: purple !important;
   display: flex;
   align-items: center;
   font-size: 1rem;
@@ -80,11 +80,11 @@ export const NavLinks = styled(LinkS)`
   height: 100%;
   cursor: pointer;
 
-  &.active {
+  :active {
     color: rgba(139, 197, 63, 1);
   }
-  &:hover {
-    color: rgba(139, 197, 63, 1);
+  :hover {
+    color: rgba(139, 197, 63, 1) !important;
   }
 `;
 export const NavButton = styled.nav`
