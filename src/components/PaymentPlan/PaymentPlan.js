@@ -235,7 +235,7 @@ export default function PaymentPlan(props){
                 <h6 className="change_text_master_card">Change</h6>
                 </div>
                 
-                <h5 className="cost_title">Cost Breackdown</h5>
+                <h5 className="cost_title">Cost Breakdown</h5>
                 
                 <div className="Immune_booster_container">
                 <p className="immune_subtitle">{meal.name}</p>
