@@ -208,6 +208,10 @@ div.main_container_mealpkg {
     border-radius: 0.5rem;
     /* background: hsla(0, 0%, 98.4%, 0.3411764705882353);*/
     background: #9f9f9f24;
+    backdrop-filter: blur(4px);
+    /* background: #fbfbfb; */
+    padding: 7%;
+    margin: 5%;
     border: none;
     background: hsla(0, 0%, 98.4%, 0.3411764705882353);
     height: fit-content;
@@ -322,6 +326,13 @@ div.main_container_mealpkg {
     top: 0;
     width: 100%;
     z-index: 100;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  div.img_container {
+    margin-top: -16px;
   }
   div.main_container_mealpkg {
     display: grid;
