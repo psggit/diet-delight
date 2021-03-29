@@ -44,6 +44,7 @@ div.card_user_appointment {
   background: hsla(0, 0%, 98.4%, 0.3411764705882353);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  top: 100px;
 }
 [type="date"] {
   background: #fff
@@ -70,12 +71,13 @@ input.appointmentdate_subtitle {
 }
 
 button.appoinment_tab_subcontainer {
-  border: 1px solid #2121213b;
-  background: "#fbfbfb";
+  /* border: 1px solid #2121213b; */
+  border: none;
+  /* background: "#fbfbfb"; */
   box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
   border-radius: 7px;
   padding: 5px;
-  color: #212121;
+  /* color: #212121; */
   text-decoration: none;
 }
 
@@ -154,12 +156,12 @@ a.appoinment_tab_subcontainer {
   box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
   border-radius: 7px;
   padding: 5px;
-  color: #212121;
+  /* color: #212121; */
   text-decoration: none;
 }
 a.appoinment_tab_subcontainer:active,
 a.appoinment_tab_subcontainer:focus {
-  color: #fff;
+  /* color: #fff; */
   background: #8bc441;
 }
 p.morning_tabs_subtitle {
@@ -223,12 +225,13 @@ button.select_btn_next_appointmain:hover{
     place-items: center;
   }
   button.appoinment_tab_subcontainer {
-    border: 1px solid #2121213b;
-    background: "#fbfbfb";
+    /* border: 1px solid #2121213b; */
+    border: none;
+    /* background: "#fbfbfb"; */
     box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
     border-radius: 7px;
     padding: 6px;
-    color: #212121;
+    /* color: #212121; */
     text-decoration: none;
     font-size: 13px;
   }
@@ -236,7 +239,7 @@ button.select_btn_next_appointmain:hover{
     margin-top: 1rem;
   }
   div.silver_container {
-    text-align: center;
+    /* text-align: center; */
   }
   div.card_user_appointment {
     margin-top: 2.5rem;
@@ -247,6 +250,7 @@ button.select_btn_next_appointmain:hover{
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     margin: 5%;
+    top: 100px;
   }
   /* left side  */
   input.appointmentdate_subtitle {
@@ -331,9 +335,9 @@ button.select_btn_next_appointmain:hover{
     text-align: center;
   }
   a.appoinment_tab_subcontainer {
-    background: white;
+    /* background: white; */
     font-family: Roboto;
-    color: #303960;
+    /* color: #303960; */
     box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
     border-radius: 7px;
     padding: 6px;
@@ -343,8 +347,8 @@ button.select_btn_next_appointmain:hover{
   }
   a.appoinment_tab_subcontainer:active,
   a.appoinment_tab_subcontainer:focus {
-    color: #fff;
-    background: #8bc441;
+    /* color: #fff;
+    background: #8bc441; */
     box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
     -webkit-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
     -moz-box-shadow: 0px 90px 8px -89px rgba(46, 45, 45, 0.71) inset;
@@ -389,12 +393,13 @@ button.select_btn_next_appointmain:hover{
     cursor: pointer;
   }
   button.appoinment_tab_subcontainer {
-    border: 1px solid #2121213b;
-    background: "#fbfbfb";
+    /* border: 1px solid #2121213b; */
+    border: none;
+    /* background: "#fbfbfb"; */
     box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
     border-radius: 7px;
     padding: 5px;
-    color: #212121;
+    /* color: #212121; */
     text-decoration: none;
     font-size: 13px;
   }
@@ -421,7 +426,7 @@ button.select_btn_next_appointmain:hover{
     height: auto;
   }
   div.main_container_appoi {
-    min-height: 120vh;
+    /* min-height: 120vh; */
   }
 
   div.card_user_appointment {
@@ -436,6 +441,7 @@ button.select_btn_next_appointmain:hover{
     width: 70%;
     height: auto;
     border: none;
+    top: 100px;
   }
   div.appointment_main_container {
     font-family: Roboto;
@@ -511,13 +517,13 @@ button.select_btn_next_appointmain:hover{
     margin-left: 4%;
   }
   a.appoinment_tab_subcontainer {
-    background: white;
+    /* background: white; */
     border: none;
     box-shadow: 0px 3px 1px 0px rgb(22 6 6 / 21%);
     border-radius: 7px;
     padding: 5px;
     font-family: Roboto;
-    color: #303960;
+    /* color: #303960; */
     text-decoration: none;
     font-size: 13px;
   }
@@ -529,14 +535,14 @@ button.select_btn_next_appointmain:hover{
     border-radius: 7px;
     padding: 5px;
     border: none;
-    color: #212121;
+    /* color: #212121; */
     text-decoration: none;
     font-size: 13px;
   }
   a.appoinment_tab_subcontainer:active,
   a.appoinment_tab_subcontainer:focus {
-    color: #fff;
-    background: #8bc441;
+    /* color: #fff;
+    background: #8bc441; */
   }
   p.morning_tabs_subtitle {
     margin-top: 8px;
@@ -579,12 +585,13 @@ button.select_btn_next_appointmain:hover{
     margin-top: 9px;
   }
   button.appoinment_tab_subcontainer {
-    border: 1px solid #2121213b;
-    background: "#fbfbfb";
+    /* border: 1px solid #2121213b; */
+    border: none;
+    /* background: "#fbfbfb"; */
     box-shadow: 0px 3px 3px 1px rgb(22 6 6 / 21%);
     border-radius: 7px;
     padding: 5px;
-    color: #212121;
+    /* color: #212121; */
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
@@ -628,6 +635,7 @@ button.select_btn_next_appointmain:hover{
     width: 70%;
     height: auto;
     border: none;
+    top: 100px;
   }
   div.appointment_main_container {
     font-family: Roboto;
@@ -780,12 +788,13 @@ button.select_btn_next_appointmain:hover{
     margin-top: 9px;
   }
   button.appoinment_tab_subcontainer {
-    border: 1px solid #2121213b;
-    background: "#fbfbfb";
+    /* border: 1px solid #2121213b; */
+    border: none;
+    /* background: "#fbfbfb"; */
     box-shadow: 0px 3px 3px 1px rgb(22 6 6 / 21%);
     border-radius: 7px;
     padding: 8px;
-    color: #212121;
+    /* color: #212121; */
     text-decoration: none;
     font-size: 20px;
     font-weight: 600;
@@ -851,6 +860,7 @@ button.select_btn_next_appointmain:hover{
     width: 70%;
     height: auto;
     border: none;
+    top: 100px;
   }
   div.appointment_main_container {
     font-family: Roboto;
