@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import { SnackbarProvider} from 'notistack';
 import { Cookies } from "react-cookie";
 
 import axios from "./axiosInstance";
@@ -104,6 +104,7 @@ function App() {
   };
 
   return (
+    <SnackbarProvider maxSnack={3}>
     <Router>
       <Switch>
         <Route path="/" exact>
@@ -185,6 +186,7 @@ function App() {
     
       </Switch>
     </Router>
+    </SnackbarProvider>
   );
 }
 
