@@ -6,16 +6,16 @@ import { ResendOTPBtn, VerifyOTPBtn } from "./SignupElements";
 
 const VerifyOTP = ({ setVerifyingOTP, verificationOTP, resendOtp }) => {
   return (
-    <div style={{ width: "500px", margin: "auto" }}>
+    <div style={{ width: "500px", height: "430px", margin: "auto" }}>
       <div style={{ padding: "1rem" }}>
         <div className="row dialog_signup_new">
-          <div className="col-2">
+          {/* <div className="col-2">
             <i
               className="fa fa-long-arrow-left back_icon"
               aria-hidden="true"
               onClick={() => setVerifyingOTP(false)}
             ></i>
-          </div>
+          </div> */}
 
           <div className="col-10">
             <div className="img_container_dialog">
@@ -59,7 +59,7 @@ const VerifyOTP = ({ setVerifyingOTP, verificationOTP, resendOtp }) => {
           <ResendOTPBtn onClick={() => resendOtp()}>Resend OTP</ResendOTPBtn>
         </div>
 
-        <VerifyOTPBtn className="btn" id="verifyOtp">
+        <VerifyOTPBtn className="btn" id="sign-up">
           VERIFY
         </VerifyOTPBtn>
       </div>
