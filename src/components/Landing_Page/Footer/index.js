@@ -29,22 +29,12 @@ const CustomForm = ({ status, message, onValidated }) => {
     return (
       <div
         style={{
-          display: "inline-block"
+          display: "inline-block",
+          paddingTop: '10px',
+          paddingBottom: '10px'
         }}
       >
-        {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
-        {status === "error" && (
-          <div
-            style={{ color: "red" }}
-            dangerouslySetInnerHTML={{ __html: message }}
-          />
-        )}
-        {status === "success" && (
-          <div
-            style={{ color: "green" }}
-            dangerouslySetInnerHTML={{ __html: message }}
-          />
-        )}
+        
         <input
         style={{ background: 'transparent',
             border: '1px solid white',
@@ -54,11 +44,25 @@ const CustomForm = ({ status, message, onValidated }) => {
             textAlign: 'center' }}
         ref={node => (email = node)}
         type="email"
-        placeholder="Your email"
+        placeholder="Enter Your E-mail"
       />
         <button style={{ background: 'transparent',color: 'white',width: '100px',height: '30px',border: '1px solid white',marginLeft: '10px' }} onClick={submit}>
-          Submit
+          SIGN UP
         </button>
+
+        {status === "sending" && <div style={{ color: "#fff", fontWeight: '400', paddingLeft: '10px' }}>sending...</div>}
+        {status === "error" && (
+          <div
+            style={{ color: "red", fontWeight: '400', paddingLeft: '10px' }}
+            dangerouslySetInnerHTML={{ __html: message }}
+          />
+        )}
+        {status === "success" && (
+          <div
+            style={{ color: "rgba(139,197,63,1)", fontWeight: '400', paddingLeft: '10px' }}
+            dangerouslySetInnerHTML={{ __html: message }}
+          />
+        )}
       </div>
     );
   };
