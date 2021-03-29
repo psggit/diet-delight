@@ -178,11 +178,10 @@ export const VerifyOTPBtn = styled.button`
   letter-spacing: 2px;
   border-radius: 15px;
   margin-top: 22px;
-  border: 2px solid #8BC53F;
   font-weight: bold;
   
   :hover{
-    background-color: transparent;
-    color: purple;
+    background-color: purple;
+    color: white;
   }
 `
