@@ -2,7 +2,7 @@ import React from "react";
 import "./MealPackageSubsciption/MealpkgSubscription.css";
 import food_icon from "../assets/meal.png";
 import logo_web from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 
 export default function Mealchoose(props) {
   return (

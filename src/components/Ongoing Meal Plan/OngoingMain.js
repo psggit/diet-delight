@@ -32,6 +32,28 @@ export default function OngoingMain() {
     );
    
   }
+  function handleDate(start_date){
+    console.log(start_date)
+    var orderDate = new Date(start_date)
+    var dd = orderDate.getDate();
+       var mm = orderDate.getMonth()+1; 
+       var yyyy = orderDate.getFullYear();
+       if(dd<10)  
+       {
+           dd='0'+dd;
+       } 
+
+       if(mm<10) 
+       {
+           mm='0'+mm;
+       } 
+       orderDate = yyyy+'-'+mm+'-'+dd;
+       console.log(orderDate)
+
+       return orderDate
+
+  
+  }
 
   
 
@@ -67,7 +89,7 @@ export default function OngoingMain() {
 
                   <div className="col-md-11 col-sm-12">
                     <h6 className="date_content_ongoing">
-                      Start Date - {meal.start_date}
+                      Start Date - {handleDate(meal.start_date)}
                     </h6>
                     <h6 className="date_content_ongoing_subtext">
                       {meal.meal_plan.details}
