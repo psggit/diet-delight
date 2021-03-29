@@ -90,6 +90,7 @@ div.vertical_line {
     color: #303960;
     font-weight: 700;
     font-family: "Roboto Condensed Regular";
+    font-size: 2rem;
   }
   h5.bhd_text_mealpkgsub {
     font-weight: 600;
@@ -118,10 +119,11 @@ div.vertical_line {
   }
   p.something_text {
     color: #303960;
+    font-family: 'Roboto';
     font-weight: bold;
     margin-bottom: 0;
     margin-top: 1rem;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     letter-spacing: 0.2px;
     font-weight: 600;
   }
@@ -129,12 +131,12 @@ div.vertical_line {
     color: white;
     margin-top: 1rem;
     background: #8bc53f;
-    width: 12rem;
+    width: auto;
     border: 1px solid #808080bf;
   }
   button.mealbtn_subscription:hover {
     color: black;
-    background: #6e9a34;
+    background: #800080;
   }
   button.mealbtn_subscription:focus {
     outline: none !important;
@@ -287,7 +289,7 @@ div.vertical_line {
       color: white;
       margin-top: 15px;
       background: #8bc53f;
-      width: 11rem;
+      width: auto;
       /* float: right; */
       border: 1px solid #808080bf;
     }
@@ -437,7 +439,7 @@ button.mealbtn_subscription {
  color: white;
  font-size: 14px;
  background: #8bc53f;
- width: 8rem;
+ width: auto;
  position: relative;
  height: 38px;
  margin-left: 0;
@@ -622,7 +624,7 @@ button.mealbtn_subscription {
   color: white;
   font-size: 14px;
   background: #8bc53f;
-  width: 141px;
+  width: auto;
   bottom: 0;
   position: relative;
   height: 2.1rem;
@@ -769,7 +771,7 @@ button.mealbtn_subscription {
   color: white;
   font-size: 15px;
   background: #8bc53f;
-  width: 9.5rem;
+  width: auto;
   bottom: 0;
   position: relative;
   height: 2.3rem;

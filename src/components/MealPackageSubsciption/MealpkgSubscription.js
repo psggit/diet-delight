@@ -86,7 +86,7 @@ export default function MealpkgSubscription(props) {
                   <button className="btn btn-default mealbtn_subscription">
                   <Link
                   className="text_subscription_text"
-                  style={{ color: "#fff", textDecoration: "none" }}
+                  style={{ color: "#fff", textDecoration: "none", fontFamily: 'Roboto' }}
                   to={{
                     pathname: "/MealAddressMain",
                     state: {
@@ -96,7 +96,7 @@ export default function MealpkgSubscription(props) {
                     },
                   }}
                   >
-                  Buy Subscription
+                  BUY SUBSCRIPTION
                   </Link>
                   </button>
                   </div>
