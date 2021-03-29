@@ -1,4 +1,4 @@
-	import React, { useState, useEffect } from 'react';
+	import React, { useState, useEffect, useRef } from 'react';
 	import Button from '@material-ui/core/Button';
 	import Dialog from '@material-ui/core/Dialog';
 	import DialogActions from '@material-ui/core/DialogActions';
@@ -13,8 +13,7 @@
 	import './CustomcalenderStyle.css'
 	import './customStyleForCalendar.css'
 	import axios from '../../../axiosInstance'
-import { useRef } from 'react';
-import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate } from '../../CommonFunctionality';
+import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInList } from '../../CommonFunctionality';
 
 
 
@@ -33,6 +32,7 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate } from '../
 		const [orderBreaksDates, setOrderBreaksDates] = useState([]);
 		// const [breakDaySelected, setBreakDaySelected] = useState([]);
 		const selectedWeekDays = useRef(new Array());
+		const deliveryDays = useRef(new Array());
 
 
 
@@ -43,20 +43,20 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate } from '../
 			}
 
 
-			axios.get(`my-order-breaks?meal_purchase_id=`+props.recentPurchase.id).then((res) => {
+			axios.get(`my-order-breaks?meal_purchase_id=`+props.mealData.id).then((res) => {
 				console.log(res)
 				let orderBreakDates = [];
 				res.data.data.map((orderBreak) => {
 					var dateBreak = orderBreak.date_list;
 					var orderBreakDateList = dateBreak.split(',');
-					orderBreakDates.concat(orderBreakDateList)
+					orderBreakDates.push(orderBreakDateList)
 				})
 				orderBreaksDates([...orderBreakDates]);
 				console.log(orderBreakDates)
 			}).catch((err) => {
 				console.log(err);
 			})
-		},[])
+		},[props.mealData.id])
 	
 
 		useEffect(() => {
@@ -75,6 +75,16 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate } from '../
 			setCurrentMonth(getLatestDate.month)
 
 		},[props.startDate, props.endDate])
+
+
+		useEffect(() => {
+			console.log(typeof(props.recentPurchase.weekdays))
+			let weekDays = JSON.parse(props.recentPurchase.weekdays)
+			console.log(weekDays, typeof(weekDays))
+			let getWeekList = weeksInList(weekDays);
+			deliveryDays.current = getWeekList;
+			console.log(deliveryDays.current)
+		},[props.recentPurchase.weekdays])
 
 
 		const handleMonth = (data) => {
@@ -120,17 +130,17 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate } from '../
 			var date = formatedOldDate.setDate(formatedOldDate.getDate() + incrementedDays)
 
 			console.log(date)
-			let dayFormat = getDayDetails(date)
+			let dayFormat = getDayDetails(new Date(date))
 			console.log(dayFormat)
             let concatedDate = formatedDate( dayFormat.year,dayFormat.month,dayFormat.date);
             console.log(concatedDate)
 
 			let selectedDaysList = selectedWeekDays.current.toString();
-			axios.post('order-breaks',{
-				meal_purchase_id:props.recentPurchase.id,
+			axios.post('my-order-breaks',{
+				meal_purchase_id:props.mealData.id,
 				date_list:selectedDaysList
 			}).then((res) => console.log(res)).catch((err) => console.log(err))
-			axios.put('my-meal-purchases/'+props.recentPurchase.id,{
+			axios.put('my-meal-purchases/'+props.mealData.id,{
 				end_date:concatedDate
 			})
 
@@ -142,15 +152,30 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate } from '../
 			console.log(currentYear)
 			if(currentMonthInNumber != '' && currentYear != ''){
 				let totalDaysInMonth = getMonthDays(currentMonthInNumber, currentYear)
-				let totalDaysCount = []
-				for(var i=1; i<=totalDaysInMonth; i++){
+				console.log(totalDaysInMonth)
+				let totalDaysCount = [];
+				let dayInfo = getDayDetails(new Date(currentYear, currentMonthInNumber - 1, 1));
+				console.log(dayInfo);
+				let weekStartValue = dayInfo.weekDay;
+				if(weekStartValue > 0){
+					let lastMonthTotalDays = getMonthDays(currentMonthInNumber - 1, currentYear);
+					let remainingDaysCount = lastMonthTotalDays - dayInfo.weekDay - 1;
+					console.log(lastMonthTotalDays, remainingDaysCount)
+					for(var i = remainingDaysCount; i <= lastMonthTotalDays; i++ ){
+						totalDaysCount.push(i);
+					}
+				}
+				for(var j=1; j<=totalDaysInMonth; j++){
 					totalDaysCount.push(i);
 				}
 				setTotalDays([...totalDaysCount])
 			}
 		}, [currentMonthInNumber, currentYear])
 
-		const renderWeeks = weekDays.map((weekDay) => <li key={Math.random()} id={Math.random()}>{weekDay}</li>)
+		const renderWeeks = weekDays.map((weekDay) => {
+		
+		return(
+		<li key={Math.random()} id={Math.random()}>{weekDay}</li>)})
 
 
 		const renderMonthDays = totalDays.map((day) => {
@@ -180,13 +205,24 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate } from '../
 
 			if((currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day))){
 				var breakday = orderBreaksDates.includes(day)
+				let generatedDate = new Date(currentYear, currentMonthInNumber, day)
+				console.log(generatedDate)
+				let dayInfo = getDayDetails(generatedDate)
+				console.log(dayInfo)
+				var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
+				console.log(deliveryDaysIncluded, dayInfo.weekDay)
 				if(breakday){
 					return(
 						<li><label className="active_break_grey">{day}<br></br> break </label></li>
 					)
+				}            
+				if(deliveryDaysIncluded){
+					return(
+						<li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}><span className="active_grey" id={Math.random()}>{day <= 9 ? 0+""+day : day}</span></li>
+					)
 				}
 				return(
-					<li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}><span className="active_grey" id={Math.random()}>{day <= 9 ? 0+""+day : day}</span></li>
+					<li key={Math.random()} id={Math.random()}><span className="active_light_grey" id={Math.random()}>{day <= 9 ? 0+""+day : day}</span></li>
 				)
 			}
 			return(

@@ -37,6 +37,13 @@ export function addDays(date, days){
 }
 
 
+export function subDays(date,days){
+    var result = new Date(date);
+    result.setDate(result.getDate() - days);
+    return result;
+}
+
+
 export function getDayDetails(date){
     var month = date.getMonth() + 1;
     var monthDate = month < 10 ? "0"+month : month;
@@ -44,12 +51,14 @@ export function getDayDetails(date){
     var dayDate = date.getDate() < 10 ? "0"+date.getDate(): date.getDate();
     var dayDateWithoutPrefix = date.getDate();
     var yearDate = date.getFullYear();
+    var weekDay = date.getDay();
     return {
         "month":monthDate,
         "date":dayDate,
         "year":yearDate,
         "monthDateWithoutPrefix":monthDateWithoutPrefix,
-        "dayDateWithoutPrefix":dayDateWithoutPrefix
+        "dayDateWithoutPrefix":dayDateWithoutPrefix,
+        "weekDay":weekDay
     }
 }
 
