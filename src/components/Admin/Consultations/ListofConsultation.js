@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-import axios from "../../../axiosInstance";
-import CustomSkeleton from "../../../CustomSkeleton";
-
+import { useHistory } from "react-router-dom";
 import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
+import axios from "../../../axiosInstance";
+import CustomSkeleton from "../../../CustomSkeleton";
 import Modal from '../../reusable/Modal';
 import { Main } from "./ConsultantElements";
 import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';
 import { Edit, Delete } from '@material-ui/icons';
 import ConsultationFormModal from './ConsultationFormModal';
-import { CONSULTATION_MODE } from '../Constants';
+import { CONSULTATION_MODE, CONSULTATION_STATUS_TYPE } from '../Constants';
 
 const consultationInitialValues = {
   id: '',
@@ -45,6 +45,11 @@ const ListofConsultation = () => {
   const [consultants, setConsultants] = useState([]);
   const [consultationPackages, setConsultationPackages] = useState([]);
   const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
+  const [consultationStatus, setConsultationStatus] = useState(-1);
+
+  let history = useHistory();
+  const searchParams = new URLSearchParams(history.location.search);
+  const status = searchParams.get('type') || CONSULTATION_STATUS_TYPE.BOOKED;
 
   let current_date_Time = new Date();
   const csvReport = {
@@ -82,19 +87,35 @@ const ListofConsultation = () => {
   }, [])
 
   useEffect(() => {
+    switch (status) {
+      case CONSULTATION_STATUS_TYPE.BOOKED:
+        setConsultationStatus(0);
+        break;
+      case CONSULTATION_STATUS_TYPE.CANCELLED:
+        setConsultationStatus(1);
+        break;
+      case CONSULTATION_STATUS_TYPE.COMPLETED:
+        setConsultationStatus(2);
+        break;
+    }
+  }, [status]);
+
+  useEffect(() => {
     handleShow();
-  }, [rowsPerPage, page, search, sort, order]);
+  }, [rowsPerPage, page, search, sort, order, consultationStatus]);
 
   const handleShow = () => {
-    axios
-      .get(`consultations?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
-      .then((res) => {
-        setConsultations(res.data.data);
-        setLoading(false);
-        setShow(true);
-        setTotalCount(res.data?.meta?.total || 0);
-      })
-      .catch((err) => console.log(err));
+    if (consultationStatus >= 0) {
+      axios
+        .get(`consultations?pageSize=${rowsPerPage}&status=${consultationStatus}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+        .then((res) => {
+          setConsultations(res.data.data);
+          setLoading(false);
+          setShow(true);
+          setTotalCount(res.data?.meta?.total || 0);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   function Alert(props) {

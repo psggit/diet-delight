@@ -87,11 +87,24 @@ const ListofQuestions = () => {
     const data = {
       question: values.question,
       type: values.type,
-      order: values.order,
+      order: parseInt(values.order, 10),
       additional_text: 0,
     }
     if (mode === 'Add') {
       axios.post(`questions`, data).then((res) => {
+        if (values.type === QUESTION_TYPES[2].id) {
+          const questionId = res.data.data.id
+
+          values.options.forEach(option => {
+            if (option) {
+              axios.post('answer-options', {
+                question_id: questionId,
+                option: option.option,
+                order: data.order,
+              })
+            }
+          })
+        }
         setNotificationConf([true, 'success', 'Question Added Successfully !'])
         handleShow();
       }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
@@ -104,6 +117,7 @@ const ListofQuestions = () => {
         })
         .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
     }
+
     setShowForm(false);
   }
 

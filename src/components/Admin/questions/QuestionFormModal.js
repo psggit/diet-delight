@@ -55,7 +55,7 @@ const QuestionFormModal = (props) => {
 							label="Type*"
 							options={QUESTION_TYPES.map((option) => ({ ...option, id: option.id + 1 }))}
 						/>
-						{values.type === QUESTION_TYPES[2].id + 1 && (
+						{mode === 'Add' && values.type === QUESTION_TYPES[2].id + 1 && (
 							<>
 								Add Options
 								<FieldArray

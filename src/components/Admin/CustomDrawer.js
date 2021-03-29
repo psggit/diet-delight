@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { elastic as Menu } from 'react-burger-menu'
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+import { Icon, Popover, Card, CardContent } from "@material-ui/core";
 import logo from "../../assets/logo.png";
 import './CustomDrawer.css';
 import { ExitToApp } from '@material-ui/icons';
@@ -83,11 +82,10 @@ import ListofBlog from "./Blogs/ListofBlog";
 import PostBlog from "./Blogs/PostBlog";
 
 const HeaderLogo = styled.div`
-  width: 100%;
+  width: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 16px;
 
   &:focus {
     outline: none;
@@ -147,13 +145,6 @@ var styles = {
 const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
   drawerHeader: {
     display: "flex",
     alignItems: "center",
@@ -162,22 +153,9 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
+  notificationContent: {
+    minWidth: 375,
+  }
 }));
 
 export default function PersistentDrawerLeft() {
@@ -188,7 +166,7 @@ export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [open, setOpen] = useState(false);
+  const [noticationIconrRef, setNoticationIconrRef] = useState(null);
   const [listKey, setListKey] = useState('');
 
   useEffect(() => {
@@ -227,14 +205,6 @@ export default function PersistentDrawerLeft() {
     history.push("/");
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   const handleMenuOpen = (key) => {
     setListKey(key === listKey ? '' : key)
   }
@@ -249,135 +219,156 @@ export default function PersistentDrawerLeft() {
             pageWrapId={"page-wrap"}
             outerContainerId={"outer-container"}
           >
-            <div>
-              <List color="primary">
-                <ListItem button component={Link} to={"/admin"} style={{ marginBottom: "32px" }}>
-                  <HeaderLogo style={{ display: 'flex' }}>
-                    <img
-                      style={{
-                        objectFit: "contain",
-                        height: "75px",
-                        alignSelf: "center",
-                        margin: "auto",
-                      }}
-                      src={logo}
-                      alt="logo"
-                    />
-                  </HeaderLogo>
-                </ListItem>
-                <CustomNavList
-                  name="user"
-                  open={listKey === 'user'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="USER"
-                  navList={[
-                    { label: "Accountant", link: `userlist?type=${USER_TYPE.ACCOUNTANT}` },
-                    { label: "Admin", link: `userlist?type=${USER_TYPE.ADMIN}` },
-                    { label: "Consultants", link: "consultantlist" },
-                    { label: "Customer", link: `userlist?type=${USER_TYPE.CUSTOMER}` },
-                    { label: "Kitchen", link: `userlist?type=${USER_TYPE.KITCHEN}` },
-                  ]}
+            <Link to="/admin">
+              <HeaderLogo style={{ display: 'flex' }}>
+                <img
+                  style={{
+                    objectFit: "contain",
+                    height: "75px",
+                    alignSelf: "center",
+                    margin: "auto",
+                  }}
+                  src={logo}
+                  alt="logo"
                 />
-                <CustomNavList
-                  name="question"
-                  open={listKey === 'question'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="QUESTIONNAIRE"
-                  navList={[
-                    { label: "Questions", link: "questionlist" },
-                    { label: "Customer Responses", link: "customer-response" },
-                  ]}
-                />
-                <CustomNavList
-                  name="consultationPackage"
-                  open={listKey === 'consultationPackage'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="CONSULTATION PACKAGE"
-                  navList={[
-                    {
-                      label: "Consultation Packages",
-                      link: "consultationPackageList",
-                    },
-                  ]}
-                />
-                <CustomNavList
-                  name="consultation"
-                  open={listKey === 'consultation'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="CONSULTATION"
-                  navList={[
-                    { label: "Booked Consultations", link: `consultationlist?type=${CONSULTATION_STATUS_TYPE.BOOKED}` },
-                    { label: "Cancelled Consultations", link: `consultationlist?type=${CONSULTATION_STATUS_TYPE.CANCELLED}` },
-                  ]}
-                />
+              </HeaderLogo>
+            </Link>
+            <CustomNavList
+              name="user"
+              open={listKey === 'user'}
+              handleClick={handleMenuOpen}
+              primaryLabel="USER"
+              navList={[
+                { label: "Accountant", link: `userlist?type=${USER_TYPE.ACCOUNTANT}` },
+                { label: "Admin", link: `userlist?type=${USER_TYPE.ADMIN}` },
+                { label: "Consultants", link: "consultantlist" },
+                { label: "Customer", link: `userlist?type=${USER_TYPE.CUSTOMER}` },
+                { label: "Kitchen", link: `userlist?type=${USER_TYPE.KITCHEN}` },
+              ]}
+            />
+            <CustomNavList
+              name="question"
+              open={listKey === 'question'}
+              handleClick={handleMenuOpen}
+              primaryLabel="QUESTIONNAIRE"
+              navList={[
+                { label: "Questions", link: "questionlist" },
+                { label: "Customer Responses", link: "customer-response" },
+              ]}
+            />
+            <CustomNavList
+              name="consultationPackage"
+              open={listKey === 'consultationPackage'}
+              handleClick={handleMenuOpen}
+              primaryLabel="CONSULTATION PACKAGE"
+              navList={[
+                {
+                  label: "Consultation Packages",
+                  link: "consultationPackageList",
+                },
+              ]}
+            />
+            <CustomNavList
+              name="consultation"
+              open={listKey === 'consultation'}
+              handleClick={handleMenuOpen}
+              primaryLabel="CONSULTATION"
+              navList={[
+                { label: "Booked Consultations", link: `consultationlist?type=${CONSULTATION_STATUS_TYPE.BOOKED}` },
+                { label: "Cancelled Consultations", link: `consultationlist?type=${CONSULTATION_STATUS_TYPE.CANCELLED}` },
+                { label: "Completed Consultations", link: `consultationlist?type=${CONSULTATION_STATUS_TYPE.COMPLETED}` },
+              ]}
+            />
 
-                <CustomNavList
-                  name="menu"
-                  open={listKey === 'menu'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="MENU"
-                  navList={[
-                    { label: "All Menu", link: "menulist" },
-                    { label: "Add New Menu", link: "addmenu" },
-                    { label: "All Categories", link: "categories" },
-                    { label: "Add New Categories", link: "addcategories" },
-                    { label: "All Menu Items", link: "menuitemslist" },
-                    { label: "Add New Menu Items", link: "addnewmenuitems" },
-                  ]}
-                />
-                <CustomNavList
-                  name="mealPlan"
-                  open={listKey === 'mealPlan'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="MEAL PLAN"
-                  navList={[
-                    { label: "Duration", link: "durationlist" },
-                    { label: "Meal Plan", link: "mealplanlist" },
-                  ]}
-                />
+            <CustomNavList
+              name="menu"
+              open={listKey === 'menu'}
+              handleClick={handleMenuOpen}
+              primaryLabel="MENU"
+              navList={[
+                { label: "All Menu", link: "menulist" },
+                { label: "Add New Menu", link: "addmenu" },
+                { label: "All Categories", link: "categories" },
+                { label: "Add New Categories", link: "addcategories" },
+                { label: "All Menu Items", link: "menuitemslist" },
+                { label: "Add New Menu Items", link: "addnewmenuitems" },
+              ]}
+            />
+            <CustomNavList
+              name="mealPlan"
+              open={listKey === 'mealPlan'}
+              handleClick={handleMenuOpen}
+              primaryLabel="MEAL PLAN"
+              navList={[
+                { label: "Duration", link: "durationlist" },
+                { label: "Meal Plan", link: "mealplanlist" },
+              ]}
+            />
 
-                <CustomNavList
-                  name="order"
-                  open={listKey === 'order'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="TRANSACTION"
-                  navList={[
-                    { label: "Meal Plan Subsciption", link: "mealpurchaselist" },
-                    {
-                      label: "Consultation Package",
-                      link: "Consultationpurchaselist",
-                    },
-                  ]}
-                />
-                <CustomNavList
-                  name="coupon"
-                  open={listKey === 'coupon'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="COUPON / DISCOUNT"
-                  navList={[
-                    { label: "List of Coupon", link: "couponlist" },
-                    { label: "Add Coupon", link: "addcoupon" },
-                  ]}
-                />
-                <CustomNavList
-                  name="blog"
-                  open={listKey === 'blog'}
-                  handleClick={handleMenuOpen}
-                  primaryLabel="BLOGS"
-                  navList={[
-                    { label: "List of Blogs", link: "bloglist" },
-                    { label: "Add Blog", link: "addblog" },
-                  ]}
-                />
-              </List>
-              <LogoutContainer onClick={handleLogout}><ExitToApp style={{ fontSize: "56px", margin: "0 12px", width: '50px' }} /><span>LOGOUT</span></LogoutContainer>
-            </div>
+            <CustomNavList
+              name="order"
+              open={listKey === 'order'}
+              handleClick={handleMenuOpen}
+              primaryLabel="TRANSACTION"
+              navList={[
+                { label: "Meal Plan Subsciption", link: "mealpurchaselist" },
+                {
+                  label: "Consultation Package",
+                  link: "Consultationpurchaselist",
+                },
+              ]}
+            />
+            <CustomNavList
+              name="coupon"
+              open={listKey === 'coupon'}
+              handleClick={handleMenuOpen}
+              primaryLabel="COUPON / DISCOUNT"
+              navList={[
+                { label: "List of Coupon", link: "couponlist" },
+                { label: "Add Coupon", link: "addcoupon" },
+              ]}
+            />
+            <CustomNavList
+              name="blog"
+              open={listKey === 'blog'}
+              handleClick={handleMenuOpen}
+              primaryLabel="BLOGS"
+              navList={[
+                { label: "List of Blogs", link: "bloglist" },
+                { label: "Add Blog", link: "addblog" },
+              ]}
+            />
+            <LogoutContainer onClick={handleLogout}>
+              <ExitToApp style={{ fontSize: "56px", margin: "0 12px", width: '50px' }} /><span>LOGOUT</span>
+            </LogoutContainer>
           </Menu>
           <main
             id="page-wrap"
             style={{ width: "100%", padding: "16px 32px 0 32px" }}
           >
-            <div className={classes.drawerHeader} />
+            <div className={classes.drawerHeader} >
+              <Icon id="notification-icon" style={{ color: '#800080', fontSize: 42, cursor: 'pointer' }} onClick={({ currentTarget }) => setNoticationIconrRef(currentTarget)}>notifications</Icon>
+              <Popover
+                id="notification-icon"
+                open={Boolean(noticationIconrRef)}
+                anchorEl={noticationIconrRef}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                onClose={() => setNoticationIconrRef(null)}
+              >
+                <Card className={classes.notificationContent}>
+                  <CardContent>
+                    No notifications
+                  </CardContent>
+                </Card>
+              </Popover>
+            </div>
             <Switch>
               <Route exact path={`${path}`}>
                 <Home />

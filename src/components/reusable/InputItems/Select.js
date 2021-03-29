@@ -4,10 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import './index.css';
 import get from 'lodash.get';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	formControl: {
 		minWidth: 120,
 	},
+	label: {
+		marginBottom: 0,
+	}
 }));
 
 export const Select = (props) => {
@@ -31,7 +34,7 @@ export const Select = (props) => {
 
 	return (
 		<FormControl style={{ width: '100%' }} variant="outlined" className={classes.formControl}>
-			<InputLabel id={label} style={error ? { color: 'red' } : {}}>
+			<InputLabel className={classes.label} id={label} style={error ? { color: 'red' } : {}}>
 				{label}
 			</InputLabel>
 			<DefaultSelect

@@ -1,0 +1,10 @@
+.list-item-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    min-width: 220px;
+}
+
+.list-item-text span {
+    font-size: 14px;
+}
