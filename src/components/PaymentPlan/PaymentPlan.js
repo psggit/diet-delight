@@ -106,7 +106,7 @@ export default function PaymentPlan(props){
                   }else{
                     var errorMessage = document.getElementById('successCoupon');
                     errorMessage.innerHTML = 'Coupon applied Successfully';
-                 
+                    errorMessage.style.color = 'green';
                     console.log(res.data.data[verifyCoupon])
                     setCouponScheme(res.data.data[verifyCoupon])
                   }
@@ -189,7 +189,7 @@ export default function PaymentPlan(props){
                 <div className="coupon_container">
                 <h6 className="add_coupon_title">Add Coupon</h6>
                 
-                <div className="row payment_plan_coupon">
+                <div className="row payment_plan_coupon"> 
                 <input type="text" id="coupon" name="coupon" className="payment_plan_input" value={coupon} onChange={(e) => setCoupon(e.target.value)}></input> 
                 <button className="coupon_btn_payment_plan" onClick={applyCoupon}>Apply Coupon</button>
                 <span id="successCoupon" style={{color:'red', fontWeight:800}}></span>
@@ -220,10 +220,10 @@ export default function PaymentPlan(props){
                 <h5 className="cost_title">Cost Breackdown</h5>
                 
                 <div className="Immune_booster_container">
-                <p className="immune_subtitle">Immune Booster</p>
+                <p className="immune_subtitle">{meal.name}</p>
                 <span className="font-weight-bold price_subtitle">{meal.price} BHD</span>
                 </div>
-                <p className="gb_plan_text">(10 Days Plan)</p>
+                <p className="gb_plan_text">({meal.duration} Days Plan)</p>
                 
                 <div className="Immune_booster_container">
                 <p className="extra_subtitle">Extras</p>
