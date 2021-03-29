@@ -128,6 +128,7 @@ export default function MealpkgSubscription(props) {
                   <button className="btn btn-default mealbtn_subscription" onClick={() =>handleSubscription(meal)}>
                   <Link 
                   className="text_subscription_text"
+<<<<<<< HEAD
                   style={{ color: "#fff", textDecoration: "none" }}
                   // to={{
                   //   pathname: "/MealAddressMain",
@@ -137,6 +138,17 @@ export default function MealpkgSubscription(props) {
                   //     meal: meal,
                   //   },
                   // }}
+=======
+                  style={{ color: "#fff", textDecoration: "none", fontFamily: 'Roboto' }}
+                  to={{
+                    pathname: "/MealAddressMain",
+                    state: {
+                      id: meal.id,
+                      mealType: meal.type,
+                      meal: meals,
+                    },
+                  }}
+>>>>>>> Meal plan page button
                   >
                   BUY SUBSCRIPTION
                   </Link>
