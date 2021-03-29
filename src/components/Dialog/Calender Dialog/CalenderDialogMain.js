@@ -12,6 +12,9 @@
 	import 'react-calendar/dist/Calendar.css';
 	import './CustomcalenderStyle.css'
 	import './customStyleForCalendar.css'
+	import axios from '../../../axiosInstance'
+import { useRef } from 'react';
+import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate } from '../../CommonFunctionality';
 
 
 
@@ -23,12 +26,14 @@
 		const [startDate, setStartDate] = useState("");
 		const [endDate, setEndDate] = useState("");
 		const weekDays = ['Mo','Tu','We', 'Th', 'Fr', 'Sa','Su' ]
-		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		const years = ['2020','2021','2022','2023','2024','2025', '2026','2027', '2028', '2029','2030']
 		const [currentYear, setCurrentYear] = useState('');
 		const [currentMonth, setCurrentMonth] = useState('');
 		const [totalDays, setTotalDays] = useState([]);
 		const [currentMonthInNumber, setCurrentMonthInNumber] = useState('');
+		const [orderBreaksDates, setOrderBreaksDates] = useState([]);
+		// const [breakDaySelected, setBreakDaySelected] = useState([]);
+		const selectedWeekDays = useRef(new Array());
+
 
 
 		useEffect(() =>{
@@ -36,66 +41,22 @@
 				var calendar = document.getElementById('calendar');
 				console.log(calendar)
 			}
+
+
+			axios.get(`my-order-breaks?meal_purchase_id=`+props.recentPurchase.id).then((res) => {
+				console.log(res)
+				let orderBreakDates = [];
+				res.data.data.map((orderBreak) => {
+					var dateBreak = orderBreak.date_list;
+					var orderBreakDateList = dateBreak.split(',');
+					orderBreakDates.concat(orderBreakDateList)
+				})
+				orderBreaksDates([...orderBreakDates]);
+				console.log(orderBreakDates)
+			}).catch((err) => {
+				console.log(err);
+			})
 		},[])
-
-
-	
-
-		const checkCurrentMonth = (value) => {
-			console.log(value)
-			let newValue = 0;
-			if(value > 12){
-				newValue = value - 12;
-				let currentLastYear = parseInt(currentYear) + 1;
-				setCurrentYear(currentLastYear);
-			}else if(value < 1){
-				newValue = value + 12;
-				let currentLastYear = parseInt(currentYear) - 1;
-				setCurrentYear(currentLastYear);
-			}else{
-				newValue = value;
-			}
-			setCurrentMonthInNumber(newValue)
-			switch(newValue){
-				case 1:
-					setCurrentMonth('January')
-					break;
-				case 2:
-					setCurrentMonth('February')
-					break;
-				case 3:
-					setCurrentMonth('March')
-					break;
-				case 4:
-					setCurrentMonth('April')
-					break;
-				case 5:
-					setCurrentMonth('May')
-					break;
-				case 6:
-					setCurrentMonth('June')
-					break;
-				case 7:
-					setCurrentMonth('July')
-					break;
-				case 8:
-					setCurrentMonth('August')
-					break;
-				case 9:
-					setCurrentMonth('September')
-					break;
-				case 10:
-					setCurrentMonth('October')
-					break;
-				case 11:
-					setCurrentMonth('November')
-					break;
-				case 12:
-					setCurrentMonth('December')
-					break;
-			}
-		}
-
 	
 
 		useEffect(() => {
@@ -103,56 +64,82 @@
 			setEndDate(props.endDate)
 			const date = new Date(props.startDate);
 			console.log(date)
-			let currentFullYear = date.getFullYear();
-			let currentlyMonth = date.getMonth();
-			setCurrentYear(currentFullYear)
-			setCurrentMonthInNumber(currentlyMonth + 1);
-			// dateRange.push(props.startDate, props.endDate)
-			// console.log(dateRange)
-			// setValue([...dateRange])
-			checkCurrentMonth(currentlyMonth + 1)
+			let dayDetails = getDayDetails(date)
+			console.log(dayDetails)
+			setCurrentYear(dayDetails.year)
+			setCurrentMonthInNumber(dayDetails.monthDateWithoutPrefix);
+			let getLatestDate = checkCurrentMonth(dayDetails.monthDateWithoutPrefix, dayDetails.year)
+			console.log(getLatestDate)
+			setCurrentYear(getLatestDate.currentYear)
+			setCurrentMonthInNumber(getLatestDate.monthValue)
+			setCurrentMonth(getLatestDate.month)
 
 		},[props.startDate, props.endDate])
 
 
-
-
-		// const onChange = (value) => {
-		// 	console.log(value)
-
-		// }
-
-
-		// const daySelected=(value) =>{
-		// 	console.log(value)
-		// }
-
-
 		const handleMonth = (data) => {
+			let getLatestDate = {};
 			if(data === 'prev'){
-				checkCurrentMonth(parseInt(currentMonthInNumber) - 1)
+				getLatestDate = checkCurrentMonth(parseInt(currentMonthInNumber) - 1,currentYear)
 			}else{
-				checkCurrentMonth(parseInt(currentMonthInNumber) + 1)
+				getLatestDate = checkCurrentMonth(parseInt(currentMonthInNumber) + 1,currentYear)
 			}
+			console.log(getLatestDate)
+			setCurrentYear(getLatestDate.currentYear)
+			setCurrentMonthInNumber(getLatestDate.monthValue)
+			setCurrentMonth(getLatestDate.month)	
 		}
 
 
-		const getMonthDays = (month, year) => {
-			return new Date(year, month, 0).getDate();
-		}
+
 
 		const handleDaySelection = (e,day) => {
 			console.log(e,day)
-			var createLabelElement = document.createElement('label');
-			createLabelElement.className = 'active_break_grey';
-			createLabelElement.innerHTML = day+'<br></br>'+'break';
-			// var appendElement = <label className="active_break_grey">${day}<br></br> break </label>;
 			var listElement = document.getElementById(e.target.id);
-			listElement.innerHTML = '';
-			listElement.appendChild(createLabelElement);
+			console.log(listElement)
+			if(listElement.className === 'active_grey'){
+				listElement.className = 'active_light_grey';
+				selectedWeekDays.current.push(day);
+				console.log(selectedWeekDays)
+			}else{
+				listElement.className = 'active_grey';
+				const indexOfSelected = selectedWeekDays.current.indexOf(day);
+				selectedWeekDays.current.splice(indexOfSelected,1)
+				console.log(selectedWeekDays)
+			}
+
+		}
+
+
+		const handleAddDay = () => {
+			props.makeAddress(false)
+			const old_end_date = props.recentPurchase.end_date;
+			const incrementedDays = selectedWeekDays.current.length;
+			const formatedOldDate = new Date(old_end_date);
+			console.log(old_end_date, incrementedDays, formatedOldDate)
+			var date = formatedOldDate.setDate(formatedOldDate.getDate() + incrementedDays)
+
+			console.log(date)
+			let dayFormat = getDayDetails(date)
+			console.log(dayFormat)
+            let concatedDate = formatedDate( dayFormat.year,dayFormat.month,dayFormat.date);
+            console.log(concatedDate)
+
+			let selectedDaysList = selectedWeekDays.current.toString();
+			axios.post('order-breaks',{
+				meal_purchase_id:props.recentPurchase.id,
+				date_list:selectedDaysList
+			}).then((res) => console.log(res)).catch((err) => console.log(err))
+			axios.put('my-meal-purchases/'+props.recentPurchase.id,{
+				end_date:concatedDate
+			})
+
+
+
 		}
 
 		useEffect(() => {
+			console.log(currentYear)
 			if(currentMonthInNumber != '' && currentYear != ''){
 				let totalDaysInMonth = getMonthDays(currentMonthInNumber, currentYear)
 				let totalDaysCount = []
@@ -167,45 +154,45 @@
 
 
 		const renderMonthDays = totalDays.map((day) => {
-			const startDate = new Date(props.startDate)
-			const endDate = new Date(props.endDate)
-			var startDateDay = startDate.getDate();
-			var endDateDay = endDate.getDate();
-			var startDateMonth = startDate.getMonth() + 1;
-			var endDateMonth = endDate.getMonth() + 1;
-			var startDateYear = startDate.getFullYear();
-			var endDateYear = endDate.getFullYear();
+			const startDateDay = new Date(props.startDate)
+			const endDateDay = new Date(props.endDate)
+			let startDateDetails = getDayDetails(startDateDay)
+			let endDateDetails = getDayDetails(endDateDay)
 
-			console.log(startDateDay, endDateDay, startDateMonth, endDateMonth, startDateYear, endDateYear, startDate, endDate)
 			let daysFromStartDay = [];
 			let daysFromEndDay = [];
 
-			var lastDateForStartMonth = getMonthDays(startDateMonth, startDateYear)
+			var lastDateForStartMonth = getMonthDays(startDateDetails.monthDateWithoutPrefix, startDateDetails.year)
 
 
-			if(startDateMonth != endDateMonth){
-				for(var i=1; i<=endDateDay; i++){
+			if(startDateDetails.monthDateWithoutPrefix != endDateDetails.monthDateWithoutPrefix){
+				for(var i=1; i<=endDateDetails.date; i++){
 					daysFromEndDay.push(i);
 				}
 			}
 
-			for(var j=startDateDay; j<=lastDateForStartMonth; j++){
+			for(var j=startDateDetails.dayDateWithoutPrefix; j<=lastDateForStartMonth; j++){
 				daysFromStartDay.push(j);
 			}
 
 			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay)
 
 
-			if((currentMonthInNumber === startDateMonth || currentMonthInNumber === endDateMonth) && (currentYear === startDateYear || currentYear === endDateYear) && (daysFromStartDay.includes(day) || daysFromEndDay.includes(day))){
+			if((currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day))){
+				var breakday = orderBreaksDates.includes(day)
+				if(breakday){
+					return(
+						<li><label className="active_break_grey">{day}<br></br> break </label></li>
+					)
+				}
 				return(
-					<li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}><span className="active_grey">{day}</span></li>
+					<li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}><span className="active_grey" id={Math.random()}>{day <= 9 ? 0+""+day : day}</span></li>
 				)
-			}else{
-				return(
-					<li key={Math.random()} id={Math.random()}>{day}</li>
-				)
- 			}
-			})
+			}
+			return(
+				<li key={Math.random()} id={Math.random()}>{day}</li>
+			)
+			})	
 
 
 		if(props.changeAddress === true){
@@ -249,7 +236,7 @@
 	
 	
 		<div className="btn_container_dialog_calender mt-3">
-		<button className="btn calender_btn_dialog"  onClick ={() =>props.makeAddress(false)}><span className="material-icons done_all_icon">done_all</span></button>
+		<button className="btn calender_btn_dialog"  onClick ={() => handleAddDay()}><span className="material-icons done_all_icon">done_all</span></button>
 		</div>
 	
 	

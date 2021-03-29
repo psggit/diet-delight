@@ -20,10 +20,10 @@ export default function Submodulesecond(props){
 
         let lastDate = addDays(dateTime,props.recentPurchase.duration)
         console.log(lastDate)
-        setEndDate(lastDate)
+        setEndDate(props.endDate)
         setStartDate(new Date(props.startDate))
 
-    },[props.startDate, props.recentPurchase])
+    },[props.startDate, props.recentPurchase, props.endDate])
 
 
     function addDays(date, days) {
@@ -61,7 +61,7 @@ export default function Submodulesecond(props){
          
         <div> 
             {/* <PrimaryaddDialog changeAddress={addressDialog} makeAddress={handleAdrress} /> */}
-        <CalenderDialogMain changeAddress={breakDialog} makeAddress={handleBreak} startDate={startDate} endDate={endDate}/>
+        <CalenderDialogMain changeAddress={breakDialog} makeAddress={handleBreak} startDate={startDate} endDate={endDate} recentPurchase={props.recentPurchase}/>
 {/* 
         <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}/>
         <AddressDialogBox/> */}

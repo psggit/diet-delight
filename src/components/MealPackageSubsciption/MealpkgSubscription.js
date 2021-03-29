@@ -92,7 +92,7 @@ export default function MealpkgSubscription(props) {
                     state: {
                       id: meal.id,
                       mealType: meal.type,
-                      meal: meals,
+                      meal: meal,
                     },
                   }}
                   >

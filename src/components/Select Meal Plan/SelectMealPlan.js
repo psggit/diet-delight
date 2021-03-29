@@ -50,7 +50,7 @@ export default function SelectMealPlan(props){
         
         {/* card component */} 
 
-        <Submodulesecond recentPurchase = {mealData} startDate={props.location.state.recentPurchase.start_date} />
+        <Submodulesecond recentPurchase = {mealData} startDate={props.location.state.recentPurchase.start_date} endDate={props.location.state.recentPurchase.start_date}/>
         
         <Daytabs duration={duration} notifyParent={handleSelectedDay}/>
         

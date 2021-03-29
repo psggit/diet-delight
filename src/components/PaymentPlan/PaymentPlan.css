@@ -97,6 +97,18 @@ div.week_data {
   align-items: center;
 }
 
+div.week_data_by_default_selected{
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: rgb(139, 196, 65);
+  border-color: 1px solid #6E9A34;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
 /* right side card */
 
 div.Immune_booster_container {

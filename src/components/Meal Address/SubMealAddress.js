@@ -22,7 +22,7 @@ export default function SubMealAddress(props){
     const[address,setAddress ]=useState('');
     const [date,setDate] = useState("");
     const [weekDays,setWeekDays] = useState([]);
-    const [selectedTimingSlot,setSelectedTimimgSlot] = useState('')
+    const [selectedTimingSlot,setSelectedTimimgSlot] = useState('morning')
     const [toggleTextarea,setToggleTextarea] = useState(true);
     const [extraCharge,setExtraCharge] = useState(0);
     const [incrementedDate,setIncrementedDate] = useState("");
@@ -35,11 +35,12 @@ export default function SubMealAddress(props){
     function handleAddress(data){
       console.log(data)
       setSelectedAddress(data)
-      var changeAddress = document.getElementById('addressValue');
+    //   var changeAddress = document.getElementById('addressValue');
       let primaryAddress = (user.primary_address_line1 === null || user.primary_address_line1 === '') ? " " : user.primary_address_line1+ " " + ((user.primary_address_line2 === null || user.primary_address_line2 === '') ? " " : user.primary_address_line2)
       let secondaryAddress = (user.secondary_address_line1 === null || user.secondary_address_line1 === '') ? "" : user.secondary_address_line1  + " " + ((user.secondary_address_line2 == null || user.secondary_address_line2 === '')? " ": user.secondary_address_line2)
       let addressValue = data === 'primary_address' ? primaryAddress : secondaryAddress;
-      changeAddress.value = addressValue;
+    //   changeAddress.value = addressValue;
+      setAddress(addressValue)
 
     } 
 
@@ -91,6 +92,11 @@ export default function SubMealAddress(props){
         setmaximumSelectionMessage(message)
     }
 
+    useEffect(() => {
+        var byDefaultTimeSelection = document.getElementById('morning');
+        byDefaultTimeSelection.checked=true;
+    },[])
+
             
     useEffect(() => {
                 console.log(props);
@@ -114,8 +120,8 @@ export default function SubMealAddress(props){
                     console.log(res)
                     
                     setUser(res.data)
-               
-                   
+                    let addressValue = (res.data.primary_address_line1 === null || res.data.primary_address_line1 === '') ? " " : res.data.primary_address_line1+ " " + ((res.data.primary_address_line2 === null || res.data.primary_address_line2 === '') ? " " : res.data.primary_address_line2)
+                    setAddress(addressValue)
                 })
 
 
@@ -260,17 +266,9 @@ export default function SubMealAddress(props){
                     <div className="row">
                     
                     <div className="col-md-12 col-sm-12">
-                    <textarea
-                    id="addressValue" 
-                     placeholder="Enter your Address" cols="30" className="textarea_mealaddress" 
-                     defaultValue={user.primary_address_line1+" "+user.primary_address_line2}
-                     disabled
-                    // onChange={(e) => {
-                    //     console.log(e.target.value)
-                    //     setAddress(e.target.value);
-                    // }} 
-                    >{selectAddress === "primary_address" ? user.primary_address_line1 : user.secondary_address_line2}</textarea>
-                    
+                    <p id="addressValue" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}>
+                        {address}
+                    </p>
                     </div>
                     
                     
