@@ -1,6 +1,7 @@
 div.conatct_us_main_container{
     display: grid;
     place-items: center; 
+    margin: 2rem 0;
 }
 button.btn_submit_contact{
     
@@ -87,7 +88,7 @@ div.contact_card{
         text-align: center;  
     }
     div.right_side_conat_us{
-        background: #F3F3F3;
+        /* background: #F3F3F3; */
     }
     h6.title_contact{
         margin: 4%;
@@ -133,8 +134,8 @@ div.contact_card{
     div.conatct_us_main_container{
         display: grid;
         place-items: center;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        /* margin-top: 15px;
+        margin-bottom: 15px; */
     }
     div.contact_card{
         border: none;
@@ -179,7 +180,7 @@ div.contact_card{
         bottom: 0px;
     }
     div.right_side_conat_us{
-        background: #F3F3F3;
+        /* background: #F3F3F3; */
         padding-left: 27px;
     }
     h6.title_contact{
@@ -229,8 +230,8 @@ div.contact_card{
     div.conatct_us_main_container{
         display: grid;
         place-items: center;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        /* margin-top: 15px;
+        margin-bottom: 15px; */
     }
     div.contact_card{
         border: none;
@@ -273,7 +274,7 @@ div.contact_card{
         text-align: left;
     }
     div.right_side_conat_us{
-        background: #F3F3F3;
+        /* background: #F3F3F3; */
         padding-left: 35px;
     }
     h6.title_contact{
@@ -323,8 +324,9 @@ div.contact_card{
     div.conatct_us_main_container{
         display: grid;
         place-items: center;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        /* margin-top: 15px;
+        margin-bottom: 15px; */
+        margin: 3rem 0;
     }
     div.contact_card{
         border: none;
@@ -368,7 +370,7 @@ div.contact_card{
         justify-content: flex-start;
     }
     div.right_side_conat_us{
-        background: #F3F3F3;
+        /* background: #F3F3F3; */
         padding-left: 35px;
     }
     h6.title_contact{

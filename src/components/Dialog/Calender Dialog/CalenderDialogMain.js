@@ -18,13 +18,18 @@
 	export default function CalenderDialogMain(props) {
 		const [open, setOpen] = React.useState(true);
 		const theme = useTheme();
-		console.log(props)
-		
-
-		console.log(new Date(2021,2,2))
-
-		
+		console.log(props)		
 		const [value, setValue] = useState([]);
+		const [startDate, setStartDate] = useState("");
+		const [endDate, setEndDate] = useState("");
+		const weekDays = ['Mo','Tu','We', 'Th', 'Fr', 'Sa','Su' ]
+		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		const years = ['2020','2021','2022','2023','2024','2025', '2026','2027', '2028', '2029','2030']
+		const [currentYear, setCurrentYear] = useState('');
+		const [currentMonth, setCurrentMonth] = useState('');
+		const [totalDays, setTotalDays] = useState([]);
+		const [currentMonthInNumber, setCurrentMonthInNumber] = useState('');
+
 
 		useEffect(() =>{
 			if(value.length > 0){
@@ -34,195 +39,228 @@
 		},[])
 
 
-		// useEffect(() =>{
-		// 	var currentDate = new Date();
-		// 	function generateCalendar(d) {
-		// 	  function monthDays(month, year) {
-		// 		var result = [];
-		// 		var days = new Date(year, month, 0).getDate();
-		// 		for (var i = 1; i <= days; i++) {
-		// 		  result.push(i);
-		// 		}
-		// 		return result;
-		// 	  }
-		// 	  Date.prototype.monthDays = function() {
-		// 		var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
-		// 		return d.getDate();
-		// 	  };
-		// 	  var details = {
-		// 		// totalDays: monthDays(d.getMonth(), d.getFullYear()),
-		// 		totalDays: d.monthDays(),
-		// 		weekDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-		// 		months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-		// 	  };
-		// 	  var start = new Date(d.getFullYear(), d.getMonth()).getDay();
-		// 	  var cal = [];
-		// 	  var day = 1;
-		// 	  for (var i = 0; i <= 6; i++) {
-		// 		cal.push(['<tr>']);
-		// 		for (var j = 0; j < 7; j++) {
-		// 		  if (i === 0) {
-		// 			cal[i].push('<td>' + details.weekDays[j] + '</td>');
-		// 		  } else if (day > details.totalDays) {
-		// 			cal[i].push('<td>&nbsp;</td>');
-		// 		  } else {
-		// 			if (i === 1 && j < start) {
-		// 			  cal[i].push('<td>&nbsp;</td>');
-		// 			} else {
-		// 			  cal[i].push('<td class="day">' + day++ + '</td>');
-		// 			}
-		// 		  }
-		// 		}
-		// 		cal[i].push('</tr>');
-		// 	  }
-		// 	  cal = cal.reduce(function(a, b) {
-		// 		return a.concat(b);
-		// 	  }, []).join('');
-		// 	  document.getElementsByTagName('table').append(cal);
-		// 	  document.getElementById('month').text(details.months[d.getMonth()]);
-		// 	  document.getElementById('year').text(d.getFullYear());
-		// 	  document.getElementsByClassName('day').mouseover(function() {
-		// 	  }).mouseout(function() {
-		// 	  });
-		// 	}
-		// 	document.getElementById('left').onclick = function() {
-		// 	  document.getElementsByTagName('table').text('');
-		// 	  if (currentDate.getMonth() === 0) {
-		// 		currentDate = new Date(currentDate.getFullYear() - 1, 11);
-		// 		generateCalendar(currentDate);
-		// 	  } else {
-		// 		currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
-		// 		generateCalendar(currentDate);
-		// 	  }
-		// 	};
-		// 	document.getElementById('right').onclick = function() {
-		// 	  document.getElementsByTagName('table').html('<tr></tr>');
-		// 	  if (currentDate.getMonth() === 11) {
-		// 		currentDate = new Date(currentDate.getFullYear() + 1, 0);
-		// 		generateCalendar(currentDate);
-		// 	  } else {
-		// 		currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
-		// 		generateCalendar(currentDate);
-		// 	  }
-		// 	};
-		// 	console.log(generateCalendar(currentDate));
-		// },[])
+	
+
+		const checkCurrentMonth = (value) => {
+			console.log(value)
+			let newValue = 0;
+			if(value > 12){
+				newValue = value - 12;
+				let currentLastYear = parseInt(currentYear) + 1;
+				setCurrentYear(currentLastYear);
+			}else if(value < 1){
+				newValue = value + 12;
+				let currentLastYear = parseInt(currentYear) - 1;
+				setCurrentYear(currentLastYear);
+			}else{
+				newValue = value;
+			}
+			setCurrentMonthInNumber(newValue)
+			switch(newValue){
+				case 1:
+					setCurrentMonth('January')
+					break;
+				case 2:
+					setCurrentMonth('February')
+					break;
+				case 3:
+					setCurrentMonth('March')
+					break;
+				case 4:
+					setCurrentMonth('April')
+					break;
+				case 5:
+					setCurrentMonth('May')
+					break;
+				case 6:
+					setCurrentMonth('June')
+					break;
+				case 7:
+					setCurrentMonth('July')
+					break;
+				case 8:
+					setCurrentMonth('August')
+					break;
+				case 9:
+					setCurrentMonth('September')
+					break;
+				case 10:
+					setCurrentMonth('October')
+					break;
+				case 11:
+					setCurrentMonth('November')
+					break;
+				case 12:
+					setCurrentMonth('December')
+					break;
+			}
+		}
+
 	
 
 		useEffect(() => {
-			let dateRange = [];
-			dateRange.push(props.startDate, props.endDate)
-			console.log(dateRange)
-			setValue([...dateRange])
+			setStartDate(props.startDate)
+			setEndDate(props.endDate)
+			const date = new Date(props.startDate);
+			console.log(date)
+			let currentFullYear = date.getFullYear();
+			let currentlyMonth = date.getMonth();
+			setCurrentYear(currentFullYear)
+			setCurrentMonthInNumber(currentlyMonth + 1);
+			// dateRange.push(props.startDate, props.endDate)
+			// console.log(dateRange)
+			// setValue([...dateRange])
+			checkCurrentMonth(currentlyMonth + 1)
 
-			
 		},[props.startDate, props.endDate])
 
-		const onChange = (value) => {
-			console.log(value)
 
+
+
+		// const onChange = (value) => {
+		// 	console.log(value)
+
+		// }
+
+
+		// const daySelected=(value) =>{
+		// 	console.log(value)
+		// }
+
+
+		const handleMonth = (data) => {
+			if(data === 'prev'){
+				checkCurrentMonth(parseInt(currentMonthInNumber) - 1)
+			}else{
+				checkCurrentMonth(parseInt(currentMonthInNumber) + 1)
+			}
 		}
 
 
-		const daySelected=(value) =>{
-			console.log(value)
+		const getMonthDays = (month, year) => {
+			return new Date(year, month, 0).getDate();
 		}
 
-		if(props.changeAddress === true && value.length > 0){
-			return (
-				<div>
+		const handleDaySelection = (e,day) => {
+			console.log(e,day)
+			var createLabelElement = document.createElement('label');
+			createLabelElement.className = 'active_break_grey';
+			createLabelElement.innerHTML = day+'<br></br>'+'break';
+			// var appendElement = <label className="active_break_grey">${day}<br></br> break </label>;
+			var listElement = document.getElementById(e.target.id);
+			listElement.innerHTML = '';
+			listElement.appendChild(createLabelElement);
+		}
 
-				<Dialog
-				open={open}
+		useEffect(() => {
+			if(currentMonthInNumber != '' && currentYear != ''){
+				let totalDaysInMonth = getMonthDays(currentMonthInNumber, currentYear)
+				let totalDaysCount = []
+				for(var i=1; i<=totalDaysInMonth; i++){
+					totalDaysCount.push(i);
+				}
+				setTotalDays([...totalDaysCount])
+			}
+		}, [currentMonthInNumber, currentYear])
 
-				style={{borderRadius:40}}
-				aria-labelledby="responsive-dialog-title">
-
-				<DialogTitle className="calender_dialog_bg_new" id="responsive-dialog-title">
-				<div className="breaks_header text-light text-center">
-				<span >Breaks</span>
-				</div>
-
-				<div>
-			{/* <Calendar
-			maxDate={props.endDate}
-			minDate={props.startDate}
-			onClickDay={daySelected}
-<<<<<<< HEAD
-		/> */}
-
-	{/* <input type="date" id="calendar" name="calendar" min={props.startDate} max={props.endDate} /> */}
-
-	<div className="month">      
-	<ul>
-	<li className="prev">&#10094;</li>
-	<li className="next">&#10095;</li>
-	<li className="month_dialog_text">
-	August
-	<span className="year_dialog_text ml-1 mr-1">2021</span>
-	</li>
-	</ul>
-	</div>
-
-	<ul className="weekdays">
-	<li>Mo</li>
-	<li>Tu</li>
-	<li>We</li>
-	<li>Th</li>
-	<li>Fr</li>
-	<li>Sa</li>
-	<li>Su</li>
-	</ul>
-
-	<ul className="days">  
-	<li>1</li>
-	<li>2</li>
-	<li>3</li>
-	<li>4</li>
-	<li>5</li>
-	<li>6</li>
-	<li>7</li>
-	<li>8</li>
-	<li>9</li>
-	<li><span className="active_grey">10</span></li>
-	<li><span className="active_light_grey">11</span></li>
-	<li>12</li>
-	<li>13</li>
-	<li>14</li>
-	<li>15</li>
-	<li>16</li>
-	<li>17</li>
-	<li>18</li>
-	<li>19</li>
-	<li>20</li>
-	<li>21</li>
-	<li>22</li>
-	<li>23</li>
-	<li>24</li>
-	<li><label className="active_break_grey">25 <br></br> break </label></li>
-	<li>26</li>
-	<li>27</li>
-	<li>28</li>
-	<li>29</li>
-	<li>30</li>
-	<li>31</li>
-	</ul>	
+		const renderWeeks = weekDays.map((weekDay) => <li key={Math.random()} id={Math.random()}>{weekDay}</li>)
 
 
-	</div>
+		const renderMonthDays = totalDays.map((day) => {
+			const startDate = new Date(props.startDate)
+			const endDate = new Date(props.endDate)
+			var startDateDay = startDate.getDate();
+			var endDateDay = endDate.getDate();
+			var startDateMonth = startDate.getMonth() + 1;
+			var endDateMonth = endDate.getMonth() + 1;
+			var startDateYear = startDate.getFullYear();
+			var endDateYear = endDate.getFullYear();
+
+			console.log(startDateDay, endDateDay, startDateMonth, endDateMonth, startDateYear, endDateYear, startDate, endDate)
+			let daysFromStartDay = [];
+			let daysFromEndDay = [];
+
+			var lastDateForStartMonth = getMonthDays(startDateMonth, startDateYear)
 
 
-	<div className="btn_container_dialog_calender mt-3">
-	<button className="btn calender_btn_dialog"  onClick ={() =>props.makeAddress(false)}><span className="material-icons done_all_icon">done_all</span></button>
-	</div>
+			if(startDateMonth != endDateMonth){
+				for(var i=1; i<=endDateDay; i++){
+					daysFromEndDay.push(i);
+				}
+			}
+
+			for(var j=startDateDay; j<=lastDateForStartMonth; j++){
+				daysFromStartDay.push(j);
+			}
+
+			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay)
 
 
-	</DialogTitle>
+			if((currentMonthInNumber === startDateMonth || currentMonthInNumber === endDateMonth) && (currentYear === startDateYear || currentYear === endDateYear) && (daysFromStartDay.includes(day) || daysFromEndDay.includes(day))){
+				return(
+					<li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}><span className="active_grey">{day}</span></li>
+				)
+			}else{
+				return(
+					<li key={Math.random()} id={Math.random()}>{day}</li>
+				)
+ 			}
+			})
 
 
-	</Dialog>
-	</div>
-	);}else{
+		if(props.changeAddress === true){
+			if(props.startDate != "" && props.endDate != ''){
+				return (
+					<div>
+	
+					<Dialog
+					open={open}
+	
+					style={{borderRadius:40}}
+					aria-labelledby="responsive-dialog-title">
+	
+					<DialogTitle className="calender_dialog_bg_new" id="responsive-dialog-title">
+					<div className="breaks_header text-light text-center">
+					<span >Breaks</span>
+					</div>
+	
+					<div>
+		<div className="month">      
+		<ul>
+		<li className="prev" onClick={() => handleMonth("prev")}>&#10094;</li>
+		<li className="next" onClick={() => handleMonth("next")}>&#10095;</li>
+		<li className="month_dialog_text">
+		{currentMonth}
+		<span className="year_dialog_text ml-1 mr-1">{currentYear}</span>
+		</li>
+		</ul>
+		</div>
+	
+		<ul className="weekdays">
+		{renderWeeks}
+		</ul>
+	
+		<ul className="days">  
+		{renderMonthDays}
+		</ul>	
+	
+	
+		</div>
+	
+	
+		<div className="btn_container_dialog_calender mt-3">
+		<button className="btn calender_btn_dialog"  onClick ={() =>props.makeAddress(false)}><span className="material-icons done_all_icon">done_all</span></button>
+		</div>
+	
+	
+		</DialogTitle>
+	
+	
+		</Dialog>
+		</div>
+		);
+			}
+			}else{
 		return(
 		<>
 		</>
