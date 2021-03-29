@@ -6,6 +6,9 @@ import logo_web from '../../assets/logoweb.png'
 import axios from '../../axiosInstance';
 import { Link ,useHistory} from 'react-router-dom';
 import master_card from '../../assets/mastercard.jpg'
+import { useSnackbar } from "notistack";
+
+
 
 export default function PaymentPlan(props){
     let history = useHistory(); 
@@ -18,7 +21,7 @@ export default function PaymentPlan(props){
     const [discountAmount, setDiscountAmount] = useState(0);
     const [taxAmount, setTaxAmount] = useState(0);
 
-    
+    const { enqueueSnackbar } = useSnackbar();
     console.log(props.location.state);
     console.log(JSON.stringify(props.location.state.weekDays))
     console.log(props.location.state.weekDays.toString());
@@ -100,12 +103,13 @@ export default function PaymentPlan(props){
                   console.log(new Date(couponExpiryDate) < new Date())
                   if(new Date(couponExpiryDate) < new Date()){
                     var errorMessage = document.getElementById('successCoupon');
-                    errorMessage.innerHTML = 'Coupon Code Expired';
+                    enqueueSnackbar("Coupon Code Expired");
+                    errorMessage.innerHTML = '';
                      
                       setCoupon('');
                   }else{
                     var errorMessage = document.getElementById('successCoupon');
-                    errorMessage.innerHTML = 'Coupon applied Successfully';
+                    errorMessage.innerHTML = '&#10003; Coupon Successfully Applied';
                     errorMessage.style.color = 'green';
                  
                     console.log(res.data.data[verifyCoupon])
@@ -114,7 +118,8 @@ export default function PaymentPlan(props){
               }
               else{
                 var errorMessage = document.getElementById('successCoupon');
-                errorMessage.innerHTML = 'Invalid coupon';
+                errorMessage.innerHTML = '';
+                enqueueSnackbar("Invalid coupon code");
               }
               console.log(couponScheme)
           })
@@ -193,7 +198,7 @@ export default function PaymentPlan(props){
                 <div className="row payment_plan_coupon">
                 <input type="text" id="coupon" name="coupon" className="payment_plan_input" value={coupon} onChange={(e) => setCoupon(e.target.value)}></input> 
                 <button className="coupon_btn_payment_plan" onClick={applyCoupon}>Apply Coupon</button>
-                <span id="successCoupon" style={{color:'red', fontWeight:800}}></span>
+                <span id="successCoupon" style={{color:'#800080', fontWeight:600, paddingLeft: '20px'}}></span>
                 </div>
                 
                 </div>
