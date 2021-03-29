@@ -18,6 +18,7 @@ const Work = () => {
             down: "Your Dietary Needs",
             descript: "Lorem ipsum dolor sit amet, conmsdasm asdasd it, ahjdhja tempor",
             btn: "CALCULATE",
+            to: ""
         },
         {
             image: hand,
@@ -25,6 +26,7 @@ const Work = () => {
             down: " with Our Experts",
             descript: "Lorem ipsum dolor sit amet, conmsdasm asdasd it, ahjdhja tempor",
             btn: "TALK TO OUR EXPERT",
+            to: "expert"
         },
         {
             image: bowl,
@@ -32,6 +34,7 @@ const Work = () => {
             down: "Your Diet Plan",
             descript: "Lorem ipsum dolor sit amet, conmsdasm asdasd it, ahjdhja tempor",
             btn: "CHOOSE YOUR DIET PLAN",
+            to : "plan"
         }
     ]
 
@@ -54,6 +57,7 @@ const Work = () => {
                                 down={item.down}
                                 descript={item.descript}
                                 btn={item.btn}
+                                to={item.to}
                             />
                         ))
                     }
