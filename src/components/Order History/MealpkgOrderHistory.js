@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from '../../axiosInstance'; 
 
 export default function MealpkgOrderHistory(props){
+    console.log(props)
     const [mealPurchases, setMealPurchases] = useState([]);
     const [startDate,setStartDate] = useState("")
     const [endDate,setEndDate] = useState("")
@@ -67,7 +68,7 @@ export default function MealpkgOrderHistory(props){
          var dd = orderDate.getDate();
             var mm = orderDate.getMonth()+1; 
             var yyyy = orderDate.getFullYear();
-            if(dd<10) 
+            if(dd<10)  
             {
                 dd='0'+dd;
             } 
