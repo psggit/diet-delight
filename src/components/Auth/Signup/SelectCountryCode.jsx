@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const SelectCountryCode = ({ handleOnChange }) => {
+const SelectCountryCode = ({ inputValue, handleOnChange }) => {
   const [callingCountries, setCallingCountries] = useState([]);
 
   useEffect(() => {
@@ -13,14 +13,14 @@ const SelectCountryCode = ({ handleOnChange }) => {
       name="country"
       id="country"
       placeholder="select"
-      defaultValue=""
+      defaultValue={inputValue}
       onChange={handleOnChange}
       style={{
         height: "28px",
         border: "1.2px solid #909090",
         color: "#909090",
         borderRadius: "5px",
-        width: "90px"
+        width: "90px",
       }}
     >
       <option value="" disabled></option>
