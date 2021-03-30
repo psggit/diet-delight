@@ -17,6 +17,7 @@ export default function SelectMealPlan(props){
         
         axios.get(`meal-plans/`+props.location.state.recentPurchase.meal_plan_id).then((res) => {
             console.log(res)
+            console.log(props.location.state.recentPurchase)
            setMealData(res.data.data) 
            setDuration(res.data.data.duration)
         })
@@ -50,12 +51,12 @@ export default function SelectMealPlan(props){
         
         {/* card component */} 
 
-        <Submodulesecond recentPurchase = {mealData} startDate={props.location.state.recentPurchase.start_date} />
+        <Submodulesecond mealData={mealData}  recentPurchase = {props.location.state.recentPurchase} startDate={props.location.state.recentPurchase.start_date} endDate={props.location.state.recentPurchase.start_date}/>
         
         <Daytabs duration={duration} notifyParent={handleSelectedDay}/>
         
         
-        <SubmoduleSelectMeal recentPurchase = {mealData}  selectedDay={selectedDay}/>
+        <SubmoduleSelectMeal recentPurchase = {props.location.state.recentPurchase} mealData={mealData}  selectedDay={selectedDay}/>
                 
               
         

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { SnackbarProvider} from 'notistack';
+
 import { Cookies } from "react-cookie";
 
 import axios from "./axiosInstance";
@@ -52,6 +53,7 @@ import SelectionCalenderMain from "./components/Dialog/Selection Calender Dialog
 import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDialogMain";
 import About from "./components/Our story page/About";
 import ImportMenu from './components/Admin/Menu/ImportMenu';
+import ForgotPassword from "./components/Auth/ForgotPassword";
 
 
 function App() {
@@ -115,6 +117,7 @@ function App() {
 
         <Route path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
+        <Route path="/forgotpassword" exact component={ForgotPassword} />
         <Route path="/admin" exact component={AdminDash} />
         <Route path="/consultant" exact component={Consultant} />
         <Route path="/kitchen" exact component={Kitchen} />

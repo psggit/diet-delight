@@ -9,6 +9,7 @@ import master_card from '../../assets/mastercard.jpg'
 import { useSnackbar } from "notistack";
 
 
+import {weeksInList, addDays, getDayDetails, formatedDate} from '../CommonFunctionality.js'
 
 export default function PaymentPlan(props){
     let history = useHistory(); 
@@ -51,6 +52,39 @@ export default function PaymentPlan(props){
         setTotalCharge(totalChargeUpdated);
     },[discountAmount, taxAmount])
 
+    useEffect(() => {
+
+
+        var planDays = props.location.state.meal.duration;
+        var i =0;
+        var weekDayInList = weeksInList(props.location.state.weekDays);
+        var newDate = props.location.state.date;
+        while(i < planDays){
+            var date = addDays(newDate, 1)
+            newDate = date;
+            var dayInWeek = date.getDay();
+            if(weekDayInList.includes(dayInWeek)){
+                i++
+            }
+        }
+        console.log(weekDayInList,newDate)
+        
+        
+
+
+
+        var formatDate =  new Date(props.location.state.date)
+        console.log(formatDate)
+        setDateFormat(formatDate)
+            // var date = addDays(props.location.state.date, 30)
+            console.log(newDate)
+            let dayFormat = getDayDetails(newDate);
+            let concatedDate = formatedDate( dayFormat.year,dayFormat.month,dayFormat.date);
+            console.log(concatedDate)
+            setEndDate(concatedDate);
+
+    },[props.location.state.date, props.location.state.meal.duration, props.location.state.weekDays])
+
 
     useEffect(() => {
         
@@ -62,29 +96,11 @@ export default function PaymentPlan(props){
             console.log(res)
             setMeal(res.data.data)
             let mealPrice = parseInt(res.data.data.price) + props.location.state.extraCharge;
-            setTotalCharge(mealPrice);
-            
+            setTotalCharge(mealPrice);  
         })
-        
-        var formatedDate =  new Date(props.location.state.date)
-        console.log(formatedDate)
-        setDateFormat(formatedDate)
-            var date = addDays(props.location.state.date, 30)
-            console.log(date)
-            var month = date.getMonth() + 1;
-            var monthDate = month < 10 ? "0"+month : month;
-            var dayDate = date.getDate() < 10 ? "0"+date.getDate(): date.getDate();
-            var yearDate = date.getFullYear();
-            var concatedDate = yearDate+"-"+monthDate+"-"+dayDate;
-            console.log(concatedDate)
-            setEndDate(concatedDate);
-    },[props.location.state.mealId,props.location.state.date])
+    },[props.location.state.mealId])
      
-    function addDays(date, days) {
-        var result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return result;
-      }
+
 
       function checkCoupon(code) {
         console.log(coupon === code.code)
@@ -156,7 +172,8 @@ export default function PaymentPlan(props){
                         pathname: '/SelectMealPlan',
                         state: { 
                              recentPurchase: res.data.data,
-                                start_date :props.location.state.start_date
+                                start_date :props.location.state.start_date,
+                                end_date: endDate
                         }
                         })
                   
@@ -226,10 +243,10 @@ export default function PaymentPlan(props){
                 <h5 className="cost_title">Cost Breakdown</h5>
                 
                 <div className="Immune_booster_container">
-                <p className="immune_subtitle">Immune Booster</p>
+                <p className="immune_subtitle">{meal.name}</p>
                 <span className="font-weight-bold price_subtitle">{meal.price} BHD</span>
                 </div>
-                <p className="gb_plan_text">(10 Days Plan)</p>
+                <p className="gb_plan_text">({meal.duration} days plan)</p>
                 
                 <div className="Immune_booster_container">
                 <p className="extra_subtitle">Extras</p>

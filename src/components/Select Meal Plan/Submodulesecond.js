@@ -18,12 +18,12 @@ export default function Submodulesecond(props){
         var dateTime = new Date(props.startDate);
         console.log(dateTime)
 
-        let lastDate = addDays(dateTime,props.recentPurchase.duration)
+        let lastDate = addDays(dateTime,props.mealData.duration)
         console.log(lastDate)
-        setEndDate(lastDate)
+        setEndDate(props.endDate)
         setStartDate(new Date(props.startDate))
 
-    },[props.startDate, props.recentPurchase])
+    },[props.startDate, props.mealData, props.endDate])
 
 
     function addDays(date, days) {
@@ -61,7 +61,7 @@ export default function Submodulesecond(props){
          
         <div> 
             {/* <PrimaryaddDialog changeAddress={addressDialog} makeAddress={handleAdrress} /> */}
-        <CalenderDialogMain changeAddress={breakDialog} makeAddress={handleBreak} startDate={startDate} endDate={endDate}/>
+        <CalenderDialogMain changeAddress={breakDialog} makeAddress={handleBreak} startDate={startDate} endDate={endDate} recentPurchase={props.recentPurchase} mealData={props.mealData}/>
 {/* 
         <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}/>
         <AddressDialogBox/> */}
@@ -73,18 +73,18 @@ export default function Submodulesecond(props){
         
         <div className="col-md-2 col-sm-12">
         
-        <img src={props.recentPurchase.picture} alt="food" className="rounded-circle card_img_rounded_submodul"></img>
+        <img src={props.mealData.picture} alt="food" className="rounded-circle card_img_rounded_submodul"></img>
         
         </div>
         
         <div className="col-md-8 col-sm-12 center_submodule_second">
         
-        <h6 className="title_submodul_second">{props.recentPurchase.name}</h6>
-        <h6 className="paragraph_submodule_second">{props.recentPurchase.details}</h6>
+        <h6 className="title_submodul_second">{props.mealData.name}</h6>
+        <h6 className="paragraph_submodule_second">{props.mealData.details}</h6>
         
         <div className="row trippple_submodule_second">
-        <h6 className="first_word_link">{props.recentPurchase.duration} day Meal Plan</h6>
-        <h6 className="sec_word_link">{props.recentPurchase.type == 0 ? "With Weekend" : "Without Weekend" }</h6>
+        <h6 className="first_word_link">{props.mealData.duration} day Meal Plan</h6>
+        <h6 className="sec_word_link">{props.mealData.type == 0 ? "With Weekend" : "Without Weekend" }</h6>
         <h6 className="third_word_link">Start Date - {props.startDate}</h6>
         </div>
         

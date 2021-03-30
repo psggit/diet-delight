@@ -1,0 +1,105 @@
+.h61{
+    text-transform:uppercase;
+    font-weight:bold;
+}
+.h62{
+font-weight:bold;
+}
+.h63{
+font-weight:bold;
+}
+.h64{
+font-weight:bold;
+}
+
+    @media only screen and (max-width: 767px) {
+        div.delivery_sticker_container{
+            text-align: center;
+            margin: 2%;
+            width: 49%;
+            margin-top: 25px;
+        }
+        h6.r_title_sticker{
+            
+        }
+        h6.delivery_title_sticker{
+            
+        }
+        h6.delivery_subtitle_sticker{
+            
+        }
+        h6.r_title_sticker{
+            
+        }
+        
+    }
+    
+    
+    @media only screen and (min-width: 768px) {
+        div.delivery_sticker_container{
+            text-align: center;
+            margin: 2%;
+            width: 82%;
+            margin-top: 25px;
+        }
+        h6.r_title_sticker{
+            
+        }
+        h6.delivery_title_sticker{
+            
+        }
+        h6.delivery_subtitle_sticker{
+            
+        }
+        h6.r_title_sticker{
+            
+        }
+        
+    }
+    
+    
+    @media only screen and (min-width: 992px) {
+        div.delivery_sticker_container{
+            text-align: center;
+            margin: 2%;
+            width: 59%;
+            margin-top: 25px;
+        }
+        h6.r_title_sticker{
+            
+        }
+        h6.delivery_title_sticker{
+            
+        }
+        h6.delivery_subtitle_sticker{
+            
+        }
+        h6.r_title_sticker{
+            
+        }
+        
+    }
+    
+    
+    @media only screen and (min-width: 1200px) {
+        div.delivery_sticker_container{
+            text-align: center;
+            margin:1%;
+            width: 59%;
+            margin-top: 34px;
+            margin-left: 0px;
+        }
+        h6.r_title_sticker{
+            
+        }
+        h6.delivery_title_sticker{
+            
+        }
+        h6.delivery_subtitle_sticker{
+            
+        }
+        h6.r_title_sticker{
+            
+        }
+        
+    }

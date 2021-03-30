@@ -4,6 +4,7 @@ import logo_web from "../../assets/logoweb.png";
 import Mealchoose from "../Mealchoose.js";
 import { Link } from "react-router-dom";
 import axios from "../../axiosInstance";
+import Snackbar from '../Snack bar/Snackbar.js'
 
 export default function MealpkgSubscription(props) {
   console.log(props);
@@ -24,6 +25,10 @@ export default function MealpkgSubscription(props) {
   const renderMeal = meals.map((meal) => {
     return (
       <div className="main_container_mealpkg" key={Math.random()}>
+
+      <Snackbar/>
+
+
       <div className="card fullcard_container">
       <div className="row under_card_mealsubscription">
       <div className="col-md-6 col-sm-12">
@@ -92,7 +97,7 @@ export default function MealpkgSubscription(props) {
                     state: {
                       id: meal.id,
                       mealType: meal.type,
-                      meal: meals,
+                      meal: meal,
                     },
                   }}
                   >

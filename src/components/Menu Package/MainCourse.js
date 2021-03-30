@@ -36,10 +36,10 @@ export default function MainCourse(props){
                 },
                 
                 menu_item_id: id 
-                
+                 
             }).then((res) => {
                 console.log(res)
-                props.notifyAddedFavourite(props.menuItem.id)
+                // props.notifyAddedFavourite(props.menuItem.id)
                 console.log("meet")
             }).catch(err => console.log(err))
         }else{
@@ -57,7 +57,7 @@ export default function MainCourse(props){
                           },
                     }).then((res) =>{
                         
-                        props.notifyAddedFavourite(props.menuItem.id)
+                        // props.notifyAddedFavourite(props.menuItem.id)
                         console.log(res)}).catch((err) =>{
                             console.log(err)
                            
