@@ -21,9 +21,6 @@ import { setToken } from "./features/tokenSlice";
 
 import { useDispatch } from "react-redux";
 
-// import DietDataDetails from './components/Diet_Free_Data/index';
-
-
 import MealpkgSubscription from "./components/MealPackageSubsciption/MealpkgSubscription";
 import SelectMealPlan from "./components/Select Meal Plan/SelectMealPlan";
 import PaymentPlan from "./components/PaymentPlan/PaymentPlan";

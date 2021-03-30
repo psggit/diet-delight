@@ -10,7 +10,7 @@ import Rating from "./Rating";
 import Downlaod from "./download";
 import Footer from "./Footer";
 import axios from "../../axiosInstance";
-import DietDataDetails from "../Diet_Free_Data/index";
+import DietDataDetails from "../Diet_Free_Data";
 import BmiMain from "../BMI/BmiMain";
 import Bmireport from "../BMI Report/Bmireport";
 
@@ -52,21 +52,25 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
+    const ACCESS_TOKEN = localStorage.getItem("access_token");
+    if (!ACCESS_TOKEN) return;
     axios
       .get("user", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log("Response : ", res);
         console.log(res.data);
         setUserInfo(res.data);
         if (res.data.questionnaire_status === 0) {
           setShowQuestion(true);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log("Error : ", err);
+      });
   }, []);
 
   function handleCancel() {
@@ -76,7 +80,7 @@ const LandingPage = () => {
   return (
     <>
       {showQuestion && (
-        <DietDataDetails handleCancel={handleCancel} closeBMI={closeBMI} />
+        <DietDataDetails open={showQuestion} handleCancel={handleCancel} closeBMI={closeBMI} />
       )}
       {toggleBMI && (
         <BmiMain
