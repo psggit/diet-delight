@@ -12,7 +12,7 @@
 	import TextfieldnewComponent from './TextfieldnewComponent.js'
 	import './TextFieldCalenderDialog.css'
 	import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInList } from '../../CommonFunctionality';
-
+	import axios from '../../../axiosInstance'
 
 
 	export default function SelectionCalenderMain(props) {
@@ -27,7 +27,32 @@
 		const deliveryDays = useRef(new Array());
 		const weekStartsAt = useRef(0);
 		const [orderBreaksDates, setOrderBreaksDates] = useState([]);
+		const [daysToDeliverAtPrimaryAddress, setDaysToDeliverAtPrimaryAddress] = useState([]);
+		const [daysToDeliverAtSecondaryAddress, setDaysToDeliverAtSecondaryAddress] = useState([]);
 
+
+		useEffect(() =>{
+			axios.get(`my-order-breaks?meal_purchase_id=`+props.mealData.id).then((res) => {
+				console.log(res)
+				let primaryAddressDeliveries = [];
+				let secondaryAddressDeliveries = [];
+				res.data.data.map((orderBreak) => {
+					var primaryAddressDaysList = JSON.parse(orderBreak.primary_address_dates);
+					var secondaryAddressDaysList = JSON.parse(orderBreak.secondary_address_dates);
+					primaryAddressDaysList.map((primary) => {
+						primaryAddressDeliveries.push(primary);
+					})
+					secondaryAddressDaysList.map((secondary) => {
+						secondaryAddressDeliveries.push(secondary);
+					})
+				})
+				setDaysToDeliverAtPrimaryAddress([...primaryAddressDeliveries]);
+				setDaysToDeliverAtSecondaryAddress([...secondaryAddressDeliveries]);
+				console.log(primaryAddressDeliveries, secondaryAddressDeliveries);
+			}).catch((err) => {
+				console.log(err);
+			})
+		},[props.mealData.id])
 
 		useEffect(() => {
 			const date = new Date(props.startDate);
@@ -92,18 +117,22 @@
 			}
 		}, [currentMonthInNumber, currentYear])
 
-		const handleDaySelection = (e,day) => {
+		const handleChangeAddress = (e,day) => {
 			console.log(e,day)
 			var listElement = document.getElementById(e.target.id);
 			console.log(listElement)
-			if(listElement.className === 'active_grey'){
-				listElement.className = 'active_light_grey';
-				selectedWeekDays.current.push(day);
+			if(listElement.className === 'active_com'){
+				listElement.className = 'active_violet';
+				selectedWeekDays.current.push({
+					"day":day,
+					"month":currentMonthInNumber,
+					"year":currentYear
+				});
 				console.log(selectedWeekDays)
 			}else{
-				listElement.className = 'active_grey';
-				const indexOfSelected = selectedWeekDays.current.indexOf(day);
-				selectedWeekDays.current.splice(indexOfSelected,1)
+				listElement.className = 'active_com';
+				let indexToPop = selectedWeekDays.current.findIndex(x => x.day === day);
+				selectedWeekDays.current.splice(indexToPop,1)
 				console.log(selectedWeekDays)
 			}
 
@@ -123,6 +152,7 @@
 			const endDateDay = new Date(props.endDate)
 			let startDateDetails = getDayDetails(startDateDay)
 			let endDateDetails = getDayDetails(endDateDay)
+			// var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
 			console.log(startDateDetails, endDateDetails)
 			
 			weekStartsAt.current = weekStartsAt.current - 1;
@@ -146,14 +176,22 @@
 				daysFromStartDay.push(k);
 			}
 			}
-
-
 			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay, weekStartsAt.current)
-
 			console.log(day.month === currentMonthInNumber)
 			if((day.month === currentMonthInNumber) && (currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day.date)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day.date))){
+				let generatedDate = new Date(currentYear, currentMonthInNumber - 1, day.date)
+				console.log(generatedDate)
+				let dayInfo = getDayDetails(generatedDate)
+				console.log(dayInfo)
+				var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
+				if(deliveryDaysIncluded){
+					console.log(dayInfo.weekDay)
+					return(
+						<li key={Math.random()}  onClick={(e) => handleChangeAddress(e,day.date)}  id={day.date+""+currentMonthInNumber+""+currentYear}><label className="active_com"><span className="active_number_com">{day.date}</span></label></li>
+					)
+				}
 				return(
-					<li key={Math.random()}  id={day.date+""+currentMonthInNumber+""+currentYear}><label className="active_com"><span className="active_number_com">{day.date}</span></label></li>
+					<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear}>{day.date}</li>
 				)
 			}
 			return(
