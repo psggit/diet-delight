@@ -38,19 +38,14 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 
 
 		useEffect(() =>{
-			if(value.length > 0){
-				var calendar = document.getElementById('calendar');
-				console.log(calendar)
-			}
-
-
 			axios.get(`my-order-breaks?meal_purchase_id=`+props.mealData.id).then((res) => {
 				console.log(res)
 				let orderBreakDates = [];
 				res.data.data.map((orderBreak) => {
-					var dateBreak = orderBreak.date_list;
-					var orderBreakDateList = dateBreak.split(',');
-					orderBreakDates.push(orderBreakDateList)
+					var dateBreak = JSON.parse(orderBreak.date_list);
+					dateBreak.map((breakDay) => {
+						orderBreakDates.push(breakDay)
+					})
 				})
 				orderBreaksDates([...orderBreakDates]);
 				console.log(orderBreakDates)
