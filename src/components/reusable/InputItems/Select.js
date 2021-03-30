@@ -7,6 +7,7 @@ import get from 'lodash.get';
 const useStyles = makeStyles(() => ({
 	formControl: {
 		minWidth: 120,
+		margin: '16px 0 8px 0',
 	},
 	label: {
 		marginBottom: 0,
@@ -40,7 +41,6 @@ export const Select = (props) => {
 			<DefaultSelect
 				labelId={label}
 				id={`${label}-select`}
-				style={{ margin: '8px 0' }}
 				fullWidth
 				onChange={onFieldChange}
 				className={classes.selectEmpty}

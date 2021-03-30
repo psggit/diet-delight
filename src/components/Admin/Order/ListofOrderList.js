@@ -252,7 +252,7 @@ const ListofOrder = () => {
                   rows: listoforders.map((order) => {
                     return [
                       order.user_id,
-                      order?.user?.name || '',
+                      `${order?.user?.first_name || ''} ${order?.user?.last_name || ''}`,
                       order.meal_plan_name,
                       order.payment_id,
                       getMealPlanPurchaseStatus(order.status),

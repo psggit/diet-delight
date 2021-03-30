@@ -17,6 +17,7 @@ import { CONSULTATION_MODE, CONSULTATION_STATUS_TYPE } from '../Constants';
 const consultationInitialValues = {
   id: '',
   customer: '',
+  name: '',
   email: '',
   mobile: '',
   consultant: '',
@@ -62,7 +63,8 @@ const ListofConsultation = () => {
       setCustomers((res?.data?.data || []).map((user) => {
         return {
           id: user.id,
-          name: `${user.first_name || ''} ${user.last_name || ''}`,
+          name: user.id,
+          displayName: `${user.first_name || ''} ${user.last_name || ''}`,
           email: user.email,
           mobile: user.mobile,
         }
@@ -276,6 +278,7 @@ const ListofConsultation = () => {
                               setCurrentConsultation({
                                 id: consultation.id,
                                 customer: consultation.user_id,
+                                name: `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
                                 email: consultation?.user?.email || '',
                                 mobile: consultation?.user?.mobile || '',
                                 consultant: consultation.consultant_id,

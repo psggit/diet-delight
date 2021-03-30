@@ -219,7 +219,7 @@ const PostOrder = () => {
 								rows: listoforders.map((order) => {
 									return [
 										order.user_id,
-										order?.user?.name || '',
+										`${order?.user?.first_name || ''} ${order?.user?.last_name || ''}`,
 										order.consultation_package_name,
 										order.payment_id,
 										getConsultationPurchaseStatus(order.status),

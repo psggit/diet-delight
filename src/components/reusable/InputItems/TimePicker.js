@@ -32,6 +32,7 @@ export const TimePicker = (props) => {
 				onChange={onFieldChange}
 				value={field.value}
 				disabled={disabled}
+				InputAdornmentProps={{ position: "start" }}
 			/>
 		</MuiPickersUtilsProvider>
 

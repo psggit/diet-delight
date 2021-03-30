@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import moment from 'moment';
 
 import {
     PieChart,
@@ -8,16 +9,14 @@ import {
     Cell,
     ResponsiveContainer,
     LineChart,
-    CartesianGrid,
     XAxis,
     YAxis,
     Tooltip,
-    Legend,
     Line as GraphLine,
 } from 'recharts';
-import { Grid, Card, CardContent, Typography, makeStyles, CardMedia, useTheme, CardActions, Button } from "@material-ui/core";
+import { Card, CardContent, Typography, makeStyles, CardActions, Button } from "@material-ui/core";
 import { Heading, Line, Subheading } from '../../MainComponents'
-import { Set, Feat } from './HomeElements';
+import { Set } from './HomeElements';
 
 
 import axios from '../../../axiosInstance'
@@ -95,58 +94,43 @@ const whyUsersJoinedDDData = [
     { name: 'Group D', value: 200 },
 ];
 
-const customerBaseData = [
-    {
-        name: "Jan",
-        users: 24,
-    },
-    {
-        name: "Feb",
-        users: 13,
-    },
-    {
-        name: "Mar",
-        users: 98,
-    },
-    {
-        name: "Apr",
-        users: 39,
-    },
-    {
-        name: "May",
-        users: 48,
-    },
-    {
-        name: "Jun",
-        users: 38,
-    },
-    {
-        name: "Jul",
-        users: 24,
-    },
-    {
-        name: "Aug",
-        users: 13,
-    },
-    {
-        name: "Sep",
-        users: 98,
-    },
-    {
-        name: "Oct",
-        users: 39,
-    },
-    {
-        name: "Nov",
-        users: 48,
-    },
-    {
-        name: "Dec",
-        users: 38,
-    },
-];
+const getDateRange = () => {
+    let temp = moment();
+    let dateRange = [];
+    temp.subtract(1, 'year');
+    temp.add(1, 'month');
 
-const RADIAN = Math.PI / 180;
+    for (let index = 0; index < 12; index++) {
+        dateRange.push({
+            id: temp.format('MMM-YY'),
+            start: temp.startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+            end: temp.endOf('month').format('YYYY-MM-DD HH:mm:ss'),
+        })
+        temp.add(1, 'month');
+    }
+
+    return (dateRange);
+}
+
+const getCustomerBaseData = async (dateRange) => {
+    const customerBaseData = {};
+    for (const range of dateRange) {
+        const { data } = await axios.get(`users?role_id=1&fromDate=${range.start}&toDate=${range.end}`)
+        customerBaseData[range.id] = data.data.length;
+    }
+
+    return customerBaseData;
+}
+
+const getConsultationBookedOverTime = async (dateRange) => {
+    const consultationBookedOverTime = {};
+    for (const range of dateRange) {
+        const { data } = await axios.get(`consultations?fromDate=${range.start}&toDate=${range.end}`)
+        consultationBookedOverTime[range.id] = data.data.length;
+    }
+
+    return consultationBookedOverTime;
+}
 
 const Home = () => {
 
@@ -157,12 +141,15 @@ const Home = () => {
     const [menuPackages, setMenuPackages] = useState([]);
     const [hoverIndex, setHoverIndex] = useState(-1)
     const [featuredMenu, setFeaturedMenu] = useState([]);
+    const [customerBaseData, setCustomerBaseData] = useState({});
+    const [consultationBookedOverTime, setConsultationBookedOverTime] = useState({});
 
     const classes = useStyles();
-    const theme = useTheme();
     let history = useHistory();
 
     useEffect(() => {
+        const dateRange = getDateRange();
+
         axios.get(`users?role_id=1`).then((res) => {
             setUser(res.data.data)
         })
@@ -186,6 +173,9 @@ const Home = () => {
         axios.get(`menu-items?featured=` + 1).then((res) => {
             setFeaturedMenu(res.data.data);
         })
+
+        getCustomerBaseData(dateRange).then(result => setCustomerBaseData(result));
+        getConsultationBookedOverTime(dateRange).then(result => setConsultationBookedOverTime(result));
     }, [])
 
     const ImageCard = (props) => {
@@ -257,6 +247,10 @@ const Home = () => {
 
     return (
         <Main>
+            <Heading color="rgb(119, 131, 143, 1)" length="1px" >
+                DIET DELIGHT - DASHBOARD
+            </Heading>
+            <Line back="rgb(119, 131, 143, 1)" />
             <Conatiner>
                 <ImageCard header="Total Customers" count={user.length} image={people} navigationLink="/admin/userlist?type=customer" />
                 <div>
@@ -289,7 +283,7 @@ const Home = () => {
                     <LineChart
                         width={500}
                         height={300}
-                        data={customerBaseData}
+                        data={Object.keys(customerBaseData).map(i => ({ name: i, users: customerBaseData[i] }))}
                         margin={{
                             top: 20,
                             right: 30,
@@ -333,10 +327,6 @@ const Home = () => {
                 <ImageCard header="Total Menu Plans" count={mealPlan.length} image={PlanImage} navigationLink="/admin/mealplanlist" />
             </Conatiner>
             <Conatiner>
-                <Heading color="rgb(119, 131, 143, 1)" length="1px" >
-                    FEATURED MENU OF THE WEEK
-                </Heading>
-                <Line back="rgb(119, 131, 143, 1)" />
                 <Set>
                     {
                         featuredMenu.map((meal) => (
@@ -349,6 +339,7 @@ const Home = () => {
                     }
                 </Set>
             </Conatiner>
+            <Subheading color="rgb(119, 131, 143, 1)" size="1.5rem" weight="500">Featured Menu Of the Week</Subheading>
             <Conatiner>
                 <ImageCard header="Total Consultation Packages" count={consultationPackages.length} image={questionImage} navigationLink="/admin/consultationPackageList" />
                 <div>
@@ -380,7 +371,7 @@ const Home = () => {
                     <LineChart
                         width={500}
                         height={300}
-                        data={customerBaseData}
+                        data={Object.keys(consultationBookedOverTime).map(i => ({ name: i, consultations: consultationBookedOverTime[i] }))}
                         margin={{
                             top: 20,
                             right: 30,
@@ -391,7 +382,7 @@ const Home = () => {
                         <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} />
                         <YAxis />
                         <Tooltip />
-                        <Line type="monotone" dataKey="users" stroke="#A3A3A3" label={<CustomizedLabel />} />
+                        <GraphLine type="monotone" dataKey="consultations" stroke="#A3A3A3" label={<CustomizedLabel />} />
                     </LineChart>
                 </ResponsiveContainer>
                 <Subheading color="rgb(119, 131, 143, 1)" size="1.5rem" weight="500">Consultations Booked over time</Subheading>

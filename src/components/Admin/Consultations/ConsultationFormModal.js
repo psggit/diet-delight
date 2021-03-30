@@ -13,6 +13,7 @@ const validationSchema = Yup.object().shape({
 	consultant: Yup.string().required('Please select Consultant'),
 	consultationPackage: Yup.string().required('Please select Consultation Package'),
 	status: Yup.string().required('Please select Status'),
+	name: Yup.string().nullable(),
 	email: Yup.string().nullable(),
 	mobile: Yup.string().nullable(),
 	mode: Yup.string().required('Please select Mode'),
@@ -39,19 +40,27 @@ const ConsultationFormModal = (props) => {
 				validationSchema={validationSchema}
 				onSubmit={(values) => onSubmit({ ...values, status: values.status - 1, mode: values.mode - 1 })}
 			>
-				{({ setFieldValue, values: { email, mobile } }) => (
+				{({ setFieldValue, values: { email, mobile, name } }) => (
 					<Form>
 						<Field
 							name="customer"
 							component={Select}
-							label="Customer*"
+							label="Customer Id*"
 							options={customers}
 							onChange={(value) => {
-								const selectedCustomer = customers.find((c) => c.id === value) || { email: '', mobile: '' }
+								const selectedCustomer = customers.find((c) => c.id === value) || { displayName: '', email: '', mobile: '' }
 
+								setFieldValue('name', selectedCustomer.displayName);
 								setFieldValue('email', selectedCustomer.email);
 								setFieldValue('mobile', selectedCustomer.mobile);
 							}}
+						/>
+						<Field
+							name="name"
+							component={TextField}
+							label="Customer Name"
+							defaultValue={name}
+							disabled
 						/>
 						<Field
 							name="email"
@@ -73,15 +82,13 @@ const ConsultationFormModal = (props) => {
 							label="Consultant*"
 							options={consultants}
 						/>
-						<div style={{ marginTop: '12px' }}>
-							<Field
-								name="consultationPackage"
-								component={Select}
-								label="Consultation Package*"
-								options={consultationPackages}
-							/>
-						</div>
-						<Grid container spacing={2} style={{ marginTop: '12px' }}>
+						<Field
+							name="consultationPackage"
+							component={Select}
+							label="Consultation Package*"
+							options={consultationPackages}
+						/>
+						<Grid container spacing={2}>
 							<Grid item xs>
 								<Field
 									name="status"
