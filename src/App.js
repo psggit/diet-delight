@@ -38,7 +38,7 @@ import FavouriteMain from "./components/Favourite/FavouriteMain";
 import OngoingMain from "./components/Ongoing Meal Plan/OngoingMain"; 
 import BmiMain from "./components/BMI/BmiMain";
 import Bmireport from "./components/BMI Report/Bmireport";
-import ConatctUsMain from "./components/Contact Us/ConatctUsMain";
+import ContactUs from "./components/ContactUs";
 import ChangePassword from "./components/Auth/ResetChangePassword/ChangePassword";
 import AddressDialogBox from "./components/Address Appointment/AddressDialogBox";
 import AddressDialogBoxDropDown from "./components/Address Appointment/AddressDialogBoxDropDown";
@@ -150,7 +150,7 @@ function App() {
         <Route path="/OngoingMain" exact component={OngoingMain} />
         <Route path="/BmiMain" exact component={BmiMain} />
         <Route path="/Bmireport" exact component={Bmireport} />
-        <Route path="/ConatctUsMain" exact component={ConatctUsMain} />
+        <Route path="/contact" exact component={ContactUs} />
         <Route path="/ChangePassword" exact component={ChangePassword} />
         <Route path="/AddressDialogBox" exact component={AddressDialogBox} />
         <Route
