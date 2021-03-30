@@ -94,7 +94,9 @@ export default function Appointmentmain(props) {
   const [disabled, setDisabled] = useState(false);
   const [checked, setChecked] = useState();
   const [consultationType, setConsultationType] = useState(
-    DEFAULT_CONSULTATION_TYPE
+    props.location.state.appointmentMode
+      ? props.location.state.appointmentMode
+      : DEFAULT_CONSULTATION_TYPE
   );
   const [packageDetails, setPackageDetails] = useState({});
 
@@ -194,7 +196,9 @@ export default function Appointmentmain(props) {
             date: date,
             time: timeSlot,
             appointmentMode: consultationType,
-            picture: props.location.state.packagePicture,
+            picture: props.location.state.packagePicture
+              ? props.location.state.packagePicture
+              : packageDetails.picture,
             packageName: packageDetails.name,
             packagePrice: packageDetails.price,
             packageDuration: packageDetails.duration,
@@ -215,7 +219,9 @@ export default function Appointmentmain(props) {
           date: date,
           time: timeSlot,
           appointmentMode: consultationType,
-          picture: props.location.state.packagePicture,
+          picture: props.location.state.packagePicture
+            ? props.location.state.packagePicture
+            : packageDetails.picture,
           packageName: packageDetails.name,
           packagePrice: packageDetails.price,
           packageDuration: packageDetails.duration,
@@ -254,13 +260,19 @@ export default function Appointmentmain(props) {
           <div className="row">
             <div className="col-md-5 col-sm-12 silver_container">
               <img
-                src={props.location.state.packagePicture}
+                src={
+                  props.location.state.packagePicture
+                    ? props.location.state.packagePicture
+                    : packageDetails.picture
+                }
                 alt="silver"
                 className="silver_img_appointment"
               ></img>
 
               <p className="silver_subtitle">
-                {props.location.state.packageDetails}
+                {props.location.state.packageDetails
+                  ? props.location.state.packageDetails
+                  : packageDetails.details}
               </p>
 
               {/* {consultationType !== DEFAULT_CONSULTATION_TYPE && (

@@ -4,7 +4,7 @@ import logo_web from "../../assets/logoweb.png";
 import Mealchoose from "../Mealchoose.js";
 import { Link ,useHistory} from "react-router-dom";
 import axios from "../../axiosInstance";
-
+import Snackbar from "../Snack bar/Snackbar.js";
 
 export default function MealpkgSubscription(props) {
   console.log(props);
@@ -13,29 +13,15 @@ export default function MealpkgSubscription(props) {
   const [user,setUser] = useState([]);
   useEffect(() => {
     axios
-    .get(`meal-plans?duration_id=` + props.location.state.duration.id, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-    })
-    .then((res) => {
-      console.log(res);
-      setMeal(res.data.data);
-    });
-    axios
-    .get("user", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-    })
-    .then((res) => {
-     console.log(res)
-     setUser(res.data)
- 
-
-    })
-    .catch((err) => console.log(err));
- 
+      .get(`meal-plans?duration_id=` + props.location.state.duration.id, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setMeal(res.data.data);
+      });
   }, []);
 
 
@@ -65,6 +51,19 @@ export default function MealpkgSubscription(props) {
    
     return (
       <div className="main_container_mealpkg" key={Math.random()}>
+        <div className="card fullcard_container">
+          <div className="row under_card_mealsubscription">
+            <div className="col-md-6 col-sm-12">
+              <div className="row">
+                <div className="col-md-4 col-sm-12">
+                  <div className="img_container">
+                    <img
+                      src={meal.picture}
+                      alt="rounded_img"
+                      className="rounded-circle card_img_rounded_mealpkgsub"
+                    ></img>
+                  </div>
+                </div>
 
       <div className="card fullcard_container">
       <div className="row under_card_mealsubscription">
@@ -92,37 +91,33 @@ export default function MealpkgSubscription(props) {
                   </div> */}
 
                   <div className="row bhd_weekend_container">
-                  <div className="col-md-5 col-5">
-                  <h5 className=" bhd_text_mealpkgsub">
-                  {meal.price} BHD
-                  </h5>
-
-                  </div>
-                  <div className="col-md-7 col-7">
-                  <p className="with_weekend_text">
-                  {meal.type == 0 ? "With Weekend" : "Without Weekend"}
-                  </p>
-                  </div>
-
-
+                    <div className="col-md-5 col-5">
+                      <h5 className=" bhd_text_mealpkgsub">{meal.price} BHD</h5>
+                    </div>
+                    <div className="col-md-7 col-7">
+                      <p className="with_weekend_text">
+                        {meal.type == 0 ? "With Weekend" : "Without Weekend"}
+                      </p>
+                    </div>
                   </div>
 
                   <a href="#" className="link_text">
-                  View Menu
+                    View Menu
                   </a>
-                  </div>
-                  </div>
-                  </div>
+                </div>
+              </div>
+            </div>
 
-                  <div className="col-md-6 col-sm-12">
-                  <div className="row">
-                  <div className="vertical_line"></div>
+            <div className="col-md-6 col-sm-12">
+              <div className="row">
+                <div className="vertical_line"></div>
 
-                  <div className="col-md-11 col-sm-11 right_side_subs">
+                <div className="col-md-11 col-sm-11 right_side_subs">
                   <p className="breakfast_text_mealpkgsub">{meal.subtitle}</p>
 
                   <p className="something_text">- {meal.details}</p>
 
+<<<<<<< HEAD
 
 
                   <button className="btn btn-default mealbtn_subscription" onClick={() =>handleSubscription(meal)}>
@@ -152,27 +147,49 @@ export default function MealpkgSubscription(props) {
                   >
                   BUY SUBSCRIPTION
                   </Link>
+=======
+                  <button className="btn btn-default mealbtn_subscription">
+                    <Link
+                      className="text_subscription_text"
+                      style={{ color: "#fff", textDecoration: "none" }}
+                      to={{
+                        pathname: "/MealAddressMain",
+                        state: {
+                          id: meal.id,
+                          mealType: meal.type,
+                          meal: meal,
+                        },
+                      }}
+                    >
+                      Buy Subscription
+                    </Link>
+>>>>>>> fix: fixed issues related to order history
                   </button>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  );
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   });
 
   return (
     <div className="red">
-  {/* <img src={logo_web} alt="logo" className="logo_web"></img> */}
+      {/* <img src={logo_web} alt="logo" className="logo_web"></img> */}
 
-{/* choose meal component */}
+      {/* choose meal component */}
 
+<<<<<<< HEAD
 <Mealchoose name="Meal Plan" />
 
 {renderMeal}
+=======
+      <Mealchoose name="Meal Plan" />
+      <div className="meal_pkg_subscription_container">{renderMeal}</div>
+>>>>>>> fix: fixed issues related to order history
 
-{/* card component */}
-</div>
-);
+      {/* card component */}
+    </div>
+  );
 }

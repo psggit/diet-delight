@@ -152,6 +152,10 @@ div.meal_choosecontainer {
 div.main_container_mealpkg {
   height: fit-content;
 }
+div.meal_pkg_subscription_container {
+  position: relative;
+  top: 100px;
+}
 
 @media screen and (max-width: 767px) {
   div.red {
