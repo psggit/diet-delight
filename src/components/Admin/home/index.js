@@ -14,16 +14,12 @@ import {
     Tooltip,
     Line as GraphLine,
 } from 'recharts';
-import { Card, CardContent, Typography, makeStyles, CardActions, Button } from "@material-ui/core";
+import { Card, CardContent, Typography, makeStyles, CardActions, Button, Icon } from "@material-ui/core";
 import { Heading, Line, Subheading } from '../../MainComponents'
 import { Set } from './HomeElements';
 
 
 import axios from '../../../axiosInstance'
-import people from '../../../assets/people.png'
-import questionImage from '../../../assets/question.png'
-import consultantImage from '../../../assets/consultant.png'
-import PlanImage from '../../../assets/plans.png'
 import { useHistory } from "react-router-dom";
 import FeatureList from './FeatureList';
 
@@ -57,7 +53,7 @@ const Conatiner = styled.div`
 const ImageContainer = styled.div`
     flex: 1;
     min-width: 400px;
-    max-width: 600px;
+    max-width: 440px;
 `
 
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     details: {
         display: 'flex',
         flexDirection: 'column',
-        flex: '1',
+        flex: '2',
     },
     content: {
         flex: '1 0 auto',
@@ -197,8 +193,8 @@ const Home = () => {
                             <Button onClick={() => history.push(navigationLink)} size="medium" className={classes.moreInfo}>More Info</Button>
                         </CardActions>
                     </div>
-                    <div style={{ flex: '2' }}>
-                        <img src={image} style={{ height: '100%', width: '100%' }} />
+                    <div style={{ flex: '3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Icon style={{ fontSize: 160 }}>{image}</Icon>
                     </div>
                 </Card>
             </ImageContainer>
@@ -252,7 +248,7 @@ const Home = () => {
             </Heading>
             <Line back="rgb(119, 131, 143, 1)" />
             <Conatiner>
-                <ImageCard header="Total Customers" count={user.length} image={people} navigationLink="/admin/userlist?type=customer" />
+                <ImageCard header="Total Customers" count={user.length} image="group" navigationLink="/admin/userlist?type=customer" />
                 <div>
                     <ResponsiveContainer width={600} height={400}>
                         <PieChart>
@@ -276,7 +272,7 @@ const Home = () => {
                     </ResponsiveContainer>
                     <Subheading color="rgb(119, 131, 143, 1)" size="1.5rem" weight="500">Why Users joined Diet Delight</Subheading>
                 </div>
-                <ImageCard header="Total Consultants" count={consultant.length} image={consultantImage} navigationLink="/admin/consultantlist" />
+                <ImageCard header="Total Consultants" count={consultant.length} image="group" navigationLink="/admin/consultantlist" />
             </Conatiner>
             <Conatiner>
                 <ResponsiveContainer width="100%" height={600}>
@@ -300,7 +296,7 @@ const Home = () => {
                 <Subheading color="rgb(119, 131, 143, 1)" size="1.5rem" weight="500">Customer Base</Subheading>
             </Conatiner>
             <Conatiner>
-                <ImageCard header="Total Menu Packages" count={menuPackages.length} image={PlanImage} navigationLink="/admin/menulist" />
+                <ImageCard header="Total Menu Packages" count={menuPackages.length} image="local_dining" navigationLink="/admin/menulist" />
                 <div>
                     <ResponsiveContainer width={600} height={400}>
                         <PieChart>
@@ -324,7 +320,7 @@ const Home = () => {
                     </ResponsiveContainer>
                     <Subheading color="rgb(119, 131, 143, 1)" size="1.5rem" weight="500">Popular Menu Packages</Subheading>
                 </div>
-                <ImageCard header="Total Menu Plans" count={mealPlan.length} image={PlanImage} navigationLink="/admin/mealplanlist" />
+                <ImageCard header="Total Menu Plans" count={mealPlan.length} image="local_dining" navigationLink="/admin/mealplanlist" />
             </Conatiner>
             <Conatiner>
                 <Set>
@@ -341,7 +337,7 @@ const Home = () => {
             </Conatiner>
             <Subheading color="rgb(119, 131, 143, 1)" size="1.5rem" weight="500">Featured Menu Of the Week</Subheading>
             <Conatiner>
-                <ImageCard header="Total Consultation Packages" count={consultationPackages.length} image={questionImage} navigationLink="/admin/consultationPackageList" />
+                <ImageCard header="Total Consultation Packages" count={consultationPackages.length} image="group" navigationLink="/admin/consultationPackageList" />
                 <div>
                     <ResponsiveContainer width={600} height={400}>
                         <PieChart>
