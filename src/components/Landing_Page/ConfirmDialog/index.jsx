@@ -7,9 +7,18 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { useHistory } from "react-router";
 
+import { makeStyles } from "@material-ui/core/styles";
+
 import "./confirm_dialog.css";
 
+const useStyles = makeStyles({
+  paper: {
+    borderRadius: 20,
+  },
+});
+
 const ConfirmDialog = ({ open, setOpen }) => {
+  const classes = useStyles();
   const history = useHistory();
 
   const handleClose = () => {
@@ -26,6 +35,9 @@ const ConfirmDialog = ({ open, setOpen }) => {
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      classes={{
+        paper: classes.paper,
+      }}
     >
       <div className="confirm_dialog_bg">
         <DialogContent
