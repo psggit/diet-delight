@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./index.css";
 import axios from "../../axiosInstance";
+import SelectOptionBtn from "./SelectOptionBtn";
 
 export default function DietOnlySelectItem({ question, selectedOption }) {
   const [selectOptions, setSelectOptions] = useState([]);
+  const [currentSelectedOptionId, setCurrentSelectedOptionId] = useState();
 
   useEffect(() => {
     axios
@@ -29,32 +31,25 @@ export default function DietOnlySelectItem({ question, selectedOption }) {
   }, []);
 
   const selectAnswer = (selectedValue) => {
-    console.log(selectedValue);
-    let selected = JSON.parse(selectedValue);
-    selectedOption.current = selected;
+    console.log("selectedValue", selectedValue);
+    selectedOption.current = selectedValue;
+    setCurrentSelectedOptionId(selectedValue.id);
   };
 
   return (
-    <div className="col-md-3 col-sm-12 mb-3">
-      <p className="second_que_title">{question.question}</p>
+    <div>
+      <h2>{question.question}</h2>
 
-      <div className="dropdown_container">
-        <div className="dropdown">
-          <select
-            name="cars"
-            id="cars"
-            className="select_menu_diet"
-            onChange={(e) => {
-              selectAnswer(e.target.value);
-            }}
-          >
-            {selectOptions.map((selectData) => (
-              <option key={Math.random()} value={JSON.stringify(selectData)}>
-                {selectData.option}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div className="row">
+        {selectOptions.map((value, index) => (
+          <div key={index} className="col-6">
+            <SelectOptionBtn
+              isSelected={currentSelectedOptionId === value.id}
+              label={value.option}
+              handleOnClick={() => selectAnswer(value)}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

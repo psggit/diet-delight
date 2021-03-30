@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
+import SelectOptionBtn from "./SelectOptionBtn";
 
 export default function DietYesNoComponent({
   question,
@@ -7,17 +8,32 @@ export default function DietYesNoComponent({
   id1,
   id2,
 }) {
-  const uploadAnswer = (selectedValue, id) => {
+  const [currentSelectedOptionId, setCurrentSelectedOptionId] = useState();
+
+  const selectAnswer = (selectedValue, id) => {
     selectedOption.current = { option: selectedValue, id: id };
     console.log("SS : ", selectedOption);
+    setCurrentSelectedOptionId(id);
   };
 
   return (
-    <div className="col-md-3 col-sm-12 mb-3">
-      <p className="gender_question">{question.question}</p>
+    <div>
+      <h2>{question.question}</h2>
 
-      <div className="btn_container_gender">
-        <button
+      <div className="row">
+        {[
+          { value: "Yes", id: id1 },
+          { value: "No", id: id2 },
+        ].map((value, index) => (
+          <div key={index} className="col-6">
+            <SelectOptionBtn
+              isSelected={currentSelectedOptionId === value.id}
+              label={value.value}
+              handleOnClick={() => selectAnswer(value.value, value.id)}
+            />
+          </div>
+        ))}
+        {/* <button
           type="button"
           id={id1}
           className={question.id}
@@ -30,7 +46,7 @@ export default function DietYesNoComponent({
             paddingRight: "8%",
             borderRadius: "5px",
           }}
-          onClick={() => uploadAnswer("Yes", id1)}
+          onClick={() => selectAnswer("Yes", id1)}
         >
           Yes
         </button>
@@ -47,10 +63,10 @@ export default function DietYesNoComponent({
             paddingRight: "8%",
             borderRadius: "5px",
           }}
-          onClick={() => uploadAnswer("No", id2)}
+          onClick={() => selectAnswer("No", id2)}
         >
           No
-        </button>
+        </button> */}
       </div>
     </div>
   );
