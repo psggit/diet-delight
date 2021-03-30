@@ -267,6 +267,7 @@ div.main_container_mealpkg {
   }
   p.something_text {
     color: #303960;
+    font-family: 'Roboto';
     font-weight: bold;
     margin-bottom: 0;
     margin-top: 0.5rem;
@@ -301,6 +302,12 @@ div.main_container_mealpkg {
   a.choose_your_meal_text2 {
     display: none;
     margin-top: 2rem;
+    width: auto;
+    border: 1px solid #808080bf;
+  }
+  button.mealbtn_subscription:hover {
+    color: black;
+    background: #800080;
   }
 }
 
@@ -352,6 +359,148 @@ div.main_container_mealpkg {
     width: 38rem;
     margin-bottom: 10%;
     margin-top: 5%;
+  @media screen and (max-width: 767px) {
+    div.red {
+      background-image: url(../../assets/choosemealplan.jpg);
+      width: 100%;
+      height: fit-content;
+      background-position: unset;
+      background-repeat: no-repeat;
+      background-size: auto;
+    }
+    div.main_container_mealpkg {
+      display: grid;
+      place-items: center;
+      height: fit-content;
+    }
+    div.card_img_rounded_mealpkgsub {
+      width: 99px;
+      height: 99px;
+    }
+    div.container_meal_pkg_subscrption_container {
+      display: flex;
+      margin-top: 5%;
+      justify-content: center;
+      margin-bottom: 14%;
+      height: fit-content;
+    }
+    Link.text_subscription_text {
+      color: #fff;
+      text-transform: uppercase;
+    }
+    div.img_container {
+      display: flex;
+      justify-content: center;
+    }
+    p.with_weekend_text {
+      /* margin-top: 5px; */
+      display: flex;
+      justify-content: flex-end;
+      font-size: 13px;
+      color: #303960;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    img.meal_icon {
+      width: 32px;
+      height: 32px;
+      margin-top: 32px;
+      margin-right: 12px;
+    }
+
+    div.fullcard_container {
+      /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
+      border-radius: 0.5rem;
+      backdrop-filter: blur(4px);
+      /* background: #fbfbfb; */
+      padding: 7%;
+      margin: 5%;
+      border: none;
+      /* background: hsla(0, 0%, 98.4%, 0.3411764705882353);*/
+      height: fit-content;
+    }
+    div.media_meal {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    div.content_media {
+      margin-top: 1.5rem;
+      margin-left: 0.5rem;
+    }
+    div.bhd_weekend_container{
+      margin-top: 20px;
+    }
+    h5.immunne_text_mealpkgsub {
+      color: #303960;
+      font-family: "Roboto Condensed Regular";
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+    h5.bhd_text_mealpkgsub {
+      font-weight: 500;
+      font-size: 15px;
+      color: #303960;
+      opacity: 0.9;
+    }
+    a.link_text {
+      color: #8bc53f;
+      text-decoration: none;
+      font-size: 15px;
+    }
+    img.card_img_rounded_mealpkgsub {
+      width: 121px;
+      height: 121px;
+      box-shadow: 0px 0px 16px -2px rgba(61, 61, 61, 0.66);
+    }
+    div.vertical_line {
+      display: none;
+    }
+    p.breakfast_text {
+      letter-spacing: 0.5px;
+      margin-bottom: 0;
+      margin-top: 1rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    p.breakfast_text_mealpkgsub {
+      font-family: Roboto;
+      font-weight: 700;
+      color: #303960;
+      text-indent: -9px;
+      margin-top: 14px;
+      font-size: 20px;
+    }
+    p.something_text {
+      color: #303960;
+      font-weight: bold;
+      margin-bottom: 0;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.2px;
+      font-weight: 600;
+      text-indent: -8px;
+    }
+    div.meal_dropdown_container {
+      border: 1px solid #000;
+      width: 10rem;
+      border-radius: 0.3rem;
+      margin-top: 1.2rem;
+      float: right;
+      text-decoration: none;
+      outline: none;
+    }
+    span.meal_caret_icon {
+      margin-left: 0.6rem;
+    }
+    button.mealbtn_subscription {
+      color: white;
+      margin-top: 15px;
+      background: #8bc53f;
+      width: auto;
+      /* float: right; */
+      border: 1px solid #808080bf;
+    }
   }
   img.card_img_rounded_mealpkgsub {
     width: 92px;
@@ -406,6 +555,89 @@ div.main_container_mealpkg {
     margin-top: -1px;
   }
   img.card_img_rounded_mealpkgsub {
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    div.img_container{
+      margin-top: -16px;
+    }
+    div.main_container_mealpkg {
+      display: grid;
+      place-items: center;
+    }
+    Link.text_subscription_text {
+      padding-top: 1px;
+      text-transform: uppercase;
+    }
+    div.red {
+      background-image: url(../../assets/choosemealplan.jpg);
+      width: 100%;
+      height: -moz-fit-content;
+      height: fit-content;
+      background-position: unset;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    div.container_meal_pkg_subscrption_container {
+      display: flex;
+      justify-content: center;
+      width: 38rem;
+      margin-bottom: 10%;
+      margin-top: 5%;
+    }
+    img.card_img_rounded_mealpkgsub {
+      width: 92px;
+      margin-top: 27px;
+      margin-left: 2px;
+    }
+    div.fullcard_container {
+      /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
+      border-radius: 0.5rem;
+      /*  background: hsla(0, 0%, 98.4%, 0.3411764705882353);*/
+      backdrop-filter: blur(4px);
+      height: auto;
+      margin-bottom: -7%;
+      border: none;
+      width: 77%;
+      padding: 3%;
+      margin-bottom: 50px;
+    }
+    div.media_meal {
+      /* margin-top: 2rem; */
+      margin-top: 18px;
+    }
+    div.content_media {
+      margin-top: 0.5rem;
+      margin-left: 0.5rem;
+    }
+    h5.immunne_text_mealpkgsub {
+      color: #303960;
+      font-family: "Roboto Condensed Regular";
+      font-weight: 700;
+      font-size: 16px;
+      margin-left: 14px;
+      letter-spacing: .3px;
+    }
+    div.bhd_weekend_container{
+      margin-left: 1px;
+    }
+
+    h5.bhd_text_mealpkgsub {
+      font-weight: 700;
+      font-size: 11px;
+      margin-left: 0px;
+      color: #303960;
+      opacity: 0.9;
+    }
+    a.link_text {
+     color: purple;
+     text-decoration: none;
+     font-size: 11px;
+     margin-left: 17px;
+     position: absolute;
+     margin-top: -1px;
+   }
+   img.card_img_rounded_mealpkgsub {
     width: 84px;
     height: 84px;
     box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
@@ -461,6 +693,7 @@ div.main_container_mealpkg {
   div.col_grid {
     margin-left: 0px;
   }
+
 }
 
 @media only screen and (min-width: 280px) {
@@ -574,6 +807,7 @@ div.main_container_mealpkg {
     margin-left: 15px;
   }
 
+
   h5.bhd_text_mealpkgsub {
     font-weight: 500;
     font-size: 13px;
@@ -595,7 +829,6 @@ div.main_container_mealpkg {
   }
   div.vertical_line {
     border-left: 2px solid rgba(159, 159, 159, 0.68);
-
     margin-top: 0;
     border-radius: 9rem;
   }
@@ -651,6 +884,7 @@ div.main_container_mealpkg {
   div.img_container {
     margin-top: -19px;
   }
+
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -802,4 +1036,5 @@ div.main_container_mealpkg {
     position: relative;
     left: 8px;
   }
+
 }

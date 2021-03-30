@@ -11,8 +11,8 @@ import {
   RouteContainer,
   BackgroundImageContainer,
 } from "./SignInElements";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
+// import DialogTitle from "@material-ui/core/DialogTitle";
+// import Dialog from "@material-ui/core/Dialog";
 import dotenv from "dotenv";
 
 import axios from "../../../axiosInstance";
@@ -25,14 +25,14 @@ import ClientOAuth2 from "client-oauth2";
 import { SetTrue, login, selectUser } from "../../../features/userSlice";
 
 import firebase from "../SignInMethods/firebaseConfig";
-import logo_img from "../../../assets/logoweb.png";
-import ChangePassword from "../ResetChangePassword/ChangePassword";
+// import logo_img from "../../../assets/logoweb.png";
+// import ChangePassword from "../ResetChangePassword/ChangePassword";
 
 import SignInForm from "./SignInForm";
 
 import "../Signin/Signin.css";
 
-import { callingCodes } from "country-data";
+// import { callingCodes } from "country-data";
 
 dotenv.config();
 
@@ -59,24 +59,24 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState({});
 
-  let phoneNumber = useRef("");
-  const [open, setOpen] = useState(false);
-  const code = useRef("");
+  // let phoneNumber = useRef("");
+  // const [open, setOpen] = useState(false);
+  // const code = useRef("");
   const reCaptcha = useRef("");
-  const [otp, setOtp] = useState("");
-  const [otpDialog, setOtpDialog] = useState(false);
-  const [mobileDialog, setMobileDialog] = useState(false);
-  const [num1, setNum1] = useState("");
-  const [num2, setNum2] = useState("");
-  const [num3, setNum3] = useState("");
-  const [num4, setNum4] = useState("");
-  const [num5, setNum5] = useState("");
-  const [num6, setNum6] = useState("");
-  const [successErrorMessage, setSuccessErrorMessage] = useState(
-    "Account Created SuccessFully"
-  );
-  const [toggleChangePassword, setToggleChangePassword] = useState(false);
-  const [firebaseUid, setFirebaseUid] = useState("");
+  // const [otp, setOtp] = useState("");
+  // const [otpDialog, setOtpDialog] = useState(false);
+  // const [mobileDialog, setMobileDialog] = useState(false);
+  // const [num1, setNum1] = useState("");
+  // const [num2, setNum2] = useState("");
+  // const [num3, setNum3] = useState("");
+  // const [num4, setNum4] = useState("");
+  // const [num5, setNum5] = useState("");
+  // const [num6, setNum6] = useState("");
+  // const [successErrorMessage, setSuccessErrorMessage] = useState(
+  //   "Account Created SuccessFully"
+  // );
+  // const [toggleChangePassword, setToggleChangePassword] = useState(false);
+  // const [firebaseUid, setFirebaseUid] = useState("");
 
   useEffect(() => {
     localStorage.setItem(
@@ -94,106 +94,107 @@ const Signin = () => {
   }, []);
 
   const handleForgotPassword = () => {
-    setMobileDialog(true);
+    // setMobileDialog(true);
+    history.push("/forgotpassword")
   };
 
-  const validateOnlyNumeric = (data) => {
-    console.log(data);
-    var numeric = "^[0-9]*$";
-    if (data.match(numeric)) {
-      phoneNumber.current = data;
-    }
-  };
+  // const validateOnlyNumeric = (data) => {
+  //   console.log(data);
+  //   var numeric = "^[0-9]*$";
+  //   if (data.match(numeric)) {
+  //     phoneNumber.current = data;
+  //   }
+  // };
 
-  const validateIfNumeric = (e, relatedTo) => {
-    const data = e.target.value;
-    console.log(data, relatedTo);
-    var numeric = "^[0-9]*$";
-    if (data.match(numeric)) {
-      if (relatedTo === "num1") {
-        console.log("hello num1");
-        setNum1(data);
-      } else if (relatedTo === "num2") {
-        setNum2(data);
-      } else if (relatedTo === "num3") {
-        setNum3(data);
-      } else if (relatedTo === "num4") {
-        setNum4(data);
-      } else if (relatedTo === "num5") {
-        setNum5(data);
-      } else {
-        setNum6(data);
-      }
-    }
-  };
+  // const validateIfNumeric = (e, relatedTo) => {
+  //   const data = e.target.value;
+  //   console.log(data, relatedTo);
+  //   var numeric = "^[0-9]*$";
+  //   if (data.match(numeric)) {
+  //     if (relatedTo === "num1") {
+  //       console.log("hello num1");
+  //       setNum1(data);
+  //     } else if (relatedTo === "num2") {
+  //       setNum2(data);
+  //     } else if (relatedTo === "num3") {
+  //       setNum3(data);
+  //     } else if (relatedTo === "num4") {
+  //       setNum4(data);
+  //     } else if (relatedTo === "num5") {
+  //       setNum5(data);
+  //     } else {
+  //       setNum6(data);
+  //     }
+  //   }
+  // };
 
-  const phoneAuth = async () => {
-    let number = code.current + phoneNumber.current;
-    console.log(number);
+  // const phoneAuth = async () => {
+  //   let number = code.current + phoneNumber.current;
+  //   console.log(number);
 
-    await firebase
-      .auth()
-      .signInWithPhoneNumber(number, reCaptcha.current)
-      .then((confirmationResult) => {
-        console.log(window.confirmationResult);
-        window.confirmationResult = confirmationResult;
-        console.log(confirmationResult);
-        handleCodeByUser(confirmationResult);
-      })
-      .catch((error) => {
-        console.log(error);
-        // grecaptcha.reset('sign-in')
-        // Or, if you haven't stored the widget ID:
-        // window.recaptchaVerifier.render().then(function(widgetId) {
-        //   grecaptcha.reset(widgetId);
-        // })
-      });
-  };
+  //   await firebase
+  //     .auth()
+  //     .signInWithPhoneNumber(number, reCaptcha.current)
+  //     .then((confirmationResult) => {
+  //       console.log(window.confirmationResult);
+  //       window.confirmationResult = confirmationResult;
+  //       console.log(confirmationResult);
+  //       handleCodeByUser(confirmationResult);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       // grecaptcha.reset('sign-in')
+  //       // Or, if you haven't stored the widget ID:
+  //       // window.recaptchaVerifier.render().then(function(widgetId) {
+  //       //   grecaptcha.reset(widgetId);
+  //       // })
+  //     });
+  // };
 
-  const handleCodeByUser = (confirmationResult) => {
-    setMobileDialog(false);
-    setOtpDialog(true);
-    var captureButtonClick = document.getElementById("verifyOtp");
-    captureButtonClick.onclick = (e) => {
-      console.log(e);
-      var otpEnteredList = document.getElementsByClassName(
-        "input_dialog_signup"
-      );
-      var otpEntered = "";
-      for (var i = 0; i < otpEnteredList.length; i++) {
-        console.log(otpEnteredList[i].value);
-        otpEntered = otpEntered + otpEnteredList[i].value.toString();
-      }
-      console.log(otpEntered);
-      confirmationResult
-        .confirm(otpEntered)
-        .then(async (result) => {
-          // User signed in successfully.
-          const user = result.user;
-          var errorMessage = document.getElementById(
-            "successErrorMessageForWrongOtp"
-          );
-          errorMessage.innerHTML = "";
-          console.log(user);
-          console.log(user.phoneNumber);
-          setFirebaseUid(user.uid);
-          setSuccessErrorMessage("Otp Verification Completed");
-          setTimeout(() => {
-            setOtpDialog(false);
-            setToggleChangePassword(true);
-          }, 1000);
-        })
-        .catch((error) => {
-          console.log(error);
-          var errorMessage = document.getElementById(
-            "successErrorMessageForWrongOtp"
-          );
-          errorMessage.innerHTML = "Invalid Otp Please try Again";
-        });
-    };
+  // const handleCodeByUser = (confirmationResult) => {
+  //   setMobileDialog(false);
+  //   setOtpDialog(true);
+  //   var captureButtonClick = document.getElementById("verifyOtp");
+  //   captureButtonClick.onclick = (e) => {
+  //     console.log(e);
+  //     var otpEnteredList = document.getElementsByClassName(
+  //       "input_dialog_signup"
+  //     );
+  //     var otpEntered = "";
+  //     for (var i = 0; i < otpEnteredList.length; i++) {
+  //       console.log(otpEnteredList[i].value);
+  //       otpEntered = otpEntered + otpEnteredList[i].value.toString();
+  //     }
+  //     console.log(otpEntered);
+  //     confirmationResult
+  //       .confirm(otpEntered)
+  //       .then(async (result) => {
+  //         // User signed in successfully.
+  //         const user = result.user;
+  //         var errorMessage = document.getElementById(
+  //           "successErrorMessageForWrongOtp"
+  //         );
+  //         errorMessage.innerHTML = "";
+  //         console.log(user);
+  //         console.log(user.phoneNumber);
+  //         setFirebaseUid(user.uid);
+  //         setSuccessErrorMessage("Otp Verification Completed");
+  //         setTimeout(() => {
+  //           setOtpDialog(false);
+  //           setToggleChangePassword(true);
+  //         }, 1000);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         var errorMessage = document.getElementById(
+  //           "successErrorMessageForWrongOtp"
+  //         );
+  //         errorMessage.innerHTML = "Invalid Otp Please try Again";
+  //       });
+  //   };
 
-    // return otpEntered;
-  };
+  //   // return otpEntered;
+  // };
 
   const renderCaptcha = () => {
     firebase.auth().languageCode = "en";
@@ -294,29 +295,29 @@ const Signin = () => {
       });
   };
 
-  const closeChangePassword = () => {
-    console.log("handled update");
-    setToggleChangePassword(false);
-  };
+  // const closeChangePassword = () => {
+  //   console.log("handled update");
+  //   setToggleChangePassword(false);
+  // };
 
-  const resendOtp = () => {
-    // window.recaptchaVerifier.render().then(function(widgetId) {
-    //     grecaptcha.reset(widgetId);
-    //   })
-    phoneAuth();
-  };
+  // const resendOtp = () => {
+  //   // window.recaptchaVerifier.render().then(function(widgetId) {
+  //   //     grecaptcha.reset(widgetId);
+  //   //   })
+  //   phoneAuth();
+  // };
 
-  const handleCloseOtp = () => {
-    setOtpDialog(false);
-  };
+  // const handleCloseOtp = () => {
+  //   setOtpDialog(false);
+  // };
 
-  const handleCloseMobileDialog = () => {
-    setMobileDialog(false);
-  };
+  // const handleCloseMobileDialog = () => {
+  //   setMobileDialog(false);
+  // };
 
   return (
     <>
-      <div style={{ zIndex: 5 }}>
+      {/* <div style={{ zIndex: 5 }}>
         <Dialog
           open={otpDialog}
           onClose={handleCloseOtp}
@@ -427,9 +428,9 @@ const Signin = () => {
             </button>
           </DialogTitle>
         </Dialog>
-      </div>
+      </div> */}
 
-      <div style={{ zIndex: 5 }}>
+      {/* <div style={{ zIndex: 5 }}>
         <Dialog
           open={mobileDialog}
           onClose={handleCloseMobileDialog}
@@ -468,9 +469,7 @@ const Signin = () => {
                 ></input>
               </div>
               <br />
-              {/* <div className="col-md-2 col-2">
-    <label for="email" style={{color:'#6e9a34'}}>Email:</label>
-</div> */}
+             
 
               <div className="col-md-12 col-12" id="emailForUpdatePassword">
                 <input
@@ -495,14 +494,14 @@ const Signin = () => {
             </div>
           </DialogTitle>
         </Dialog>
-      </div>
-      {toggleChangePassword && (
+      </div> */}
+      {/* {toggleChangePassword && (
         <ChangePassword
           closeChangePassword={closeChangePassword}
           email={email}
           firebaseUid={firebaseUid}
         />
-      )}
+      )} */}
 
       <BackgroundImageContainer>
         <Main>

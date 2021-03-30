@@ -24,7 +24,7 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 		const [value, setValue] = useState([]);
 		const [startDate, setStartDate] = useState("");
 		const [endDate, setEndDate] = useState("");
-		const weekDays = ['Mo','Tu','We', 'Th', 'Fr', 'Sa','Su' ]
+		const weekDays = ['Su','Mo','Tu','We', 'Th', 'Fr', 'Sa']
 		const [currentYear, setCurrentYear] = useState('');
 		const [currentMonth, setCurrentMonth] = useState('');
 		const [totalDays, setTotalDays] = useState([]);
@@ -33,6 +33,7 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 		// const [breakDaySelected, setBreakDaySelected] = useState([]);
 		const selectedWeekDays = useRef(new Array());
 		const deliveryDays = useRef(new Array());
+		const weekStartsAt = useRef(0);
 
 
 
@@ -157,16 +158,17 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 				let dayInfo = getDayDetails(new Date(currentYear, currentMonthInNumber - 1, 1));
 				console.log(dayInfo);
 				let weekStartValue = dayInfo.weekDay;
+				weekStartsAt.current = weekStartValue;
 				if(weekStartValue > 0){
 					let lastMonthTotalDays = getMonthDays(currentMonthInNumber - 1, currentYear);
-					let remainingDaysCount = lastMonthTotalDays - dayInfo.weekDay - 1;
+					let remainingDaysCount = lastMonthTotalDays - (dayInfo.weekDay - 1);
 					console.log(lastMonthTotalDays, remainingDaysCount)
 					for(var i = remainingDaysCount; i <= lastMonthTotalDays; i++ ){
 						totalDaysCount.push(i);
 					}
 				}
 				for(var j=1; j<=totalDaysInMonth; j++){
-					totalDaysCount.push(i);
+					totalDaysCount.push(j);
 				}
 				setTotalDays([...totalDaysCount])
 			}
@@ -183,6 +185,9 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 			const endDateDay = new Date(props.endDate)
 			let startDateDetails = getDayDetails(startDateDay)
 			let endDateDetails = getDayDetails(endDateDay)
+			
+			weekStartsAt.current = weekStartsAt.current - 1;
+			console.log(typeof(weekStartsAt.current))
 
 			let daysFromStartDay = [];
 			let daysFromEndDay = [];
@@ -200,10 +205,11 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 				daysFromStartDay.push(j);
 			}
 
-			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay)
+			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay, weekStartsAt.current)
 
 
 			if((currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day))){
+				console.log(weekStartsAt.current)
 				var breakday = orderBreaksDates.includes(day)
 				let generatedDate = new Date(currentYear, currentMonthInNumber, day)
 				console.log(generatedDate)
