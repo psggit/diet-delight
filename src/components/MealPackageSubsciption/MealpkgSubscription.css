@@ -78,8 +78,8 @@ div.vertical_line {
     backdrop-filter: blur(4px);
     margin-top: 2rem;
     border-radius: 0.5rem;
-    background: hsla(0, 0%, 98.4%, 0.3411764705882353);
-
+    /* background: hsla(0, 0%, 98.4%, 0.3411764705882353);*/
+    background: #9f9f9f24;
     border: none;
   }
   div.content_media {
@@ -208,7 +208,7 @@ div.vertical_line {
       padding: 7%;
       margin: 5%;
       border: none;
-      background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+      /* background: hsla(0, 0%, 98.4%, 0.3411764705882353);*/
       height: fit-content;
     }
     div.media_meal {
@@ -353,7 +353,7 @@ div.vertical_line {
     div.fullcard_container {
       /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
       border-radius: 0.5rem;
-      background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+      /*  background: hsla(0, 0%, 98.4%, 0.3411764705882353);*/
       backdrop-filter: blur(4px);
       height: auto;
       margin-bottom: -7%;
@@ -438,7 +438,7 @@ button.mealbtn_subscription {
  color: white;
  font-size: 14px;
  background: #8bc53f;
- width: 8rem;
+ width: max-content;
  position: relative;
  height: 38px;
  margin-left: 0;
@@ -542,7 +542,7 @@ img.card_img_rounded_mealpkgsub {
 div.fullcard_container {
   /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
   border-radius: 0.5rem;
-  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  /* background: hsla(0, 0%, 98.4%, 0.3411764705882353);*/
   backdrop-filter: blur(4px);
   height: auto;
   margin-bottom: -7%;
@@ -623,7 +623,7 @@ button.mealbtn_subscription {
   color: white;
   font-size: 14px;
   background: #8bc53f;
-  width: 141px;
+  width: max-content;
   bottom: 0;
   position: relative;
   height: 2.1rem;
@@ -686,7 +686,7 @@ div.fullcard_container {
   /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
   /* box-shadow: 1px 4px 12px -5px rgb(61 61 61 / 66%); */
   border-radius: 0.5rem;
-  background: hsla(0, 0%, 98.4%, 0.3411764705882353);
+  /* background: hsla(0, 0%, 98.4%, 0.3411764705882353);*/
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   height: auto;
@@ -770,7 +770,7 @@ button.mealbtn_subscription {
   color: white;
   font-size: 15px;
   background: #8bc53f;
-  width: 9.5rem;
+  width: max-content;
   bottom: 0;
   position: relative;
   height: 2.3rem;
