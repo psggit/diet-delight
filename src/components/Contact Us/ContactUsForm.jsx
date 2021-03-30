@@ -37,6 +37,34 @@ const theme = createMuiTheme({
     secondary: {
       main: "#f44336",
     },
+    overrides: {
+      MuiPickersBasePicker: {
+        pickerView: {
+          backgroundColor: "black",
+        },
+      },
+      MuiPickersDay: {
+        day: {
+          color: "light-gray",
+          fontFamily: '"Do Hyeon", sans-serif',
+          backgroundColor: "white",
+          borderRadius: "0px",
+        },
+        container: {
+          backgroundColor: "black",
+        },
+        daySelected: {
+          backgroundColor: "",
+          color: "light-gray",
+        },
+        dayDisabled: {
+          color: "black",
+        },
+        current: {
+          color: "",
+        },
+      },
+    },
   },
 });
 
