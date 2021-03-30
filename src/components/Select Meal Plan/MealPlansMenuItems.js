@@ -5,7 +5,7 @@ import veg_icon from '../../assets/vegicon.png'
 import axios from '../../axiosInstance';
 import NonvegComponent from '../veg non veg component/NonvegComponent.js'
 import VegComponent from '../veg non veg component/VegComponent.js'
-
+import Snackbar from '../Snack bar/Snackbar.js'
 export default function MealPlansMenuItems(props){ 
     console.log(props)
 
@@ -168,7 +168,7 @@ export default function MealPlansMenuItems(props){
             console.log(maxBuy)
             axios.post(`my-menu-orders`, {
                 user_id: user.id,
-                menu_item_id: menuItem.id,
+                menu_item_id: menuItem.id, 
                 menu_category_id: menuItem.menu_category_id,
                 meal_purchase_id: 1, 
                 status: user.status,
@@ -226,11 +226,83 @@ export default function MealPlansMenuItems(props){
 
 
 const renderMenuDatas = menuItems.map((menuItem) =>{
-  var ifFavourite = favouritesList.includes(menuItem.id)
-
+ 
 
   if(menuItem.day  === props.selectedDay){
-    if(ifFavourite){
+    var ifFavourite = favouritesList.includes(menuItem.id)
+    var ifOrdered = myMenuOrdersList.includes(menuItem.id)
+
+    console.log(ifFavourite,ifOrdered)
+    if(ifFavourite && ifOrdered){
+
+
+        return(
+            <div className="select_meal_plan_main_container" key={Math.random()}>
+
+            <div className="card fullcard_container_selectedmeal">
+            <div className="row">
+
+            <div className="col-md-6 col-sm-12">
+
+            <div className="row">
+            <div className="col-md-4 col-sm-12">
+            <img src={menuItem.picture} alt="food" className="rounded-circle card_img_rounded_SelectedMeal"></img>
+            </div>
+            <div className="col-md-8 col-sm-12 left_side_container_selectMeal">
+            <h5 className=" salad_text" >{menuItem.name}</h5>
+        {/* <h5 className=" salad_details_text"> About dish like crunch with something chrunchy and salad  About dish like crunch with something chrunchy and salad</h5> */}
+    {/* <img src={veg_icon} alt="veg" className="veg_icon"></img> */}
+    
+    {menuItem.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
+    </div>
+
+    </div>
+
+
+
+    </div>
+
+    <div className="vertical_line_Selectedmeal"></div> 
+    <div className="col-md-5 col-sm-12"> 
+    <div className="row">
+    <div className="col-md-9 col-sm-12">
+
+    <h5 className="breakfast_paragrapgh_content">Let us know if there is something you’d want us to know about your menu, we’ll pass it on to the chef.</h5>
+
+    <p id="w3review" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}></p>
+
+    </div>
+    <div className="col-md-3 col-sm-12 col_grid_selectmeal">
+    <div className="heart_icon_meal">  
+
+    <i id={Math.random()}  className={"fa fa-heart heart_submodule_selectMeal_fill"} aria-hidden="true" onClick={(e) =>colorHandle(e,menuItem.id)}></i>
+
+
+    </div>
+
+
+    
+    <button id={Math.random()}   className="btn btn-default mealbtn_selectedmeal"  onClick ={(e) => handleSelect(e,menuItem)}>
+    Selected
+
+    </button>
+
+
+
+
+
+
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+    )
+
+
+    }else if(ifOrdered){
 
         return(
             <div className="select_meal_plan_main_container" key={Math.random()}>
@@ -265,19 +337,93 @@ const renderMenuDatas = menuItems.map((menuItem) =>{
 
     <h5 className="breakfast_paragrapgh_content">Let us know if there is something you’d want us to know about your menu, we’ll pass it on to the chef.</h5>
 
+
+
+
     <p id="w3review" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}></p>
 
     </div>
     <div className="col-md-3 col-sm-12 col_grid_selectmeal">
     <div className="heart_icon_meal">  
 
-    <i id={Math.random()}  className={"fa fa-heart heart_submodule_selectMeal_fill"} aria-hidden="true" onClick={(e) =>colorHandle(e,menuItem.id)}></i>
+    <i id={Math.random()}  className={"fa fa-heart-o heart_border_selectedMeal"} aria-hidden="true" onClick={(e) =>colorHandle(e,menuItem.id)}></i>
 
 
     </div>
 
 
+
+    <button id={Math.random()}   className="btn btn-default mealbtn_selectedmeal" onClick ={(e) => handleSelect(e,menuItem)}>
+    Selected
+
+    </button>
+
+
+
+
+
+
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+    )
+
+
+    }else if(ifFavourite){
+
+        return(
+            <div className="select_meal_plan_main_container" key={Math.random()}>
+
+            <div className="card fullcard_container_selectedmeal">
+            <div className="row">
+
+            <div className="col-md-6 col-sm-12">
+
+            <div className="row">
+            <div className="col-md-4 col-sm-12">
+            <img src={menuItem.picture} alt="food" className="rounded-circle card_img_rounded_SelectedMeal"></img>
+            </div>
+            <div className="col-md-8 col-sm-12 left_side_container_selectMeal">
+            <h5 className=" salad_text" >{menuItem.name}</h5>
+        {/* <h5 className=" salad_details_text"> About dish like crunch with something chrunchy and salad  About dish like crunch with something chrunchy and salad</h5> */}
+    {/* <img src={veg_icon} alt="veg" className="veg_icon"></img> */}
     
+    {menuItem.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
+    </div>
+
+    </div>
+
+
+
+    </div>
+
+    <div className="vertical_line_Selectedmeal"></div>
+    <div className="col-md-5 col-sm-12"> 
+    <div className="row">
+    <div className="col-md-9 col-sm-12">
+
+    <h5 className="breakfast_paragrapgh_content">Let us know if there is something you’d want us to know about your menu, we’ll pass it on to the chef.</h5>
+
+
+
+
+    <p id="w3review" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}></p>
+
+    </div>
+    <div className="col-md-3 col-sm-12 col_grid_selectmeal">
+    <div className="heart_icon_meal">  
+
+    <i id={Math.random()}  className={"fa fa-heart-o heart_border_selectedMeal_fill"} aria-hidden="true" onClick={(e) =>colorHandle(e,menuItem.id)}></i>
+
+
+    </div>
+
+
+
     <button id={Math.random()}   className="btn btn-default mealbtn_selectmeal" onClick ={(e) => handleSelect(e,menuItem)}>
     Select
 
@@ -377,6 +523,7 @@ const renderMenuDatas = menuItems.map((menuItem) =>{
 return(
 
     <>
+    <Snackbar/>
     <h5 className="breakfast_title_selectmeal" key={Math.random()}>{props.category.name}</h5>
     {renderMenuDatas}
     </>

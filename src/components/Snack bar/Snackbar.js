@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 },
 }));
 
-export default function CustomizedSnackbars() {
+export default function CustomizedSnackbars(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -28,22 +28,29 @@ export default function CustomizedSnackbars() {
 const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
-  }
+  } 
 
   setOpen(false);
 };
+if (props.changeSnackbarBox === true){
+  return (
+    <div className={classes.root}>
+    <Button variant="outlined" onClick={handleClick}>
+    Open success snackbar
+    </Button>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <Alert onClose={handleClose} severity="success">
+    This is a success message!
+    </Alert>
+    </Snackbar>
+    
+    </div>
+    );
+}else{
+  return(
+    <>
+    </>
+  )
+}
 
-return (
-<div className={classes.root}>
-<Button variant="outlined" onClick={handleClick}>
-Open success snackbar
-</Button>
-<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-<Alert onClose={handleClose} severity="success">
-This is a success message!
-</Alert>
-</Snackbar>
-
-</div>
-);
 }

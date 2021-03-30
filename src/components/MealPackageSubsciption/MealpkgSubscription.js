@@ -4,7 +4,7 @@ import logo_web from "../../assets/logoweb.png";
 import Mealchoose from "../Mealchoose.js";
 import { Link } from "react-router-dom";
 import axios from "../../axiosInstance";
-import Snackbar from '../Snack bar/Snackbar.js'
+
 
 export default function MealpkgSubscription(props) {
   console.log(props);
@@ -26,7 +26,7 @@ export default function MealpkgSubscription(props) {
     return (
       <div className="main_container_mealpkg" key={Math.random()}>
 
-      <Snackbar/>
+      
 
 
       <div className="card fullcard_container">
