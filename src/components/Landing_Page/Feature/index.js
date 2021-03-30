@@ -5,6 +5,7 @@ import { Heading, Line, Para } from '../../MainComponents'
 import axios from '../../../axiosInstance'
 
 import FeatureList from './FeatureList'
+import ConfirmDialog from './../ConfirmDialog'
 
 
 
@@ -13,6 +14,7 @@ const Feature = () => {
 
     const [feature, setFeature] = useState([]);
     const [favouritesList, setFavouritesList] = useState([]);
+    const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
 
     useEffect(() => {
 
@@ -53,12 +55,14 @@ const Feature = () => {
             // name={meal.name}
             meal={meal}
             favouriteItem={true}
+            setOpenConfirmDialog={setOpenConfirmDialog}
            
         />)}else{
             return(
                 <FeatureList
                 key={Math.random() * 100}
                 meal={meal}
+                setOpenConfirmDialog={setOpenConfirmDialog}
                 // picture={meal.picture}
                 // name={meal.name}
                
@@ -76,6 +80,10 @@ const Feature = () => {
                     FEATURED MENU OF THE WEEK
                 </Heading>
                 <Line back="rgba(137,197,63,1)" />
+                <ConfirmDialog 
+                    open={openConfirmDialog} 
+                    setOpen={setOpenConfirmDialog} 
+                />
                 <Set>
                     {renderFavourites}
                 </Set>
