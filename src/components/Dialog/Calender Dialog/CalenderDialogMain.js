@@ -61,8 +61,6 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 	
 
 		useEffect(() => {
-			setStartDate(props.startDate)
-			setEndDate(props.endDate)
 			const date = new Date(props.startDate);
 			console.log(date)
 			let dayDetails = getDayDetails(date)
@@ -110,12 +108,16 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 			console.log(listElement)
 			if(listElement.className === 'active_grey'){
 				listElement.className = 'active_light_grey';
-				selectedWeekDays.current.push(day);
+				selectedWeekDays.current.push({
+					"day":day,
+					"month":currentMonthInNumber,
+					"year":currentYear
+				});
 				console.log(selectedWeekDays)
 			}else{
 				listElement.className = 'active_grey';
-				const indexOfSelected = selectedWeekDays.current.indexOf(day);
-				selectedWeekDays.current.splice(indexOfSelected,1)
+				let indexToPop = selectedWeekDays.current.findIndex(x => x.day === day);
+				selectedWeekDays.current.splice(indexToPop,1)
 				console.log(selectedWeekDays)
 			}
 
@@ -136,7 +138,11 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
             let concatedDate = formatedDate( dayFormat.year,dayFormat.month,dayFormat.date);
             console.log(concatedDate)
 
-			let selectedDaysList = selectedWeekDays.current.toString();
+			let selectedDaysList = selectedWeekDays.current;
+			let selectedDateList = [];
+			selectedWeekDays.current.map((weekDay) => {
+				let formatDate = formatedDate(weekDay.year, weekDay.month, weekDay.day)
+			})
 			axios.post('my-order-breaks',{
 				meal_purchase_id:props.mealData.id,
 				date_list:selectedDaysList
@@ -163,12 +169,13 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 					let lastMonthTotalDays = getMonthDays(currentMonthInNumber - 1, currentYear);
 					let remainingDaysCount = lastMonthTotalDays - (dayInfo.weekDay - 1);
 					console.log(lastMonthTotalDays, remainingDaysCount)
+					let lastCurrentMonthInNumber = currentMonthInNumber - 1;
 					for(var i = remainingDaysCount; i <= lastMonthTotalDays; i++ ){
-						totalDaysCount.push(i);
+						totalDaysCount.push({"date":i,"month":lastCurrentMonthInNumber});
 					}
 				}
 				for(var j=1; j<=totalDaysInMonth; j++){
-					totalDaysCount.push(j);
+					totalDaysCount.push({"date":j,"month":currentMonthInNumber});
 				}
 				setTotalDays([...totalDaysCount])
 			}
@@ -181,10 +188,14 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 
 
 		const renderMonthDays = totalDays.map((day) => {
+			console.log(day)
+			console.log(props.endDate)
+			console.log(props.startDate)
 			const startDateDay = new Date(props.startDate)
 			const endDateDay = new Date(props.endDate)
 			let startDateDetails = getDayDetails(startDateDay)
 			let endDateDetails = getDayDetails(endDateDay)
+			console.log(startDateDetails, endDateDetails)
 			
 			weekStartsAt.current = weekStartsAt.current - 1;
 			console.log(typeof(weekStartsAt.current))
@@ -196,43 +207,47 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 
 
 			if(startDateDetails.monthDateWithoutPrefix != endDateDetails.monthDateWithoutPrefix){
-				for(var i=1; i<=endDateDetails.date; i++){
+			for(var i=1; i<=endDateDetails.date; i++){
 					daysFromEndDay.push(i);
-				}
-			}
-
+			}	
 			for(var j=startDateDetails.dayDateWithoutPrefix; j<=lastDateForStartMonth; j++){
 				daysFromStartDay.push(j);
 			}
+			}else{		
+			for(var j=startDateDetails.dayDateWithoutPrefix; j<=endDateDetails.dayDateWithoutPrefix; j++){
+				daysFromStartDay.push(j);
+			}
+			}
+
 
 			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay, weekStartsAt.current)
 
-
-			if((currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day))){
-				console.log(weekStartsAt.current)
-				var breakday = orderBreaksDates.includes(day)
-				let generatedDate = new Date(currentYear, currentMonthInNumber, day)
+			console.log(day.month === currentMonthInNumber)
+			if((day.month === currentMonthInNumber) && (currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day.date)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day.date))){
+				var breakday = orderBreaksDates.findIndex(x => x.day === day.date && currentMonthInNumber === x.month && currentYear === x.year)
+				let generatedDate = new Date(currentYear, currentMonthInNumber - 1, day.date)
 				console.log(generatedDate)
 				let dayInfo = getDayDetails(generatedDate)
 				console.log(dayInfo)
 				var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
-				console.log(deliveryDaysIncluded, dayInfo.weekDay)
-				if(breakday){
+				console.log(deliveryDaysIncluded, dayInfo.weekDay, day.date)
+				if(breakday >= 0){
 					return(
-						<li><label className="active_break_grey">{day}<br></br> break </label></li>
+						<li><label className="active_break_grey" id={day.date+""+currentMonthInNumber+""+currentYear}>{day.date}<br></br> break </label></li>
 					)
 				}            
 				if(deliveryDaysIncluded){
+					console.log(dayInfo.weekDay)
 					return(
-						<li key={Math.random()} id={Math.random()} onClick={(e) => handleDaySelection(e,day)}><span className="active_grey" id={Math.random()}>{day <= 9 ? 0+""+day : day}</span></li>
+						<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear} onClick={(e) => handleDaySelection(e,day.date)}><span className="active_grey" id={Math.random()}>{day.date <= 9 ? 0+""+day.date : day.date}</span></li>
 					)
 				}
 				return(
-					<li key={Math.random()} id={Math.random()}><span className="active_light_grey" id={Math.random()}>{day <= 9 ? 0+""+day : day}</span></li>
+					<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear}><span className="active_light_grey" id={Math.random()}>{day.date <= 9 ? 0+""+day.date : day.date}</span></li>
 				)
 			}
 			return(
-				<li key={Math.random()} id={Math.random()}>{day}</li>
+				<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear}>{day.date}</li>
 			)
 			})	
 
