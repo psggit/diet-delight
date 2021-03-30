@@ -145,6 +145,10 @@ export const CustomButton = styled.button`
     outline: none;
     border: none;
   }
+  :hover{
+    color: rgba(137,197,63,1);
+    background-color: transparent;
+  }
 `;
 
 export const ErrorPara = styled(Para)`
@@ -178,10 +182,10 @@ export const VerifyOTPBtn = styled.button`
   letter-spacing: 2px;
   border-radius: 15px;
   margin-top: 22px;
-  font-weight: bold;
+  border: 1px solid rgba(137,197,63,1);
   
   :hover{
-    background-color: purple;
-    color: white;
+    color: rgba(137,197,63,1);
+    background-color: transparent;
   }
 `

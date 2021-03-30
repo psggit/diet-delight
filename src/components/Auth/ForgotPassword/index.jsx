@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
+import { useHistory } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 import axios from "../../../axiosInstance";
@@ -21,6 +22,7 @@ const ForgotPassword = () => {
   const { enqueueSnackbar } = useSnackbar();
   const reCaptcha = useRef("");
   const verificationOTP = useRef("");
+  const history = useHistory()
 
   const [formValues, setFormValues] = useState({
     countryCode: "",
@@ -32,12 +34,17 @@ const ForgotPassword = () => {
     check: "",
   });
 
+  const [userValues, setUserValues] = useState({
+    phoneNumber: "",
+    firebaseUID: ""
+  })
+
   //   1- form 2-otp 3-reset
   const [stepName, setStepName] = useState("form");
 
   const resendOtp = () => {
     // grecaptcha.reset();
-    // if (reCaptcha.current) reCaptcha.current.reset();
+    if (reCaptcha.current) reCaptcha.current.reset();
     const _values = { ...formValues };
     phoneAuth(_values);
   };
@@ -56,6 +63,7 @@ const ForgotPassword = () => {
           const user = result.user;
           console.log("User : ", user);
           console.log(user.phoneNumber);
+          setUserValues({...userValues, phoneNumber: user.phoneNumber, firebaseUID: user.uid })
 
           enqueueSnackbar("Otp Verification Completed");
 
@@ -87,31 +95,29 @@ const ForgotPassword = () => {
       .catch((error) => {
         console.log("Phone Auth Error : ", error);
         // grecaptcha.reset();
-        // if (reCaptcha.current) reCaptcha.current.reset();
+        if (reCaptcha.current) reCaptcha.current.reset();
       });
   };
 
   const handleNewPassword = (values) => {
     console.log("new password :: ", values);
-    // axios
-    //   .post(`reset-password`, {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-    //     },
-    //     username: props.email,
-    //     firebase_uid: firebaseUid,
-    //     new_password: formValuesResetPassword.password,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res.status === 200) {
-    //       enqueueSnackbar("Password Changed Successfully");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     enqueueSnackbar("Something didn't went as expected");
-    //   });
+    axios
+      .post(`reset-password`, {
+        username: userValues.phoneNumber,
+        firebase_uid: userValues.firebaseUID,
+        new_password: values.password,
+      })
+      .then((res) => {
+        console.log("Result : ", res);
+        if (res.status === 200) {
+          enqueueSnackbar("Password Changed Successfully");
+          history.push("/signin")
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar("Something didn't went as expected");
+      });
   };
 
   const renderCaptcha = () => {
@@ -119,8 +125,6 @@ const ForgotPassword = () => {
     let recaptcha = new firebase.auth.RecaptchaVerifier("sign-up", {
       size: "invisible",
       callback: (response) => {
-        // phoneAuth();
-        // this.resendOtp();
         console.log("Re Captcha res", response);
       },
     });
@@ -161,7 +165,7 @@ const ForgotPassword = () => {
               {stepName === "reset" && (
                 <ResetPassword
                   formValues={formValuesResetPassword}
-                  phoneAuth={handleNewPassword}
+                  handleNewPassword={handleNewPassword}
                 />
               )}
             </SetBg>

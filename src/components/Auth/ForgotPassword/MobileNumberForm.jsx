@@ -19,7 +19,7 @@ const MobileNumberForm = ({ formValues, phoneAuth }) => {
       style={{
         display: "flex",
         maxWidth: "340px",
-        height: "320px",
+        height: "350px",
         flexWrap: "wrap",
         justifyContent: "center",
       }}
@@ -30,6 +30,16 @@ const MobileNumberForm = ({ formValues, phoneAuth }) => {
             <img src={logo_img} className="logo_dialog_signup" alt="logo"></img>
           </div>
         </div>
+      </div>
+      <div>
+        <Para
+          color="rgba(137,197,63,1)"
+          size="1.5rem"
+          weight="700"
+          align="center"
+        >
+          FORGOT PASSWORD
+        </Para>
       </div>
       <Formik
         initialValues={{
