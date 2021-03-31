@@ -1,13 +1,15 @@
 import React from "react";
 
 import DietOnlySelectItem from "./DietOnlySelectItem";
-import DietYesNoComponent from "./DietYesNoComponent";
+import YesNoTypeQuestion from "./YesNoTypeQuestion";
 
 const RenderQuestion = ({
   question,
   selectedOption,
   options,
   updateSelectedOption,
+  answer,
+  updateAnswerText,
 }) => {
   return (
     <>
@@ -19,11 +21,13 @@ const RenderQuestion = ({
         />
       )} */}
       {question.type === 1 && (
-        <DietYesNoComponent
+        <YesNoTypeQuestion
           question={question}
           selectedOption={selectedOption}
           options={options}
           updateSelectedOption={updateSelectedOption}
+          answer={answer}
+          updateAnswerText={updateAnswerText}
         />
       )}
       {question.type === 2 && (

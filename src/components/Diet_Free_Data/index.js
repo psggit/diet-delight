@@ -68,6 +68,7 @@ const DietDataDetails = (props) => {
             question: _question,
             options: _options,
             selectedOption: null,
+            answer: null
           };
         });
 

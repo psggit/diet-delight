@@ -1,4 +1,7 @@
 import React from "react";
+
+import TextField from "@material-ui/core/TextField";
+
 import "./index.css";
 import SelectOptionBtn from "./SelectOptionBtn";
 
@@ -7,6 +10,8 @@ export default function DietYesNoComponent({
   selectedOption,
   options,
   updateSelectedOption,
+  answer,
+  updateAnswerText,
 }) {
   return (
     <div
@@ -31,6 +36,19 @@ export default function DietYesNoComponent({
           </div>
         ))}
       </div>
+      {selectedOption && (
+        <div>
+          <TextField
+            id="specify"
+            multiline
+            rows={4}
+            placeholder="Please Specify"
+            variant="outlined"
+            value={answer || ""}
+            onInput={(e) => updateAnswerText(e.target.value)}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -27,24 +27,26 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
   const submitAnswer = () => {
     const _currentQuestion = QuestionsData[activeQuestion].question;
     const _selectedOption = QuestionsData[activeQuestion].selectedOption;
+    const _answerText = QuestionsData[activeQuestion].answer;
     console.log("Question : ", _currentQuestion);
     console.log("selectedOption : ", _selectedOption);
-    // axios
-    //   .post("my-answers", {
-    //     question_id: _currentQuestion.id,
-    //     answer_option_id: _selectedOption.id,
-    //     answer: _selectedOption.option,
-    //     question_question: _currentQuestion.question,
-    //     question_type: _currentQuestion.type,
-    //     question_additional_text: _currentQuestion.additional_text,
-    //     answer_option_option: _selectedOption.option,
-    //   })
-    //   .then((res) => {
-    //     console.log("Submit Answer Result : ", res.data.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log("Submit Answer Error : ", err);
-    //   });
+    console.log("selectedOption : ", _answerText);
+    axios
+      .post("my-answers", {
+        question_id: _currentQuestion.id,
+        answer_option_id: _selectedOption.id,
+        answer: _answerText || _selectedOption.option,
+        question_question: _currentQuestion.question,
+        question_type: _currentQuestion.type,
+        question_additional_text: _currentQuestion.additional_text,
+        answer_option_option: _selectedOption.option,
+      })
+      .then((res) => {
+        console.log("Submit Answer Result : ", res.data.data);
+      })
+      .catch((err) => {
+        console.log("Submit Answer Error : ", err);
+      });
   };
 
   const updateSelectedOption = (_selectedOption) => {
@@ -58,13 +60,26 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
     });
   };
 
+  const updateAnswerText = (_text) => {
+    setQuestionData((prev) => {
+      const newArray = [...prev];
+      newArray[activeQuestion] = {
+        ...newArray[activeQuestion],
+        answer: _text,
+      };
+      return newArray;
+    });
+  };
+
   return (
     <>
       <RenderQuestion
         question={QuestionsData[activeQuestion].question}
         selectedOption={QuestionsData[activeQuestion].selectedOption}
         options={QuestionsData[activeQuestion].options}
+        answer={QuestionsData[activeQuestion].answer}
         updateSelectedOption={updateSelectedOption}
+        updateAnswerText={updateAnswerText}
       />
       <div
         style={{
