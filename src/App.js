@@ -152,7 +152,7 @@ function App() {
           <Route path="/OngoingMain" exact component={OngoingMain} />
           <Route path="/BmiMain" exact component={BmiMain} />
           <Route path="/Bmireport" exact component={Bmireport} />
-          <Route path="/ConatctUsMain" exact component={ConatctUsMain} />
+          <Route path="/contact" exact component={ContactUs} />
           <Route path="/ChangePassword" exact component={ChangePassword} />
           <Route path="/AddressDialogBox" exact component={AddressDialogBox} />
           <Route

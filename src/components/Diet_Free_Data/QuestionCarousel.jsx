@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 
 const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
   const classes = useStyles();
-  const [activeQuestion, setActiveQuestion] = useState(4);
+  const [activeQuestion, setActiveQuestion] = useState(0);
 
   const submitAnswer = () => {
     const _currentQuestion = QuestionsData[activeQuestion].question;
