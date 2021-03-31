@@ -116,7 +116,7 @@ function App() {
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/forgotpassword" exact component={ForgotPassword} />
-          <Route path="/admin" exact component={AdminDash} />
+          <Route path="/admin" component={AdminDash} />
           <Route path="/consultant" exact component={Consultant} />
           <Route path="/kitchen" exact component={Kitchen} />
           <Route path="/accountant" exact component={Accountant} />

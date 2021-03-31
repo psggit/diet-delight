@@ -4,7 +4,6 @@ import axios from "../../../axiosInstance";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -19,6 +18,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -28,6 +28,8 @@ import {
   selectCategory,
   resetCategory,
 } from "../../../features/adminSlice";
+import TableHeader from '../../reusable/TableHeader';
+import Table from '../../reusable/Table';
 
 import {
   Main,
@@ -57,12 +59,14 @@ const useStyles = makeStyles({
 const ListofCategory = () => {
   const dispatch = useDispatch();
 
-  const [categorys, setCategorys] = useState([]);
+  const [categories, setCategories] = useState([]);
   const category = useSelector(selectCategory);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Issuccess, setIsSuccess] = useState(false);
@@ -71,43 +75,22 @@ const ListofCategory = () => {
 
   let current_date_Time = new Date();
   const csvReport = {
-    data: categorys,
+    data: categories,
     filename: `List_of_categorys_${current_date_Time}.csv`,
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `menu-categories?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res, "useeffect from list category");
-        setCategorys(res.data.data);
-        setShow(true);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [page, search, sort, order]);
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(
-        `menu-categories?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`menu-categories?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
-        console.log(res);
-        setCategorys(res.data.data);
+        setCategories(res.data.data);
         setShow(true);
+        setLoading(false);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -328,134 +311,67 @@ const ListofCategory = () => {
       ) : (
         <>
           <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+            <TableHeader
+              title="List of Catregories"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of Category
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setCategory([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                setSearch(value);
+              }}
+            />
             {show && (
-              <>
-                <TableContainer style={{ margin: "10px 0" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Menu ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Parent</TableCell>
-                        <TableCell>Max Buy</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {categorys.map((cate) => (
-                        <TableRow key={cate.id}>
-                          <TableCell component="th" scope="row">
-                            {cate.id}
-                          </TableCell>
-                          <TableCell>{cate.menu_id}</TableCell>
-                          <TableCell>{cate.name}</TableCell>
-                          <TableCell>{cate.parent}</TableCell>
-                          <TableCell>{cate.max_buy}</TableCell>
-                          <TableCell>{cate.order}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(cate)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(cate)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'menu_id', label: 'Menu', sort: true },
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'parent', label: 'Parent', sort: true },
+                    { id: 'max_buy', label: 'Max Buy', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: categories.map((category) => {
+                    return [
+                      category.menu_id,
+                      category.name,
+                      category.parent,
+                      category.max_buy,
+                      category.order,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(q);
+                            // handleUpdate(q);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

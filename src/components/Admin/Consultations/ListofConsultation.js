@@ -1,563 +1,422 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
+
+import { useHistory } from "react-router-dom";
+import { Snackbar, Tooltip } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import axios from "../../../axiosInstance";
 import CustomSkeleton from "../../../CustomSkeleton";
+import Modal from '../../reusable/Modal';
+import { Main } from "./ConsultantElements";
+import TableHeader from '../../reusable/TableHeader';
+import Table from '../../reusable/Table';
+import { Edit, Delete, CheckCircleOutline } from '@material-ui/icons';
+import ConsultationFormModal from './ConsultationFormModal';
+import { CONSULTATION_MODE, CONSULTATION_STATUS_TYPE } from '../Constants';
 
-import {
-  makeStyles,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Snackbar,
-  Select,
-  MenuItem,
-} from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { CSVLink } from "react-csv";
-
-import {
-  Main,
-  HContainer,
-  Con,
-  Input,
-  Title,
-  Set,
-  Mini,
-  Info,
-  Container,
-} from "./ConsultantElements";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setConsultation,
-  resetConsultation,
-  selectConsultation,
-} from "../../../features/adminSlice";
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-
-  table: {
-    minWidth: 650,
-  },
-});
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  status: Yup.string().required().label("Status"),
-  qualification: Yup.string().required().label("Qualification"),
-  bio: Yup.string().required().label("Bio"),
-  order: Yup.number().required().label("Order"),
-});
+const consultationInitialValues = {
+  id: '',
+  customer: '',
+  name: '',
+  email: '',
+  mobile: '',
+  consultant: '',
+  consultationPackage: '',
+  status: '',
+  mode: '',
+  appointmentDate: '',
+  appointmentTime: '',
+}
 
 const ListofConsultation = () => {
-  const dispatch = useDispatch();
-  const consultation = useSelector(selectConsultation);
-
   const [consultations, setConsultations] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('user_id');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
-  const [Issuccess, setIsSuccess] = useState(false);
+  const [mode, setMode] = useState('Add');
+  const [showForm, setShowForm] = useState(false);
+  const [currentConsultation, setCurrentConsultation] = useState(consultationInitialValues);
   const [isdelete, setIsDelete] = useState(false);
-  const [isupdate, setISUpdate] = useState(false);
+  const [customers, setCustomers] = useState([]);
+  const [consultants, setConsultants] = useState([]);
+  const [consultationPackages, setConsultationPackages] = useState([]);
+  const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
+  const [consultationStatus, setConsultationStatus] = useState(-1);
 
-  let current_date_Time = new Date();
+  let history = useHistory();
+  const searchParams = new URLSearchParams(history.location.search);
+  const status = searchParams.get('type') || CONSULTATION_STATUS_TYPE.BOOKED;
+
+  let current_date_Time = new Date()
   const csvReport = {
     data: consultations,
     filename: `List_of_consultations_${current_date_Time}.csv`,
-  };
+  }
 
   useEffect(() => {
-    axios
-      .get(
-        `consultations?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
+    axios.get(`users`).then((res) => {
+      setCustomers((res?.data?.data || []).map((user) => {
+        return {
+          id: user.id,
+          name: user.id,
+          displayName: `${user.first_name || ''} ${user.last_name || ''}`,
+          email: user.email,
+          mobile: user.mobile,
         }
+      }));
+    });
+    axios.get(`consultants`).then((res) => {
+      setConsultants(
+        (res?.data?.data || []).map((user) => {
+          return {
+            id: user.id,
+            name: user.name,
+          }
+        }),
       )
-      .then((res) => {
-        setConsultations(res.data.data);
-        setLoading(false);
-        setShow(true);
-      });
-  }, [page, search, sort, order]);
+    })
+    axios.get(`consultation-packages`).then((res) => {
+      setConsultationPackages(
+        (res?.data?.data || []).map((user) => {
+          return {
+            id: user.id,
+            name: user.name,
+          }
+        }),
+      )
+    })
+  }, [])
+
+  useEffect(() => {
+    switch (status) {
+      case CONSULTATION_STATUS_TYPE.BOOKED:
+        setConsultationStatus(0);
+        break;
+      case CONSULTATION_STATUS_TYPE.CANCELLED:
+        setConsultationStatus(1);
+        break;
+      case CONSULTATION_STATUS_TYPE.COMPLETED:
+        setConsultationStatus(2);
+        break;
+    }
+  }, [status]);
+
+  useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order, consultationStatus]);
 
   const handleShow = () => {
-    axios
-      .get(
-        `consultations?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setConsultations(res.data.data);
-        setShow(true);
-      })
-      .catch((err) => console.log(err));
+    if (consultationStatus >= 0) {
+      axios
+        .get(`consultations?pageSize=${rowsPerPage}&status=${consultationStatus}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+        .then((res) => {
+          setConsultations(res.data.data);
+          setLoading(false);
+          setShow(true);
+          setTotalCount(res.data?.meta?.total || 0);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
-  const classes = useStyles();
-
   function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
+    return <MuiAlert elevation={6} variant="filled" {...props} />
   }
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
 
-    setIsSuccess(false);
+    setNotificationConf([false, 'success', '']);
   };
 
-  const handleUpdate = async (consul) => {
-    await dispatch(
-      setConsultation({
-        id: consul.id,
-        user_id: consul.user_id,
-        consultation_purchase_id: consul.consultation_purchase_id,
-        consultant_id: consul.consultant_id,
-        status: consul.status,
-        consultation_link: consul.consultation_link,
-        consultation_time: consul.consultation_time,
-        consultation_mode: consul.consultation_mode,
-        consultant_name: consul.consultant_name,
-        notes: consul.notes,
-      })
-    );
+  const getConsultationMode = (mode) => {
+    switch (mode) {
+      case 0:
+        return CONSULTATION_MODE[0].name;
+      case 1:
+        return CONSULTATION_MODE[1].name;
+    }
+  }
 
-    await setISUpdate(true);
-  };
+  const handleFormSubmit = (values) => {
+    const { appointmentTime, appointmentDate } = values
+    let date = ''
+    if (appointmentTime && appointmentDate) {
+      date = `${appointmentDate.getFullYear()}-${appointmentDate.getMonth() + 1}-${appointmentDate.getDate()} ${appointmentTime.getHours()}:${appointmentTime.getMinutes()}:${appointmentTime.getSeconds()}`
+    }
 
-  const handleDelete = async (consul) => {
-    await dispatch(resetConsultation());
-    await dispatch(
-      setConsultation({
-        id: consul.id,
-      })
-    );
-    await setIsDelete(true);
-  };
+    const selectedConsultant = consultants.find(
+      (c) => c.id === values.consultant,
+    )
 
-  const CloseDelete = () => setIsDelete(false);
-  const CloseUpdate = () => setISUpdate(false);
+    const data = {
+      user_id: values.customer,
+      consultation_purchase_id: values.consultationPackage,
+      consultant_id: selectedConsultant.id,
+      consultant_name: selectedConsultant.name,
+      status: values.status,
+      ...(date && { consultation_time: date }),
+      consultation_mode: values.mode,
+      notes: values.notes || '',
+    }
+
+    if (mode === 'Add') {
+      axios
+        .post(`consultations`, data)
+        .then((res) => {
+          setNotificationConf([
+            true,
+            'success',
+            'Consultation Added Successfully !',
+          ])
+          handleShow()
+        })
+        .catch(() =>
+          setNotificationConf([
+            true,
+            'error',
+            'Something went wrong. Please try again later!',
+          ]),
+        )
+    } else {
+      axios
+        .put(`consultations/${currentConsultation.id}`, data)
+        .then((res) => {
+          setNotificationConf([
+            true,
+            'success',
+            'Consultation Updated Successfully !',
+          ])
+          handleShow()
+        })
+        .catch(() =>
+          setNotificationConf([
+            true,
+            'error',
+            'Something went wrong. Please try again later!',
+          ]),
+        )
+    }
+    setShowForm(false)
+  }
+
+  const [showNotification, notificationType, notification] = notificationConf;
+  const nameMap = {
+    [CONSULTATION_STATUS_TYPE.BOOKED]: 'Booked',
+    [CONSULTATION_STATUS_TYPE.CANCELLED]: 'Cancelled',
+    [CONSULTATION_STATUS_TYPE.COMPLETED]: 'Completed',
+  }
 
   return (
     <>
       {isdelete && (
-        <>
-          {" "}
-          <Dialog
-            open={isdelete}
-            onClose={CloseDelete}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick
-            disableEscapeKeyDown
-          >
-            <DialogTitle id="form-dialog-title">Delete Question</DialogTitle>
-            <DialogContent>
-              <Mini>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    axios
-                      .delete(`consultations/${consultation.id}`)
-                      .then((res) => {
-                        setIsSuccess(true);
-                        setIsDelete(false);
-                        handleShow();
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  color="primary"
-                  onClick={CloseDelete}
-                >
-                  Close
-                </Button>
-              </Mini>
-            </DialogContent>
-          </Dialog>
-        </>
+        <Modal
+          visible={isdelete}
+          onClose={() => setIsDelete(false)}
+          title="Delete Consultation"
+          acceptButtonConfig={{
+            color: 'secondary',
+            text: 'Delete',
+            onClick: () => {
+              setIsDelete(false)
+              axios
+                .delete(`consultations/${currentConsultation.id}`)
+                .then(() => {
+                  setNotificationConf([
+                    true,
+                    'success',
+                    'Consultation Deleted Successfully !',
+                  ])
+                  handleShow()
+                })
+                .catch(() =>
+                  setNotificationConf([
+                    true,
+                    'error',
+                    'Something went wrong. Please try again later!',
+                  ]),
+                )
+            },
+          }}
+        />
       )}
-
-      {isupdate && (
-        <>
-          {" "}
-          <Dialog
-            open={isupdate}
-            onClose={CloseUpdate}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick
-            disableEscapeKeyDown
-          >
-            <DialogTitle id="form-dialog-title">Update Question</DialogTitle>
-            <DialogContent>
-              <Formik
-                initialValues={{
-                  user_id: consultation.user_id,
-                  consultation_purchase_id:
-                    consultation.consultation_purchase_id,
-                  consultant_id: consultation.consultant_id,
-                  status: consultation.status,
-                  consultation_link: consultation.consultation_link,
-                  consultation_time: consultation.consultation_time,
-                  consultation_mode: consultation.consultation_mode,
-                  consultant_name: consultation.consultant_name,
-                  notes: consultation.notes,
-                }}
-                validationSchema={validationSchema}
-                onSubmit={(values) => {
-                  axios
-                    .put(`consultations/${consultation.id}`, {
-                      headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "access_token"
-                        )}`,
-                      },
-                      user_id: values.user_id,
-                      consultation_purchase_id: values.consultation_purchase_id,
-                      consultant_id: values.consultant_id,
-                      status: values.status,
-                      consultation_link: values.consultation_link,
-                      consultation_time: values.consultation_time,
-                      consultation_mode: values.consultation_mode,
-                      consultant_name: values.consultant_name,
-                      notes: values.notes,
-                    })
-                    .then((res) => {
-                      setIsSuccess(true);
-                      setISUpdate(false);
-                      handleShow();
-                    })
-                    .catch((err) => console.log(err));
-                }}
-              >
-                {({ handleChange, handleSubmit, errors, touched, values }) => (
-                  <>
-                    <Container>
-                      <Mini>
-                        <Title>User ID</Title>
-                        <Input
-                          value={values.user_id}
-                          placeholder="User Id"
-                          onChange={handleChange("user_id")}
-                        ></Input>
-                      </Mini>
-                      {errors.user_id && touched && (
-                        <Info error>{errors.user_id}</Info>
-                      )}
-
-                      <Mini>
-                        <Title>Consultation Purchase ID</Title>
-                        <Input
-                          placeholder="Consultation Purchase ID"
-                          value={values.consultation_purchase_id}
-                          onChange={handleChange("consultation_purchase_id")}
-                        ></Input>
-                      </Mini>
-                      {errors.consultation_purchase_id && touched && (
-                        <Info error>{errors.consultation_purchase_id}</Info>
-                      )}
-                      <Mini>
-                        <Title>Consultant ID</Title>
-                        <Input
-                          placeholder="Consultant ID"
-                          value={values.consultant_id}
-                          onChange={handleChange("consultant_id")}
-                        ></Input>
-                      </Mini>
-                      {errors.consultant_id && touched && (
-                        <Info error>{errors.consultant_id}</Info>
-                      )}
-                      <Mini>
-                        <Title>Status</Title>
-                        <Input
-                          placeholder="Status"
-                          value={values.status}
-                          onChange={handleChange("status")}
-                        />
-                      </Mini>
-                      {errors.status && touched && (
-                        <Info error>{errors.status}</Info>
-                      )}
-                      <Mini>
-                        <Title>Consultation Link</Title>
-                        <Input
-                          placeholder="Consultation Link"
-                          value={values.consultation_link}
-                          onChange={handleChange("consultation_link")}
-                        />
-                      </Mini>
-                      {errors.consultation_link && touched && (
-                        <Info error>{errors.consultation_link}</Info>
-                      )}
-                      <Mini>
-                        <Title>Consultation Time</Title>
-                        <Input
-                          placeholder="Consultation Time"
-                          value={values.consultation_time}
-                          onChange={handleChange("consultation_time")}
-                        />
-                      </Mini>
-                      {errors.consultation_time && touched && (
-                        <Info error>{errors.consultation_time}</Info>
-                      )}
-                      <Mini>
-                        <Title>Consultation Mode</Title>
-                        <Input
-                          placeholder="Consultation Mode"
-                          value={values.consultation_mode}
-                          onChange={handleChange("consultation_mode")}
-                        />
-                      </Mini>
-                      {errors.consultation_mode && touched && (
-                        <Info error>{errors.consultation_mode}</Info>
-                      )}
-                      <Mini>
-                        <Title>Consultant Name</Title>
-                        <Input
-                          placeholder="Consultant Name"
-                          value={values.consultant_name}
-                          onChange={handleChange("consultant_name")}
-                        />
-                      </Mini>
-                      {errors.consultant_name && touched && (
-                        <Info error>{errors.consultant_name}</Info>
-                      )}
-                      <Mini>
-                        <Title>Notes</Title>
-                        <Input
-                          placeholder="Notes"
-                          value={values.notes}
-                          onChange={handleChange("notes")}
-                        />
-                      </Mini>
-                      {errors.notes && touched && (
-                        <Info error>{errors.notes}</Info>
-                      )}
-                      <Mini>
-                        <Button
-                          variant="contained"
-                          style={{
-                            margin: "20px",
-                            padding: "5px",
-                            background: "#800080",
-                          }}
-                          color="primary"
-                          onClick={handleSubmit}
-                        >
-                          submit
-                        </Button>
-                        <Button
-                          variant="contained"
-                          style={{
-                            margin: "20px",
-                            padding: "5px",
-                            background: "#800080",
-                          }}
-                          color="primary"
-                          onClick={CloseUpdate}
-                        >
-                          Close
-                        </Button>
-                      </Mini>
-                    </Container>
-                  </>
-                )}
-              </Formik>
-            </DialogContent>
-          </Dialog>
-        </>
+      {showForm && (
+        <ConsultationFormModal
+          visible={showForm}
+          onClose={() => {
+            setShowForm(false)
+            if (mode === 'Update') {
+              setCurrentConsultation(consultationInitialValues)
+            }
+          }}
+          mode={mode}
+          values={currentConsultation}
+          onSubmit={handleFormSubmit}
+          customers={customers}
+          consultants={consultants}
+          consultationPackages={consultationPackages}
+        />
       )}
 
       {loading ? (
         <CustomSkeleton />
       ) : (
         <>
-          <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+          <Main style={{ padding: '0 2rem' }}>
+            <TableHeader
+              title={`List of ${nameMap[status]} Consultations`}
+              csvReport={csvReport}
+              searchHandler={(value) => {
+                setSearch(value)
               }}
-            >
-              List of Consultation
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setConsultations([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+            />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>User ID</TableCell>
-                        <TableCell>Consultation Purchase ID</TableCell>
-                        <TableCell>Consultant ID</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Consultation Link</TableCell>
-                        <TableCell>Consultation Time</TableCell>
-                        <TableCell>Consultation Mode</TableCell>
-                        <TableCell>Consultant Name</TableCell>
-                        <TableCell>Notes</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {consultations.map((consul) => (
-                        <TableRow key={consul.id}>
-                          <TableCell component="th" scope="row">
-                            {consul.id}
-                          </TableCell>
-                          <TableCell>{consul.user_id}</TableCell>
-                          <TableCell>
-                            {consul.consultation_purchase_id}
-                          </TableCell>
-                          <TableCell>{consul.consultant_id}</TableCell>
-                          <TableCell>{consul.status}</TableCell>
-                          <TableCell>{consul.consultation_link}</TableCell>
-                          <TableCell>{consul.consultation_time}</TableCell>
-                          <TableCell>{consul.consultation_mode}</TableCell>
-                          <TableCell>{consul.consultant_name}</TableCell>
-                          <TableCell>{consul.notes}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(consul)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(consul)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'user_id', label: 'User Id', sort: false },
+                    {
+                      id: 'user_id',
+                      label: 'Customer Name',
+                      sort: true,
+                    },
+                    {
+                      id: 'customer_phone',
+                      label: 'Customer Phone',
+                      sort: false,
+                    },
+                    {
+                      id: 'customer_email',
+                      label: 'Customer Email',
+                      sort: false,
+                    },
+                    {
+                      id: 'consultation_package',
+                      label: 'Consultation Package',
+                      sort: true,
+                    },
+                    {
+                      id: 'consultation_time',
+                      label: 'Consultation Time',
+                      sort: true,
+                    },
+                    {
+                      id: 'consultation_mode',
+                      label: 'Consultation Mode',
+                      sort: false,
+                    },
+                    {
+                      id: 'consultant_name',
+                      label: 'Consultant Name',
+                      sort: true,
+                    },
+                    { id: 'notes', label: 'Notes', sort: false },
+                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: consultations.map((consultation) => {
+                    return [
+                      consultation.user_id,
+                      `${consultation?.user?.first_name || ''} ${
+                        consultation?.user?.last_name || ''
+                      }`,
+                      consultation.user?.mobile || '',
+                      consultation.user?.email || '',
+                      consultation.consultation_purchase
+                        ?.consultation_package_name || '',
+                      consultation.consultation_time,
+                      consultation.consultation_mode,
+                      consultation.consultant_name,
+                      consultation.consultation_time,
+                      getConsultationMode(consultation.consultation_mode),
+                      consultation.notes,
+                      <div style={{ minWidth: 112 }}>
+                        {status === CONSULTATION_STATUS_TYPE.BOOKED && (
+                          <Tooltip title="Mark as Complete">
+                            <CheckCircleOutline style={{ margin: '0 6px', cursor: 'pointer' }} onClick={() => {
+                              axios.put(`consultations/${consultation.id}`, { status: 2 }).then(() => {
+                                handleShow();
+                                setNotificationConf([true, 'success', 'Consultation Marked as Complete !'])
+                              }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+                            }} />
+                          </Tooltip>
+                        )}
+                        <Tooltip title="Edit">
+                          <Edit
+                            onClick={() => {
+                              setMode('Update')
+                              setCurrentConsultation({
+                                id: consultation.id,
+                                customer: consultation.user_id,
+                                name: `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
+                                email: consultation?.user?.email || '',
+                                mobile: consultation?.user?.mobile || '',
+                                consultant: consultation.consultant_id,
+                                consultationPackage: consultation.consultation_purchase_id,
+                                status: consultation.status,
+                                mode: consultation.consultation_mode,
+                                appointmentDate: new Date(consultation.consultation_time),
+                                appointmentTime: new Date(consultation.consultation_time),
+                                notes: consultation.notes,
+                              });
+                              setShowForm(true);
+                            }}
+                            style={{ margin: '0 6px', cursor: 'pointer' }}
+                          />
+                        </Tooltip>
+                        <Tooltip title="Delete">
+                          <Delete
+                            onClick={() => {
+                              setIsDelete(true);
+                              setCurrentConsultation(consultation);
+                            }} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                        </Tooltip>
+                      </div>
+                    ]
+                  }),
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc')
+                  setSort(key)
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage)
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10))
+                  setPage(0)
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
               message="Success"
-              open={Issuccess}
+              open={showNotification}
               onClose={handleClose}
             >
-              <Alert onClose={handleClose} severity="success">
-                Success Message !
+              <Alert onClose={handleClose} severity={notificationType}>
+                {notification}
               </Alert>
             </Snackbar>
           </Main>
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ListofConsultation;
+export default ListofConsultation

@@ -51,8 +51,8 @@ export const Set = styled.div`
 export const Mini = styled.div`
     display:flex;
     min-width:400px;
-    padding:5px;
     align-items:center;
+    margin-top: 10px;
     justify-content:space-between;
 `
 
@@ -60,4 +60,10 @@ export const Info = styled.p`
     color:${props => props.error ? "red" : " rgba(0,0,0,0.5)"};
     font-size:${props => props.error ? "0.6rem" : "0.8rem"};
     margin:5px 0 5px 250px;
+`
+
+export const AddButtonDiv = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 `
