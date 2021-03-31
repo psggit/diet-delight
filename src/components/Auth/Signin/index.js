@@ -251,7 +251,7 @@ const Signin = () => {
           path: "/",
           maxAge: res.data.expires_in,
         });
-        if (email === process.env.REACT_APP_ADMIN) {
+        if (email_phone === process.env.REACT_APP_ADMIN) {
           dispatch(SetTrue());
           localStorage.setItem("isAdmin", true);
           history.push("/admin");
