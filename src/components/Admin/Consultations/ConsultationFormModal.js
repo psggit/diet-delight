@@ -1,12 +1,18 @@
-import React from "react";
-import { Button, Grid } from "@material-ui/core";
-import * as Yup from "yup";
-import { Formik, Form, Field } from "formik";
+import React from 'react'
+import { Button, Grid } from '@material-ui/core'
+import * as Yup from 'yup'
+import { Formik, Form, Field } from 'formik'
 
-import { TextField, Select, AutoComplete, DatePicker, TimePicker } from '../../reusable/InputItems';
-import Modal from '../../reusable/Modal';
-import { Mini } from "../Elements";
-import { CONSULTATION_STATUS, CONSULTATION_MODE } from '../Constants';
+import {
+  TextField,
+  Select,
+  AutoComplete,
+  DatePicker,
+  TimePicker,
+} from '../../reusable/InputItems'
+import Modal from '../../reusable/Modal'
+import { Mini } from '../Elements'
+import { CONSULTATION_STATUS, CONSULTATION_MODE } from '../Constants'
 
 const validationSchema = Yup.object().shape({
 	customer: Yup.string().required('Please select Customer'),
@@ -22,7 +28,16 @@ const validationSchema = Yup.object().shape({
 });
 
 const ConsultationFormModal = (props) => {
-	const { visible, onClose, onSubmit, mode, values = {}, customers = [], consultants, consultationPackages } = props;
+  const {
+    visible,
+    onClose,
+    onSubmit,
+    mode,
+    values = {},
+    customers = [],
+    consultants,
+    consultationPackages,
+  } = props
 
 	return (
 		<Modal
@@ -155,4 +170,4 @@ const ConsultationFormModal = (props) => {
 	)
 }
 
-export default ConsultationFormModal;
+export default ConsultationFormModal

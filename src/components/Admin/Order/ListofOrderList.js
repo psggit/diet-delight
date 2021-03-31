@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
-import { Edit, Delete } from '@material-ui/icons';
+import { Edit, Delete } from '@material-ui/icons'
 
 import axios from '../../../axiosInstance';
 import CustomSkeleton from '../../../CustomSkeleton';
@@ -36,12 +36,12 @@ const mealPlanPurchaseInitialValues = {
 const ListofOrder = () => {
   const [listoforders, setListOfOrders] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(20)
-  const [page, setPage] = useState(0);
-  const [totalCount, setTotalCount] = useState(0);
+  const [page, setPage] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
-  const [sort, setSort] = useState('meal_plan_name');
-  const [order, setOrder] = useState('asc');
+  const [sort, setSort] = useState('meal_plan_name')
+  const [order, setOrder] = useState('asc')
   const [show, setShow] = useState(false)
   const [isdelete, setIsDelete] = useState(false);
   const [mode, setMode] = useState('Add');
@@ -51,11 +51,11 @@ const ListofOrder = () => {
   const [customers, setCustomers] = useState([]);
   const [mealPlans, setMealPlans] = useState([]);
 
-  let current_date_Time = new Date();
+  let current_date_Time = new Date()
   const csvReport = {
     data: listoforders,
     filename: `List_of_listoforders_${current_date_Time}.csv`,
-  };
+  }
 
   useEffect(() => {
     axios.get(`users?role_id=${1}`).then((res) => {
@@ -96,12 +96,12 @@ const ListofOrder = () => {
   }
 
   function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
+    return <MuiAlert elevation={6} variant="filled" {...props} />
   }
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
-      return;
+      return
     }
 
     setNotificationConf([false, 'success', '']);
@@ -219,7 +219,7 @@ const ListofOrder = () => {
         <CustomSkeleton />
       ) : (
         <>
-          <Main>
+          <Main style={{ padding: '0 2rem' }}>
             <TableHeader
               title="List of Meal Plan Subscription"
               csvReport={csvReport}
@@ -228,16 +228,17 @@ const ListofOrder = () => {
                 setShowForm(true);
               }}
               searchHandler={(value) => {
-                setSearch(value);
+                setSearch(value)
               }}
             />
             {show && (
               <Table
                 dataSource={{
                   columns: [
-                    { id: 'user_id', label: 'User ID', sort: true },
-                    { id: 'customer_name', label: 'Customer Name', sort: true },
+                    { id: 'user_id', label: 'User ID', sort: false },
+                    { id: 'customer_name', label: 'Customer Name', sort: false },
                     { id: 'meal_plan_name', label: 'Meal Plan', sort: true },
+                    { id: 'meal_plan_id', label: 'Meal Plan Id', sort: false },
                     { id: 'payment_id', label: 'Payment ID', sort: false },
                     { id: 'status', label: 'Status', sort: true },
                     { id: 'billing_address', label: 'Billing Address', sort: false },
@@ -254,6 +255,7 @@ const ListofOrder = () => {
                       order.user_id,
                       `${order?.user?.first_name || ''} ${order?.user?.last_name || ''}`,
                       order.meal_plan_name,
+                      order.meal_plan_id,
                       order.payment_id,
                       getMealPlanPurchaseStatus(order.status),
                       `${order.billing_address_line1 || ''} ${order.billing_address_line2 || ''}`,
@@ -294,30 +296,30 @@ const ListofOrder = () => {
                         }} style={{ margin: '0 6px', cursor: 'pointer' }} />
                       </>
                     ]
-                  })
+                  }),
                 }}
                 order={order}
                 orderBy={sort}
                 onSortClick={(key) => {
-                  setOrder(order === 'asc' ? 'desc' : 'asc');
-                  setSort(key);
+                  setOrder(order === 'asc' ? 'desc' : 'asc')
+                  setSort(key)
                 }}
                 pagination
                 page={page}
                 totalCount={totalCount}
                 rowsPerPage={rowsPerPage}
                 onChangePage={(_, newPage) => {
-                  setPage(newPage);
+                  setPage(newPage)
                 }}
                 onChangeRowsPerPage={(event) => {
-                  setRowsPerPage(parseInt(event.target.value, 10));
-                  setPage(0);
+                  setRowsPerPage(parseInt(event.target.value, 10))
+                  setPage(0)
                 }}
               />
             )}
             <Snackbar
               autoHideDuration={3000}
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
               message="Success"
               open={showNotification}
               onClose={handleClose}
@@ -330,7 +332,7 @@ const ListofOrder = () => {
         </>
       )}
     </>
-  );
+  )
 }
 
 export default ListofOrder

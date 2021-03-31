@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 
-import axios from "../../../axiosInstance";
-import CustomSkeleton from "../../../CustomSkeleton";
+import axios from '../../../axiosInstance'
+import CustomSkeleton from '../../../CustomSkeleton'
 
 import {
   makeStyles,
@@ -18,13 +18,13 @@ import {
   Snackbar,
   Select,
   MenuItem,
-} from "@material-ui/core";
-import { Edit, Delete } from '@material-ui/icons';
-import MuiAlert from "@material-ui/lab/Alert";
+} from '@material-ui/core'
+import { Edit, Delete } from '@material-ui/icons'
+import MuiAlert from '@material-ui/lab/Alert'
 
-import { Formik } from "formik";
-import * as Yup from "yup";
-import Table from '../../reusable/Table';
+import { Formik } from 'formik'
+import * as Yup from 'yup'
+import Table from '../../reusable/Table'
 
 import {
   Main,
@@ -36,24 +36,24 @@ import {
   Mini,
   Info,
   Container,
-} from "./ConsultantElements";
-import { useDispatch, useSelector } from "react-redux";
+} from './ConsultantElements'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   selectListOfCoupon,
   resetListOfCoupon,
   setListOfCoupon,
-} from "../../../features/adminSlice";
-import TableHeader from '../../reusable/TableHeader';
+} from '../../../features/adminSlice'
+import TableHeader from '../../reusable/TableHeader'
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: '100%',
   },
 
   table: {
     minWidth: 650,
   },
-});
+})
 
 // const validationSchema = Yup.object().shape({
 //     user_id: Yup.string().required().label("User ID"),
@@ -73,70 +73,74 @@ const useStyles = makeStyles({
 // });
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  code: Yup.string().required().label("Code"),
-  flat_discount: Yup.string().required().label("Flat Discount"),
-  percentage_discount: Yup.string().required().label("Percentage Discount"),
-  expiry_date: Yup.string().required().label("Expiry Date"),
-  times_usable: Yup.string().required().label("Times Usable"),
-  times_used: Yup.string().required().label("Times Used"),
-});
+  name: Yup.string().required().label('Name'),
+  code: Yup.string().required().label('Code'),
+  flat_discount: Yup.string().required().label('Flat Discount'),
+  percentage_discount: Yup.string().required().label('Percentage Discount'),
+  expiry_date: Yup.string().required().label('Expiry Date'),
+  times_usable: Yup.string().required().label('Times Usable'),
+  times_used: Yup.string().required().label('Times Used'),
+})
 
 const ListofCoupon = () => {
-  const dispatch = useDispatch();
-  const listOfCoupon = useSelector(selectListOfCoupon);
+  const dispatch = useDispatch()
+  const listOfCoupon = useSelector(selectListOfCoupon)
 
-  const [listOfCoupons, setListOfCoupons] = useState([]);
+  const [listOfCoupons, setListOfCoupons] = useState([])
   const [rowsPerPage, setRowsPerPage] = useState(20)
-  const [page, setPage] = useState(0);
-  const [totalCount, setTotalCount] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState('name');
-  const [order, setOrder] = useState('asc');
-  const [show, setShow] = useState(false);
-  const [Issuccess, setIsSuccess] = useState(false);
-  const [isdelete, setIsDelete] = useState(false);
-  const [isupdate, setISUpdate] = useState(false);
+  const [page, setPage] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
+  const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
+  const [sort, setSort] = useState('name')
+  const [order, setOrder] = useState('asc')
+  const [show, setShow] = useState(false)
+  const [Issuccess, setIsSuccess] = useState(false)
+  const [isdelete, setIsDelete] = useState(false)
+  const [isupdate, setISUpdate] = useState(false)
 
-  let current_date_Time = new Date();
+  let current_date_Time = new Date()
   const csvReport = {
     data: listOfCoupons,
     filename: `List_of_listOfCoupons_${current_date_Time}.csv`,
-  };
+  }
 
   useEffect(() => {
-    handleShow();
-  }, [rowsPerPage, page, search, sort, order]);
+    handleShow()
+  }, [rowsPerPage, page, search, sort, order])
 
   const handleShow = () => {
     axios
-      .get(`coupons?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(
+        `coupons?pageSize=${rowsPerPage}&page=${
+          page + 1
+        }&search=${search}&sortBy=${sort}&sortOrder=${order}`,
+      )
       .then((res) => {
-        setListOfCoupons(res.data.data);
-        setLoading(false);
-        setShow(true);
-        setTotalCount(res.data?.meta?.total || 0);
+        setListOfCoupons(res.data.data)
+        setLoading(false)
+        setShow(true)
+        setTotalCount(res.data?.meta?.total || 0)
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
+    return <MuiAlert elevation={6} variant="filled" {...props} />
   }
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
 
-    setIsSuccess(false);
-  };
+    setIsSuccess(false)
+  }
 
   const handleUpdate = async (couponlist) => {
-    console.log(couponlist);
+    console.log(couponlist)
     await dispatch(
       setListOfCoupon({
         id: couponlist.id,
@@ -147,30 +151,30 @@ const ListofCoupon = () => {
         expiry_date: couponlist.expiry_date,
         times_usable: couponlist.times_usable,
         times_used: couponlist.times_used,
-      })
-    );
+      }),
+    )
 
-    await setISUpdate(true);
-  };
+    await setISUpdate(true)
+  }
 
   const handleDelete = async (couponlist) => {
-    await dispatch(resetListOfCoupon());
+    await dispatch(resetListOfCoupon())
     await dispatch(
       setListOfCoupon({
         id: couponlist.id,
-      })
-    );
-    await setIsDelete(true);
-  };
+      }),
+    )
+    await setIsDelete(true)
+  }
 
-  const CloseDelete = () => setIsDelete(false);
-  const CloseUpdate = () => setISUpdate(false);
+  const CloseDelete = () => setIsDelete(false)
+  const CloseUpdate = () => setISUpdate(false)
 
   return (
     <>
       {isdelete && (
         <>
-          {" "}
+          {' '}
           <Dialog
             open={isdelete}
             onClose={CloseDelete}
@@ -188,18 +192,18 @@ const ListofCoupon = () => {
                     axios
                       .delete(`coupons/${listOfCoupon.id}`)
                       .then((res) => {
-                        setIsSuccess(true);
-                        setIsDelete(false);
-                        handleShow();
+                        setIsSuccess(true)
+                        setIsDelete(false)
+                        handleShow()
                       })
-                      .catch((err) => console.log(err));
+                      .catch((err) => console.log(err))
                   }}
                 >
                   Delete
                 </Button>
                 <Button
                   variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
+                  style={{ margin: '10px', background: '#800080' }}
                   color="primary"
                   onClick={CloseDelete}
                 >
@@ -213,7 +217,7 @@ const ListofCoupon = () => {
 
       {isupdate && (
         <>
-          {" "}
+          {' '}
           <Dialog
             open={isupdate}
             onClose={CloseUpdate}
@@ -240,7 +244,7 @@ const ListofCoupon = () => {
                     .put(`coupons/${listOfCoupon.id}`, {
                       headers: {
                         Authorization: `Bearer ${localStorage.getItem(
-                          "access_token"
+                          'access_token',
                         )}`,
                       },
                       name: values.name,
@@ -253,11 +257,11 @@ const ListofCoupon = () => {
                       menu_item_day: values.menu_item_day,
                     })
                     .then((res) => {
-                      setIsSuccess(true);
-                      setISUpdate(false);
-                      handleShow();
+                      setIsSuccess(true)
+                      setISUpdate(false)
+                      handleShow()
                     })
-                    .catch((err) => console.log(err));
+                    .catch((err) => console.log(err))
                 }}
               >
                 {({ handleChange, handleSubmit, errors, touched, values }) => (
@@ -268,7 +272,7 @@ const ListofCoupon = () => {
                         <Input
                           placeholder="ID"
                           value={values.id}
-                          onChange={handleChange("id")}
+                          onChange={handleChange('id')}
                         ></Input>
                       </Mini>
                       {errors.id && touched && <Info error>{errors.id}</Info>}
@@ -277,7 +281,7 @@ const ListofCoupon = () => {
                         <Input
                           placeholder="Name"
                           value={values.name}
-                          onChange={handleChange("name")}
+                          onChange={handleChange('name')}
                         ></Input>
                       </Mini>
                       {errors.name && touched && (
@@ -288,7 +292,7 @@ const ListofCoupon = () => {
                         <Input
                           placeholder="Code"
                           value={values.code}
-                          onChange={handleChange("code")}
+                          onChange={handleChange('code')}
                         ></Input>
                       </Mini>
                       {errors.code && touched && (
@@ -299,7 +303,7 @@ const ListofCoupon = () => {
                         <Input
                           placeholder="Flat Discount"
                           value={values.flat_discount}
-                          onChange={handleChange("flat_discount")}
+                          onChange={handleChange('flat_discount')}
                         />
                       </Mini>
                       {errors.flat_discount && touched && (
@@ -310,7 +314,7 @@ const ListofCoupon = () => {
                         <Input
                           placeholder="Dercentage Discount"
                           value={values.percentage_discount}
-                          onChange={handleChange("percentage_discount")}
+                          onChange={handleChange('percentage_discount')}
                         />
                       </Mini>
                       {errors.percentage_discount && touched && (
@@ -321,7 +325,7 @@ const ListofCoupon = () => {
                         <Input
                           placeholder="Expiry Date"
                           value={values.expiry_date}
-                          onChange={handleChange("expiry_date")}
+                          onChange={handleChange('expiry_date')}
                         />
                       </Mini>
                       {errors.expiry_date && touched && (
@@ -332,7 +336,7 @@ const ListofCoupon = () => {
                         <Input
                           placeholder="Times Usable"
                           value={values.times_usable}
-                          onChange={handleChange("times_usable")}
+                          onChange={handleChange('times_usable')}
                         />
                       </Mini>
                       {errors.times_usable && touched && (
@@ -343,7 +347,7 @@ const ListofCoupon = () => {
                         <Input
                           placeholder="Times Used"
                           value={values.times_used}
-                          onChange={handleChange("times_used")}
+                          onChange={handleChange('times_used')}
                         />
                       </Mini>
                       {errors.times_used && touched && (
@@ -354,9 +358,9 @@ const ListofCoupon = () => {
                         <Button
                           variant="contained"
                           style={{
-                            margin: "20px",
-                            padding: "5px",
-                            background: "#800080",
+                            margin: '20px',
+                            padding: '5px',
+                            background: '#800080',
                           }}
                           color="primary"
                           onClick={handleSubmit}
@@ -366,9 +370,9 @@ const ListofCoupon = () => {
                         <Button
                           variant="contained"
                           style={{
-                            margin: "20px",
-                            padding: "5px",
-                            background: "#800080",
+                            margin: '20px',
+                            padding: '5px',
+                            background: '#800080',
                           }}
                           color="primary"
                           onClick={CloseUpdate}
@@ -396,7 +400,7 @@ const ListofCoupon = () => {
                 // TODO: Handle add
               }}
               searchHandler={(value) => {
-                setSearch(value);
+                setSearch(value)
               }}
             />
             {show && (
@@ -406,7 +410,11 @@ const ListofCoupon = () => {
                     { id: 'name', label: 'Name', sort: true },
                     { id: 'code', label: 'Code', sort: true },
                     { id: 'flat_discount', label: 'Flat Discount', sort: true },
-                    { id: 'percentage_discount', label: 'Percentage Discount', sort: true },
+                    {
+                      id: 'percentage_discount',
+                      label: 'Percentage Discount',
+                      sort: true,
+                    },
                     { id: 'expiry_date', label: 'Expiry Date', sort: true },
                     { id: 'times_usable', label: 'Times Usable', sort: true },
                     { id: 'times_used', label: 'Times Used', sort: true },
@@ -431,33 +439,36 @@ const ListofCoupon = () => {
                           }}
                           style={{ margin: '0 6px', cursor: 'pointer' }}
                         />
-                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
-                      </>
+                        <Delete
+                          onClick={() => setIsDelete(true)}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                      </>,
                     ]
-                  })
+                  }),
                 }}
                 order={order}
                 orderBy={sort}
                 onSortClick={(key) => {
-                  setOrder(order === 'asc' ? 'desc' : 'asc');
-                  setSort(key);
+                  setOrder(order === 'asc' ? 'desc' : 'asc')
+                  setSort(key)
                 }}
                 pagination
                 page={page}
                 totalCount={totalCount}
                 rowsPerPage={rowsPerPage}
                 onChangePage={(_, newPage) => {
-                  setPage(newPage);
+                  setPage(newPage)
                 }}
                 onChangeRowsPerPage={(event) => {
-                  setRowsPerPage(parseInt(event.target.value, 10));
-                  setPage(0);
+                  setRowsPerPage(parseInt(event.target.value, 10))
+                  setPage(0)
                 }}
               />
             )}
             <Snackbar
               autoHideDuration={3000}
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
               message="Success"
               open={Issuccess}
               onClose={handleClose}
@@ -470,7 +481,7 @@ const ListofCoupon = () => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ListofCoupon;
+export default ListofCoupon
