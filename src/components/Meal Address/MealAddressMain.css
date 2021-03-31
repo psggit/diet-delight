@@ -48,11 +48,6 @@ label.male_text_submeal {
   margin: 3%;
 }
 
-/* div.fullcard_container_mealaddressmain {
-  position: relative;
-  top: 100px;
-} */
-
 @media only screen and (max-width: 767px) {
   input.appointmentdate_subtitle {
     border: 1px solid #c4c4c4;

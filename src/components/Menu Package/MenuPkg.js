@@ -115,140 +115,60 @@ export default function MenuPkg(props) {
   return (
     <div className="menu_package_main">
       <Mealchoose name="Menu Package" />
-      <div style={{ position: "relative", top: 100 }}>
-        <div className="menupkg_container_main">
-          <div className="row justify-content-center">
-            <div className="card card_menupkg">
-              <div className="row">
-                <div className="col-lg-7 col-md-7 col-sm-12">
-                  <div className="row text-center">
-                    <div className="col-md-3 col-sm-12">
-                      <img
-                        src={props.location.state.mealData.picture}
-                        className="rounded-circle card_img_rounded"
-                      ></img>
-                    </div>
-                    <div className="col-md-9 col-sm-12">
-                      <div className="media-body content_media">
-                        <h5 className="mt-0 immunne_text">
-                          {props.location.state.mealData.name}
-                        </h5>
-                        <h5 className="mt-0 bhd_text">
-                          {props.location.state.mealData.details}
-                        </h5>
-                      </div>
+      <div className="menupkg_container_main">
+        <div className="row justify-content-center">
+          <div className="card card_menupkg">
+            <div className="row">
+              <div className="col-lg-7 col-md-7 col-sm-12">
+                <div className="row text-center">
+                  <div className="col-md-3 col-sm-12">
+                    <img
+                      src={props.location.state.mealData.picture}
+                      className="rounded-circle card_img_rounded"
+                    ></img>
+                  </div>
+                  <div className="col-md-9 col-sm-12">
+                    <div className="media-body content_media">
+                      <h5 className="mt-0 immunne_text">
+                        {props.location.state.mealData.name}
+                      </h5>
+                      <h5 className="mt-0 bhd_text">
+                        {props.location.state.mealData.details}
+                      </h5>
                     </div>
                   </div>
                 </div>
-                {/* vertical line  start*/}
-                <div className="vertical_line_Menupkg"></div>
-                {/* vertical line  end */}
+              </div>
+              {/* vertical line  start*/}
+              <div className="vertical_line_Menupkg"></div>
+              {/* vertical line  end */}
 
-                <div className="col-lg-4 col-md-4 col-sm-12 btn_container_menupkg">
-                  <button className="buy_sub_menupkg" onClick={handlePush}>
-                    Buy Subscription
-                  </button>
-                </div>
+              <div className="col-lg-4 col-md-4 col-sm-12 btn_container_menupkg">
+                <button className="buy_sub_menupkg" onClick={handlePush}>
+                  Buy Subscription
+                </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* <div>
-          The drop will be conducted on a first come first serve basis, and
-          handled through the decentralized SuperFarm protocol on SuperFarm.com.
-          Each item will be minted by the user and available immediately in
-          their wallet. For more information please refer to official SuperFarm
-          telegram group. The drop will be conducted on a first come first serve
-          basis, and handled through the decentralized SuperFarm protocol on
-          SuperFarm.com. Each item will be minted by the user and available
-          immediately in their wallet. For more information please refer to
-          official SuperFarm telegram group. The drop will be conducted on a
-          first come first serve basis, and handled through the decentralized
-          SuperFarm protocol on SuperFarm.com. Each item will be minted by the
-          user and available immediately in their wallet. For more information
-          please refer to official SuperFarm telegram group.The drop will be
-          conducted on a first come first serve basis, and handled through the
-          decentralized SuperFarm protocol on SuperFarm.com. Each item will be
-          minted by the user and available immediately in their wallet. For more
-          information please refer to official SuperFarm telegram group.The drop
-          will be conducted on a first come first serve basis, and handled
-          through the decentralized SuperFarm protocol on SuperFarm.com. Each
-          item will be minted by the user and available immediately in their
-          wallet. For more information please refer to official SuperFarm
-          telegram group.The drop will be conducted on a first come first serve
-          basis, and handled through the decentralized SuperFarm protocol on
-          SuperFarm.com. Each item will be minted by the user and available
-          immediately in their wallet. For more information please refer to
-          official SuperFarm telegram group.The drop will be conducted on a
-          first come first serve basis, and handled through the decentralized
-          SuperFarm protocol on SuperFarm.com. Each item will be minted by the
-          user and available immediately in their wallet. For more information
-          please refer to official SuperFarm telegram group.The drop will be
-          conducted on a first come first serve basis, and handled through the
-          decentralized SuperFarm protocol on SuperFarm.com. Each item will be
-          minted by the user and available immediately in their wallet. For more
-          information please refer to official SuperFarm telegram group.The drop
-          will be conducted on a first come first serve basis, and handled
-          through the decentralized SuperFarm protocol on SuperFarm.com. Each
-          item will be minted by the user and available immediately in their
-          wallet. For more information please refer to official SuperFarm
-          telegram group.The drop will be conducted on a first come first serve
-          basis, and handled through the decentralized SuperFarm protocol on
-          SuperFarm.com. Each item will be minted by the user and available
-          immediately in their wallet. For more information please refer to
-          official SuperFarm telegram group.The drop will be conducted on a
-          first come first serve basis, and handled through the decentralized
-          SuperFarm protocol on SuperFarm.com. Each item will be minted by the
-          user and available immediately in their wallet. For more information
-          please refer to official SuperFarm telegram group.The drop will be
-          conducted on a first come first serve basis, and handled through the
-          decentralized SuperFarm protocol on SuperFarm.com. Each item will be
-          minted by the user and available immediately in their wallet. For more
-          information please refer to official SuperFarm telegram group.The drop
-          will be conducted on a first come first serve basis, and handled
-          through the decentralized SuperFarm protocol on SuperFarm.com. Each
-          item will be minted by the user and available immediately in their
-          wallet. For more information please refer to official SuperFarm
-          telegram group.The drop will be conducted on a first come first serve
-          basis, and handled through the decentralized SuperFarm protocol on
-          SuperFarm.com. Each item will be minted by the user and available
-          immediately in their wallet. For more information please refer to
-          official SuperFarm telegram group.The drop will be conducted on a
-          first come first serve basis, and handled through the decentralized
-          SuperFarm protocol on SuperFarm.com. Each item will be minted by the
-          user and available immediately in their wallet. For more information
-          please refer to official SuperFarm telegram group.The drop will be
-          conducted on a first come first serve basis, and handled through the
-          decentralized SuperFarm protocol on SuperFarm.com. Each item will be
-          minted by the user and available immediately in their wallet. For more
-          information please refer to official SuperFarm telegram group.The drop
-          will be conducted on a first come first serve basis, and handled
-          through the decentralized SuperFarm protocol on SuperFarm.com. Each
-          item will be minted by the user and available immediately in their
-          wallet. For more information please refer to official SuperFarm
-          telegram group.
-        </div> */}
+      {/* tabs start */}
 
-        {/* tabs start */}
+      <DayTabsMenupkg categories={category} filterMenu={filteredMenu} />
 
-        <DayTabsMenupkg categories={category} filterMenu={filteredMenu} />
-        {/* <div style={{ margin: "30px 0" }}>
-        <div>dsfsd</div>
-      </div> */}
-        <div className="container">
-          <h4 className="d-flex justify-content-center breakfast_name_menupkg mt-4 mb-4 font-weight-bold">
-            {categoryName}
-          </h4>
-          <div className="menuPckg-container">{renderCategory}</div>
-          {/* <div className="row">
+      <div className="container">
+        <h4 className="d-flex justify-content-center breakfast_name_menupkg mt-4 mb-4 font-weight-bold">
+          {categoryName}
+        </h4>
+        <div className="menuPckg-container">{renderCategory}</div>
+        {/* <div className="row">
             <div className="col-md-1"></div>
             <div className="col-md-10">
               <div className="row">{renderCategory}</div>
             </div>
             <div className="col-md-1"></div>
           </div> */}
-        </div>
       </div>
     </div>
   );

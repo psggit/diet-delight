@@ -22,8 +22,6 @@
 div.menupkg_container_main {
   display: grid;
   place-items: center;
-  /* position: relative;
-  top: 100px; */
 }
 
 div.menuPckg-container {
