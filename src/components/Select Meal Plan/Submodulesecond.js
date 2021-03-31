@@ -56,7 +56,7 @@ export default function Submodulesecond(props){
         <>
 
         {
-            addressDialog && <SelectionCalenderMain toggleAddressDialog = {handleAddress} />
+            addressDialog && <SelectionCalenderMain toggleAddressDialog = {handleAddress} startDate={startDate} endDate={endDate} recentPurchase={props.recentPurchase} mealData={props.mealData}/>
         }
          
         <div> 

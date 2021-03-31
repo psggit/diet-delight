@@ -13,6 +13,8 @@ div.favContainer {
   display: grid;
   place-items: center;
   width: 100%;
+  position: relative;
+  top: 180px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -25,6 +27,8 @@ div.favContainer {
   }
   div.favContainer {
     grid-template-columns: repeat(1, 1fr);
+    position: relative;
+    top: 180px;
   }
 }
 
@@ -38,6 +42,8 @@ div.favContainer {
   }
   div.favContainer {
     grid-template-columns: repeat(2, 1fr);
+    position: relative;
+    top: 180px;
   }
 }
 
@@ -53,5 +59,7 @@ div.favContainer {
   }
   div.favContainer {
     grid-template-columns: repeat(3, 1fr);
+    position: relative;
+    top: 180px;
   }
 }

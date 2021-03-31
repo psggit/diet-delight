@@ -1,22 +1,31 @@
-	import React from 'react';
+	import React,{useEffect} from 'react';
 	import 'react-calendar/dist/Calendar.css';
-	import './TextFieldCalenderDialog.css'
+import './TextFieldCalenderDialog.css'
 
 
 
 	export default function TextfieldnewComponent(props) {
+		console.log(props)
 		
+		useEffect(() => {
+			if(props.addressOf === 'secondaryAddress'){
+				var element = document.getElementById(props.addressOf);
+				console.log(element)
+				element.style.background = '#800080';
+			}else{
+				var element = document.getElementById(props.addressOf);
+				console.log(element)
+				element.style.background = '#8bc53f';
+			}
+		},[props.addressOf])
 
 
 		return (
 
 			
-			<textarea id="calender" className="textarea_textfield_calender" name="calender" rows="4" cols="25">
+			<p className="textarea_textfield_calender" id={props.addressOf}>
+			{props.textareaDialogName}
+			</p> 
 			
-			{props.textAreaNameContent}
-			</textarea>
-
-			
-
 			)
 		}

@@ -9,28 +9,33 @@ const ref = React.createRef();
 export default function KitchenReport(){
   const [menuOrder,setMenuOrder] = useState([])
   const [startDate,setStartDate] = useState("")
-  const [endDate,setEndDate] = useState("")
+  const [menuCategory, setMenuCategory] = useState([])
+  const [categoryName,setCategoryName] = useState("");
+  const [dayCount, setDayCount] = useState([]);
+  const [categories, setCategories] = useState([]);
+
 
 const getPdf = () => {
 
-  console.log("Hello")
 
-  console.log(startDate, endDate)
+  console.log(startDate)
 
-  if(startDate !== "" && endDate != ""){
-    console.log("kol")
+  if(startDate !== ""){
     axios
     .get(
-      `menu-orders?fromDate=`+startDate+`&toDate=`+endDate,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      }
-    )
+      `menu-orders?fromDate=`+startDate)
     .then((res) => {
-      console.log("meet")
-      console.log(res.data.data); 
+      console.log(res.data.data);
+      let menuOrders = [];
+      let categories = [];
+      res.data.data.map((order) => {
+            menuOrders.push(order);
+            let ifPresent = categories.includes(order.menu_category.name);
+            if(!ifPresent) categories.push(order.menu_category.name);
+      })
+      setMenuCategory([...categories]);
+      setMenuOrder([...menuOrders]);
+      console.log(categories, menuOrders)
     }).catch((err) => console.log(err))
 
   }
@@ -44,23 +49,10 @@ const getPdf = () => {
 
   } 
 
-  const selectEndDate = (e) => {
-    console.log(e)
-    if(startDate === ''){
-      e.preventDefault()
-      document.getElementById('successErrorMessage').innerHTML = "Please Select Start Date first";
-    }else{
-      setEndDate(e.target.value)
-      console.log(e.target.value)
-      document.getElementById('successErrorMessage').innerHTML = "";
-    }
-  }
   return(
     <>
     <span>Start Date</span>
   <input type="date" name="startDate" id="startDate" onChange={(e) => selectStartDate(e)}/>
-  <span>End Date</span>
-  <input type="date" name="endDate" min={startDate} id="endDate" onChange = {(e) => selectEndDate(e)}/>
   <span style={{color:"red"}} id="successErrorMessage"></span>
 
   <button id="btn" className="btn btn-primary" onClick={() => getPdf()}>Go</button>

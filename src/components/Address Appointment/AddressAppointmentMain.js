@@ -310,6 +310,7 @@ export default function AddressAppointmentMain(props) {
 
   const proceedPayment = () => {
     console.log(
+      props,
       props.location.state.packageId,
       props.location.state.packageName,
       props.location.state.packageDuration,
@@ -333,12 +334,12 @@ export default function AddressAppointmentMain(props) {
         axios
           .post("my-consultations", {
             consultation_purchase_id: res.data.data.id,
-            consultant_id: 0,
+            consultant_id: res.data.data.consultation_package_id,
             status: 0,
             consultation_link: "",
             consultation_time: dateTime,
             consultation_mode:
-              props.location.state.packageMode === "offline" ? 0 : 1,
+              props.location.state.appointmentMode === "offline" ? 0 : 1,
             consultant_name: "Not Assigned",
             notes: "",
           })
@@ -350,7 +351,7 @@ export default function AddressAppointmentMain(props) {
             setMessageType("success");
             setTimeout(() => {
               history.push("/orderHistory");
-            }, 4000);
+            }, 2000);
           })
           .catch((err) => {
             console.log(err);

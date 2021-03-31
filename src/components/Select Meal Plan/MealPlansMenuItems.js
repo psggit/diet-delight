@@ -5,9 +5,9 @@ import veg_icon from '../../assets/vegicon.png'
 import axios from '../../axiosInstance';
 import NonvegComponent from '../veg non veg component/NonvegComponent.js'
 import VegComponent from '../veg non veg component/VegComponent.js'
-
+import Snackbar from '../Snack bar/Snackbar.js' 
 export default function MealPlansMenuItems(props){ 
-    console.log(props)
+    // console.log(props)
 
     const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_border_selectedMeal")
     const [menuItems,setMenuItems] = useState([])
@@ -16,22 +16,31 @@ export default function MealPlansMenuItems(props){
     const[user,setUser ]=useState({});
     const [favouritesList, setFavouritesList] = useState([]);
     const [myMenuOrdersList, setMyMenuOrdersList] = useState([]);
+    const [changeSnackbar,setChangeSnackbar] = useState(false) 
 
 
     // const [changeColor ,setColorChange] = useState("#8bc53f");
 
-    
+    function handleChangeSnackbar(data){
+        if(data === true){
+            setChangeSnackbar(true)
+            }else{
+            setChangeSnackbar(false) 
+        }
+         
+    } 
+
 
     useEffect(() => {
         var max_buy = parseInt(props.category.max_buy)
-        console.log(max_buy)
+        // console.log(max_buy)
         setMaxBuy(max_buy)
         axios.get(`menu-items?menu_id=`+props.category.menu_id+`&menu_category_id=`+props.category.id, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then((res) => {
-            console.log(res.data.data)  
+            // console.log(res.data.data)  
             setMenuItems(res.data.data)
             
         })
@@ -41,7 +50,7 @@ export default function MealPlansMenuItems(props){
                 Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
         }).then((res) => {
-            console.log(res)
+            // console.log(res)
             
             setUser(res.data)
 
@@ -71,13 +80,13 @@ export default function MealPlansMenuItems(props){
 
     const fetchMenuOrders = () => {
         axios.get('my-menu-orders').then((res) => {
-            console.log(res)
+            // console.log(res)
             var myMenuOrders = [];
             res.data.data.forEach(menuOrder => {
                 myMenuOrders.push(menuOrder.menu_item_id);
             });
             setMyMenuOrdersList([...myMenuOrders]);
-            console.log(myMenuOrdersList)
+            // console.log(myMenuOrdersList)
         }).catch((err) => {
             console.log(err)
         })
@@ -85,7 +94,7 @@ export default function MealPlansMenuItems(props){
 
 
     function colorHandle(e,id){
-        console.log(e,id)
+        // console.log(e,id)
         var buttonElement = document.getElementById(e.target.id)
         var buttonElementClassName = buttonElement.className;
         if(buttonElementClassName === "fa fa-heart heart_submodule_selectMeal_fill")
@@ -133,7 +142,7 @@ export default function MealPlansMenuItems(props){
                 console.log(res)
                 // props.notifyAddedFavourite(props.menuItem.id)
                 console.log("meet")
-            }).catch(err => {
+            }).catch(err => { 
                 console.log(err)
                 buttonElement.className="fa fa-heart heart_submodule_selectMeal"
 
@@ -149,14 +158,14 @@ export default function MealPlansMenuItems(props){
 
 
     function handleSelect(e,menuItem){
-        console.log(e)
-    //     selectColor ==="Select" ?  setSelectColor("Selected") : setSelectColor("Select");
+       
+        
+        // console.log(e)
 
-    //    changeColor === "#8bc53f" ? setColorChange("blue") :  setColorChange("#8bc53f");
     var buttonText = e.target.innerHTML;
-    console.log(buttonText);
+    // console.log(buttonText);
     var buttonElement = document.getElementById(e.target.id)
-    console.log(buttonElement);
+    // console.log(buttonElement);
 
     if(buttonText === "Select"){
         if(maxBuy > selectCounter.current){
@@ -168,7 +177,7 @@ export default function MealPlansMenuItems(props){
             console.log(maxBuy)
             axios.post(`my-menu-orders`, {
                 user_id: user.id,
-                menu_item_id: menuItem.id,
+                menu_item_id: menuItem.id, 
                 menu_category_id: menuItem.menu_category_id,
                 meal_purchase_id: 1, 
                 status: user.status,
@@ -184,10 +193,13 @@ export default function MealPlansMenuItems(props){
                 notes: "" 
             }).then((res) => {
                 console.log(res.data.data)  
+               
 
             }) .catch((err) => console.log(err));
-            
+        }else{
+            setChangeSnackbar(true)
         } 
+
     }else{
         axios.get(`my-menu-orders?menu_item_id=`+menuItem.id, {
             headers: {
@@ -226,11 +238,83 @@ export default function MealPlansMenuItems(props){
 
 
 const renderMenuDatas = menuItems.map((menuItem) =>{
-  var ifFavourite = favouritesList.includes(menuItem.id)
-
+ 
 
   if(menuItem.day  === props.selectedDay){
-    if(ifFavourite){
+    var ifFavourite = favouritesList.includes(menuItem.id)
+    var ifOrdered = myMenuOrdersList.includes(menuItem.id)
+
+    // console.log(ifFavourite,ifOrdered)
+    if(ifFavourite && ifOrdered){
+
+
+        return(
+            <div className="select_meal_plan_main_container" key={Math.random()}>
+
+            <div className="card fullcard_container_selectedmeal">
+            <div className="row">
+
+            <div className="col-md-6 col-sm-12">
+
+            <div className="row">
+            <div className="col-md-4 col-sm-12">
+            <img src={menuItem.picture} alt="food" className="rounded-circle card_img_rounded_SelectedMeal"></img>
+            </div>
+            <div className="col-md-8 col-sm-12 left_side_container_selectMeal">
+            <h5 className=" salad_text" >{menuItem.name}</h5>
+        {/* <h5 className=" salad_details_text"> About dish like crunch with something chrunchy and salad  About dish like crunch with something chrunchy and salad</h5> */}
+    {/* <img src={veg_icon} alt="veg" className="veg_icon"></img> */}
+    
+    {menuItem.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
+    </div>
+
+    </div>
+
+
+
+    </div>
+
+    <div className="vertical_line_Selectedmeal"></div> 
+    <div className="col-md-5 col-sm-12"> 
+    <div className="row">
+    <div className="col-md-9 col-sm-12">
+
+    <h5 className="breakfast_paragrapgh_content">Let us know if there is something you’d want us to know about your menu, we’ll pass it on to the chef.</h5>
+
+    <p id="w3review" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}></p>
+
+    </div>
+    <div className="col-md-3 col-sm-12 col_grid_selectmeal">
+    <div className="heart_icon_meal">  
+
+    <i id={Math.random()}  className={"fa fa-heart heart_submodule_selectMeal_fill"} aria-hidden="true" onClick={(e) =>colorHandle(e,menuItem.id)}></i>
+
+
+    </div>
+
+
+    
+    <button id={Math.random()}   className="btn btn-default mealbtn_selectedmeal"  onClick ={(e) => handleSelect(e,menuItem)}>
+    Selected
+
+    </button>
+
+
+
+
+
+
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+    )
+
+
+    }else if(ifOrdered){
 
         return(
             <div className="select_meal_plan_main_container" key={Math.random()}>
@@ -265,19 +349,93 @@ const renderMenuDatas = menuItems.map((menuItem) =>{
 
     <h5 className="breakfast_paragrapgh_content">Let us know if there is something you’d want us to know about your menu, we’ll pass it on to the chef.</h5>
 
+
+
+
     <p id="w3review" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}></p>
 
     </div>
     <div className="col-md-3 col-sm-12 col_grid_selectmeal">
     <div className="heart_icon_meal">  
 
-    <i id={Math.random()}  className={"fa fa-heart heart_submodule_selectMeal_fill"} aria-hidden="true" onClick={(e) =>colorHandle(e,menuItem.id)}></i>
+    <i id={Math.random()}  className={"fa fa-heart-o heart_border_selectedMeal"} aria-hidden="true" onClick={(e) =>colorHandle(e,menuItem.id)}></i>
 
 
     </div>
 
 
+
+    <button id={Math.random()}   className="btn btn-default mealbtn_selectedmeal" onClick ={(e) => handleSelect(e,menuItem)}>
+    Selected
+
+    </button>
+
+
+
+
+
+
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+    )
+
+
+    }else if(ifFavourite){
+
+        return(
+            <div className="select_meal_plan_main_container" key={Math.random()}>
+
+            <div className="card fullcard_container_selectedmeal">
+            <div className="row">
+
+            <div className="col-md-6 col-sm-12">
+
+            <div className="row">
+            <div className="col-md-4 col-sm-12">
+            <img src={menuItem.picture} alt="food" className="rounded-circle card_img_rounded_SelectedMeal"></img>
+            </div>
+            <div className="col-md-8 col-sm-12 left_side_container_selectMeal">
+            <h5 className=" salad_text" >{menuItem.name}</h5>
+        {/* <h5 className=" salad_details_text"> About dish like crunch with something chrunchy and salad  About dish like crunch with something chrunchy and salad</h5> */}
+    {/* <img src={veg_icon} alt="veg" className="veg_icon"></img> */}
     
+    {menuItem.veg === 0 ? <VegComponent/> :   <NonvegComponent/>}
+    </div>
+
+    </div>
+
+
+
+    </div>
+
+    <div className="vertical_line_Selectedmeal"></div>
+    <div className="col-md-5 col-sm-12"> 
+    <div className="row">
+    <div className="col-md-9 col-sm-12">
+
+    <h5 className="breakfast_paragrapgh_content">Let us know if there is something you’d want us to know about your menu, we’ll pass it on to the chef.</h5>
+
+
+
+
+    <p id="w3review" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}></p>
+
+    </div>
+    <div className="col-md-3 col-sm-12 col_grid_selectmeal">
+    <div className="heart_icon_meal">  
+
+    <i id={Math.random()}  className={"fa fa-heart-o heart_border_selectedMeal_fill"} aria-hidden="true" onClick={(e) =>colorHandle(e,menuItem.id)}></i>
+
+
+    </div>
+
+
+
     <button id={Math.random()}   className="btn btn-default mealbtn_selectmeal" onClick ={(e) => handleSelect(e,menuItem)}>
     Select
 
@@ -377,6 +535,8 @@ const renderMenuDatas = menuItems.map((menuItem) =>{
 return(
 
     <>
+    <Snackbar changeSnackbarsBox={changeSnackbar}   makeSnackbarsBox={handleChangeSnackbar} />
+    
     <h5 className="breakfast_title_selectmeal" key={Math.random()}>{props.category.name}</h5>
     {renderMenuDatas}
     </>
