@@ -37,8 +37,16 @@ export default function DietOnlySelectItem({ question, selectedOption }) {
   };
 
   return (
-    <div>
-      <h2>{question.question}</h2>
+    <div
+      style={{
+        flex: "1",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-evenly",
+      }}
+    >
+      <h1>{question.question}</h1>
 
       <div className="row">
         {selectOptions.map((value, index) => (

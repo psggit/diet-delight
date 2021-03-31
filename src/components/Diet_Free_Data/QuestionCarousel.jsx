@@ -40,13 +40,18 @@ const QuestionCarousel = ({ QuestionsData }) => {
         question={QuestionsData[activeQuestion]}
         selectedOption={selectedOption}
       />
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: activeQuestion === 0 ? "flex-end" : "space-between",
+        }}
+      >
         {activeQuestion !== 0 && (
           <IconButton
             onClick={() => {
               setActiveQuestion(activeQuestion - 1);
             }}
-            color="secondary"
+            style={{ backgroundColor: "purple", color: "white" }}
           >
             <ArrowBackIcon fontSize="large" />
           </IconButton>
@@ -57,7 +62,7 @@ const QuestionCarousel = ({ QuestionsData }) => {
               setActiveQuestion(activeQuestion + 1);
               submitAnswer();
             }}
-            color="secondary"
+            style={{ backgroundColor: "purple", color: "white" }}
           >
             <DoneAllIcon fontSize="large" />
           </IconButton>

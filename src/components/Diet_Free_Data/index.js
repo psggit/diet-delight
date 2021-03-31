@@ -13,14 +13,34 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
-import { makeStyles } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import QuestionCarousel from "./QuestionCarousel";
 
 const useStyles = makeStyles({
+  contentRoot: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+  },
   paper: {
     borderRadius: 20,
     maxWidth: "800px",
     width: "800px",
+  },
+});
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#303960",
+    },
+    secondary: {
+      main: "#f44336",
+    },
   },
 });
 
@@ -141,72 +161,76 @@ const DietDataDetails = (props) => {
   // };
 
   return (
-    <div>
-      {/* <div className="main_container"> */}
-      {/* <div className="close_diet">
-        <img
-          src={cancel_icon}
-          className="cancel_icon"
-          onClick={() => props.handleCancel()}
-        ></img>
-      </div> */}
+    <ThemeProvider theme={theme}>
+      <div>
+        {/* <div className="main_container"> */}
+        {/* <div className="close_diet">
+          <img
+            src={cancel_icon}
+            className="cancel_icon"
+            onClick={() => props.handleCancel()}
+          ></img>
+        </div> */}
 
-      {/* <div className="container fluid container_main">
-        <h3 className="title_text text-center">
-          Start by calculating your dietary needs for free
-        </h3>
-        <hr className="line_green"></hr>
-        <div className="row" style={{ justifyContent: "center" }}>
-          {renderDiet}
-        </div>
-        <button
-          className="btn next_diet_free_btn"
-          onClick={() => changeAnsweredStatus()}
-        >
-          Next
-        </button>
-      </div> */}
-      <Dialog
-        open={props.open}
-        onClose={() => props.handleCancel()}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        classes={{
-          paper: classes.paper,
-        }}
-      >
-        <div className="questions_dialog_bg">
-          <DialogContent>
-            {questionData.length && (
-              <QuestionCarousel QuestionsData={questionData} />
-            )}
-          </DialogContent>
-
-          {/* <DialogActions
-            style={{
-              backgroundColor: "rgb(119 131 143 / 80%)",
-              padding: "0",
-              width: "100%",
-              justifyContent: "space-around",
-            }}
+        {/* <div className="container fluid container_main">
+          <h3 className="title_text text-center">
+            Start by calculating your dietary needs for free
+          </h3>
+          <hr className="line_green"></hr>
+          <div className="row" style={{ justifyContent: "center" }}>
+            {renderDiet}
+          </div>
+          <button
+            className="btn next_diet_free_btn"
+            onClick={() => changeAnsweredStatus()}
           >
-            <Button
-              onClick={() => props.handleCancel()}
-              style={{ color: "white", width: "100%", height: "50px" }}
+            Next
+          </button>
+        </div> */}
+        <Dialog
+          open={props.open}
+          onClose={() => props.handleCancel()}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          classes={{
+            paper: classes.paper,
+          }}
+        >
+          <div className="questions_dialog_bg">
+            <DialogContent classes={{
+              root: classes.contentRoot
+            }}>
+              {questionData.length && (
+                <QuestionCarousel QuestionsData={questionData} />
+              )}
+            </DialogContent>
+
+            {/* <DialogActions
+              style={{
+                backgroundColor: "rgb(119 131 143 / 80%)",
+                padding: "0",
+                width: "100%",
+                justifyContent: "space-around",
+              }}
             >
-              NO THANKS
-            </Button>
-            <Button
-              onClick={handleAgree}
-              style={{ color: "white", width: "100%", height: "50px" }}
-              autoFocus
-            >
-              OKAY
-            </Button>
-          </DialogActions> */}
-        </div>
-      </Dialog>
-    </div>
+              <Button
+                onClick={() => props.handleCancel()}
+                style={{ color: "white", width: "100%", height: "50px" }}
+              >
+                NO THANKS
+              </Button>
+              <Button
+                onClick={handleAgree}
+                style={{ color: "white", width: "100%", height: "50px" }}
+                autoFocus
+              >
+                OKAY
+              </Button>
+            </DialogActions> */}
+          </div>
+        </Dialog>
+      </div>
+    </ThemeProvider>
   );
 };
 

@@ -5,7 +5,7 @@ import DietYesNoComponent from "./DietYesNoComponent";
 
 const RenderQuestion = ({ question, selectedOption }) => {
   return (
-    <div>
+    <>
       {/* {question.type === 0 && (
         <DietTextareaBtnItem
           question={question}
@@ -34,7 +34,7 @@ const RenderQuestion = ({ question, selectedOption }) => {
           submitAnswer={submitAnswer}
         />
       )} */}
-    </div>
+    </>
   );
 };
 
