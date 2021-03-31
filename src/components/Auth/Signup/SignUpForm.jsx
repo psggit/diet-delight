@@ -50,14 +50,6 @@ const SignUpForm = ({ formValues, phoneAuth, handleSignUp }) => {
       <Formik
         initialValues={{
           ...formValues,
-          // fname: "",
-          // lname: "",
-          // email: "",
-          // password: "",
-          // check: "",
-          // countryCode: "",
-          // phone: "",
-          // firebase_uid: "",
         }}
         validationSchema={ValidateSchema}
         onSubmit={(values) => {

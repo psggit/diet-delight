@@ -1,147 +1,112 @@
 import React, { useEffect, useState } from "react";
-import DietYesNoComponent from "./DietYesNoComponent";
-import DietOnlySelectItem from "./DietOnlySelectItem";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
+
 import "./index.css";
-import DietTextareaBtnItem from "./DietTextareaBtnItem";
-import DietSelectandText from "./DietSelectandText";
-import cancel_icon from "../../assets/cancel_violet.png";
 import axios from "../../axiosInstance";
+import QuestionCarousel from "./QuestionCarousel";
+
+const useStyles = makeStyles({
+  contentRoot: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+  },
+  paper: {
+    borderRadius: 20,
+    maxWidth: "800px",
+    width: "800px",
+  },
+});
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#303960",
+    },
+  },
+});
 
 const DietDataDetails = (props) => {
+  const classes = useStyles();
   const [questionData, setQuestionData] = useState([]);
-  const [question, setQuestion] = useState({});
-  const [submitAnswer, setSubmitAnswer] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`questions`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setQuestionData(res.data.data);
-        var questions = res.data.data;
-        for (var i = 0; i < questions.length; i++) {
-          console.log(questions[i]);
-          setQuestion(questions[i]);
-        }
-      })
-      .catch((err) => console.log(err));
+    (async () => {
+      try {
+        const BEARER_TOKEN = `Bearer ${localStorage.getItem("access_token")}`;
+        const HEADERS = {
+          headers: {
+            Authorization: BEARER_TOKEN,
+          },
+        };
+        const questionResponse = await axios.get(`questions`, HEADERS);
+        const _allQuestions = questionResponse.data.data;
+        const optionResponse = await axios.get(`answer-options`, HEADERS);
+        const _allOptions = optionResponse.data.data;
+
+        const questionWithOptions = _allQuestions.map((_question) => {
+          let _options = [];
+          if (_question.type === 1) {
+            _options = [
+              { id: Math.random(), option: "Yes" },
+              { id: Math.random(), option: "No" },
+            ];
+          } else {
+            _options = _allOptions.filter(
+              (_option) => _option.question_id === _question.id
+            );
+          }
+
+          return {
+            question: _question,
+            options: _options,
+            selectedOption: null,
+            answer: null
+          };
+        });
+
+        setQuestionData(questionWithOptions);
+      } catch (error) {
+        console.log("Error in fetching Questions");
+      }
+    })();
   }, []);
 
-  // const fetchSelectedValue = (value) => {
-  //     console.log(value)
-  // }
 
-  const changeAnsweredStatus = () => {
-    console.log("change answer status");
-    setSubmitAnswer(true);
-    axios
-      .get("my-answers")
-      .then((res) => {
-        console.log(res);
-        let myAnswers = res.data.data;
-        if (myAnswers.length > 0) {
-          axios
-            .put("user", {
-              questionnaire_status: 1,
-            })
-            .then((res) => {
-              console.log(res.data);
-              props.closeBMI();
-            })
-            .catch((err) => console.log(err));
-        } else {
-          alert("Please Answer the Question");
-        }
-      })
-      .catch((err) => console.log(err));
-  };
 
-  const handleAnswerByUser = (
-    question_id,
-    selected_value,
-    question,
-    question_type,
-    question_additional_text,
-    option_id,
-    option_value
-  ) => {
-    console.log(
-      question_id,
-      selected_value,
-      question,
-      question_type,
-      question_additional_text,
-      option_id,
-      option_value
-    );
-  };
-
-  const renderDiet = questionData.map((question) => {
-    return (
-      <>
-        {question.type === 0 && (
-          <DietTextareaBtnItem
-            question={question}
-            handleAnswerGiven={handleAnswerByUser}
-            submitAnswer={submitAnswer}
-          />
-        )}
-        {question.type === 1 && (
-          <DietYesNoComponent
-            question={question}
-            handleAnswerGiven={handleAnswerByUser}
-            submitAnswer={submitAnswer}
-            id1={Math.random()}
-            id2={Math.random()}
-          />
-        )}
-        {question.type === 2 && (
-          <DietOnlySelectItem
-            question={question}
-            handleAnswerGiven={handleAnswerByUser}
-            submitAnswer={submitAnswer}
-          />
-        )}
-        {question.type === 3 && (
-          <DietSelectandText
-            question={question}
-            handleAnswerGiven={handleAnswerByUser}
-            submitAnswer={submitAnswer}
-          />
-        )}
-      </>
-    );
-  });
   return (
-    <div className="main_container">
-      <div className="close_diet">
-        <img
-          src={cancel_icon}
-          className="cancel_icon"
-          onClick={() => props.handleCancel()}
-        ></img>
-      </div>
-
-      <div className="container fluid container_main">
-        <h3 className="title_text text-center">
-          Start by calculating your dietary needs for free
-        </h3>
-        <hr className="line_green"></hr>
-        <div className="row" style={{ justifyContent: "center" }}>
-          {renderDiet}
-        </div>
-        <button
-          className="btn next_diet_free_btn"
-          onClick={() => changeAnsweredStatus()}
+    <ThemeProvider theme={theme}>
+      <div>
+        <Dialog
+          open={props.open}
+          onClose={() => props.handleCancel()}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          classes={{
+            paper: classes.paper,
+          }}
         >
-          Next
-        </button>
+          <div className="questions_dialog_bg">
+            <DialogContent
+              classes={{
+                root: classes.contentRoot,
+              }}
+            >
+              {questionData.length && (
+                <QuestionCarousel QuestionsData={questionData} setQuestionData={setQuestionData} />
+              )}
+            </DialogContent>
+          </div>
+        </Dialog>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 

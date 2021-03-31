@@ -4,6 +4,18 @@
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
+
+.questions_dialog_bg {
+    background-image: url("../../assets/favourites.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 450px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 div.main_container{
     height:fit-content;
     width:80%;

@@ -44,6 +44,7 @@ div.card_user_appointment {
   background: hsla(0, 0%, 98.4%, 0.3411764705882353);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  top: 100px;
 }
 [type="date"] {
   background: #fff
@@ -249,6 +250,7 @@ button.select_btn_next_appointmain:hover{
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     margin: 5%;
+    top: 100px;
   }
   /* left side  */
   input.appointmentdate_subtitle {
@@ -439,6 +441,7 @@ button.select_btn_next_appointmain:hover{
     width: 70%;
     height: auto;
     border: none;
+    top: 100px;
   }
   div.appointment_main_container {
     font-family: Roboto;
@@ -632,6 +635,7 @@ button.select_btn_next_appointmain:hover{
     width: 70%;
     height: auto;
     border: none;
+    top: 100px;
   }
   div.appointment_main_container {
     font-family: Roboto;
@@ -856,6 +860,7 @@ button.select_btn_next_appointmain:hover{
     width: 70%;
     height: auto;
     border: none;
+    top: 100px;
   }
   div.appointment_main_container {
     font-family: Roboto;

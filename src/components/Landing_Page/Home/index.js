@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from 'react'
 import { HomeMain, HomeContainer, HomeSearch, HomeIcon, Search, Searchbtn, RightArrow, Icons, Icon, Message, Heading, Whatsapp, Containerup } from './HomeElements'
-import DietDataDetails from '../../Diet_Free_Data/index'
 import axios from '../../../axiosInstance';
 import { Link } from 'react-router-dom';
 
