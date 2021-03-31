@@ -12,8 +12,6 @@ div.Meal_plan_container {
   margin: 2rem 1rem 2rem 1rem;
   border-radius: 0.4rem;
   padding: 2rem;
-  /* position: relative;
-  top: 120px; */
 }
 div.MealpkgOrderHistory {
   display: grid;
