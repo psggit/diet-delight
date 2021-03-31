@@ -269,14 +269,10 @@ const ListofConsultation = () => {
         <CustomSkeleton />
       ) : (
         <>
-          <Main>
+          <Main style={{ padding: '0 2rem' }}>
             <TableHeader
               title={`List of ${nameMap[status]} Consultations`}
               csvReport={csvReport}
-              addHandler={() => {
-                setMode('Add')
-                setShowForm(true)
-              }}
               searchHandler={(value) => {
                 setSearch(value)
               }}
@@ -309,7 +305,7 @@ const ListofConsultation = () => {
                     {
                       id: 'consultation_time',
                       label: 'Consultation Time',
-                      sort: false,
+                      sort: true,
                     },
                     {
                       id: 'consultation_mode',

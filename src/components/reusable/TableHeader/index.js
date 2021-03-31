@@ -1,28 +1,28 @@
-import React, { useState } from "react";
-import { Button, Input } from "@material-ui/core";
-import { CSVLink } from "react-csv";
+import React, { useState } from 'react'
+import { Button, Input } from '@material-ui/core'
+import { CSVLink } from 'react-csv'
 import styled from 'styled-components'
 
 const HContainer = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	align-items:center;
-	justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 `
 
 const Set = styled.div`
-	display:flex;
-	align-items:center;
+  display: flex;
+  align-items: center;
 `
 
 const SearchBox = styled.div`
-	display:flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `
 
 const TableHeader = (props) => {
-	const [search, setSearch] = useState("");
-	const { csvReport, title, addHandler, searchHandler, searchMessage } = props;
+  const [search, setSearch] = useState('')
+  const { csvReport, title, addHandler, searchHandler, searchMessage } = props
 
 	return (
 		<HContainer>
@@ -44,25 +44,27 @@ const TableHeader = (props) => {
 				>
 					Search
         </Button>
-				<Button
-					variant="contained"
-					style={{ margin: "10px", background: "#800080" }}
-					color="primary"
-					onClick={addHandler}
-				>
-					Add
-        </Button>
-				<Button
-					variant="contained"
-					style={{ margin: "10px", background: "#800080" }}
-				>
-					<CSVLink {...csvReport} style={{ color: "white" }}>
-						Export CSV
+        {props.addHandler ? (
+          <Button
+            variant="contained"
+            style={{ margin: '10px', background: '#800080' }}
+            color="primary"
+            onClick={addHandler}
+          >
+            Add
+          </Button>
+        ) : null}
+        <Button
+          variant="contained"
+          style={{ margin: '10px', background: '#800080' }}
+        >
+          <CSVLink {...csvReport} style={{ color: 'white' }}>
+            Export CSV
           </CSVLink>
-				</Button>
-			</Set>
-		</HContainer>
-	)
+        </Button>
+      </Set>
+    </HContainer>
+  )
 }
 
-export default TableHeader;
+export default TableHeader

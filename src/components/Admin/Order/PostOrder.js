@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
-import { Edit, Delete } from '@material-ui/icons';
+import { Edit, Delete } from '@material-ui/icons'
 
 import axios from '../../../axiosInstance';
 import CustomSkeleton from '../../../CustomSkeleton';

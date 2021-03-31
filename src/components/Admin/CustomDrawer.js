@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import { elastic as Menu } from 'react-burger-menu'
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -17,9 +17,9 @@ import {
   Switch,
   Route,
   Link,
-} from "react-router-dom";
+} from 'react-router-dom'
 
-import { selectAdmin, SetFalse, SetTrue } from "../../features/userSlice";
+import { selectAdmin, SetFalse, SetTrue } from '../../features/userSlice'
 import {
   resetMealPlan,
   resetConsultation,
@@ -33,53 +33,53 @@ import {
   resetListOfAnswer,
   resetListOfDuration,
   resetListOfBlog,
-} from "../../features/adminSlice";
-import { useSelector, useDispatch } from "react-redux";
+} from '../../features/adminSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
-import styled from "styled-components";
-import { Cookies } from "react-cookie";
-import Home from "./home";
+import styled from 'styled-components'
+import { Cookies } from 'react-cookie'
+import Home from './home'
 
-import ListofUser from "./user/ListofUser";
-import PostUser from "./user/PostUser";
+import ListofUser from './user/ListofUser'
+import PostUser from './user/PostUser'
 
-import ListofQuestions from "./questions/ListofQuestions";
-import AddQuestion from "./questions/AddQuestion";
+import ListofQuestions from './questions/ListofQuestions'
+import AddQuestion from './questions/AddQuestion'
 
-import ListConsultationPackage from "./ConsultationPackage/ListConsultationPackage";
-import AddConsultationPackage from "./ConsultationPackage/AddConsultationPackage";
+import ListConsultationPackage from './ConsultationPackage/ListConsultationPackage'
+import AddConsultationPackage from './ConsultationPackage/AddConsultationPackage'
 
-import ListofConsultation from "./Consultations/ListofConsultation";
-import PostConsultation from "./Consultations/PostConsultation";
+import ListofConsultation from './Consultations/ListofConsultation'
+import PostConsultation from './Consultations/PostConsultation'
 
-import ListofMenu from "./Menu/ListofMenu";
-import AddMenu from "./Menu/AddMenu";
-import ListofCategory from "./Menu/ListofCategory";
-import AddCategory from "./Menu/AddCategory";
+import ListofMenu from './Menu/ListofMenu'
+import AddMenu from './Menu/AddMenu'
+import ListofCategory from './Menu/ListofCategory'
+import AddCategory from './Menu/AddCategory'
 
-import ListofMenuItem from "./Menu/ListofMenuItem";
-import AddMenuItem from "./Menu/AddMenuItem";
+import ListofMenuItem from './Menu/ListofMenuItem'
+import AddMenuItem from './Menu/AddMenuItem'
 
-import ListOfCoupon from "./Coupon/ListofCoupon";
-import PostCoupon from "./Coupon/PostCoupon";
+import ListOfCoupon from './Coupon/ListofCoupon'
+import PostCoupon from './Coupon/PostCoupon'
 
-import ListofConsultants from "./consultant/ListofConsultants";
+import ListofConsultants from './consultant/ListofConsultants'
 
 import ListofMealPlan from "./Mealplan/ListofMealPlan";
 import ListofDuration from "./Mealplan/ListofDuration";
 import AddMealPlan from "./Mealplan/AddMealPlan";
 import PostConsultant from "./consultant/PostConsultant";
 
-import ListofOrderList from "./Order/ListofOrderList";
-import PostOrder from "./Order/PostOrder";
+import ListofOrderList from './Order/ListofOrderList'
+import PostOrder from './Order/PostOrder'
 
 import PostDuration from "./Duration/PostDuration";
 
-import ListofAnswer from "./questions/ListofAnswer";
-import PostAnswer from "./questions/AddAnswer";
+import ListofAnswer from './questions/ListofAnswer'
+import PostAnswer from './questions/AddAnswer'
 
-import ListofBlog from "./Blogs/ListofBlog";
-import PostBlog from "./Blogs/PostBlog";
+import ListofBlog from './Blogs/ListofBlog'
+import PostBlog from './Blogs/PostBlog'
 
 const HeaderLogo = styled.div`
   width: 240px;
@@ -90,13 +90,13 @@ const HeaderLogo = styled.div`
   &:focus {
     outline: none;
   }
-`;
+`
 
 const LogoutContainer = styled.div`
   position: absolute;
   bottom: 16px;
   cursor: pointer;
-`;
+`
 
 var styles = {
   bmBurgerButton: {
@@ -104,54 +104,54 @@ var styles = {
     width: '36px',
     height: '30px',
     left: '36px',
-    top: '36px'
+    top: '36px',
   },
   bmBurgerBars: {
-    background: '#800080'
+    background: '#800080',
   },
   bmBurgerBarsHover: {
-    background: '#a90000'
+    background: '#a90000',
   },
   bmCrossButton: {
     height: '24px',
-    width: '24px'
+    width: '24px',
   },
   bmCross: {
-    background: '#800080'
+    background: '#800080',
   },
   bmMenuWrap: {
     position: 'fixed',
-    height: '100%'
+    height: '100%',
   },
   bmMenu: {
     background: '#373a47',
-    fontSize: '1.15em'
+    fontSize: '1.15em',
   },
   bmMorphShape: {
-    fill: '#373a47'
+    fill: '#373a47',
   },
   bmItemList: {
     color: '#b8b7ad',
-    padding: '0.8em'
+    padding: '0.8em',
   },
   bmItem: {
-    display: 'inline-block'
+    display: 'inline-block',
   },
   bmOverlay: {
-    background: 'rgba(0, 0, 0, 0.3)'
-  }
+    background: 'rgba(0, 0, 0, 0.3)',
+  },
 }
 
-const drawerWidth = 250;
+const drawerWidth = 250
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
   notificationContent: {
     minWidth: 375,
@@ -170,51 +170,51 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PersistentDrawerLeft() {
-  let history = useHistory();
-  const dispatch = useDispatch();
-  const cookie = new Cookies();
+  let history = useHistory()
+  const dispatch = useDispatch()
+  const cookie = new Cookies()
 
-  const classes = useStyles();
-  const theme = useTheme();
+  const classes = useStyles()
+  const theme = useTheme()
 
   const [noticationIconrRef, setNoticationIconrRef] = useState(null);
   const [listKey, setListKey] = useState('');
 
   useEffect(() => {
-    dispatch(resetTemp());
-    dispatch(resetQuestion());
-    dispatch(resetMealPlan());
-    dispatch(resetConsultationPackage());
-    dispatch(resetConsultation());
-    dispatch(resetMenu());
-    dispatch(resetCategory());
-    dispatch(resetMenuItem());
-    dispatch(resetListOfOrder());
-    dispatch(resetListOfAnswer());
-    dispatch(resetListOfDuration());
-    dispatch(resetListOfBlog());
-  }, [dispatch]);
+    dispatch(resetTemp())
+    dispatch(resetQuestion())
+    dispatch(resetMealPlan())
+    dispatch(resetConsultationPackage())
+    dispatch(resetConsultation())
+    dispatch(resetMenu())
+    dispatch(resetCategory())
+    dispatch(resetMenuItem())
+    dispatch(resetListOfOrder())
+    dispatch(resetListOfAnswer())
+    dispatch(resetListOfDuration())
+    dispatch(resetListOfBlog())
+  }, [dispatch])
 
-  let { path } = useRouteMatch();
+  let { path } = useRouteMatch()
 
-  const Admin = useSelector(selectAdmin);
+  const Admin = useSelector(selectAdmin)
 
-  if (localStorage.getItem("isAdmin")) {
-    dispatch(SetTrue());
+  if (localStorage.getItem('isAdmin')) {
+    dispatch(SetTrue())
   }
 
   const handleLogout = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     axios
-      .get("logout")
+      .get('logout')
       .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-    dispatch(SetFalse());
-    cookie.remove("access_token");
-    localStorage.clear();
-    history.push("/");
-  };
+      .catch((err) => console.log(err))
+    dispatch(SetFalse())
+    cookie.remove('access_token')
+    localStorage.clear()
+    history.push('/')
+  }
 
   const handleMenuOpen = (key) => {
     setListKey(key === listKey ? '' : key)
@@ -227,8 +227,8 @@ export default function PersistentDrawerLeft() {
           <Menu
             className="app-drawer"
             styles={styles}
-            pageWrapId={"page-wrap"}
-            outerContainerId={"outer-container"}
+            pageWrapId={'page-wrap'}
+            outerContainerId={'outer-container'}
           >
             <Link to="/admin">
               <HeaderLogo style={{ display: 'flex' }}>
@@ -352,7 +352,7 @@ export default function PersistentDrawerLeft() {
           </Menu>
           <main
             id="page-wrap"
-            style={{ width: "100%", padding: "16px 32px 0 32px" }}
+            style={{ width: '100%', padding: '16px 32px 0 32px' }}
           >
             <div className={classes.drawerHeader} >
               <div className={classes.notificationIconContent}>
@@ -489,5 +489,5 @@ export default function PersistentDrawerLeft() {
         <div>YOU ARE NOT AUTHORIZE</div>
       )}
     </>
-  );
+  )
 }
