@@ -161,7 +161,7 @@ export default function SubMealAddress(props){
             var errorMessage = document.getElementById('successDate');
             errorMessage.innerHTML = 'please enter date';
       
-          }
+          } 
     }
                 
     return(     
