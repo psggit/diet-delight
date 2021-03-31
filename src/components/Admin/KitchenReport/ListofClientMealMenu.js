@@ -21,18 +21,6 @@ export default function ClientMealmenu() {
    
     if (startDate !== "" && endDate != "") {
       console.log("kol")
-
-      // axios 
-      // .get(`menu-categories?menu_id=4`)
-      // .then((res) => {
-      //   console.log(res.data.data);
-      //   setMenuCategory(res.data.data)
-      //   let menu_categories = [];
-      //   res.data.data.map((category) => menu_categories.push(category.id))
-      //   setCategories([...menu_categories])
-      // }).catch((err) => console.log(err))
-
-
       axios
         .get(
           `menu-orders?fromDate=`+startDate+`&toDate=`+endDate+`&user_id=14`)
