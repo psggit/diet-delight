@@ -1,9 +1,24 @@
 import React from "react";
 
-import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core";
 
 import "./index.css";
 import SelectOptionBtn from "./SelectOptionBtn";
+
+const useStyles = makeStyles({
+  textArea: {
+    borderRadius: "15px",
+    border: "none",
+    boxShadow: "0 2px 4px #000000a8",
+    padding: ".2rem 1rem",
+    color: "#727272",
+    fontSize: "1.2rem",
+    fontWeight: "500",
+    "&::placeholder": {
+      color: "#909090",
+    },
+  },
+});
 
 export default function DietYesNoComponent({
   question,
@@ -13,6 +28,8 @@ export default function DietYesNoComponent({
   answer,
   updateAnswerText,
 }) {
+  const classes = useStyles();
+
   return (
     <div
       style={{
@@ -38,15 +55,14 @@ export default function DietYesNoComponent({
       </div>
       {selectedOption && (
         <div>
-          <TextField
+          <textarea
             id="specify"
-            multiline
             rows={4}
             placeholder="Please Specify"
-            variant="outlined"
             value={answer || ""}
+            className={classes.textArea}
             onInput={(e) => updateAnswerText(e.target.value)}
-          />
+          ></textarea>
         </div>
       )}
     </div>

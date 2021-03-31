@@ -21,15 +21,15 @@ export default function DietOnlySelectItem({
     >
       <h1>{question.question}</h1>
 
-      <div className="row">
+      <div className="row" style={{justifyContent: "center"}}>
         {options.map((value, index) => (
-          <div key={index} className="col-6">
-            <SelectOptionBtn
-              isSelected={selectedOption && selectedOption.id === value.id}
-              label={value.option}
-              handleOnClick={() => updateSelectedOption(value)}
-            />
-          </div>
+          <SelectOptionBtn
+            key={index}
+            btnClassName={Math.floor(options.length / 4) === 0 ? "col-6 mx-2" : "col-5"}
+            isSelected={selectedOption && selectedOption.id === value.id}
+            label={value.option}
+            handleOnClick={() => updateSelectedOption(value)}
+          />
         ))}
       </div>
     </div>

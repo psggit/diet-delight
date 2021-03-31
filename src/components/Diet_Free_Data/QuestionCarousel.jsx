@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core";
 
 import RenderQuestion from "./RenderQuestion";
 import axios from "../../axiosInstance";
+import BMICalculator from "./BMICalculator";
 
 const useStyles = makeStyles({
   iconBtn: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 
 const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
   const classes = useStyles();
-  const [activeQuestion, setActiveQuestion] = useState(0);
+  const [activeQuestion, setActiveQuestion] = useState(4);
 
   const submitAnswer = () => {
     const _currentQuestion = QuestionsData[activeQuestion].question;
@@ -31,22 +32,22 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
     console.log("Question : ", _currentQuestion);
     console.log("selectedOption : ", _selectedOption);
     console.log("selectedOption : ", _answerText);
-    axios
-      .post("my-answers", {
-        question_id: _currentQuestion.id,
-        answer_option_id: _selectedOption.id,
-        answer: _answerText || _selectedOption.option,
-        question_question: _currentQuestion.question,
-        question_type: _currentQuestion.type,
-        question_additional_text: _currentQuestion.additional_text,
-        answer_option_option: _selectedOption.option,
-      })
-      .then((res) => {
-        console.log("Submit Answer Result : ", res.data.data);
-      })
-      .catch((err) => {
-        console.log("Submit Answer Error : ", err);
-      });
+    // axios
+    //   .post("my-answers", {
+    //     question_id: _currentQuestion.id,
+    //     answer_option_id: _selectedOption.id,
+    //     answer: _answerText || _selectedOption.option,
+    //     question_question: _currentQuestion.question,
+    //     question_type: _currentQuestion.type,
+    //     question_additional_text: _currentQuestion.additional_text,
+    //     answer_option_option: _selectedOption.option,
+    //   })
+    //   .then((res) => {
+    //     console.log("Submit Answer Result : ", res.data.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log("Submit Answer Error : ", err);
+    //   });
   };
 
   const updateSelectedOption = (_selectedOption) => {
@@ -71,16 +72,35 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
     });
   };
 
+  const isCurrentAnswered = () => {
+    if (activeQuestion < QuestionsData.length) {
+      const _currentQuestion = QuestionsData[activeQuestion];
+      const _a = !!_currentQuestion.selectedOption;
+      const _b =
+        _currentQuestion.question.type === 1 ? !!_currentQuestion.answer : true;
+
+      return _a && _b;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <>
-      <RenderQuestion
-        question={QuestionsData[activeQuestion].question}
-        selectedOption={QuestionsData[activeQuestion].selectedOption}
-        options={QuestionsData[activeQuestion].options}
-        answer={QuestionsData[activeQuestion].answer}
-        updateSelectedOption={updateSelectedOption}
-        updateAnswerText={updateAnswerText}
-      />
+      {activeQuestion < QuestionsData.length && (
+        <RenderQuestion
+          question={QuestionsData[activeQuestion].question}
+          selectedOption={QuestionsData[activeQuestion].selectedOption}
+          options={QuestionsData[activeQuestion].options}
+          answer={QuestionsData[activeQuestion].answer}
+          updateSelectedOption={updateSelectedOption}
+          updateAnswerText={updateAnswerText}
+        />
+      )}
+      {activeQuestion === QuestionsData.length && <BMICalculator />}
+      {activeQuestion === QuestionsData.length + 1 && (
+        <h2>Hello Ths is Test 22</h2>
+      )}
       <div
         style={{
           display: "flex",
@@ -94,18 +114,21 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
             }}
             className={classes.iconBtn}
           >
-            <ArrowBackIcon fontSize="large" />
+            <ArrowBackIcon />
           </IconButton>
         )}
         <IconButton
           onClick={() => {
-            if (activeQuestion < QuestionsData.length - 1)
+            if (
+              isCurrentAnswered()
+              // &&
+              // activeQuestion < QuestionsData.length - 1
+            )
               setActiveQuestion(activeQuestion + 1);
-            submitAnswer();
           }}
           className={classes.iconBtn}
         >
-          <DoneAllIcon fontSize="large" />
+          <DoneAllIcon />
         </IconButton>
       </div>
     </>

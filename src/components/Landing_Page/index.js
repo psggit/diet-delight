@@ -82,15 +82,15 @@ const LandingPage = () => {
       {showQuestion && (
         <DietDataDetails open={showQuestion} handleCancel={handleCancel} closeBMI={closeBMI} />
       )}
-      {toggleBMI && (
+      {/* {toggleBMI && (
         <BmiMain
           closeBMI={closeBMI}
           toggleReportBMI={toggleBMIReportVisibility}
         />
-      )}
-      {toggleBMIReport && (
+      )} */}
+      {/* {toggleBMIReport && (
         <Bmireport bmiReport={bmiReport} toggleReport={toggleReport} />
-      )}
+      )} */}
       <Home />
       <MealPackage />
       <Mealplan />

@@ -7,19 +7,20 @@ const useStyles = makeStyles({
   optionBtn: {
     borderRadius: "30px",
     padding: ".8rem 2rem",
-    margin: "1rem 0"
+    margin: "1rem 0",
   },
 });
 
-const SelectOptionBtn = ({ handleOnClick, label, isSelected }) => {
+const SelectOptionBtn = ({ handleOnClick, label, isSelected, btnClassName }) => {
   const classes = useStyles();
 
   return (
     <Button
+      
       variant={isSelected ? "contained" : "outlined"}
       color="primary"
       onClick={handleOnClick}
-      className={classes.optionBtn}
+      className={`${classes.optionBtn} ${btnClassName}`}
     >
       {label}
     </Button>
