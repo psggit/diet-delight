@@ -11,7 +11,7 @@ import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog'
 
 
 export default function SubMealAddress(props){
-    console.log(props)
+    console.log(props) 
     let history = useHistory(); 
     const [value, setValue] = React.useState('female');
     const RadioChange = (event) => {

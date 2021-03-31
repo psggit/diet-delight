@@ -198,7 +198,7 @@ export default function MealPlansMenuItems(props){
             }) .catch((err) => console.log(err));
         }else{
             setChangeSnackbar(true)
-        }
+        } 
 
     }else{
         axios.get(`my-menu-orders?menu_item_id=`+menuItem.id, {

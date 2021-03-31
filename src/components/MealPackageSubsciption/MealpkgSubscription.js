@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./MealpkgSubscription.css";
 import logo_web from "../../assets/logoweb.png";
 import Mealchoose from "../Mealchoose.js";
-import { Link } from "react-router-dom";
+import { Link ,useHistory} from "react-router-dom";
 import axios from "../../axiosInstance";
 
 
 export default function MealpkgSubscription(props) {
   console.log(props);
+  let history = useHistory(); 
   const [meals, setMeal] = useState([]);
+  const [user,setUser] = useState([]);
   useEffect(() => {
     axios
     .get(`meal-plans?duration_id=` + props.location.state.duration.id, {
@@ -20,14 +22,49 @@ export default function MealpkgSubscription(props) {
       console.log(res);
       setMeal(res.data.data);
     });
+    axios
+    .get("user", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
+    .then((res) => {
+     console.log(res)
+     setUser(res.data)
+ 
+
+    })
+    .catch((err) => console.log(err));
+ 
   }, []);
 
+
+  function handleSubscription(meal){
+
+    console.log(user.length)
+      if(user.length <= 0){ 
+        console.log("dashboard")
+        history.push({
+          pathname: '/',
+          })
+      }else{
+        console.log("mealaddressmain")
+        history.push({
+          pathname: "/MealAddressMain",
+                    state: {
+                      id: meal.id,
+                      mealType: meal.type,
+                      meal: meal, 
+                     },
+          })
+      }
+    
+  }
+
   const renderMeal = meals.map((meal) => {
+   
     return (
       <div className="main_container_mealpkg" key={Math.random()}>
-
-      
-
 
       <div className="card fullcard_container">
       <div className="row under_card_mealsubscription">
@@ -88,18 +125,18 @@ export default function MealpkgSubscription(props) {
 
 
 
-                  <button className="btn btn-default mealbtn_subscription">
-                  <Link
+                  <button className="btn btn-default mealbtn_subscription" onClick={() =>handleSubscription(meal)}>
+                  <Link 
                   className="text_subscription_text"
                   style={{ color: "#fff", textDecoration: "none" }}
-                  to={{
-                    pathname: "/MealAddressMain",
-                    state: {
-                      id: meal.id,
-                      mealType: meal.type,
-                      meal: meal,
-                    },
-                  }}
+                  // to={{
+                  //   pathname: "/MealAddressMain",
+                  //   state: {
+                  //     id: meal.id,
+                  //     mealType: meal.type,
+                  //     meal: meal,
+                  //   },
+                  // }}
                   >
                   BUY SUBSCRIPTION
                   </Link>
@@ -120,6 +157,7 @@ export default function MealpkgSubscription(props) {
 {/* choose meal component */}
 
 <Mealchoose name="Meal Plan" />
+
 {renderMeal}
 
 {/* card component */}
