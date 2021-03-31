@@ -12,97 +12,51 @@ export default function ClientMealmenu() {
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   const [categoryName,setCategoryName] = useState("");
-
+  const [dayCount, setDayCount] = useState([]);
   const [categories, setCategories] = useState([]);
 
   const getPdf = () => {
-
     console.log("Hello")
-
     console.log(startDate, endDate)
-
+   
     if (startDate !== "" && endDate != "") {
       console.log("kol")
+
+      // axios 
+      // .get(`menu-categories?menu_id=4`)
+      // .then((res) => {
+      //   console.log(res.data.data);
+      //   setMenuCategory(res.data.data)
+      //   let menu_categories = [];
+      //   res.data.data.map((category) => menu_categories.push(category.id))
+      //   setCategories([...menu_categories])
+      // }).catch((err) => console.log(err))
+
+
       axios
         .get(
-          `menu-orders?fromDate=` + startDate + `&toDate=` + endDate,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-          }
-        )
+          `menu-orders?fromDate=`+startDate+`&toDate=`+endDate+`&user_id=14`)
         .then((res) => {
           console.log(res.data.data);
-          setMenuOrders(res.data.data)
+          let menuOrders = [];
+          let categories = [];
+          let totalDays = [];
+          res.data.data.map((order) => {
+            if(order.menu_category.menu_id === 1){
+                menuOrders.push(order);
+                let checkIfDayIncluded = totalDays.includes(order.menu_item_day);
+                if(!checkIfDayIncluded) totalDays.push(order.menu_item_day);
+                let ifPresent = categories.includes(order.menu_category.name);
+                if(!ifPresent) categories.push(order.menu_category.name);
+            }
+          })
+          setMenuCategory([...categories]);
+          setMenuOrders([...menuOrders]);
+          setDayCount([...totalDays]);
+          console.log(categories, menuOrders, totalDays)
         }).catch((err) => console.log(err))
-        axios 
-        .get(
-          `menu-categories?menu_id=4`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data.data);
-          setMenuCategory(res.data.data)
-          let menu_categories = [];
-          res.data.data.map((category) => menu_categories.push(category.id))
-          setCategories([...menu_categories])
-        }).catch((err) => console.log(err))
-
     }
   }
-
-  const renderData = menuCategory.map((category) => {
-    
-    console.log(category)
-    return(
-      <>
-      {/* <th class="under_data_col_style"></th>  */}
-      <th class="under_data_col_style">{category.name}</th>
-      </>
-    )
-  })
-
-  const renderDay = menuOrders.map((order) =>{
-      console.log(order)
-      var presentcategoryMenu = categories.includes(order.menu_category_id);
-      if(presentcategoryMenu){
-        return(
-          <>
-           <tr>
-        <th class="under_data_col_style">day {order.menu_item_day}</th>
-        <td class="under_data_col_style">{order.menu_item_name}</td>
-        </tr>
-          </>
-        )
-      }
-  })
-
-  
-  // const renderDay = menuOrders.map((day) => {
-  //   console.log(day)
-  //   return(
-  //     <>
-  //     <tr>
-  //     {/* <th class="under_data_col_style"></th>  */}
-  //     <th class="under_data_col_style">Day {day.menu_item_day}</th>
-  //     <td class="under_data_col_style">Blueberry Waffle & Syrup*</td>
-  //     <td class="under_data_col_style">Fruit* </td>
-  //     <td class="under_data_col_style">Radicchio Date Salad(nuts)*</td>
-  //     <td class="under_data_col_style">French Beef(Mashed Potato)*</td>
-  //     <td class="under_data_col_style">Date Cookie w/Nuts*</td>
-  //     <td class="under_data_col_style">Greek Salad*</td>
-  //     <td class="under_data_col_style">Greek Salad*</td>
-  //     <td class="under_data_col_style"></td>
-  //     </tr>
-  //     </>
-  //   )
-  // })
-
 
   const selectStartDate = (e) => {
     console.log(e)
@@ -123,7 +77,42 @@ export default function ClientMealmenu() {
     }
   }
 
-  console.log(renderDay)
+
+  const renderCategory = menuCategory.map((category) => {
+    
+    return(
+      <>
+      {/* <th class="under_data_col_style"></th>  */}
+      <th class="under_data_col_style">{category}</th>
+      </>
+    )
+  })
+
+  const renderDay = dayCount.map((day) =>{
+    let renderedMenuOrders = [];
+    const renderMenuOrders = menuOrders.map((order) => {
+      let ifRenderedMenuOrders = renderedMenuOrders.findIndex(x => x.day === day && x.category === order.menu_category.name);
+      let ifCategoryIncluded = menuCategory.includes(order.menu_category.name);
+        if(ifCategoryIncluded && order.menu_item_day === day && ifRenderedMenuOrders < 0){
+          renderedMenuOrders.push({
+            "category": order.menu_category.name,
+            "day":day
+          }); 
+          return(<td class="under_data_col_style">{order.menu_item_name}</td>)}else{
+            return <></>
+          }
+    })
+    console.log(day)
+    console.log(renderedMenuOrders)
+    return(
+      <tr>
+      <th class="under_data_col_style">day {day}</th>
+      {renderMenuOrders}
+      </tr>
+      )
+
+  })
+
   return (
     <>
       <span>Start Date</span>
@@ -171,14 +160,14 @@ export default function ClientMealmenu() {
 
             <div class="col-3">
 
-              <h6 class="title_header_data">Start Date: 13/10/2020</h6>
+              <h6 class="title_header_data">Start Date: {startDate}</h6>
 
 
             </div>
 
             <div class="col-3">
 
-              <h6 class="title_header_data"> End Date: 09/11/2020</h6>
+              <h6 class="title_header_data"> End Date: {endDate}</h6>
 
             </div>
 
@@ -197,37 +186,11 @@ export default function ClientMealmenu() {
           <div>
 
             <table class="kitchen_table">
-
-              {renderData}
-              {/* <tr>
-                <th class="under_data_col_style"></th> 
-                <th class="under_data_col_style">Breakfast</th>
-                <th class="under_data_col_style">Snacks 1</th>
-                <th class="under_data_col_style">Lunch Starter</th>
-                <th class="under_data_col_style">Lunch Main</th>
-                <th class="under_data_col_style">Snacks 2</th>
-                <th class="under_data_col_style">Dinner Starter</th>
-                <th class="under_data_col_style">Dinner Main</th>
-                <th class="under_data_col_style">Extras</th>
-              </tr> */}
-
-              {/* <tr> */}
+            <tr>
+              <th class="under_data_col_style"></th>
+              {renderCategory}
+            </tr>
               {renderDay}
-                {/* <td class="under_data_col_style">"Day 1</td> */}
-                {/* <td class="under_data_col_style">Blueberry Waffle & Syrup*</td>
-                <td class="under_data_col_style">Fruit* </td>
-                <td class="under_data_col_style">Radicchio Date Salad(nuts)*</td>
-                <td class="under_data_col_style">French Beef(Mashed Potato)*</td>
-                <td class="under_data_col_style">Date Cookie w/Nuts*</td>
-                <td class="under_data_col_style">Greek Salad*</td>
-                <td class="under_data_col_style">Greek Salad*</td>
-                <td class="under_data_col_style"></td> */}
-
-              {/* </tr> */}
-
-
-
-
             </table>
 
 

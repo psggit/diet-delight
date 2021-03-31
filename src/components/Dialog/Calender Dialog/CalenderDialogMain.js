@@ -44,7 +44,10 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 				res.data.data.map((orderBreak) => {
 					var dateBreak = JSON.parse(orderBreak.date_list);
 					dateBreak.map((breakDay) => {
-						orderBreakDates.push(breakDay)
+						let dayInfo = getDayDetails(breakDay)
+						orderBreakDates.push({"year":dayInfo.year,
+					"month":dayInfo.monthDateWithoutPrefix,
+				"date":dayInfo.dayDateWithoutPrefix})
 					})
 				})
 				orderBreaksDates([...orderBreakDates]);
@@ -132,15 +135,14 @@ import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInLis
 			console.log(dayFormat)
             let concatedDate = formatedDate( dayFormat.year,dayFormat.month,dayFormat.date);
             console.log(concatedDate)
-
-			let selectedDaysList = selectedWeekDays.current;
 			let selectedDateList = [];
 			selectedWeekDays.current.map((weekDay) => {
 				let formatDate = formatedDate(weekDay.year, weekDay.month, weekDay.day)
+				selectedDateList.push(formatDate);
 			})
 			axios.post('my-order-breaks',{
 				meal_purchase_id:props.mealData.id,
-				date_list:selectedDaysList
+				date_list:selectedDateList
 			}).then((res) => console.log(res)).catch((err) => console.log(err))
 			axios.put('my-meal-purchases/'+props.mealData.id,{
 				end_date:concatedDate
