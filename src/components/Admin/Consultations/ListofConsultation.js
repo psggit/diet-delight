@@ -59,7 +59,7 @@ const ListofConsultation = () => {
   };
 
   useEffect(() => {
-    axios.get(`users?role_id=${1}`).then((res) => {
+    axios.get(`users`).then((res) => {
       setCustomers((res?.data?.data || []).map((user) => {
         return {
           id: user.id,
@@ -179,6 +179,11 @@ const ListofConsultation = () => {
   }
 
   const [showNotification, notificationType, notification] = notificationConf;
+  const nameMap = {
+    [CONSULTATION_STATUS_TYPE.BOOKED]: 'Booked',
+    [CONSULTATION_STATUS_TYPE.CANCELLED]: 'Cancelled',
+    [CONSULTATION_STATUS_TYPE.COMPLETED]: 'Completed',
+  }
 
   return (
     <>
@@ -227,7 +232,7 @@ const ListofConsultation = () => {
         <>
           <Main>
             <TableHeader
-              title="List of Consultations"
+              title={`List of ${nameMap[status]} Consultations`}
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');
@@ -266,6 +271,7 @@ const ListofConsultation = () => {
                           <Tooltip title="Mark as Complete">
                             <CheckCircleOutline style={{ margin: '0 6px', cursor: 'pointer' }} onClick={() => {
                               axios.put(`consultations/${consultation.id}`, { status: 2 }).then(() => {
+                                handleShow();
                                 setNotificationConf([true, 'success', 'Consultation Marked as Complete !'])
                               }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
                             }} />

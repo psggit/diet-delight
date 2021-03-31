@@ -155,6 +155,17 @@ const useStyles = makeStyles((theme) => ({
   },
   notificationContent: {
     minWidth: 375,
+  },
+  notificationIconContent: {
+    position: 'fixed',
+    top: 36,
+    right: 36,
+    zIndex: 1000,
+  },
+  pageIcons: {
+    color: '#800080',
+    fontSize: 42,
+    cursor: 'pointer'
   }
 }));
 
@@ -338,36 +349,48 @@ export default function PersistentDrawerLeft() {
                 { label: "Add Blog", link: "addblog" },
               ]}
             />
-            <LogoutContainer onClick={handleLogout}>
-              <ExitToApp style={{ fontSize: "56px", margin: "0 12px", width: '50px' }} /><span>LOGOUT</span>
-            </LogoutContainer>
           </Menu>
           <main
             id="page-wrap"
             style={{ width: "100%", padding: "16px 32px 0 32px" }}
           >
             <div className={classes.drawerHeader} >
-              <Icon id="notification-icon" style={{ color: '#800080', fontSize: 42, cursor: 'pointer' }} onClick={({ currentTarget }) => setNoticationIconrRef(currentTarget)}>notifications</Icon>
-              <Popover
-                id="notification-icon"
-                open={Boolean(noticationIconrRef)}
-                anchorEl={noticationIconrRef}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                onClose={() => setNoticationIconrRef(null)}
-              >
-                <Card className={classes.notificationContent}>
-                  <CardContent>
-                    No notifications
+              <div className={classes.notificationIconContent}>
+                <Icon
+                  id="notification-icon"
+                  className={classes.pageIcons}
+                  onClick={({ currentTarget }) => setNoticationIconrRef(currentTarget)}
+                >
+                  notifications
+                </Icon>
+                <Icon
+                  className={classes.pageIcons}
+                  onClick={handleLogout}
+                  style={{ marginLeft: 16 }}
+                >
+                  exit_to_app
+                </Icon>
+                <Popover
+                  id="notification-icon"
+                  open={Boolean(noticationIconrRef)}
+                  anchorEl={noticationIconrRef}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  onClose={() => setNoticationIconrRef(null)}
+                >
+                  <Card className={classes.notificationContent}>
+                    <CardContent>
+                      No notifications
                   </CardContent>
-                </Card>
-              </Popover>
+                  </Card>
+                </Popover>
+              </div>
             </div>
             <Switch>
               <Route exact path={`${path}`}>
