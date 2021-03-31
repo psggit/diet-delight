@@ -126,7 +126,7 @@ i.heart_menu_pkg {
   }
 
   div.menuPckg-container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
   div.btn_container_menupkg {
     display: flex;
@@ -184,7 +184,7 @@ i.heart_menu_pkg {
     left: 8px;
   }
   div.menuPckg-container {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
   i.heart_menu_pkg {
     position: absolute;

@@ -1,0 +1,28 @@
+#slick .slick-slide {
+  background: #fff;
+  color: #000;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#slick .slick-slide .active {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #78288b;
+  font-weight: 600;
+  text-decoration-color: #8bc441;
+  text-decoration-thickness: 4px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+#slick .slick-prev:before {
+  content: none;
+}
+
+#slick .slick-next:before {
+  content: none;
+}

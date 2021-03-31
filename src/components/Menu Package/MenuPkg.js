@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import axios from "../../axiosInstance";
 import TabMenuPkg from "./TabMenuPkg";
 import MainCourse from "./MainCourse";
+import Slicker from "./../Slick";
 import { Update } from "@material-ui/icons";
 
 export default function MenuPkg(props) {
@@ -19,6 +20,7 @@ export default function MenuPkg(props) {
   const [filter, setFilter] = useState(null);
   const [menuItems, setMenuItems] = useState([]);
   const [categoryName, setCategoryName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [recentlyAddedFavourites, setRecentlyAddedFavourites] = useState([]);
   const [favouritesList, setFavouritesList] = useState([]);
   function handlePush() {
@@ -68,6 +70,7 @@ export default function MenuPkg(props) {
 
   const filteredMenu = (menu_id, category_id, category_name) => {
     console.log(menu_id, category_id);
+    setCategoryId(category_id);
     axios
       .get(
         `menu-items?menu_id=` + menu_id + `&menu_category_id=` + category_id,
@@ -75,6 +78,7 @@ export default function MenuPkg(props) {
       )
       .then((res) => {
         setCategoryName(category_name);
+
         setMenuItems(res.data.data);
         console.log(res.data.data);
       });
@@ -139,9 +143,8 @@ export default function MenuPkg(props) {
                   </div>
                 </div>
               </div>
-              {/* vertical line  start*/}
+
               <div className="vertical_line_Menupkg"></div>
-              {/* vertical line  end */}
 
               <div className="col-lg-4 col-md-4 col-sm-12 btn_container_menupkg">
                 <button className="buy_sub_menupkg" onClick={handlePush}>
@@ -155,7 +158,11 @@ export default function MenuPkg(props) {
 
       {/* tabs start */}
 
-      <DayTabsMenupkg categories={category} filterMenu={filteredMenu} />
+      {/* <Slicker
+        categories={category}
+        filterMenu={filteredMenu}
+        activeId={categoryId}
+      /> */}
 
       <div className="container">
         <h4 className="d-flex justify-content-center breakfast_name_menupkg mt-4 mb-4 font-weight-bold">
