@@ -4,7 +4,7 @@ import DietOnlySelectItem from "./DietOnlySelectItem";
 import "./index.css";
 import DietTextareaBtnItem from "./DietTextareaBtnItem";
 import DietSelectandText from "./DietSelectandText";
-import cancel_icon from "../../assets/cancel.png";
+import cancel_icon from "../../assets/cancel_violet.png";
 import axios from "../../axiosInstance";
 
 const DietDataDetails = (props) => {
@@ -85,7 +85,7 @@ const DietDataDetails = (props) => {
       <>
         {question.type === 0 && (
           <DietTextareaBtnItem
-            textBtnQue={question}
+            question={question}
             handleAnswerGiven={handleAnswerByUser}
             submitAnswer={submitAnswer}
           />

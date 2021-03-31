@@ -16,7 +16,8 @@ export const adminSlice = createSlice({
         consultation:null,
         answer:null,
         duration:null,
-        listOfBlog:null
+        listOfBlog:null,
+        listOfKitchenReport:null,
     },
     reducers: {
         setTemp: (state, action) => {
@@ -102,6 +103,12 @@ export const adminSlice = createSlice({
         },
         resetListOfBlog: (state) => {
             state.blog = null
+        },
+        setListOfKitchenReport: (state, action) => {
+            state.kitchenReport = action.payload
+        },
+        resetListOfKitchenReport: (state) => {
+            state.kitchenReport = null
         }
     }
 });
@@ -134,7 +141,9 @@ export const {
     setListOfDuration,
     resetListOfDuration,
     setListOfBlog,
-    resetListOfBlog
+    resetListOfBlog,
+    setListOfKitchenReport,
+    resetListOfKitchenReport
  } = adminSlice.actions;
 
 export const selectTemp = state => state.admin.temp;
@@ -151,4 +160,5 @@ export const selectConsultation = state => state.admin.Consultation;
 export const selectListOfAnswer = state => state.admin.answer;
 export const selectListOfDuration = state => state.admin.duration;
 export const selectListOfBlog = state => state.admin.blog;
+export const selectListOfKitchenReport = state => state.admin.kitchenReport;
 export default adminSlice.reducer;

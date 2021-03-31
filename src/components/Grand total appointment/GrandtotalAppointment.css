@@ -71,6 +71,7 @@ h6.cost_breakdown_totalappointment_title {
   color: #303960;
   font-size: 23px;
   font-weight: 700;
+  margin-top: 30px;
 }
 div.silverConsultancy_container {
   font-family: Roboto;
@@ -140,8 +141,22 @@ button.payOnline_btn:hover {
   color: #fff;
   background: #6e9a34;
 }
+input.Grandtotal_Appointmentdate_subtitle {
+  border: none;
+  outline: none;
+  padding: 2%;
+  border-radius: 8px;
+}
 
 @media only screen and (max-width: 767px) {
+  input.Grandtotal_Appointmentdate_subtitle {
+    border: none;
+    outline: none;
+    padding: 2%;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 3%;
+  }
   /* vertical line */
   div.vertical_line_appointment_grandtotal {
     display: none;
@@ -188,9 +203,9 @@ button.payOnline_btn:hover {
   h6.grandTotal_appointmentdate_title {
     font-family: Roboto;
     color: #303960;
-
     font-size: 16px;
     font-weight: 700;
+    margin-top: 16px;
   }
   a.edit_title_grandtotal {
     font-size: 18px;
@@ -216,6 +231,7 @@ button.payOnline_btn:hover {
     margin-top: 11px;
     text-align: left;
     opacity: 0.9;
+    margin-top: 30px;
   }
   div.silverConsultancy_container {
     font-family: Roboto;
@@ -404,6 +420,7 @@ button.payOnline_btn:hover {
     color: #303960;
     font-size: 18px;
     font-weight: 700;
+    margin-top: 30px;
   }
   div.silverConsultancy_container {
     font-family: Roboto;
@@ -591,6 +608,7 @@ button.payOnline_btn:hover {
     color: #303960;
     font-size: 18px;
     font-weight: 700;
+    margin-top: 30px;
   }
   div.silverConsultancy_container {
     font-family: Roboto;
@@ -778,6 +796,7 @@ button.payOnline_btn:hover {
     font-size: 20px;
     font-weight: 700;
     opacity: 0.9;
+    margin-top: 30px;
   }
   div.silverConsultancy_container {
     font-family: Roboto;

@@ -1,4 +1,4 @@
-.calender_dialog_bg{
+.calender_dialog_bg_new{
   background-image: url("../../../assets/consultant.jpg");
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
@@ -121,6 +121,12 @@ span.active_text{
 }
 
 @media only screen and (max-width: 767px) {
+  div.dialog_container_cale{
+    height: 325px;
+  }
+  .calender_dialog_bg_new{
+    font-size:10px;
+  }
   label.active {
    padding: 0px;
    background: #77838F;
@@ -190,17 +196,21 @@ span.month_text_dialog{
   padding: 10px 0;
   margin: 0;
 }
-h6.breaks_header{
+.breaks_header{
   font-size: 17px;
   color: #fff;
-  text-align: center;
   letter-spacing: 2px;
   font-weight: 600;
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  align-items:center;
+  width: 100%;
 }
 div.dialog_signup_new{
   margin-top: 15px;
 }
-.calender_dialog_bg{
+.calender_dialog_bg_new{
 
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
@@ -249,9 +259,9 @@ span.done_all_icon{
  div.dialog_signup_new{
   margin-top: 15px;
 }
-.calender_dialog_bg{
+.calender_dialog_bg_new{
 
- height: 500px;
+ height: 381px;
  background-position: center;
  background-repeat: no-repeat;
  background-size: cover;
@@ -340,7 +350,7 @@ h6.breaks_header{
 div.dialog_signup_new{
   margin-top: 15px;
 }
-.calender_dialog_bg{
+.calender_dialog_bg_new{
 
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */

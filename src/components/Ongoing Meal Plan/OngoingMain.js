@@ -18,7 +18,7 @@ export default function OngoingMain() {
         },
       })
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res);
         setMeal(res.data.data);
       });
   }, []);
@@ -32,13 +32,35 @@ export default function OngoingMain() {
     );
    
   }
+  function handleDate(start_date){
+    console.log(start_date)
+    var orderDate = new Date(start_date)
+    var dd = orderDate.getDate();
+       var mm = orderDate.getMonth()+1; 
+       var yyyy = orderDate.getFullYear();
+       if(dd<10)  
+       {
+           dd='0'+dd;
+       } 
+
+       if(mm<10) 
+       {
+           mm='0'+mm;
+       } 
+       orderDate = yyyy+'-'+mm+'-'+dd;
+       console.log(orderDate)
+
+       return orderDate
+
+  
+  }
 
   
 
   const renderMeal = meals.map((meal) => {
     return (
       <div onClick={() =>pushScreen(meal)}>
-        <div className="main_container_mealpkg">
+        <div className="main_container_ongoing">
           <div className="card fullcard_container_ongoing">
             <div className="row">
               <div className="col-md-6 col-sm-12">
@@ -48,7 +70,7 @@ export default function OngoingMain() {
                       <img
                         src={meal.meal_plan.picture}
                         alt="rounded_img"
-                        className="rounded-circle card_img_rounded_mealpkgsub"
+                        className="rounded-circle card_img_rounded_ongoing"
                       ></img>
                     </div>
                   </div>
@@ -67,7 +89,7 @@ export default function OngoingMain() {
 
                   <div className="col-md-11 col-sm-12">
                     <h6 className="date_content_ongoing">
-                     {meal.start_date}
+                      Start Date - {handleDate(meal.start_date)}
                     </h6>
                     <h6 className="date_content_ongoing_subtext">
                       {meal.meal_plan.details}

@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { Work, WorkImage, Btnbox, Btn } from './WorkElement'
+import { Work, WorkImage, Btnbox, Btn, NavLinks } from './WorkElement'
 
 import { Heading, Subheading, Para } from '../../MainComponents'
 
 
-const WorkMap = ({ image, title, down, descript, btn }) => {
+const WorkMap = ({ image, title, down, descript, btn, to }) => {
     return (
         <Work>
             <WorkImage alt="work" src={image} />
@@ -19,9 +19,18 @@ const WorkMap = ({ image, title, down, descript, btn }) => {
                 {descript}
             </Para>
             <Btnbox>
-                <Btn>
+                {/* <Btn to={to}>
                     {btn}
-                </Btn>
+                </Btn> */}
+                <NavLinks
+                  spy={true}
+                  to={to}
+                  smooth={true}
+                  offset={-80}
+                  duration={200}
+                >
+                  {btn}
+                </NavLinks>
             </Btnbox>
         </Work>
     )

@@ -1,128 +1,118 @@
-.primary_address_bg{
-    background-image: url("../../../assets/consultant.jpg");
-    height: 500px; /* You must set a specified height */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover;
-
+.primary_address_bg {
+  background-image: url("../../../assets/popup_background.jpg");
+  height: 500px; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
 }
-h6.select_text_dialog{
-    cursor: pointer;
+h6.select_text_dialog {
+  cursor: pointer;
 }
-h6.title_dialog_name{
-
+h6.title_dialog_name {
 }
-textarea.text_area_dialog:focus{
-    outline: none;
-
+p.text_area_dialog:focus {
+  outline: none;
 }
 
 @media only screen and (max-width: 767px) {
-    div.dialog_signup_new{
-        margin-top: 15px;
-    }
-    .primary_address_bg{
-
-        height: 329px; /* You must set a specified height */
-        background-position: center; /* Center the image */
-        background-repeat: no-repeat; /* Do not repeat the image */
-        background-size: cover;
-    }
-    h6.select_text_dialog{
-        text-align: end;
-        font-size: 10px;
-        color: #8BC53F;
-        position: relative;
-        top: 15px;
-
-    }
-    h6.title_dialog_name{
-      color: #8BC53F;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+  div.dialog_signup_new {
+    margin-top: 15px;
   }
-  textarea.text_area_dialog{
-     font-size: 13px;
-     background: #77838f59;
-     border-radius: 6px;
-     border: none;
-     padding: 5%;
-     color: #ffffffd4;
-     margin: 4%;
- }
- button.done_btn_dialog{
+  .primary_address_bg {
+    height: 329px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+  }
+  h6.select_text_dialog {
+    text-align: end;
+    font-size: 10px;
+    color: #8bc53f;
+    position: relative;
+    top: 15px;
+  }
+  h6.title_dialog_name {
+    color: #8bc53f;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  p.text_area_dialog {
+    font-size: 13px;
+    background: #77838f59;
+    border-radius: 6px;
+    border: none;
+    padding: 12% 5% 5% 5%;
+    color: #ffffffd4;
+    position: relative;
+    /* margin: 4%; */
+  }
+  button.done_btn_dialog {
     background-color: #77838f59;
     color: #fff;
     font-weight: bold;
     border-top-left-radius: 17px;
     font-size: 17px;
     letter-spacing: 1px;
-}
-div.btn_container_dialog_address{
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
+  }
+  div.btn_container_dialog_address {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 @media only screen and (min-width: 768px) {
-    div.dialog_signup_new{
-        margin-top: 15px;
-    }
-    .primary_address_bg{
-
-     height: 500px;
-     background-position: center;
-     background-repeat: no-repeat;
-     background-size: cover;
-     width: 337px;
-
- }
- h6.select_text_dialog{
-   text-align: end;
-   font-size: 13px;
-   color: #8BC53F;
-   position: relative;
-   top: 15px;
-   letter-spacing: .5px;
-
-}
-h6.title_dialog_name{
- color: #8BC53F;
- font-size: 21px;
- font-weight: 600;
- margin-top: 10px;
- margin-bottom: 10px;
-}
-textarea.text_area_dialog{
-   font-size: 17px;
-   background: #77838f59;
-   border-radius: 6px;
-   border: none;
-   padding: 3%;
-   color: #ffffffd4;
-   margin: 4%;
-   height: 112px;
-   width: 100%;
-}
-button.done_btn_dialog{
+  div.dialog_signup_new {
+    margin-top: 15px;
+  }
+  .primary_address_bg {
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 337px;
+  }
+  h6.select_text_dialog {
+    text-align: end;
+    font-size: 13px;
+    color: #8bc53f;
+    position: relative;
+    top: 15px;
+    letter-spacing: 0.5px;
+  }
+  h6.title_dialog_name {
+    color: #8bc53f;
+    font-size: 21px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  p.text_area_dialog {
+    font-size: 17px;
+    background: #77838f59;
+    border-radius: 6px;
+    border: none;
+    padding: 10% 3% 3% 3%;
+    color: #ffffffd4;
+    /* margin: 4%; */
+    position: relative;
+    height: 112px;
+    width: 100%;
+  }
+  button.done_btn_dialog {
     background-color: #77838f59;
     color: #fff;
     font-weight: bold;
     border-top-left-radius: 17px;
     font-size: 23px;
     letter-spacing: 1px;
-}
-div.btn_container_dialog_address{
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
-
-
+  }
+  div.btn_container_dialog_address {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
 }

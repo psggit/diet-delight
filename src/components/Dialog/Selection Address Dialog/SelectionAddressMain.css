@@ -1,112 +1,154 @@
-select.selction_bar_dialog:focus{
-	outline: none;
-}	
-input.selction_input_dialog:focus{
-	outline: none;
+select.selction_bar_dialog:focus {
+  outline: none;
+}
+input.selction_input_dialog:focus {
+  outline: none;
+}
+
+input.selction_input_dialog.disabled {
+  width: 100%;
+  /* background: #77838f52; */
+  background: none;
+  text-transform: capitalize;
+  border: none;
+  border-radius: 4px;
+  margin: 3%;
+  font-size: 19px;
+  padding: 5%;
+  color: #fff;
+  margin-top: 20px;
 }
 ::placeholder {
-	color: #fff;
-	opacity: 1; /* Firefox */
+  color: #fff;
+  opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-	color: #fff;
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #fff;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
-	color: #fff;
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #fff;
 }
-.selection_dialog_address_bg{
-	background-image: url("../../../assets/consultant.jpg");
-	height: 500px; /* You must set a specified height */
-	background-position: center; /* Center the image */
-	background-repeat: no-repeat; /* Do not repeat the image */
-	background-size: cover;
+.selection_dialog_address_bg {
+  background-image: url("../../../assets/popup_background.jpg");
+  height: 500px; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
 }
-button.add_btn_dialog:focus{
-	outline: none;
+button.add_btn_dialog:focus {
+  outline: none;
 }
 
 @media only screen and (max-width: 767px) {
-	.selection_dialog_address_bg{
-		height: 330px; /* You must set a specified height */
-		background-position: center; /* Center the image */
-		background-repeat: no-repeat; /* Do not repeat the image */
-		background-size: cover;
-	}
-	select.selction_bar_dialog{
-		width: 100%;
-		background: #77838f52;
-		border: none;
-		border-radius: 4px;
-		margin: 3%;
-		font-size: 19px;
-		padding: 5%;
-		color: #fff;
-		margin-top: 19px;
-	}
-	input.selction_input_dialog{
-		width: 100%;
-		background: #77838f52;
-		border: none;
-		border-radius: 4px;
-		margin: 3%;
-		font-size: 19px;
-		padding: 5%;
-		color: #fff;
-		margin-top: 20px;
-	}
-	button.add_btn_dialog{
-		background-color: #77838f59;
-		color: #fff;
-		font-weight: bold;
-		border-top-left-radius: 17px;
-		font-size: 17px;
-		letter-spacing: 1px;
-		width: 101px;
-	}
+  .selection_dialog_address_bg {
+    height: 330px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+  }
+  select.selction_bar_dialog {
+    width: 100%;
+    background: #77838f52;
+    border: none;
+    border-radius: 4px;
+    margin: 3%;
+    font-size: 19px;
+    padding: 5%;
+    color: #fff;
+    margin-top: 19px;
+  }
+  input.selction_input_dialog {
+    width: 100%;
+    background: #77838f52;
+    border: none;
+    border-radius: 4px;
+    margin: 3%;
+    font-size: 19px;
+    padding: 5%;
+    color: #fff;
+    margin-top: 20px;
+  }
 
+  input.selction_input_dialog.disabled {
+    width: 100%;
+    /* background: #77838f52; */
+    background: none;
+    text-transform: capitalize;
+    border: none;
+    border-radius: 4px;
+    margin: 3%;
+    font-size: 19px;
+    padding: 5%;
+    color: #fff;
+    margin-top: 20px;
+  }
+
+  button.add_btn_dialog {
+    background-color: #77838f59;
+    color: #fff;
+    font-weight: bold;
+    border-top-left-radius: 17px;
+    font-size: 17px;
+    letter-spacing: 1px;
+    width: 101px;
+  }
 }
 
-
 @media only screen and (min-width: 768px) {
-	.selection_dialog_address_bg{
-		height: 360px;
-		width: 100%;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
-	select.selction_bar_dialog{
-		width: 100%;
-		background: #77838f52;
-		border: none;
-		border-radius: 4px;
-		margin: 3%;
-		font-size: 19px;
-		padding: 5%;
-		color: #fff;
-		margin-top: 19px;
-	}
-	input.selction_input_dialog{
-		width: 100%;
-		background: #77838f52;
-		border: none;
-		border-radius: 4px;
-		margin: 3%;
-		font-size: 19px;
-		padding: 5%;
-		color: #fff;
-		margin-top: 20px;
-	}
-	button.add_btn_dialog{
-		background-color: #77838f59;
-		color: #fff;
-		font-weight: bold;
-		border-top-left-radius: 17px;
-		font-size: 17px;
-		letter-spacing: 1px;
-		width: 101px;
-	}
+  .selection_dialog_address_bg {
+    height: 360px;
+    width: 337px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  select.selction_bar_dialog {
+    width: 100%;
+    background: #77838f52;
+    border: none;
+    border-radius: 4px;
+    margin: 3%;
+    font-size: 19px;
+    padding: 5%;
+    color: #fff;
+    margin-top: 19px;
+  }
+  input.selction_input_dialog {
+    width: 100%;
+    background: #77838f52;
+    border: none;
+    border-radius: 4px;
+    margin: 3%;
+    font-size: 19px;
+    padding: 5%;
+    color: #fff;
+    margin-top: 20px;
+  }
 
+  input.selction_input_dialog.disabled {
+    width: 100%;
+    /* background: #77838f52; */
+    border: none;
+    text-transform: capitalize;
+    background: none;
+    border-radius: 4px;
+    margin: 3%;
+    font-size: 19px;
+    padding: 5%;
+    color: #fff;
+    margin-top: 20px;
+  }
+  button.add_btn_dialog {
+    background-color: #77838f59;
+    color: #fff;
+    font-weight: bold;
+    border-top-left-radius: 17px;
+    font-size: 17px;
+    letter-spacing: 1px;
+    width: 101px;
+  }
 }

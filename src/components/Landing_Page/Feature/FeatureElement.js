@@ -66,6 +66,7 @@ export const IconBox = styled.div`
     width:40px;
     cursor:pointer;
     margin-right: 10px;
+   
 
 `
 
@@ -163,3 +164,4 @@ export const Message = styled(BsEnvelope)`
     width:30px;
     background:transparent;
 `
+

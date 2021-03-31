@@ -52,6 +52,7 @@ export const Para = styled.p`
     font-weight:${props => props.weight ? props.weight : "400"};
     margin-top:${props => props.top ? props.top : "10px"};
     text-align:${props => props.align ? props.align : "center"};
+    cursor:"pointer";
 
 
     @media only screen and (max-width:500px){

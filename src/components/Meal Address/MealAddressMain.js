@@ -10,7 +10,7 @@ export default function AddressAppointmentMain(props){
          
         <div className="address_screen_bg">
         
-        {/* <img src={logo_web} alt="logo" className="logo_web"></img> */}
+  
         
         <Mealchoose name="Choose Your Meal Plan" />
         
@@ -19,7 +19,7 @@ export default function AddressAppointmentMain(props){
         <div className="main_container_mealaddressMain">
         <div className="card fullcard_container_mealaddressmain">
         
-        <SubMealAddress mealID={props.location.state.id} mealType={props.location.state.mealType} meal = {props.location.state.meal}/>
+        <SubMealAddress mealID={props.location.state.id}  mealType={props.location.state.mealType} meal = {props.location.state.meal}/>
         
         </div>
         </div>

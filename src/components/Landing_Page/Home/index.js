@@ -6,6 +6,16 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
 
+    const messageOnWhatsAppWeb = () => {
+        const _adminMobile = process.env.REACT_APP_ADMIN_MOBILE;
+        const _message = "Hello, This is a Dummy Message";
+        const _whatsAppWebUrl = `https://api.whatsapp.com/send?phone=${_adminMobile}&text=${_message}`;
+        console.log("Mobile :", _adminMobile);
+        console.log("Mobile :", _whatsAppWebUrl);
+
+        window.open(_whatsAppWebUrl,'_blank')
+    };
+
     return (
         <div style={{position:"relative"}}>
             <HomeMain id="home">
@@ -19,7 +29,7 @@ const Home = () => {
                         <Heading>
                             EAT HEALTHLY
                 </Heading>
-                        <HomeSearch>
+                        {/* <HomeSearch>
                             <HomeIcon>
                                 <Searchbtn />
                             </HomeIcon>
@@ -27,19 +37,14 @@ const Home = () => {
                             <HomeIcon border="0px 10px 10px 0px">
                                 <RightArrow />
                             </HomeIcon>
-                        </HomeSearch>
+                        </HomeSearch> */}
                     </Containerup>
                     <Icons>
-                        <Icon>
-                            
-                            
+                        {/* <Icon>
                             <Message />
-          
-                           
-                        </Icon>
-                        
+                        </Icon> */}
                         <Icon>
-                            <Whatsapp />
+                            <Whatsapp onClick={messageOnWhatsAppWeb} />
                         </Icon>
                     </Icons>
                 </HomeContainer>

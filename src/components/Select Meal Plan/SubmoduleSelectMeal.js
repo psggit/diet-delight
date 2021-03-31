@@ -11,7 +11,7 @@ export default function SubmoduleSelectMeal(props){
 
   
     useEffect(() => {
-     axios.get(`menu-categories?menu_id=`+props.recentPurchase.menu_id, {
+     axios.get(`menu-categories?menu_id=`+props.mealData.menu_id, {
          headers: {
              Authorization: `Bearer ${localStorage.getItem('access_token')}`
          }
@@ -20,11 +20,11 @@ export default function SubmoduleSelectMeal(props){
         console.log(res)
         setCategory(res.data.data)
      })
- }, [props.recentPurchase.menu_id])
+ }, [props.mealData.menu_id])
     const renderCategory = category.map((categoryData) =>  {
         console.log(categoryData)
         return(
-    <MealPlansMenuItems key={Math.random()} category={categoryData} selectedDay={props.selectedDay}/>)
+    <MealPlansMenuItems key={Math.random()} category={categoryData} selectedDay={props.selectedDay} />)
 });
    
     return(

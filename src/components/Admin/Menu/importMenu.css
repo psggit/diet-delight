@@ -1,0 +1,16 @@
+.file_container{
+    height:50%;
+    background-color:#8bc53f;
+    border: 1px solid #6E9A34;
+    position: relative;
+}
+#csvFile{
+    width: 100%;
+}
+#button_text{
+    color:#fff;
+    font-size:x-large;
+    position: absolute;
+    top:5px;
+    left:25%;
+}

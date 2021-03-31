@@ -29,14 +29,14 @@ export default function AddressDialogBox(props){
                 
             
              <div className="primary_address">Primary Address</div>
-                <p className="txtarea_secondary_address"  id="primary_address" onClick={() => selectAddress("primary_address")}>{props.userData.primary_address_line1}</p>
+                <p className="txtarea_secondary_address"  id="primary_address" onClick={() => selectAddress("primary_address")}>{((props.userData.primary_address_line1 === null || props.userData.primary_address_line1 === '') ? " " : props.userData.primary_address_line1) + " " + ((props.userData.primary_address_line2 === null || props.userData.primary_address_line2 === '') ? " " : props.userData.primary_address_line2)}</p>
                 
                 <div className="secondary_address__Button">
              <div className="secondary_address">Secondary Address</div>
              <div className="add_button" >ADD</div>
              </div>
               
-                <p className="txtarea_secondary_address" id="secondary_address" onClick={() => selectAddress("secondary_address")}></p>
+                <p className="txtarea_secondary_address" id="secondary_address" onClick={() => selectAddress("secondary_address")}>{((props.userData.secondary_address_line1 === null || props.userData.secondary_address_line1 === '') ? "" : props.userData.secondary_address_line1 ) + " " + ((props.userData.secondary_address_line2 == null || props.userData.secondary_address_line2 === '')? " ": props.userData.secondary_address_line2)}</p>
             
                 <button className="btn_done" onClick={() => props.makeAddressBox(false)}>Done</button>
          

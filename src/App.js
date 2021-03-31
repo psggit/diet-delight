@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 
 import { Cookies } from "react-cookie";
 
@@ -48,8 +49,10 @@ import PrimaryaddDialog from "./components/Dialog/Primary address Dialog/Primary
 import SelectandAddMain from "./components/Dialog/Select and Add dialog/SelectandAddMain.js";
 import SelectionAddressMain from "./components/Dialog/Selection Address Dialog/SelectionAddressMain.js";
 import SelectionCalenderMain from "./components/Dialog/Selection Calender Dialog/SelectionCalenderMain.js";
-import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDialogMain.js";
-// import About from "./components/Our story page/About";
+import CalenderDialogMain from "./components/Dialog/Calender Dialog/CalenderDialogMain";
+import About from "./components/Our story page/About";
+import ImportMenu from "./components/Admin/Menu/ImportMenu";
+import ForgotPassword from "./components/Auth/ForgotPassword";
 
 function App() {
   let cookie = new Cookies();
@@ -101,85 +104,97 @@ function App() {
   };
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact>
-          <Navbar isOpen={isOpen} toggle={toggle} />
-          <Sidebar isOpen={isOpen} toggle={toggle} />
-          <LandingPage />
-        </Route>
+    <SnackbarProvider maxSnack={3}>
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <Navbar isOpen={isOpen} toggle={toggle} />
+            <Sidebar isOpen={isOpen} toggle={toggle} />
+            <LandingPage />
+          </Route>
 
-        <Route path="/signin" component={Signin} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/admin" component={AdminDash} />
-        <Route path="/consultant" exact component={Consultant} />
-        <Route path="/kitchen" exact component={Kitchen} />
-        <Route path="/accountant" exact component={Accountant} />
+          <Route path="/signin" component={Signin} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/forgotpassword" exact component={ForgotPassword} />
+          <Route path="/admin" exact component={AdminDash} />
+          <Route path="/consultant" exact component={Consultant} />
+          <Route path="/kitchen" exact component={Kitchen} />
+          <Route path="/accountant" exact component={Accountant} />
 
-        {/* <Route path="/DietDataDetails" exact component={DietDataDetails} /> */}
-        <Route
-          path="/MealpkgSubscription"
-          exact
-          component={MealpkgSubscription}
-        />
-        <Route path="/MealAddressMain" exact component={MealAddressMain} />
-        <Route path="/PaymentPlan" exact component={PaymentPlan} />
-        <Route path="/SelectMealPlan" exact component={SelectMealPlan} />
-        <Route path="/Appointmentmain" exact component={Appointmentmain} />
-        <Route
-          path="/GrandtotalAppointmentmain"
-          exact
-          component={GrandtotalAppointmentmain}
-        />
-        <Route
-          path="/AddressAppointmentMain"
-          exact
-          component={AddressAppointmentMain}
-        />
-        <Route path="/OrderHistory" exact component={OrderHistory} />
-        <Route path="/MenuPkg" exact component={MenuPkg} />
-        <Route path="/UserDashboardMain" exact component={UserDashboardMain} />
-        <Route path="/FavouriteMain" exact component={FavouriteMain} />
-        <Route path="/OngoingMain" exact component={OngoingMain} />
-        <Route path="/BmiMain" exact component={BmiMain} />
-        <Route path="/Bmireport" exact component={Bmireport} />
-        <Route path="/ConatctUsMain" exact component={ConatctUsMain} />
-        <Route path="/ChangePassword" exact component={ChangePassword} />
-        <Route path="/AddressDialogBox" exact component={AddressDialogBox} />
-        <Route
-          path="/AddressDialogBoxDropDown"
-          exact
-          component={AddressDialogBoxDropDown}
-        />
-        <Route path="/otpVerification" exact component={OtpDialogBox} />
-        <Route path="/Blogs" exact component={Blogs} />
-        <Route path="/Termcondition" exact component={Termcondition} />
-        <Route
-          path="/Termconditioncontent"
-          exact
-          component={Termconditioncontent}
-        />
+          {/* <Route path="/DietDataDetails" exact component={DietDataDetails} /> */}
+          <Route
+            path="/MealpkgSubscription"
+            exact
+            component={MealpkgSubscription}
+          />
+          <Route path="/MealAddressMain" exact component={MealAddressMain} />
+          <Route path="/PaymentPlan" exact component={PaymentPlan} />
+          <Route path="/SelectMealPlan" exact component={SelectMealPlan} />
+          <Route path="/Appointmentmain" exact component={Appointmentmain} />
+          <Route
+            path="/GrandtotalAppointmentmain"
+            exact
+            component={GrandtotalAppointmentmain}
+          />
+          <Route
+            path="/AddressAppointmentMain"
+            exact
+            component={AddressAppointmentMain}
+          />
+          <Route path="/OrderHistory" exact component={OrderHistory} />
+          <Route path="/MenuPkg" exact component={MenuPkg} />
+          <Route
+            path="/UserDashboardMain"
+            exact
+            component={UserDashboardMain}
+          />
+          <Route path="/FavouriteMain" exact component={FavouriteMain} />
+          <Route path="/OngoingMain" exact component={OngoingMain} />
+          <Route path="/BmiMain" exact component={BmiMain} />
+          <Route path="/Bmireport" exact component={Bmireport} />
+          <Route path="/ConatctUsMain" exact component={ConatctUsMain} />
+          <Route path="/ChangePassword" exact component={ChangePassword} />
+          <Route path="/AddressDialogBox" exact component={AddressDialogBox} />
+          <Route
+            path="/AddressDialogBoxDropDown"
+            exact
+            component={AddressDialogBoxDropDown}
+          />
+          <Route path="/otpVerification" exact component={OtpDialogBox} />
+          <Route path="/Blogs" exact component={Blogs} />
+          <Route path="/Termcondition" exact component={Termcondition} />
+          <Route
+            path="/Termconditioncontent"
+            exact
+            component={Termconditioncontent}
+          />
 
-        <Route path="/PrimaryaddDialog" exact component={PrimaryaddDialog} />
-        <Route
-          path="/SelectionAddressMain"
-          exact
-          component={SelectionAddressMain}
-        />
-        <Route path="/SelectandAddMain" exact component={SelectandAddMain} />
-        <Route
-          path="/CalenderDialogMain"
-          exact
-          component={CalenderDialogMain}
-        />
-        <Route
-          path="/SelectionCalenderMain"
-          exact
-          component={SelectionCalenderMain}
-        />
-        {/* <Route path="/About" exact component={About} /> */}
-      </Switch>
-    </Router>
+          <Route path="/PrimaryaddDialog" exact component={PrimaryaddDialog} />
+          <Route
+            path="/SelectionAddressMain"
+            exact
+            component={SelectionAddressMain}
+          />
+          <Route path="/SelectandAddMain" exact component={SelectandAddMain} />
+          <Route
+            path="/CalenderDialogMain"
+            exact
+            component={CalenderDialogMain}
+          />
+          <Route
+            path="/SelectionCalenderMain"
+            exact
+            component={SelectionCalenderMain}
+          />
+          <Route path="/About" exact component={About} />
+          <Route
+            path="/                                                                                                                                                  "
+            exact
+            component={ImportMenu}
+          />
+        </Switch>
+      </Router>
+    </SnackbarProvider>
   );
 }
 

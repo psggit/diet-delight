@@ -1,6 +1,6 @@
- .otp_bg{
+.otp_bg{
     background-image: url(../../../assets/mealplan.jpg);
-    height: 5   00px; /* You must set a specified height */
+    height: 500px; /* You must set a specified height */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
@@ -19,9 +19,8 @@ i.left_icon_dialog{
     
 }
 input.input_dialog_signup{
-    letter-spacing: 32px;
     
-    width: 100%;
+    width: 21px;
     padding: 1%;
     margin: 3%;
     height: 48px;
@@ -72,8 +71,7 @@ input[type=number] {
         color: #8BC53F;
     }
     input.input_dialog_signup{
-        letter-spacing: 28px;
-        width: 100%;
+        width: 21px;
         padding: 1%;
         margin: 3%;
         height: 35px;
@@ -82,12 +80,6 @@ input[type=number] {
         opacity: .8;
         background: transparent;
         color: #2121219c;
-    }
-    input:focus{
-        border:none;
-        outline:none;
-        border-bottom: 2px solid #21212166;
-
     }
     h6.your_phone_text{
         font-size: 14px;
@@ -150,8 +142,7 @@ input[type=number] {
         color: #8BC53F;
     }
     input.input_dialog_signup{
-        letter-spacing: 32px;
-        width: 100%;
+        width: 21px;
         padding: 1%;
         margin: 3%;
         height: 35px;
@@ -160,12 +151,6 @@ input[type=number] {
         opacity: .8;
         background: transparent;
         color: #2121219c;
-    }
-    input:focus{
-        border:none;
-        outline:none;
-        border-bottom: 2px solid #21212166;
-
     }
     h6.your_phone_text{
         font-size: 14px;
@@ -229,8 +214,7 @@ input[type=number] {
         color: #8BC53F;
     }
     input.input_dialog_signup{
-        letter-spacing: 32px;
-        width: 100%;
+        width: 21px;
         padding: 1%;
         margin: 3%;
         height: 35px;
@@ -239,12 +223,6 @@ input[type=number] {
         opacity: .8;
         background: transparent;
         color: #2121219c;
-    }
-    input:focus{
-        border:none;
-        outline:none;
-        border-bottom: 2px solid #21212166;
-
     }
     h6.your_phone_text{
         font-size: 14px;
@@ -309,8 +287,7 @@ input[type=number] {
         color: #8BC53F;
     }
     input.input_dialog_signup{
-        letter-spacing: 32px;
-        width: 100%;
+        width: 21px;
         padding: 1%;
         margin: 3%;
         height: 35px;
@@ -319,12 +296,6 @@ input[type=number] {
         opacity: .8;
         background: transparent;
         color: #2121219c;
-    }
-    input:focus{
-        border:none;
-        outline:none;
-        border-bottom: 2px solid #21212166;
-
     }
     h6.your_phone_text{
         font-size: 14px;

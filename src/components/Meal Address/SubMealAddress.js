@@ -7,12 +7,11 @@ import axios from '../../axiosInstance';
 import { Link ,useHistory} from 'react-router-dom';
 import WeekDataMemo from './WeekData';
 
-import AddressDialogBoxDropDown from '../Address Appointment/AddressDialogBoxDropDown'
-import AddressDialogBox from '../Address Appointment/AddressDialogBox'
+import PrimaryaddDialog from '../Dialog/Primary address Dialog/PrimaryaddDialog'
 
 
-export default function AddressAppointmentMain(props){
-    console.log(props)
+export default function SubMealAddress(props){
+    console.log(props) 
     let history = useHistory(); 
     const [value, setValue] = React.useState('female');
     const RadioChange = (event) => {
@@ -23,18 +22,25 @@ export default function AddressAppointmentMain(props){
     const[address,setAddress ]=useState('');
     const [date,setDate] = useState("");
     const [weekDays,setWeekDays] = useState([]);
-    const [selectedTimingSlot,setSelectedTimimgSlot] = useState('')
+    const [selectedTimingSlot,setSelectedTimimgSlot] = useState('morning')
     const [toggleTextarea,setToggleTextarea] = useState(true);
     const [extraCharge,setExtraCharge] = useState(0);
     const [incrementedDate,setIncrementedDate] = useState("");
     
       const [changeAddressData,setChangeAddressData] = useState(false) 
       const [selectAddress,setSelectedAddress] = useState("")
+      const [maximumSelectionMessage, setmaximumSelectionMessage] = useState('');
      
 
-    function handleAdrress(data){
+    function handleAddress(data){
       console.log(data)
       setSelectedAddress(data)
+    //   var changeAddress = document.getElementById('addressValue');
+      let primaryAddress = (user.primary_address_line1 === null || user.primary_address_line1 === '') ? " " : user.primary_address_line1+ " " + ((user.primary_address_line2 === null || user.primary_address_line2 === '') ? " " : user.primary_address_line2)
+      let secondaryAddress = (user.secondary_address_line1 === null || user.secondary_address_line1 === '') ? "" : user.secondary_address_line1  + " " + ((user.secondary_address_line2 == null || user.secondary_address_line2 === '')? " ": user.secondary_address_line2)
+      let addressValue = data === 'primary_address' ? primaryAddress : secondaryAddress;
+    //   changeAddress.value = addressValue;
+      setAddress(addressValue)
 
     } 
 
@@ -63,7 +69,10 @@ export default function AddressAppointmentMain(props){
 
 
     function handleDateChange(date){
-                setDate(date)           
+                setDate(date)  
+                var errorMessage = document.getElementById('successDate');
+                errorMessage.innerHTML = '';
+                console.log(errorMessage)         
     }
 
 
@@ -78,6 +87,15 @@ export default function AddressAppointmentMain(props){
         .catch((err) => console.log(err))
         console.log(timeSlot)
     }
+
+    const handleMaximumSelection = (message) => {
+        setmaximumSelectionMessage(message)
+    }
+
+    useEffect(() => {
+        var byDefaultTimeSelection = document.getElementById('morning');
+        byDefaultTimeSelection.checked=true;
+    },[])
 
             
     useEffect(() => {
@@ -102,8 +120,8 @@ export default function AddressAppointmentMain(props){
                     console.log(res)
                     
                     setUser(res.data)
-                    // setAddress(res.data.primary_address_line1)
-                    console.log(user)
+                    let addressValue = (res.data.primary_address_line1 === null || res.data.primary_address_line1 === '') ? " " : res.data.primary_address_line1+ " " + ((res.data.primary_address_line2 === null || res.data.primary_address_line2 === '') ? " " : res.data.primary_address_line2)
+                    setAddress(addressValue)
                 })
 
 
@@ -139,9 +157,11 @@ export default function AddressAppointmentMain(props){
                             extraCharge:extraCharge
                         }
                 })
-        }else(
-            alert("Please Select Date") 
-        ) 
+        }else {
+            var errorMessage = document.getElementById('successDate');
+            errorMessage.innerHTML = 'please enter date';
+      
+          } 
     }
                 
     return(     
@@ -150,18 +170,22 @@ export default function AddressAppointmentMain(props){
                     <div className="row">
  
                         {/* <AddressDialogBoxDropDown  changeAddress={addressDialog} makeAddress={handleAdrress}  addressValue={changeAddressValue}/> */}
-                        <AddressDialogBox
+                        {/* <AddressDialogBox
                           changeAddressBox={changeAddressData} 
                          makeAddressBox={handleChangeAdrress}
                          userData ={user}
                          makeChangeAdderess={handleAdrress}
 
-                        />
+                        /> */}
+                        <PrimaryaddDialog  changeAddressBox={changeAddressData} 
+                         makeAddressBox={handleChangeAdrress}
+                         userData ={user}
+                         makeChangeAdderess={handleAddress}/> 
                     
                     <div className="col-md-5 col-sm-12">
                    
                     <div className="img_container_mealaddress">
-                    <img src={card_img_rounded} alt="rounded_img" className="rounded-circle card_img_rounded_mealaddress"></img>
+                    <img src={meal.picture} alt="rounded_img" className="rounded-circle card_img_rounded_mealaddress"></img>
                     </div>
                     
                     <h5 className=" immunne_text_mealaddress" >{meal.name}</h5>
@@ -189,7 +213,11 @@ export default function AddressAppointmentMain(props){
                     
                     </div>
                     <div className="row weekdata_mealaddress">
-                                            <WeekDataMemo  mealType={props.mealType} handleWeekDays={handleWeekDays}/> 
+                     <WeekDataMemo  mealType={props.mealType} handleWeekDays={handleWeekDays} handleMaximumSelection={handleMaximumSelection}/> 
+                    </div>
+
+                    <div className="row" style={{paddingLeft: '30px'}}>
+                        <span id="maximumSelectionMessage" style={{color:'#800080', fontWeight:600, fontSize:".8rem"}}>{maximumSelectionMessage}</span>
                     </div>
                     
                     <div className="row">
@@ -198,6 +226,7 @@ export default function AddressAppointmentMain(props){
                     
                     <div className="datepicker_container_mealaddress">
                     <SelectdatePicker dateChange={handleDateChange} minValue={incrementedDate}/>
+                    <span id="successDate" style={{color:'#800080', fontWeight:600}}></span>
                     </div>
                     </div>
                     <div className="col-md-6">
@@ -237,15 +266,9 @@ export default function AddressAppointmentMain(props){
                     <div className="row">
                     
                     <div className="col-md-12 col-sm-12">
-                    <textarea 
-                     placeholder="Enter your Address" cols="30" className="textarea_mealaddress" 
-                     defaultValue={user.primary_address_line1}
-                    // onChange={(e) => {
-                    //     console.log(e.target.value)
-                    //     setAddress(e.target.value);
-                    // }} 
-                    >{selectAddress === "primary_address" ? user.primary_address_line1 : user.secondary_address_line2}</textarea>
-                    
+                    <p id="addressValue" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}>
+                        {address}
+                    </p>
                     </div>
                     
                     

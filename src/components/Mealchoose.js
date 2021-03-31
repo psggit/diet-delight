@@ -2,7 +2,7 @@ import React from "react";
 import "./MealPackageSubsciption/MealpkgSubscription.css";
 import food_icon from "../assets/meal.png";
 import logo_web from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 
 export default function Mealchoose(props) {
   return (
@@ -24,7 +24,7 @@ export default function Mealchoose(props) {
           {props.name}
         </a>
 
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center a_link_text_mealchoose">
           <a href="/" className="choose_your_meal_text2">
             Consulting
           </a>

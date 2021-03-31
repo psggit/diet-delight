@@ -97,6 +97,7 @@ export default function BmiMain(props){
         })
     }
 
+
     return(
         
         
@@ -113,7 +114,7 @@ export default function BmiMain(props){
         <i className="fa fa-times icon_remove_icon" onClick={() => props.closeBMI()}></i>
         </div>
         
-        <h6 className="title_bmi">Let's calculate your BMI</h6>
+        <h6 className="title_bmi">Let"s calculate your BMI</h6>
         
         <div className="row row_bmi_bmi">
         <div className="col-md-6 col-sm-12 col_container">
@@ -182,4 +183,3 @@ export default function BmiMain(props){
         
         )
     }
-    
