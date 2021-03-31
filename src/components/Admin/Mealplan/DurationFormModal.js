@@ -18,16 +18,6 @@ const validationSchema = Yup.object().shape({
 
 const DurationFormModal = (props) => {
 	const { visible, onClose, onSubmit, mode, values = {} } = props;
-	const [file, setFile] = useState('');
-
-	const processImage = (e) => {
-		const reader = new FileReader();
-		reader.onload = () => {
-			setFile(reader.result);
-		}
-
-		reader.readAsDataURL(e.target.files[0]);
-	}
 
 	return (
 		<Modal
@@ -39,7 +29,7 @@ const DurationFormModal = (props) => {
 			<Formik
 				initialValues={values}
 				validationSchema={validationSchema}
-				onSubmit={(values) => onSubmit({ ...values, picture: file ? file : '' })}
+				onSubmit={(values) => onSubmit(values)}
 			>
 				{() => (
 					<Form>
@@ -64,26 +54,6 @@ const DurationFormModal = (props) => {
 							label="Order*"
 							placeholder="Order"
 						/>
-						{mode === 'Add' && (
-							<Field
-								name="picture"
-								component={TextField}
-								label="Picture"
-								type="file"
-								InputLabelProps={{
-									shrink: true,
-								}}
-								InputProps={{
-									onChange: (e) => {
-										if (['image/jpg', 'image/jpeg', 'image/png'].includes(e.target.files[0].type)) {
-											processImage(e);
-										} else {
-											e.target.value = '';
-										}
-									},
-								}}
-							/>
-						)}
 						<Field
 							name="details"
 							component={TextField}

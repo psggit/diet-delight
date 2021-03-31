@@ -80,7 +80,6 @@ const ListofDuration = () => {
       order: parseInt(values.order, 10),
       duration: parseInt(values.duration, 10),
       details: values.details || '',
-      ...(values.picture ? { picture: values.picture } : {}),
     }
     if (mode === 'Add') {
       axios.post(`durations`, data).then((res) => {

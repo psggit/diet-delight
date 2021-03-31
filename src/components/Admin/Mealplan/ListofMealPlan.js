@@ -227,7 +227,7 @@ const ListofMealPlan = () => {
                   rows: meals.map((meal) => {
                     return [
                       meal.name,
-                      meal.menu_id,
+                      meal.menu?.name || '',
                       meal.duration,
                       getMealStatus(meal.status),
                       getMealType(meal.type),
