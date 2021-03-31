@@ -3,7 +3,12 @@ import React from "react";
 import DietOnlySelectItem from "./DietOnlySelectItem";
 import DietYesNoComponent from "./DietYesNoComponent";
 
-const RenderQuestion = ({ question, selectedOption }) => {
+const RenderQuestion = ({
+  question,
+  selectedOption,
+  options,
+  updateSelectedOption,
+}) => {
   return (
     <>
       {/* {question.type === 0 && (
@@ -17,14 +22,16 @@ const RenderQuestion = ({ question, selectedOption }) => {
         <DietYesNoComponent
           question={question}
           selectedOption={selectedOption}
-          id1={Math.random()}
-          id2={Math.random()}
+          options={options}
+          updateSelectedOption={updateSelectedOption}
         />
       )}
       {question.type === 2 && (
         <DietOnlySelectItem
           question={question}
           selectedOption={selectedOption}
+          options={options}
+          updateSelectedOption={updateSelectedOption}
         />
       )}
       {/* {question.type === 3 && (

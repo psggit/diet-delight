@@ -1,19 +1,32 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 import IconButton from "@material-ui/core/IconButton";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { makeStyles } from "@material-ui/core";
 
 import RenderQuestion from "./RenderQuestion";
 import axios from "../../axiosInstance";
 
-const QuestionCarousel = ({ QuestionsData }) => {
+const useStyles = makeStyles({
+  iconBtn: {
+    backgroundColor: "purple",
+    color: "white",
+    "&:hover": {
+      background: "white",
+      color: "purple",
+      boxShadow: "0 2px 4px purple",
+    },
+  },
+});
+
+const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
+  const classes = useStyles();
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const selectedOption = useRef(null);
 
   const submitAnswer = () => {
-    const _currentQuestion = QuestionsData[activeQuestion];
-    const _selectedOption = selectedOption.current;
+    const _currentQuestion = QuestionsData[activeQuestion].question;
+    const _selectedOption = QuestionsData[activeQuestion].selectedOption;
     console.log("Question : ", _currentQuestion);
     console.log("selectedOption : ", _selectedOption);
     // axios
@@ -34,11 +47,24 @@ const QuestionCarousel = ({ QuestionsData }) => {
     //   });
   };
 
+  const updateSelectedOption = (_selectedOption) => {
+    setQuestionData((prev) => {
+      const newArray = [...prev];
+      newArray[activeQuestion] = {
+        ...newArray[activeQuestion],
+        selectedOption: _selectedOption,
+      };
+      return newArray;
+    });
+  };
+
   return (
     <>
       <RenderQuestion
-        question={QuestionsData[activeQuestion]}
-        selectedOption={selectedOption}
+        question={QuestionsData[activeQuestion].question}
+        selectedOption={QuestionsData[activeQuestion].selectedOption}
+        options={QuestionsData[activeQuestion].options}
+        updateSelectedOption={updateSelectedOption}
       />
       <div
         style={{
@@ -51,22 +77,21 @@ const QuestionCarousel = ({ QuestionsData }) => {
             onClick={() => {
               setActiveQuestion(activeQuestion - 1);
             }}
-            style={{ backgroundColor: "purple", color: "white" }}
+            className={classes.iconBtn}
           >
             <ArrowBackIcon fontSize="large" />
           </IconButton>
         )}
-        {activeQuestion !== QuestionsData.length - 1 && (
-          <IconButton
-            onClick={() => {
+        <IconButton
+          onClick={() => {
+            if (activeQuestion < QuestionsData.length - 1)
               setActiveQuestion(activeQuestion + 1);
-              submitAnswer();
-            }}
-            style={{ backgroundColor: "purple", color: "white" }}
-          >
-            <DoneAllIcon fontSize="large" />
-          </IconButton>
-        )}
+            submitAnswer();
+          }}
+          className={classes.iconBtn}
+        >
+          <DoneAllIcon fontSize="large" />
+        </IconButton>
       </div>
     </>
   );
