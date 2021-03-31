@@ -219,7 +219,7 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks style={{ textDecoration: "none" }}>
-                  <Link to="ConatctUsMain" style={{ color: "inherit" }}>
+                  <Link to="contact" style={{ color: "inherit" }}>
                     Contact Us
                   </Link>
                 </NavLinks>
