@@ -4,7 +4,6 @@ import axios from "../../../axiosInstance";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -19,6 +18,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -39,6 +39,8 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { CSVLink } from "react-csv";
+import TableHeader from '../../reusable/TableHeader';
+import Table from '../../reusable/Table';
 
 const useStyles = makeStyles({
   root: {
@@ -61,10 +63,12 @@ const ListofMenu = () => {
 
   const [menus, setMenus] = useState([]);
   const menu = useSelector(selectMenu);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Issuccess, setIsSuccess] = useState(false);
@@ -78,37 +82,17 @@ const ListofMenu = () => {
   };
 
   useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
+
+  const handleShow = () => {
     axios
-      .get(
-        `menus?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`menus?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setMenus(res.data.data);
         setShow(true);
         setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [page, search, sort, order]);
-
-  const handleShow = () => {
-    axios
-      .get(
-        `menus?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        setMenus(res.data.data);
-        setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -329,138 +313,69 @@ const ListofMenu = () => {
       ) : (
         <>
           <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+            <TableHeader
+              title="List of All Menus"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of Menu
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setMenus([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                setSearch(value);
+              }}
+            />
             {show && (
-              <>
-                <TableContainer style={{ margin: "10px 0" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Details</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {menus.map((menu) => (
-                        <TableRow key={menu.id}>
-                          <TableCell component="th" scope="row">
-                            {menu.id}
-                          </TableCell>
-                          <TableCell>{menu.name}</TableCell>
-                          <TableCell>{menu.details}</TableCell>
-                          <TableCell>
-                            <div style={{ overflow: "hidden", width: "400px" }}>
-                              {menu.picture}
-                            </div>
-                          </TableCell>
-                          <TableCell>{menu.status}</TableCell>
-                          <TableCell>{menu.order}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(menu)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(menu)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'details', label: 'Details', sort: false },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: menus.map((menu) => {
+                    return [
+                      menu.name,
+                      menu.details,
+                      <a href={menu.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      menu.status,
+                      menu.order,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(menu);
+                            // handleUpdate(menu);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

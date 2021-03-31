@@ -5,7 +5,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -20,10 +19,11 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
 import { Formik } from "formik";
-import { CSVLink } from "react-csv";
+import Table from '../../reusable/Table';
 // import * as Yup from 'yup'
 
 import {
@@ -43,6 +43,7 @@ import {
   resetListOfBlog,
   setListOfBlog,
 } from "../../../features/adminSlice";
+import TableHeader from '../../reusable/TableHeader';
 
 const useStyles = makeStyles({
   root: {
@@ -59,11 +60,13 @@ const ListofBlog = () => {
   const listOfBlog = useSelector(selectListOfBlog);
 
   const [listOfBlogs, setListOfBlogs] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('title');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -74,37 +77,19 @@ const ListofBlog = () => {
     data: listOfBlogs,
     filename: `List_of_Blogs_${current_date_Time}.csv`,
   };
+  
+    useEffect(() => {
+      handleShow();
+    }, [rowsPerPage, page, search, sort, order]);
 
-  useEffect(() => {
+  const handleShow = () => {
     axios
-      .get(
-        `posts?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`posts?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfBlogs(res.data.data);
         setLoading(false);
         setShow(true);
-      });
-  }, [page, search, sort, order]);
-
-  const handleShow = () => {
-    axios
-      .get(
-        `posts?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setListOfBlogs(res.data.data);
-        setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -360,136 +345,71 @@ const ListofBlog = () => {
       ) : (
         <>
           <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+            <TableHeader
+              title="List of All Blogs"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of Blogs
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setListOfBlogs([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                setSearch(value);
+              }}
+            />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Slug</TableCell>
-                        <TableCell>Content</TableCell>
-                        <TableCell>Featured Image</TableCell>
-                        <TableCell>Published At</TableCell>
-                        <TableCell>Author ID</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {listOfBlogs.map((bloglist) => (
-                        <TableRow key={bloglist.id}>
-                          <TableCell component="th" scope="row">
-                            {bloglist.id}
-                          </TableCell>
-                          <TableCell>{bloglist.title}</TableCell>
-                          <TableCell>{bloglist.slug}</TableCell>
-                          <TableCell>{bloglist.content}</TableCell>
-                          <TableCell>{bloglist.featured_image}</TableCell>
-                          <TableCell>{bloglist.published_at}</TableCell>
-                          <TableCell>{bloglist.author_id}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(bloglist)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(bloglist)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'title', label: 'Title', sort: true },
+                    { id: 'slug', label: 'Slug', sort: true },
+                    { id: 'content', label: 'Content', sort: false },
+                    { id: 'featured_image', label: 'Featured Image', sort: false },
+                    { id: 'published_at', label: 'Published At', sort: true },
+                    { id: 'author_id', label: 'Author', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: listOfBlogs.map((blog) => {
+                    return [
+                      blog.title,
+                      blog.slug,
+                      blog.content,
+                      <a href={blog.featured_image} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      blog.published_at,
+                      blog.author_id,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(q);
+                            // handleUpdate(q);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

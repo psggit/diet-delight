@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from '../../../axiosInstance'
+import { Grid } from "@material-ui/core";
 import people from '../../../assets/people.png'
 import questionImage from '../../../assets/question.png'
 import consultantImage from '../../../assets/consultant.png'
@@ -99,23 +100,35 @@ const Home = () => {
         <>
             <Main>
                 <Conatiner>
-                    <ImageContainer>
-                        <CustomImage
-                            src={people} alt="people" />
-                        <Title>{`Total Users - ${user.length}`}</Title>
-                    </ImageContainer>
-                    <ImageContainer>
-                        <CustomImage src={questionImage} alt="people" />
-                        <Title>{`Total Questions - ${question.length}`}</Title>
-                    </ImageContainer>
-                    <ImageContainer>
-                        <CustomImage src={consultantImage} alt="people" />
-                        <Title>{`Total Consultants - ${consultant.length}`}</Title>
-                    </ImageContainer>
-                    <ImageContainer>
-                        <CustomImage src={PlanImage} alt="people" />
-                        <Title>{`Total Plans - ${meal.length}`}</Title>
-                    </ImageContainer>
+                    <Grid container xs={12} spacing={2}>
+                        <Grid item xs>
+                            <ImageContainer>
+                                <CustomImage
+                                    src={people} alt="people" />
+                                <Title>{`Total Users - ${user.length}`}</Title>
+                            </ImageContainer>
+                        </Grid>
+                        <Grid item xs>
+                            <ImageContainer>
+                                <CustomImage src={questionImage} alt="people" />
+                                <Title>{`Total Questions - ${question.length}`}</Title>
+                            </ImageContainer>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={2}>
+                        <Grid item xs>
+                            <ImageContainer>
+                                <CustomImage src={consultantImage} alt="people" />
+                                <Title>{`Total Consultants - ${consultant.length}`}</Title>
+                            </ImageContainer>
+                        </Grid>
+                        <Grid item xs>
+                            <ImageContainer>
+                                <CustomImage src={PlanImage} alt="people" />
+                                <Title>{`Total Plans - ${meal.length}`}</Title>
+                            </ImageContainer>
+                        </Grid>
+                    </Grid>
                 </Conatiner>
             </Main>
         </>

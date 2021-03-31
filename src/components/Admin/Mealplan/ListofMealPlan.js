@@ -6,7 +6,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -21,11 +20,13 @@ import {
   MenuItem,
   Snackbar,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { CSVLink } from "react-csv";
+import TableHeader from '../../reusable/TableHeader';
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -33,6 +34,7 @@ import {
   resetMealPlan,
   selectMealPlan,
 } from "../../../features/adminSlice";
+import Table from '../../reusable/Table';
 
 import {
   Main,
@@ -80,10 +82,12 @@ const ListofMealPlan = () => {
 
   const [loading, setLoading] = useState(true);
   const [meals, setMeals] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -96,32 +100,17 @@ const ListofMealPlan = () => {
   };
 
   useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
+
+  const handleShow = () => {
     axios
-      .get(`meal-plans?`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      })
+      .get(`meal-plans?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setMeals(res.data.data);
         setLoading(false);
         setShow(true);
-      });
-  }, []);
-
-  const handleShow = () => {
-    axios
-      .get(
-        `meal-plans?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setMeals(res.data.data);
-        setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -455,147 +444,83 @@ const ListofMealPlan = () => {
       ) : (
         <>
           <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+            <TableHeader
+              title="List of All MealPlans"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of MealPlan
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setMeals([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                setSearch(value);
+              }}
+            />
             {show && (
-              <>
-                <TableContainer style={{ marginTop: "20px" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Menu ID</TableCell>
-                        <TableCell>Duration ID</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Type</TableCell>
-                        <TableCell>Duration</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Subtitle</TableCell>
-                        <TableCell>Details</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>Sales Price</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {meals.map((mealPack) => (
-                        <TableRow key={mealPack.id}>
-                          <TableCell component="th" scope="row">
-                            {mealPack.id}
-                          </TableCell>
-                          <TableCell>{mealPack.name}</TableCell>
-                          <TableCell>{mealPack.menu_id}</TableCell>
-                          <TableCell>{mealPack.duration_id}</TableCell>
-                          <TableCell>{mealPack.status}</TableCell>
-                          <TableCell>{mealPack.type}</TableCell>
-                          <TableCell>{mealPack.duration}</TableCell>
-                          <TableCell>{mealPack.order}</TableCell>
-                          <TableCell>{mealPack.subtitle}</TableCell>
-                          <TableCell>{mealPack.details}</TableCell>
-                          <TableCell>{mealPack.picture}</TableCell>
-                          <TableCell>{mealPack.price}</TableCell>
-                          <TableCell>{mealPack.sale_price}</TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(mealPack)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(mealPack)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'menu_id', label: 'Menu', sort: true },
+                    { id: 'duration_id', label: 'Duration Id', sort: false },
+                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'type', label: 'Type', sort: true },
+                    { id: 'duration', label: 'Duration', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'subtitle', label: 'Subtitle', sort: true },
+                    { id: 'details', label: 'Details', sort: false },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'price', label: 'Price', sort: true },
+                    { id: 'sale_price', label: 'Sales Price', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: meals.map((meal) => {
+                    return [
+                      meal.name,
+                      meal.menu_id,
+                      meal.duration_id,
+                      meal.status,
+                      meal.type,
+                      meal.duration,
+                      meal.order,
+                      meal.subtitle,
+                      meal.details,
+                      <a href={meal.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      meal.price,
+                      meal.sale_price,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(meal);
+                            // handleUpdate(meal);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
             )}
           </Main>
           <Snackbar

@@ -5,7 +5,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -20,11 +19,12 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { CSVLink } from "react-csv";
+import Table from '../../reusable/Table';
 
 import {
   Main,
@@ -43,6 +43,7 @@ import {
   resetListOfCoupon,
   setListOfCoupon,
 } from "../../../features/adminSlice";
+import TableHeader from '../../reusable/TableHeader';
 
 const useStyles = makeStyles({
   root: {
@@ -86,11 +87,13 @@ const ListofCoupon = () => {
   const listOfCoupon = useSelector(selectListOfCoupon);
 
   const [listOfCoupons, setListOfCoupons] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -103,35 +106,17 @@ const ListofCoupon = () => {
   };
 
   useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
+
+  const handleShow = () => {
     axios
-      .get(
-        `coupons?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`coupons?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfCoupons(res.data.data);
         setLoading(false);
         setShow(true);
-      });
-  }, [page, search, sort, order]);
-
-  const handleShow = () => {
-    axios
-      .get(
-        `coupons?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setListOfCoupons(res.data.data);
-        setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -399,146 +384,76 @@ const ListofCoupon = () => {
           </Dialog>
         </>
       )}
-
       {loading ? (
         <CustomSkeleton />
       ) : (
         <>
           <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+            <TableHeader
+              title="List of All Coupons"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of Coupon
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setListOfCoupons([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                setSearch(value);
+              }}
+            />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Code</TableCell>
-                        <TableCell>Flat Discount</TableCell>
-                        <TableCell>Percentage Discount</TableCell>
-                        <TableCell>Expiry Date</TableCell>
-                        <TableCell>Times Usable</TableCell>
-                        <TableCell>Times Used</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {listOfCoupons.map((couponlist) => (
-                        <TableRow key={couponlist.id}>
-                          <TableCell component="th" scope="row">
-                            {couponlist.id}
-                          </TableCell>
-                          <TableCell>{couponlist.name}</TableCell>
-                          <TableCell>{couponlist.code}</TableCell>
-                          <TableCell>{couponlist.flat_discount}</TableCell>
-                          <TableCell>
-                            {couponlist.percentage_discount}
-                          </TableCell>
-                          <TableCell>{couponlist.expiry_date}</TableCell>
-                          <TableCell>{couponlist.times_usable}</TableCell>
-                          <TableCell>{couponlist.times_used}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(couponlist)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(couponlist)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'code', label: 'Code', sort: true },
+                    { id: 'flat_discount', label: 'Flat Discount', sort: true },
+                    { id: 'percentage_discount', label: 'Percentage Discount', sort: true },
+                    { id: 'expiry_date', label: 'Expiry Date', sort: true },
+                    { id: 'times_usable', label: 'Times Usable', sort: true },
+                    { id: 'times_used', label: 'Times Used', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: listOfCoupons.map((coupon) => {
+                    return [
+                      coupon.name,
+                      coupon.code,
+                      coupon.flat_discount,
+                      coupon.percentage_discount,
+                      coupon.expiry_date,
+                      coupon.times_usable,
+                      coupon.times_used,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(coupon);
+                            // handleUpdate(coupon);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

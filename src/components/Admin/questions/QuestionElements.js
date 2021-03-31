@@ -51,8 +51,8 @@ export const Set = styled.div`
 export const Mini = styled.div`
     display:flex;
     min-width:400px;
-    padding:5px;
     align-items:center;
+    margin-top: 10px;
     justify-content:space-between;
 `
 

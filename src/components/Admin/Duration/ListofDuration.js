@@ -5,7 +5,6 @@ import CustomSkeleton from "../../../CustomSkeleton";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -21,10 +20,12 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
+import { Edit, Delete } from '@material-ui/icons';
 
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { CSVLink } from "react-csv";
+import Table from '../../reusable/Table';
+import TableHeader from '../../reusable/TableHeader';
 
 import {
   Main,
@@ -86,11 +87,13 @@ const ListofDuration = () => {
   const listOfDuration = useSelector(selectListOfDuration);
 
   const [listOfDurations, setListOfDurations] = useState([]);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('title');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
@@ -103,35 +106,17 @@ const ListofDuration = () => {
   };
 
   useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
+
+  const handleShow = () => {
     axios
-      .get(
-        `durations?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`durations?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfDurations(res.data.data);
         setLoading(false);
         setShow(true);
-      });
-  }, [page, search, sort, order]);
-
-  const handleShow = () => {
-    axios
-      .get(
-        `durations?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setListOfDurations(res.data.data);
-        setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -389,136 +374,71 @@ const ListofDuration = () => {
       ) : (
         <>
           <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+            <TableHeader
+              title="List of All Durations"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of Coupon
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setListOfDurations([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                setSearch(value);
+              }}
+            />
             {show && (
-              <>
-                <TableContainer component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Duration</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Subtitle</TableCell>
-                        <TableCell>Details</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {listOfDurations.map((durationlist) => (
-                        <TableRow key={durationlist.id}>
-                          <TableCell component="th" scope="row">
-                            {durationlist.id}
-                          </TableCell>
-                          <TableCell>{durationlist.title}</TableCell>
-                          <TableCell>{durationlist.duration}</TableCell>
-                          <TableCell>{durationlist.order}</TableCell>
-                          <TableCell>{durationlist.subtitle}</TableCell>
-                          <TableCell>{durationlist.details}</TableCell>
-                          <TableCell>{durationlist.picture}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(durationlist)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(durationlist)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'title', label: 'Title', sort: true },
+                    { id: 'duration', label: 'Duration', sort: true },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'subtitle', label: 'Subtitle', sort: true },
+                    { id: 'details', label: 'Details', sort: false },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: listOfDurations.map((duration) => {
+                    return [
+                      duration.title,
+                      duration.duration,
+                      duration.order,
+                      duration.subtitle,
+                      duration.details,
+                      <a href={duration.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(duration);
+                            // handleUpdate(duration);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}
