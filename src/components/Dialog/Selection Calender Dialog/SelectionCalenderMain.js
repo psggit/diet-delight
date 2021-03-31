@@ -8,11 +8,11 @@
 	import useMediaQuery from '@material-ui/core/useMediaQuery';
 	import { useTheme } from '@material-ui/core/styles';
 	import './SelectionCalenderMain.css'
-	import CalenderComponent from './CalenderComponent.js'
 	import TextfieldnewComponent from './TextfieldnewComponent.js'
 	import './TextFieldCalenderDialog.css'
 	import {getDayDetails, checkCurrentMonth, getMonthDays, formatedDate, weeksInList } from '../../CommonFunctionality';
 	import axios from '../../../axiosInstance'
+	import './CalenderComponent.css'
 
 
 	export default function SelectionCalenderMain(props) {
@@ -37,14 +37,23 @@
 				let primaryAddressDeliveries = [];
 				let secondaryAddressDeliveries = [];
 				res.data.data.map((orderBreak) => {
+					console.log(orderBreak)
 					var primaryAddressDaysList = JSON.parse(orderBreak.primary_address_dates);
 					var secondaryAddressDaysList = JSON.parse(orderBreak.secondary_address_dates);
+					console.log(primaryAddressDaysList, secondaryAddressDaysList)
+					if(primaryAddressDaysList != null || secondaryAddressDaysList != null){
 					primaryAddressDaysList.map((primary) => {
-						primaryAddressDeliveries.push(primary);
+						let dayInfo = getDayDetails(primary)
+						primaryAddressDeliveries.push({"year":dayInfo.year,
+						"month":dayInfo.monthDateWithoutPrefix,
+					"date":dayInfo.dayDateWithoutPrefix});
 					})
 					secondaryAddressDaysList.map((secondary) => {
-						secondaryAddressDeliveries.push(secondary);
-					})
+						let dayInfo = getDayDetails(secondary)
+						secondaryAddressDeliveries.push({"year":dayInfo.year,
+						"month":dayInfo.monthDateWithoutPrefix,
+					"date":dayInfo.dayDateWithoutPrefix});
+					})}
 				})
 				setDaysToDeliverAtPrimaryAddress([...primaryAddressDeliveries]);
 				setDaysToDeliverAtSecondaryAddress([...secondaryAddressDeliveries]);
@@ -119,10 +128,10 @@
 
 		const handleChangeAddress = (e,day) => {
 			console.log(e,day)
-			var listElement = document.getElementById(e.target.id);
+			var listElement = document.getElementById(e.target.parentNode.className);
 			console.log(listElement)
-			if(listElement.className === 'active_com'){
-				listElement.className = 'active_violet';
+			if(e.target.parentNode.className === 'active_com'){
+				e.target.parentNode.className = 'active_violet';
 				selectedWeekDays.current.push({
 					"day":day,
 					"month":currentMonthInNumber,
@@ -130,13 +139,27 @@
 				});
 				console.log(selectedWeekDays)
 			}else{
-				listElement.className = 'active_com';
+				e.target.parentNode.className = 'active_com';
 				let indexToPop = selectedWeekDays.current.findIndex(x => x.day === day);
 				selectedWeekDays.current.splice(indexToPop,1)
 				console.log(selectedWeekDays)
 			}
 
 		}
+
+		const handleSubmitDay = () => {
+			let selectedDateList = [];
+			selectedWeekDays.current.map((weekDay) => {
+				let formatDate = formatedDate(weekDay.year, weekDay.month, weekDay.day)
+				selectedDateList.push(formatDate);
+			})
+			axios.post('my-order-breaks',{
+				meal_purchase_id:props.mealData.id,
+				secondary_address_dates:selectedDateList
+			}).then((res) => console.log(res)).catch((err) => console.log(err))
+		}
+
+
 
 		const renderWeeks = weekDays.map((weekDay) => {
 		
@@ -179,11 +202,17 @@
 			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay, weekStartsAt.current)
 			console.log(day.month === currentMonthInNumber)
 			if((day.month === currentMonthInNumber) && (currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day.date)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day.date))){
+				let secondaryAddressDate = daysToDeliverAtSecondaryAddress.findIndex(x => x.day === day.date && currentMonthInNumber === x.month && currentYear === x.year)
 				let generatedDate = new Date(currentYear, currentMonthInNumber - 1, day.date)
 				console.log(generatedDate)
 				let dayInfo = getDayDetails(generatedDate)
 				console.log(dayInfo)
 				var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
+				if(secondaryAddressDate >= 0){
+					return (
+						<li><label className="active_violet"><span className="active_number_com">{day.date}</span></label></li>
+					)
+				}
 				if(deliveryDaysIncluded){
 					console.log(dayInfo.weekDay)
 					return(
@@ -191,7 +220,7 @@
 					)
 				}
 				return(
-					<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear}>{day.date}</li>
+					<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear}><label className="light_active_com"><span className="light_active_number_com">{day.date}</span></label></li>
 				)
 			}
 			return(
