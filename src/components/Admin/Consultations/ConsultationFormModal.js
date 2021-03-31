@@ -13,6 +13,7 @@ const validationSchema = Yup.object().shape({
 	consultant: Yup.string().required('Please select Consultant'),
 	consultationPackage: Yup.string().required('Please select Consultation Package'),
 	status: Yup.string().required('Please select Status'),
+	name: Yup.string().nullable(),
 	email: Yup.string().nullable(),
 	mobile: Yup.string().nullable(),
 	mode: Yup.string().required('Please select Mode'),
@@ -31,23 +32,35 @@ const ConsultationFormModal = (props) => {
 			requireFooter={false}
 		>
 			<Formik
-				initialValues={values}
+				initialValues={{
+					...values,
+					mode: (typeof values.mode === 'number') ? values.mode + 1 : '',
+					status: (typeof values.status === 'number') ? values.status + 1 : '',
+				}}
 				validationSchema={validationSchema}
-				onSubmit={onSubmit}
+				onSubmit={(values) => onSubmit({ ...values, status: values.status - 1, mode: values.mode - 1 })}
 			>
-				{({ setFieldValue, values: { email, mobile } }) => (
+				{({ setFieldValue, values: { email, mobile, name } }) => (
 					<Form>
 						<Field
 							name="customer"
 							component={Select}
-							label="Customer*"
+							label="Customer Id*"
 							options={customers}
 							onChange={(value) => {
-								const selectedCustomer = customers.find((c) => c.id === value) || { email: '', mobile: '' }
+								const selectedCustomer = customers.find((c) => c.id === value) || { displayName: '', email: '', mobile: '' }
 
+								setFieldValue('name', selectedCustomer.displayName);
 								setFieldValue('email', selectedCustomer.email);
 								setFieldValue('mobile', selectedCustomer.mobile);
 							}}
+						/>
+						<Field
+							name="name"
+							component={TextField}
+							label="Customer Name"
+							defaultValue={name}
+							disabled
 						/>
 						<Field
 							name="email"
@@ -69,29 +82,27 @@ const ConsultationFormModal = (props) => {
 							label="Consultant*"
 							options={consultants}
 						/>
-						<div style={{ marginTop: '12px' }}>
-							<Field
-								name="consultationPackage"
-								component={Select}
-								label="Consultation Package*"
-								options={consultationPackages}
-							/>
-						</div>
-						<Grid container spacing={2} style={{ marginTop: '12px' }}>
+						<Field
+							name="consultationPackage"
+							component={Select}
+							label="Consultation Package*"
+							options={consultationPackages}
+						/>
+						<Grid container spacing={2}>
 							<Grid item xs>
 								<Field
 									name="status"
 									component={Select}
 									label="Status*"
-									options={CONSULTATION_STATUS}
+									options={CONSULTATION_STATUS.map((option) => ({ ...option, id: option.id + 1 }))}
 								/>
 							</Grid>
 							<Grid item xs>
 								<Field
 									name="mode"
 									component={Select}
-									label="Mode"
-									options={CONSULTATION_MODE}
+									label="Mode*"
+									options={CONSULTATION_MODE.map((option) => ({ ...option, id: option.id + 1 }))}
 								/>
 							</Grid>
 						</Grid>
@@ -127,7 +138,7 @@ const ConsultationFormModal = (props) => {
 								style={{ margin: "8px 8px 8px 0", background: "#800080", padding: '8px 20px' }}
 							>
 								Submit
-              </Button>
+              				</Button>
 							<Button
 								variant="contained"
 								color="primary"
@@ -135,7 +146,7 @@ const ConsultationFormModal = (props) => {
 								onClick={onClose}
 							>
 								Close
-              	</Button>
+              				</Button>
 						</Mini>
 					</Form>
 				)}

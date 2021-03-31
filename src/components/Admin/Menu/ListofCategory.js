@@ -312,7 +312,7 @@ const ListofCategory = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Catregories"
+              title="List of Catregories"
               csvReport={csvReport}
               addHandler={() => {
                 // TODO: Handle add

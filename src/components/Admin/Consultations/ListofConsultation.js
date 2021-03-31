@@ -1,75 +1,23 @@
 import React, { useState, useEffect } from "react";
 
-import axios from "../../../axiosInstance";
-import CustomSkeleton from "../../../CustomSkeleton";
-
-import {
-  makeStyles,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Snackbar,
-  Select,
-  MenuItem,
-} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { Snackbar, Tooltip } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { CSVLink } from "react-csv";
+import axios from "../../../axiosInstance";
+import CustomSkeleton from "../../../CustomSkeleton";
 import Modal from '../../reusable/Modal';
-
-import {
-  Main,
-  HContainer,
-  Con,
-  Input,
-  Title,
-  Set,
-  Mini,
-  Info,
-  Container,
-} from "./ConsultantElements";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setConsultation,
-  resetConsultation,
-  selectConsultation,
-} from "../../../features/adminSlice";
+import { Main } from "./ConsultantElements";
 import TableHeader from '../../reusable/TableHeader';
 import Table from '../../reusable/Table';
-import { Edit, Delete, DateRangeOutlined } from '@material-ui/icons';
+import { Edit, Delete, CheckCircleOutline } from '@material-ui/icons';
 import ConsultationFormModal from './ConsultationFormModal';
-
-
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-
-  table: {
-    minWidth: 650,
-  },
-});
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  status: Yup.string().required().label("Status"),
-  qualification: Yup.string().required().label("Qualification"),
-  bio: Yup.string().required().label("Bio"),
-  order: Yup.number().required().label("Order"),
-});
+import { CONSULTATION_MODE, CONSULTATION_STATUS_TYPE } from '../Constants';
 
 const consultationInitialValues = {
   id: '',
   customer: '',
+  name: '',
   email: '',
   mobile: '',
   consultant: '',
@@ -81,9 +29,6 @@ const consultationInitialValues = {
 }
 
 const ListofConsultation = () => {
-  const dispatch = useDispatch();
-  const consultation = useSelector(selectConsultation);
-
   const [consultations, setConsultations] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(20)
   const [page, setPage] = useState(0);
@@ -96,13 +41,16 @@ const ListofConsultation = () => {
   const [mode, setMode] = useState('Add');
   const [showForm, setShowForm] = useState(false);
   const [currentConsultation, setCurrentConsultation] = useState(consultationInitialValues);
-  const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
-  const [isupdate, setISUpdate] = useState(false);
   const [customers, setCustomers] = useState([]);
   const [consultants, setConsultants] = useState([]);
   const [consultationPackages, setConsultationPackages] = useState([]);
   const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
+  const [consultationStatus, setConsultationStatus] = useState(-1);
+
+  let history = useHistory();
+  const searchParams = new URLSearchParams(history.location.search);
+  const status = searchParams.get('type') || CONSULTATION_STATUS_TYPE.BOOKED;
 
   let current_date_Time = new Date();
   const csvReport = {
@@ -115,7 +63,8 @@ const ListofConsultation = () => {
       setCustomers((res?.data?.data || []).map((user) => {
         return {
           id: user.id,
-          name: `${user.first_name || ''} ${user.last_name || ''}`,
+          name: user.id,
+          displayName: `${user.first_name || ''} ${user.last_name || ''}`,
           email: user.email,
           mobile: user.mobile,
         }
@@ -140,22 +89,36 @@ const ListofConsultation = () => {
   }, [])
 
   useEffect(() => {
+    switch (status) {
+      case CONSULTATION_STATUS_TYPE.BOOKED:
+        setConsultationStatus(0);
+        break;
+      case CONSULTATION_STATUS_TYPE.CANCELLED:
+        setConsultationStatus(1);
+        break;
+      case CONSULTATION_STATUS_TYPE.COMPLETED:
+        setConsultationStatus(2);
+        break;
+    }
+  }, [status]);
+
+  useEffect(() => {
     handleShow();
-  }, [rowsPerPage, page, search, sort, order]);
+  }, [rowsPerPage, page, search, sort, order, consultationStatus]);
 
   const handleShow = () => {
-    axios
-      .get(`consultations?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
-      .then((res) => {
-        setConsultations(res.data.data);
-        setLoading(false);
-        setShow(true);
-        setTotalCount(res.data?.meta?.total || 0);
-      })
-      .catch((err) => console.log(err));
+    if (consultationStatus >= 0) {
+      axios
+        .get(`consultations?pageSize=${rowsPerPage}&status=${consultationStatus}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+        .then((res) => {
+          setConsultations(res.data.data);
+          setLoading(false);
+          setShow(true);
+          setTotalCount(res.data?.meta?.total || 0);
+        })
+        .catch((err) => console.log(err));
+    }
   };
-
-  const classes = useStyles();
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -166,46 +129,23 @@ const ListofConsultation = () => {
       return;
     }
 
-    setIsSuccess(false);
+    setNotificationConf([false, 'success', '']);
   };
 
-  const handleUpdate = async (consul) => {
-    await dispatch(
-      setConsultation({
-        id: consul.id,
-        user_id: consul.user_id,
-        consultation_purchase_id: consul.consultation_purchase_id,
-        consultant_id: consul.consultant_id,
-        status: consul.status,
-        consultation_link: consul.consultation_link,
-        consultation_time: consul.consultation_time,
-        consultation_mode: consul.consultation_mode,
-        consultant_name: consul.consultant_name,
-        notes: consul.notes,
-      })
-    );
-
-    await setISUpdate(true);
-  };
-
-  const handleDelete = async (consul) => {
-    await dispatch(resetConsultation());
-    await dispatch(
-      setConsultation({
-        id: consul.id,
-      })
-    );
-    await setIsDelete(true);
-  };
-
-  const CloseDelete = () => setIsDelete(false);
-  const CloseUpdate = () => setISUpdate(false);
+  const getConsultationMode = (mode) => {
+    switch (mode) {
+      case 0:
+        return CONSULTATION_MODE[0].name;
+      case 1:
+        return CONSULTATION_MODE[1].name;
+    }
+  }
 
   const handleFormSubmit = (values) => {
     const { appointmentTime, appointmentDate } = values;
     let date = '';
     if (appointmentTime && appointmentDate) {
-      date = `${appointmentDate.getFullYear()}-${appointmentDate.getMonth()}-${appointmentDate.getDate()} ${appointmentTime.getHours()}:${appointmentTime.getMinutes()}:${appointmentTime.getSeconds()}`
+      date = `${appointmentDate.getFullYear()}-${appointmentDate.getMonth() + 1}-${appointmentDate.getDate()} ${appointmentTime.getHours()}:${appointmentTime.getMinutes()}:${appointmentTime.getSeconds()}`
     }
 
     const selectedConsultant = consultants.find(c => c.id === values.consultant);
@@ -287,7 +227,7 @@ const ListofConsultation = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Consultations"
+              title="List of Consultations"
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');
@@ -301,57 +241,67 @@ const ListofConsultation = () => {
               <Table
                 dataSource={{
                   columns: [
-                    { id: 'user_id', label: 'User', sort: false },
-                    { id: 'consultation_purchase_id', label: 'Consultation Purchase ID', sort: true },
-                    { id: 'consultant_id', label: 'Consultant ID', sort: true },
-                    { id: 'status', label: 'Status', sort: true },
-                    { id: 'consultation_link', label: 'Consultation Link', sort: false },
-                    { id: 'consultation_time', label: 'Consultation Time', sort: false },
-                    { id: 'consultation_mode', label: 'Consultation Mode', sort: true },
+                    { id: 'user_id', label: 'Customer ID', sort: false },
+                    { id: 'user_name', label: 'Customer Name', sort: false },
+                    { id: 'user_email', label: 'Customer Email', sort: false },
+                    { id: 'user_mobile', label: 'Customer Phone Number', sort: false },
                     { id: 'consultant_name', label: 'Consultant Name', sort: true },
-                    { id: 'notes', label: 'Notes', sort: false },
+                    { id: 'consultation_time', label: 'Appointment Time', sort: false },
+                    { id: 'consultation_mode', label: 'Consultation Mode', sort: true },
+                    { id: 'notes', label: 'Consultant Feedback', sort: false },
                     { id: 'actions', label: '', sort: false },
                   ],
                   rows: consultations.map((consultation) => {
                     return [
+                      consultation.user_id,
                       `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
-                      consultation.consultation_purchase_id,
-                      consultation.consultant_id,
-                      consultation.status,
-                      <a href={consultation.consultation_link} target="_blank" rel="noopener noreferrer">
-                        link
-                      </a>,
-                      consultation.consultation_time,
-                      consultation.consultation_mode,
+                      consultation?.user?.email || '',
+                      consultation?.user?.mobile || '',
                       consultation.consultant_name,
+                      consultation.consultation_time,
+                      getConsultationMode(consultation.consultation_mode),
                       consultation.notes,
-                      <>
-                        <Edit
-                          onClick={() => {
-                            setMode('Update')
-                            setCurrentConsultation({
-                              id: consultation.id,
-                              customer: consultation.user_id,
-                              email: consultation?.user?.email || '',
-                              mobile: consultation?.user?.mobile || '',
-                              consultant: consultation.consultant_id,
-                              consultationPackage: consultation.consultation_purchase_id,
-                              status: consultation.status,
-                              mode: consultation.consultation_mode,
-                              appointmentDate: new Date(consultation.consultation_time),
-                              appointmentTime: new Date(consultation.consultation_time),
-                              notes: consultation.notes,
-                            });
-                            setShowForm(true);
-                          }}
-                          style={{ margin: '0 6px', cursor: 'pointer' }}
-                        />
-                        <Delete
-                          onClick={() => {
-                            setIsDelete(true);
-                            setCurrentConsultation(consultation);
-                          }} style={{ margin: '0 6px', cursor: 'pointer' }} />
-                      </>
+                      <div style={{ minWidth: 112 }}>
+                        {status === CONSULTATION_STATUS_TYPE.BOOKED && (
+                          <Tooltip title="Mark as Complete">
+                            <CheckCircleOutline style={{ margin: '0 6px', cursor: 'pointer' }} onClick={() => {
+                              axios.put(`consultations/${consultation.id}`, { status: 2 }).then(() => {
+                                setNotificationConf([true, 'success', 'Consultation Marked as Complete !'])
+                              }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+                            }} />
+                          </Tooltip>
+                        )}
+                        <Tooltip title="Edit">
+                          <Edit
+                            onClick={() => {
+                              setMode('Update')
+                              setCurrentConsultation({
+                                id: consultation.id,
+                                customer: consultation.user_id,
+                                name: `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
+                                email: consultation?.user?.email || '',
+                                mobile: consultation?.user?.mobile || '',
+                                consultant: consultation.consultant_id,
+                                consultationPackage: consultation.consultation_purchase_id,
+                                status: consultation.status,
+                                mode: consultation.consultation_mode,
+                                appointmentDate: new Date(consultation.consultation_time),
+                                appointmentTime: new Date(consultation.consultation_time),
+                                notes: consultation.notes,
+                              });
+                              setShowForm(true);
+                            }}
+                            style={{ margin: '0 6px', cursor: 'pointer' }}
+                          />
+                        </Tooltip>
+                        <Tooltip title="Delete">
+                          <Delete
+                            onClick={() => {
+                              setIsDelete(true);
+                              setCurrentConsultation(consultation);
+                            }} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                        </Tooltip>
+                      </div>
                     ]
                   })
                 }}

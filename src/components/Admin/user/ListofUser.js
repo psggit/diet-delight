@@ -12,9 +12,8 @@ import TableHeader from '../../reusable/TableHeader';
 import UserFormModal from './UserFormModal';
 
 import Table from '../../reusable/Table';
-import { GENDER_TYPE } from '../Constants';
+import { GENDER_TYPE, USER_TYPE } from '../Constants';
 import { useHistory } from "react-router-dom";
-
 import { Main } from "./UserElements";
 
 const userInitialValue = {
@@ -50,9 +49,11 @@ const ListofUser = () => {
   const [currentUser, setCurrentUser] = useState(userInitialValue)
   const [mode, setMode] = useState('Add');
   const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
+  const [roleId, setRoleId] = useState(-1);
 
   let history = useHistory();
   const searchParams = new URLSearchParams(history.location.search);
+  const userType = searchParams.get('type') || USER_TYPE.CUSTOMER;
   const customerPage = searchParams.get('type') === 'customer';
 
   let current_date_Time = new Date();
@@ -65,20 +66,35 @@ const ListofUser = () => {
     axios.get('roles').then(res => setUserRoles((res?.data?.data || []).map(role => ({ id: role.id, name: role.name }))));
   }, [])
 
+  useEffect(() => setRoleId(-1), [userType]);
+
+  useEffect(() => {
+    if (userRoles.length && roleId < 0) {
+      for (const role of userRoles) {
+        if (role.name.toLowerCase() === userType) {
+          setRoleId(role.id);
+        }
+      }
+    }
+  }, [userRoles, roleId])
+
   useEffect(() => {
     handleShow();
-  }, [order, rowsPerPage, page, search, sort]);
+  }, [order, rowsPerPage, page, search, sort, roleId]);
 
   const handleShow = () => {
-    axios
-      .get(`users?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}${customerPage ? `&role_id=${1}` : ''}`)
-      .then((res) => {
+    if (roleId >= 0) {
+      let query = `users?role_id=${roleId}&pageSize=${rowsPerPage}&page=${page + 1}&sortBy=${sort}&sortOrder=${order}`;
+      query = search ? `${query}&search=${search}` : query;
+
+      axios.get(query).then((res) => {
         setUsers(res.data.data);
         setShow(true);
         setLodaing(false);
         setTotalCount(res.data?.meta?.total || 0);
       })
-      .catch((err) => console.log(err));
+        .catch((err) => console.log(err));
+    }
   };
 
   function Alert(props) {
@@ -114,7 +130,7 @@ const ListofUser = () => {
       secondary_address_line2: values.secondaryAddressLine2,
       email: values.email,
       age: values.age,
-      gender: values.gender,
+      ...(values.gender > 0 ? { gender: values.gender } : {}),
       roles: [values.role || 1],
       bmi: values.bmi || '',
       ...(values.calories && { recommended_calories: parseInt(values.calories, 10) }),
@@ -138,6 +154,12 @@ const ListofUser = () => {
   }
 
   const [showNotification, notificationType, notification] = notificationConf;
+  const Header = {
+    [USER_TYPE.CUSTOMER]: 'Customers',
+    [USER_TYPE.ADMIN]: 'Admins',
+    [USER_TYPE.ACCOUNTANT]: 'Accountants',
+    [USER_TYPE.KITCHEN]: 'Kitchen',
+  }
 
   return (
     <>
@@ -163,7 +185,7 @@ const ListofUser = () => {
         <>
           <Main style={{ width: "100%" }}>
             <TableHeader
-              title="List of All Users"
+              title={`List of ${Header[userType] || 'Consultants'}`}
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');
@@ -178,6 +200,7 @@ const ListofUser = () => {
               <Table
                 dataSource={{
                   columns: customerPage ? [
+                    { id: 'id', label: 'User Id', sort: false },
                     { id: 'first_name', label: 'Name', sort: true },
                     { id: 'mobile', label: 'Mobile No.', sort: true },
                     { id: 'email', label: 'Email', sort: true },
@@ -197,31 +220,34 @@ const ListofUser = () => {
                     { id: 'actions', label: '', sort: false },
                   ],
                   rows: users.map((user) => {
-                    const actionButton = <Edit
-                      onClick={() => {
-                        setMode('Update')
-                        setCurrentUser({
-                          id: user.id,
-                          firstName: user.first_name,
-                          lastName: user.last_name,
-                          email: user.email,
-                          phoneNumber: user.mobile || '',
-                          primaryAddressLine1: user.primary_address_line1 || '',
-                          primaryAddressLine2: user.primary_address_line2 || '',
-                          secondaryAddressLine1: user.secondary_address_line1 || '',
-                          secondaryAddressLine2: user.secondary_address_line2 || '',
-                          age: user.age,
-                          gender: user.gender,
-                          bmi: user.bmi,
-                          calories: user.recommended_calories,
-                          role: (user.roles || []).length ? user.roles[0].id : '',
-                        });
-                        setShowForm(true);
-                      }}
-                      style={{ margin: '0 6px', cursor: 'pointer' }}
-                    />
+                    const actionButton = (
+                      <Edit
+                        onClick={() => {
+                          setMode('Update')
+                          setCurrentUser({
+                            id: user.id,
+                            firstName: user.first_name,
+                            lastName: user.last_name,
+                            email: user.email,
+                            phoneNumber: user.mobile || '',
+                            primaryAddressLine1: user.primary_address_line1 || '',
+                            primaryAddressLine2: user.primary_address_line2 || '',
+                            secondaryAddressLine1: user.secondary_address_line1 || '',
+                            secondaryAddressLine2: user.secondary_address_line2 || '',
+                            age: user.age,
+                            gender: user.gender,
+                            bmi: user.bmi,
+                            calories: user.recommended_calories,
+                            role: (user.roles || []).length ? user.roles[0].id : '',
+                          });
+                          setShowForm(true);
+                        }}
+                        style={{ margin: '0 6px', cursor: 'pointer' }}
+                      />
+                    )
 
                     return customerPage ? [
+                      user.id,
                       `${user.first_name || ''} ${user.last_name || ''}`,
                       user.mobile,
                       user.email,
@@ -249,7 +275,7 @@ const ListofUser = () => {
                   setSort(key);
                 }}
                 pagination
-                page={page - 1}
+                page={page}
                 totalCount={totalCount}
                 rowsPerPage={rowsPerPage}
                 onChangePage={(_, newPage) => {

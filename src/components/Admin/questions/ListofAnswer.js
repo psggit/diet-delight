@@ -298,7 +298,7 @@ const ListofAnswer = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Customer Response"
+              title="List of Customer Response"
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');

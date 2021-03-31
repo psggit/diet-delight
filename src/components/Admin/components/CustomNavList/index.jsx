@@ -5,27 +5,31 @@ import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import './index.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     maxWidth: 400,
-    padding: "0",
+    padding: 0,
     backgroundColor: '#373a47',
   },
   item: {
+    paddingLeft: 20,
+    paddingRight: 0,
     color: "#b8b7ad",
     '&:hover': {
       color: '#c94e50',
     }
   },
   nested: {
-    paddingLeft: theme.spacing(4),
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 35,
     color: "#b8b7ad",
     '&:hover': {
       color: '#c94e50',
@@ -44,8 +48,7 @@ export default function NestedList(props) {
         className={classes.root}
       >
         <ListItem className={classes.item} button onClick={() => handleClick(name)}>
-          <ListItemText primary={primaryLabel} />
-          {open ? <ExpandLess /> : <ExpandMore />}
+          <ListItemText primary={<div className='list-item-label'>{primaryLabel}{open ? <ExpandLess /> : <ExpandMore />}</div>} />
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -57,7 +60,7 @@ export default function NestedList(props) {
                 component={RouterLink}
                 to={"/admin/" + value.link}
               >
-                <ListItemText primary={value.label} />
+                <ListItemText className='list-item-text' primary={value.label} />
               </ListItem>
             ))}
           </List>

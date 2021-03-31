@@ -17,6 +17,7 @@ export const Container = styled.div`
 export const Mini = styled.div`
 	display:flex;
 	min-width:400px;
+	width: 100%;
 	align-items:center;
 `
 
@@ -63,7 +64,7 @@ const Modal = (props) => {
 								onClick={onClose}
 							>
 								Close
-              </Button>
+              				</Button>
 						</Mini>
 					)}
 				</Container>

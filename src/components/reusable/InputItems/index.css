@@ -1,3 +1,7 @@
 .MuiMenu-list {
     max-height: 400px;
 }
+
+.MuiButtonBase-root:focus {
+    outline: none;
+}

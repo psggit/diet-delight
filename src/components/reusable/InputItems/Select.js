@@ -2,18 +2,27 @@ import React from "react";
 import { Select as DefaultSelect, MenuItem, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import './index.css';
+import get from 'lodash.get';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	formControl: {
 		minWidth: 120,
+		margin: '16px 0 8px 0',
 	},
+	label: {
+		marginBottom: 0,
+	}
 }));
 
 export const Select = (props) => {
-	const { label, onChange, field = {}, form = {}, options, disabled } = props;
+	const { label, onChange, field = {}, form = {}, options, disabled, fieldPath } = props;
 	const { setFieldValue, errors = {}, touched = {} } = form;
-	const helperText = errors[field.name]
-	const error = helperText && touched[field.name]
+	const helperText = fieldPath ? get(errors, fieldPath, '') : errors[field.name]
+	let error = false;
+
+	if (helperText) {
+		error = fieldPath ? get(touched, fieldPath, false) : touched[field.name]
+	}
 
 	const classes = useStyles();
 
@@ -26,13 +35,12 @@ export const Select = (props) => {
 
 	return (
 		<FormControl style={{ width: '100%' }} variant="outlined" className={classes.formControl}>
-			<InputLabel id={label} style={error ? { color: 'red' } : {}}>
+			<InputLabel className={classes.label} id={label} style={error ? { color: 'red' } : {}}>
 				{label}
 			</InputLabel>
 			<DefaultSelect
 				labelId={label}
 				id={`${label}-select`}
-				style={{ margin: '8px 0' }}
 				fullWidth
 				onChange={onFieldChange}
 				className={classes.selectEmpty}

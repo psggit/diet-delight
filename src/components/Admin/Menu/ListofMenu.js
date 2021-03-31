@@ -314,7 +314,7 @@ const ListofMenu = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Menus"
+              title="List of Menus"
               csvReport={csvReport}
               addHandler={() => {
                 // TODO: Handle add

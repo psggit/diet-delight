@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react";
 import CustomSkeleton from "../../../CustomSkeleton";
 import axios from "../../../axiosInstance";
 
-import { Snackbar } from "@material-ui/core";
-
+import { Snackbar, makeStyles, Icon } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-
-import { useSelector } from "react-redux";
-import { selectConsultationPackage } from "../../../features/adminSlice";
 
 import { Main } from "./QuestionElements";
 import Table from '../../reusable/Table';
@@ -15,6 +11,7 @@ import { Edit, Delete } from '@material-ui/icons';
 import TableHeader from '../../reusable/TableHeader';
 import ConsultantPackageFormModal from './ConsultantPackageFormModal';
 import Modal from '../../reusable/Modal';
+import { CONSULTATION_PACKAGE_STATUS } from '../Constants';
 
 const initialValue = {
   id: '',
@@ -28,6 +25,16 @@ const initialValue = {
   salePrice: '',
 }
 
+const useStyles = makeStyles(() => ({
+  hoverStyle: {
+    cursor: 'pointer',
+    color: "#b8b7ad",
+    '&:hover': {
+      color: 'blue',
+    }
+  },
+}));
+
 const ListConsultationPackage = () => {
   const [consultantPackages, setConsultationPackages] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(20)
@@ -38,13 +45,14 @@ const ListConsultationPackage = () => {
   const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
-  const [isupdate, setISUpdate] = useState(false);
   const [mode, setMode] = useState('Add');
   const [showForm, setShowForm] = useState(false);
   const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
   const [currentPackage, setCurrentPackage] = useState(initialValue);
+  const [imgconfig, setImageConfig] = useState([false, ''])
+
+  const classes = useStyles();
 
   let current_date_Time = new Date();
   const csvReport = {
@@ -79,6 +87,15 @@ const ListConsultationPackage = () => {
     setNotificationConf([false, 'success', '']);
   };
 
+  const getStatus = (status) => {
+    switch (status) {
+      case 0:
+        return CONSULTATION_PACKAGE_STATUS[0].name;
+      case 1:
+        return CONSULTATION_PACKAGE_STATUS[1].name;
+    }
+  }
+
   const handleFormSubmit = (values) => {
     const data = {
       name: values.name,
@@ -89,6 +106,7 @@ const ListConsultationPackage = () => {
       details: values.details,
       price: values.price,
       sale_price: values.salePrice,
+      ...(values.picture ? { picture: values.picture } : {}),
     };
     if (mode === 'Add') {
       axios.post(`consultation-packages`, data).then((res) => {
@@ -108,6 +126,7 @@ const ListConsultationPackage = () => {
   }
 
   const [showNotification, notificationType, notification] = notificationConf;
+  const [showImageModal, image] = imgconfig;
 
   return (
     <>
@@ -154,7 +173,7 @@ const ListConsultationPackage = () => {
         <>
           <Main>
             <TableHeader
-              title="List of All Consultation Packages"
+              title="List of Consultation Packages"
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');
@@ -182,21 +201,21 @@ const ListConsultationPackage = () => {
                   rows: consultantPackages.map((cPackage) => {
                     return [
                       cPackage.name,
-                      cPackage.status,
+                      getStatus(cPackage.status),
                       cPackage.duration,
                       cPackage.order,
                       cPackage.subtitle,
                       cPackage.details,
-                      <a href={cPackage.picture} target="_blank" rel="noopener noreferrer">
-                        link
-                      </a>,
+                      <Icon className={classes.hoverStyle} onClick={() => cPackage.picture && setImageConfig([true, cPackage.picture])}>
+                        open_in_new
+                        </Icon>,
                       cPackage.price,
                       cPackage.sale_price,
                       <>
                         <Edit
                           onClick={() => {
                             setMode('Update')
-                            setCurrentPackage({...cPackage, salePrice: cPackage.sale_price});
+                            setCurrentPackage({ ...cPackage, salePrice: cPackage.sale_price, details: cPackage.details || '' });
                             setShowForm(true);
                           }}
                           style={{ margin: '0 6px', cursor: 'pointer' }}
@@ -239,6 +258,9 @@ const ListConsultationPackage = () => {
                 {notification}
               </Alert>
             </Snackbar>
+            {showImageModal && (
+              <Modal visible={showImageModal} onClose={() => setImageConfig([false, ''])}><img src={image} style={{ width: '100%' }} /></Modal>
+            )}
           </Main>
         </>
       )}

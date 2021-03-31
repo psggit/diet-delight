@@ -4,63 +4,45 @@ import axios from "../../../axiosInstance";
 import CustomSkeleton from "../../../CustomSkeleton";
 
 import { Snackbar } from "@material-ui/core";
-import { Edit, Delete } from '@material-ui/icons';
 import MuiAlert from "@material-ui/lab/Alert";
+import { Edit, Delete } from '@material-ui/icons';
 
 import Table from '../../reusable/Table';
-import { Main } from "./ConsultantElements";
 import TableHeader from '../../reusable/TableHeader';
-import ConsultantFormModal from './ConsultantFormModal';
 import Modal from '../../reusable/Modal';
-import { CONSULTANT_STATUS } from '../Constants';
 
-const consultantInitialValue = {
+import { Main } from "./MealPlanElements";
+import DurationFormModal from './DurationFormModal';
+
+const durationInitialValue = {
   id: '',
-  name: '',
-  status: '',
-  qualification: '',
-  bio: '',
+  title: '',
+  subtitle: '',
+  duration: '',
   order: '',
+  details: '',
 }
 
-const ListofConsultants = () => {
-  const [consultants, setConsultants] = useState([]);
+const ListofDuration = () => {
+  const [listOfDurations, setListOfDurations] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(20)
   const [page, setPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState('name');
+  const [sort, setSort] = useState('title');
   const [order, setOrder] = useState('asc');
+  const [mode, setMode] = useState('Add');
   const [show, setShow] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [mode, setMode] = useState('Add');
   const [notificationConf, setNotificationConf] = useState([false, 'success', '']);
-  const [currentConsultant, setCurrentConsultant] = useState(consultantInitialValue);
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    axios.get('roles').then(res => {
-      const role = (res?.data?.data || []).find(r => r.name === 'Consultant')
-
-      if (role) {
-        axios.get(`users?role_id=${role.id}`).then((res) => {
-          setUsers((res?.data?.data || []).map((user) => {
-            return {
-              id: user.id,
-              name: `${user.first_name || ''} ${user.last_name || ''}`,
-            }
-          }));
-        });
-      }
-    });
-  }, []);
+  const [currentDuration, setCurrentDuration] = useState(durationInitialValue);
 
   let current_date_Time = new Date();
   const csvReport = {
-    data: consultants,
-    filename: `List_of_consultants_${current_date_Time}.csv`,
+    data: listOfDurations,
+    filename: `list_Of_Durations_${current_date_Time}.csv`,
   };
 
   useEffect(() => {
@@ -69,9 +51,9 @@ const ListofConsultants = () => {
 
   const handleShow = () => {
     axios
-      .get(`consultants?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`durations?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
-        setConsultants(res.data.data);
+        setListOfDurations(res.data.data);
         setLoading(false);
         setShow(true);
         setTotalCount(res.data?.meta?.total || 0);
@@ -87,52 +69,33 @@ const ListofConsultants = () => {
     if (reason === "clickaway") {
       return;
     }
+
     setNotificationConf([false, 'success', '']);
   };
 
-  const getConsultantStatus = (status) => {
-    switch (status) {
-      case 0:
-        return CONSULTANT_STATUS[0].name;
-      case 1:
-        return CONSULTANT_STATUS[1].name;
-      case 2:
-        return CONSULTANT_STATUS[2].name;
-
-    }
-  }
-
-  const getJoinedOn = (date) => {
-    const temp = new Date(date);
-
-    return `${temp.getDate()}/${temp.getMonth() + 1}/${temp.getFullYear()}`
-  }
-
   const handleFormSubmit = (values) => {
     const data = {
-      user_id: values.name,
-      name: (users.find(u => u.id === values.name) || { name: '' }).name,
-      status: values.status,
-      qualification: values.qualification,
-      bio: values.bio,
+      title: values.title,
+      subtitle: values.subtitle || '',
       order: parseInt(values.order, 10),
+      duration: parseInt(values.duration, 10),
+      details: values.details || '',
+      ...(values.picture ? { picture: values.picture } : {}),
     }
     if (mode === 'Add') {
-
-      axios.post(`consultants`, data).then((res) => {
-        setNotificationConf([true, 'success', 'Consultant Added Successfully !'])
+      axios.post(`durations`, data).then((res) => {
+        setNotificationConf([true, 'success', 'Duration Added Successfully !'])
         handleShow();
       }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
     } else {
       axios
-        .put(`consultants/${currentConsultant.id}`, data)
+        .put(`durations/${currentDuration.id}`, data)
         .then((res) => {
-          setNotificationConf([true, 'success', 'Consultant Updated Successfully !'])
+          setNotificationConf([true, 'success', 'Duration Updated Successfully !'])
           handleShow();
         })
         .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
     }
-    console.log(data);
     setShowForm(false);
   }
 
@@ -144,16 +107,16 @@ const ListofConsultants = () => {
         <Modal
           visible={isdelete}
           onClose={() => setIsDelete(false)}
-          title="Delete Question"
+          title="Delete Duration"
           acceptButtonConfig={{
             color: 'secondary',
             text: 'Delete',
             onClick: () => {
               setIsDelete(false);
               axios
-                .delete(`consultants/${currentConsultant.id}`)
+                .delete(`durations/${currentDuration.id}`)
                 .then(() => {
-                  setNotificationConf([true, 'success', 'Consultant Deleted Successfully !'])
+                  setNotificationConf([true, 'success', 'Duration Deleted Successfully !'])
                   handleShow();
                 })
                 .catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']));
@@ -162,27 +125,27 @@ const ListofConsultants = () => {
         />
       )}
       {showForm && (
-        <ConsultantFormModal
+        <DurationFormModal
           visible={showForm}
           onClose={() => {
             setShowForm(false)
             if (mode === 'Update') {
-              setCurrentConsultant(consultantInitialValue)
+              setCurrentDuration(durationInitialValue)
             }
           }}
           mode={mode}
-          values={currentConsultant}
+          values={currentDuration}
           onSubmit={handleFormSubmit}
-          users={users}
         />
       )}
+
       {loading ? (
         <CustomSkeleton />
       ) : (
         <>
           <Main>
             <TableHeader
-              title="List of Consultants"
+              title="List of Durations"
               csvReport={csvReport}
               addHandler={() => {
                 setMode('Add');
@@ -196,43 +159,39 @@ const ListofConsultants = () => {
               <Table
                 dataSource={{
                   columns: [
-                    { id: 'userId', label: 'User Id', sort: false },
-                    { id: 'name', label: 'Name', sort: true },
-                    { id: 'qualification', label: 'Qualification', sort: true },
-                    { id: 'bio', label: 'Bio', sort: true },
-                    { id: 'status', label: 'Status', sort: true },
+                    { id: 'title', label: 'Title', sort: true },
+                    { id: 'subtitle', label: 'Subtitle', sort: true },
+                    { id: 'duration', label: 'Duration', sort: true },
                     { id: 'order', label: 'Order', sort: true },
-                    { id: 'created_at', label: 'Joined On', sort: true },
+                    { id: 'details', label: 'Description', sort: false },
                     { id: 'actions', label: '', sort: false },
                   ],
-                  rows: consultants.map((consultant) => {
+                  rows: listOfDurations.map((duration) => {
                     return [
-                      consultant.user_id,
-                      consultant.name,
-                      consultant.qualification,
-                      consultant.bio,
-                      getConsultantStatus(consultant.status),
-                      consultant.order,
-                      getJoinedOn(consultant.created_at),
+                      duration.title,
+                      duration.subtitle,
+                      duration.duration,
+                      duration.order,
+                      duration.details,
                       <>
                         <Edit
                           onClick={() => {
                             setMode('Update')
-                            setCurrentConsultant({
-                              id: consultant.id,
-                              name: consultant.user_id,
-                              status: consultant.status,
-                              qualification: consultant.qualification,
-                              bio: consultant.bio,
-                              order: consultant.order,
+                            setCurrentDuration({
+                              id: duration.id,
+                              title: duration.title,
+                              subtitle: duration.subtitle || '',
+                              duration: duration.duration,
+                              order: duration.order,
+                              details: duration.details || '',
                             });
                             setShowForm(true);
                           }}
                           style={{ margin: '0 6px', cursor: 'pointer' }}
                         />
                         <Delete onClick={() => {
+                          setCurrentDuration(duration);
                           setIsDelete(true)
-                          setCurrentConsultant(consultant);
                         }} style={{ margin: '0 6px', cursor: 'pointer' }} />
                       </>
                     ]
@@ -275,4 +234,4 @@ const ListofConsultants = () => {
   );
 };
 
-export default ListofConsultants;
+export default ListofDuration;

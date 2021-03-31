@@ -1,11 +1,30 @@
 import React from "react";
 import DefaultTextField from '@material-ui/core/TextField';
+import get from 'lodash.get';
 
 export const TextField = (props) => {
-	const { label, onChange, field = {}, form = {}, type, disabled, defaultValue, rows, multiline } = props;
+	const { 
+		label, 
+		onChange, 
+		field = {}, 
+		form = {}, 
+		type, 
+		disabled, 
+		defaultValue, 
+		rows, 
+		multiline, 
+		InputProps, 
+		style, 
+		fieldPath, 
+		InputLabelProps 
+	} = props;
 	const { setFieldValue, errors = {}, touched = {} } = form;
-	const helperText = errors[field.name]
-	const error = helperText && touched[field.name]
+	const helperText = fieldPath ? get(errors, fieldPath, '') : errors[field.name]
+	let error = false;
+
+	if (helperText) {
+		error = fieldPath ? get(touched, fieldPath, false) : touched[field.name]
+	}
 
 	const onFieldChange = (event) => {
 		const { target: { value } } = event;
@@ -30,6 +49,9 @@ export const TextField = (props) => {
 			defaultValue={defaultValue}
 			rows={rows}
 			multiline={multiline}
+			InputProps={InputProps}
+			InputLabelProps={InputLabelProps}
+			style={style}
 		/>
 	)
 }

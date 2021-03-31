@@ -40,9 +40,9 @@ const UserFormModal = (props) => {
 			requireFooter={false}
 		>
 			<Formik
-				initialValues={values}
+				initialValues={{ ...values, gender: (typeof values.gender === 'number') ? values.gender + 1 : '' }}
 				validationSchema={validationSchema}
-				onSubmit={onSubmit}
+				onSubmit={(values) => onSubmit({ ...values, gender: values.gender - 1 })}
 			>
 				{(formProps) => {
 					return (
@@ -66,7 +66,7 @@ const UserFormModal = (props) => {
 										name="gender"
 										component={Select}
 										label="Gender"
-										options={GENDER_TYPE}
+										options={GENDER_TYPE.map((option) => ({ ...option, id: option.id + 1 }))}
 									/>
 								</Grid>
 							</Grid>
