@@ -22,6 +22,14 @@
 div.menupkg_container_main {
   display: grid;
   place-items: center;
+  /* position: relative;
+  top: 100px; */
+}
+
+div.menuPckg-container {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 /* card component */
@@ -118,6 +126,10 @@ i.heart_menu_pkg {
     margin-top: 14px;
     border: none;
   }
+
+  div.menuPckg-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
   div.btn_container_menupkg {
     display: flex;
     justify-content: center;
@@ -172,6 +184,9 @@ i.heart_menu_pkg {
     position: absolute;
     bottom: 0;
     left: 8px;
+  }
+  div.menuPckg-container {
+    grid-template-columns: repeat(1, 1fr);
   }
   i.heart_menu_pkg {
     position: absolute;
@@ -245,6 +260,9 @@ i.heart_menu_pkg {
   h4.breakfast_name_menupkg {
     font-size: 22px;
     opacity: 0.9;
+  }
+  div.menuPckg-container {
+    grid-template-columns: repeat(2, 1fr);
   }
   i.heart_menu_pkg_fill {
     color: red;
@@ -329,6 +347,9 @@ i.heart_menu_pkg {
   div.menupkg_container_main_1 {
     display: grid;
     place-items: center;
+  }
+  div.menuPckg-container {
+    grid-template-columns: repeat(3, 1fr);
   }
   i.heart_menu_pkg_fill {
     color: red;

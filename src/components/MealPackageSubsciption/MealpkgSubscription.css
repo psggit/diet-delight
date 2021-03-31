@@ -152,6 +152,7 @@ div.meal_choosecontainer {
 div.main_container_mealpkg {
   height: fit-content;
 }
+
 div.meal_pkg_subscription_container {
   position: relative;
   top: 100px;
@@ -234,12 +235,7 @@ div.meal_pkg_subscription_container {
   h5.immunne_text_mealpkgsub {
     color: #303960;
     font-family: "Roboto Condensed Regular";
-<<<<<<< HEAD
-    font-weight: 700;
-    font-size: 1.4rem;
-=======
     font-size: 2rem;
->>>>>>> Meal plan page button
   }
   h5.bhd_text_mealpkgsub {
     font-weight: 500;
@@ -277,14 +273,9 @@ div.meal_pkg_subscription_container {
   }
   p.something_text {
     color: #303960;
-    font-family: 'Roboto';
     font-weight: bold;
     margin-bottom: 0;
-<<<<<<< HEAD
-    margin-top: 0.5rem;
-=======
     margin-top: 1rem;
->>>>>>> Meal plan page button
     font-size: 0.8rem;
     letter-spacing: 0.2px;
     font-weight: 600;
@@ -306,35 +297,12 @@ div.meal_pkg_subscription_container {
     color: white;
     margin-top: 15px;
     background: #8bc53f;
-<<<<<<< HEAD
-    width: 11rem;
-    /* float: right; */
-    border: 1px solid #808080bf;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  a.choose_your_meal_text2 {
-    display: none;
-    margin-top: 2rem;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  div.vertical_line {
-    display: none;
-  }
-
-  a.choose_your_meal_text2 {
-    margin-top: 2rem;
-=======
     width: auto;
     border: 1px solid #808080bf;
   }
   button.mealbtn_subscription:hover {
     color: black;
     background: #800080;
->>>>>>> Meal plan page button
   }
 
   a.choose_your_meal_text {
@@ -356,6 +324,7 @@ div.meal_pkg_subscription_container {
 @media only screen and (min-width: 768px) {
   div.img_container {
     margin-top: -16px;
+<<<<<<< HEAD
 =======
   @media screen and (max-width: 767px) {
     div.red {
@@ -499,6 +468,33 @@ div.meal_pkg_subscription_container {
       /* float: right; */
       border: 1px solid #808080bf;
     }
+=======
+  }
+  div.main_container_mealpkg {
+    display: grid;
+    place-items: center;
+  }
+  Link.text_subscription_text {
+    padding-top: 1px;
+    text-transform: uppercase;
+  }
+  div.red {
+    background-image: url(../../assets/choosemealplan.jpg);
+    width: 100%;
+    height: -moz-fit-content;
+    height: fit-content;
+    background-position: unset;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  div.container_meal_pkg_subscrption_container {
+    display: flex;
+    justify-content: center;
+    width: 38rem;
+    margin-bottom: 10%;
+    margin-top: 5%;
+>>>>>>> fix: fixed all the issues related to order history and few issues relates to menu page
   }
 
   @media only screen and (max-width: 500px) {
@@ -521,6 +517,7 @@ div.meal_pkg_subscription_container {
       margin-top: 2rem;
     }
   }
+<<<<<<< HEAD
 
   /* Medium devices (landscape tablets, 768px and up) */
   @media only screen and (min-width: 768px) {
@@ -605,6 +602,9 @@ div.meal_pkg_subscription_container {
      margin-top: -1px;
    }
    img.card_img_rounded_mealpkgsub {
+=======
+  img.card_img_rounded_mealpkgsub {
+>>>>>>> fix: fixed all the issues related to order history and few issues relates to menu page
     width: 84px;
     height: 84px;
     box-shadow: 0px 0px 16px -2px rgb(61 61 61 / 66%);
@@ -1120,6 +1120,7 @@ div.bhd_weekend_container {
   div.col_grid {
     margin-left: 0px;
   }
+<<<<<<< HEAD
 =======
 span.meal_caret_icon {
   margin-left: 0.4rem;
@@ -1142,6 +1143,8 @@ p.with_weekend_text {
   color: #303960;
   font-weight: 600;
 >>>>>>> Meal plan page button
+=======
+>>>>>>> fix: fixed all the issues related to order history and few issues relates to menu page
 }
 
 @media only screen and (min-width: 280px) {

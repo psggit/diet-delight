@@ -36,7 +36,7 @@ export default function PrimaryaddDialog(props) {
 
   const withoutBackground = {
     background: "#77838f59",
-    color: "#000",
+    color: "#fff",
   };
 
   function selectAddress(id) {
@@ -74,21 +74,24 @@ export default function PrimaryaddDialog(props) {
             //onClick={() => selectAddress("primary_address")}
           >
             {addressType !== "primary_address" &&
-            props.userData.primary_address_line1 ? (
-              <h6
-                className="select_text_dialog"
-                onClick={() => selectAddress("primary_address")}
-              >
-                SELECT
-              </h6>
-            ) : (
-              <h6
-                className="select_text_dialog"
-                onClick={() => handleAddAddress("primary_address")}
-              >
-                ADD
-              </h6>
-            )}
+              props.userData.primary_address_line1 && (
+                <h6
+                  className="select_text_dialog"
+                  onClick={() => selectAddress("primary_address")}
+                >
+                  SELECT
+                </h6>
+              )}
+
+            {addressType !== "primary_address" &&
+              !props.userData.primary_address_line1 && (
+                <h6
+                  className="select_text_dialog"
+                  onClick={() => handleAddAddress("primary_address")}
+                >
+                  ADD
+                </h6>
+              )}
 
             <p>
               {props.userData.primary_address_line1 === null ||
@@ -120,21 +123,24 @@ export default function PrimaryaddDialog(props) {
             //onClick={() => selectAddress("secondary_address")}
           >
             {addressType !== "secondary_address" &&
-            props.userData.secondary_address_line1 ? (
-              <h6
-                className="select_text_dialog"
-                onClick={() => selectAddress("secondary_address")}
-              >
-                SELECT
-              </h6>
-            ) : (
-              <h6
-                className="select_text_dialog"
-                onClick={() => handleAddAddress("secondary_address")}
-              >
-                ADD
-              </h6>
-            )}
+              props.userData.secondary_address_line1 && (
+                <h6
+                  className="select_text_dialog"
+                  onClick={() => selectAddress("secondary_address")}
+                >
+                  SELECT
+                </h6>
+              )}
+
+            {addressType !== "secondary_address" &&
+              !props.userData.secondary_address_line1 && (
+                <h6
+                  className="select_text_dialog"
+                  onClick={() => handleAddAddress("secondary_address")}
+                >
+                  ADD
+                </h6>
+              )}
             <p>
               {props.userData.secondary_address_line1 === null ||
               props.userData.secondary_address_line1 === ""

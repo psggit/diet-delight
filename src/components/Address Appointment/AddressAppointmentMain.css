@@ -81,7 +81,7 @@ div.card_user_addressAppointment
   .change_text_adressAppointment {
   color: #8bc441;
   cursor: pointer;
-  top: 100px;
+  /* top: 100px; */
 }
 
 div.address_appointment_main_container {
