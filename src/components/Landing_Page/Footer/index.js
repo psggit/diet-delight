@@ -1,4 +1,5 @@
 import React from 'react'
+import MailchimpSubscribe from "react-mailchimp-subscribe"
 
 import { Main, Container, Up, Items, Lists, Google, Apple, Set, SetDown, SetDownDown, Anchor, Facebook, Instagram, Twitter, Whatsapp, Down, DownLeft, DownLup, DownLdown, DownRight, DownRup, DownRdown, Email, Signup } from './FooterElements';
 import { Subheading, Line, Para, Image } from '../../MainComponents'
@@ -7,6 +8,64 @@ import pay1 from '../../../assets/pay1.png';
 import pay2 from '../../../assets/pay2.png';
 import pay3 from '../../../assets/pay3.jpeg';
 import { Link } from "react-router-dom";
+import { ImportExportOutlined } from '@material-ui/icons';
+
+const url = "https://gmail.us1.list-manage.com/subscribe/post?u=41bf26d4dc3702886e2411792&amp;id=3bb3679fe6";
+
+// const NewsletterSubmit = () => {
+//     const input = document.getElementById('newsletter-email').value
+//     console.log(input);
+// }
+
+const CustomForm = ({ status, message, onValidated }) => {
+    let email;
+    const submit = () =>
+      email &&
+      email.value.indexOf("@") > -1 &&
+      onValidated({
+        EMAIL: email.value,
+      });
+  
+    return (
+      <div
+        style={{
+          display: "inline-block",
+          paddingTop: '10px',
+          paddingBottom: '10px'
+        }}
+      >
+        
+        <input
+        style={{ background: 'transparent',
+            border: '1px solid white',
+            height: '30px',
+            color: 'white',
+            textDecoration: 'none',
+            textAlign: 'center' }}
+        ref={node => (email = node)}
+        type="email"
+        placeholder="Enter Your E-mail"
+      />
+        <button style={{ background: 'transparent',color: 'white',width: '100px',height: '30px',border: '1px solid white',marginLeft: '10px' }} onClick={submit}>
+          SIGN UP
+        </button>
+
+        {status === "sending" && <div style={{ color: "#fff", fontWeight: '400', paddingLeft: '10px' }}>sending...</div>}
+        {status === "error" && (
+          <div
+            style={{ color: "red", fontWeight: '400', paddingLeft: '10px' }}
+            dangerouslySetInnerHTML={{ __html: message }}
+          />
+        )}
+        {status === "success" && (
+          <div
+            style={{ color: "rgba(139,197,63,1)", fontWeight: '400', paddingLeft: '10px' }}
+            dangerouslySetInnerHTML={{ __html: message }}
+          />
+        )}
+      </div>
+    );
+  };
 
 const Footer = () => {
 
@@ -138,13 +197,24 @@ const Footer = () => {
                         </Para>
                             <Line back="white" width="50px" height="2px" />
                         </DownLup>
-                        <DownLdown>
+                        {/* <DownLdown>
                             <Email placeholder="Enter Your E-mail" color="white" />
                             <Signup>
                                 SIGN UP
                             </Signup>
-                        </DownLdown>
+                        </DownLdown> */}
+                        <MailchimpSubscribe
+                                url={url}
+                                render={({ subscribe, status, message }) => (
+                                    <CustomForm
+                                    status={status}
+                                    message={message}
+                                    onValidated={formData => subscribe(formData)}
+                                    />
+                                )}
+                                />
                     </DownLeft>
+                    
                     <DownRight>
                         <DownRup>
                             <Image alt="payment" src={pay1} height="38px" width="120px" />
