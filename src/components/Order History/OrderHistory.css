@@ -1,16 +1,8 @@
-/* div.order_history_container {
-  position: relative;
-  top: 100px;
-} */
-
 div.order_history_filter {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: 3%;
-  position: relative;
-  top: 100px;
-  padding-bottom: 3%;
 }
 div.Meal_plan_container {
   /* box-shadow: 1px 0px 7px -2px rgba(0, 0, 0, 0.54); */
@@ -210,9 +202,9 @@ div.vertical_line_OrderHistory {
 }
 
 @media screen and (max-width: 767px) {
-  div.order_history_filter {
+  /* div.order_history_filter {
     padding-bottom: 20%;
-  }
+  } */
   img.logo_web_order {
     width: 35%;
     height: 47px;
@@ -245,8 +237,6 @@ div.vertical_line_OrderHistory {
     padding: 9%;
     background: #fbfbfbc2;
     margin: 6%;
-    position: relative;
-    top: 100px;
   }
   div.vertical_line_OrderHistory {
     display: none;
@@ -464,9 +454,9 @@ div.vertical_line_OrderHistory {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  div.order_history_filter {
+  /* div.order_history_filter {
     padding-bottom: 5%;
-  }
+  } */
   h6.remaining_days_title_cons {
     font-weight: 400;
     font-size: 10px;
@@ -755,9 +745,9 @@ div.vertical_line_OrderHistory {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  div.order_history_filter {
+  /* div.order_history_filter {
     padding-bottom: 5%;
-  }
+  } */
   h6.subscriptionplan_subtitle_cons {
     font-weight: 400;
     font-size: 13px;
@@ -998,9 +988,9 @@ div.vertical_line_OrderHistory {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-  div.order_history_filter {
+  /* div.order_history_filter {
     padding-bottom: 5%;
-  }
+  } */
   p.remaining_days_title_cons {
     color: #303960;
     font-family: "Roboto";
