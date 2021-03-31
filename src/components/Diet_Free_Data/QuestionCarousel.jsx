@@ -24,6 +24,17 @@ const useStyles = makeStyles({
 const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
   const classes = useStyles();
   const [activeQuestion, setActiveQuestion] = useState(0);
+  const [BMIData, setBMIData] = useState({
+    height: 0,
+    weight: 0,
+    age: 0,
+    gender: 0,
+  });
+
+  const [BMICalculatedResult, setBMICalculatedResult] = useState({
+    BMIScore: 0,
+    calorieInTake: 0,
+  });
 
   const submitAnswer = () => {
     const _currentQuestion = QuestionsData[activeQuestion].question;
@@ -72,7 +83,7 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
     });
   };
 
-  const isCurrentAnswered = () => {
+  const isFineToMoveToNext = () => {
     if (activeQuestion < QuestionsData.length) {
       const _currentQuestion = QuestionsData[activeQuestion];
       const _a = !!_currentQuestion.selectedOption;
@@ -83,6 +94,89 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
     } else {
       return true;
     }
+  };
+
+  const calculateBMI = () => {
+    const { age, gender, height, weight } = BMIData;
+    let heightInMeter = height / 100;
+    let BmiScoreWithoutFixDecimal = weight / (heightInMeter * heightInMeter);
+    let BmiScore = BmiScoreWithoutFixDecimal.toFixed(1);
+    let calorieInTake = null;
+    let category = "";
+    console.log(heightInMeter, BmiScore);
+    if (BmiScore < 18.5) {
+      category = "Under Weight";
+      if (gender === "male") {
+        calorieInTake = 1800;
+      } else {
+        calorieInTake = 1600;
+      }
+      console.log(calorieInTake);
+      handleNavigation(BmiScore, heightInMeter, category, calorieInTake);
+    } else if (BmiScore >= 18.5 && BmiScore <= 24.9) {
+      category = "Normal Weight";
+      if (gender === "male") {
+        calorieInTake = 1400;
+      } else {
+        calorieInTake = 1200;
+      }
+      console.log(calorieInTake);
+      handleNavigation(BmiScore, heightInMeter, category, calorieInTake);
+    } else if (BmiScore >= 25 && BmiScore <= 29.9) {
+      category = "OverWeight";
+      if (gender === "male") {
+        calorieInTake = 1400;
+      } else {
+        calorieInTake = 1200;
+      }
+      console.log(calorieInTake);
+      handleNavigation(BmiScore, heightInMeter, category, calorieInTake);
+    } else {
+      category = "Obesity";
+      if (gender === "male") {
+        calorieInTake = 1600;
+      } else {
+        calorieInTake = 1400;
+      }
+      console.log(calorieInTake);
+      handleNavigation(BmiScore, heightInMeter, category, calorieInTake);
+    }
+  };
+
+  const handleNavigation = (
+    BmiScore,
+    heightInMeter,
+    category,
+    calorieInTake
+  ) => {
+    let genderInNumber = BMIData.gender === "male" ? 0 : 1;
+    let bmiInString = BmiScore.toString();
+    let calorieInTakeString = calorieInTake.toString();
+    console.log("AA : ", BmiScore, heightInMeter, category, calorieInTake);
+    setBMICalculatedResult({
+      ...BMICalculatedResult,
+      BMIScore: BmiScore,
+      calorieInTake: calorieInTake,
+    });
+    // axios
+    //   .put("user", {
+    //     age: age,
+    //     gender: genderInNumber,
+    //     bmi: bmiInString,
+    //     recommended_calories: calorieInTakeString,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.status === 200) {
+    //       alert("Updated Successfully");
+    //       // props.toggleReportBMI(
+    //       //   BmiScore,
+    //       //   heightInMeter,
+    //       //   category,
+    //       //   calorieInTake
+    //       // );
+    //     }
+    //   });
   };
 
   return (
@@ -97,9 +191,19 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
           updateAnswerText={updateAnswerText}
         />
       )}
-      {activeQuestion === QuestionsData.length && <BMICalculator />}
+      {activeQuestion === QuestionsData.length && (
+        <BMICalculator
+          BMIData={BMIData}
+          calculateBMI={calculateBMI}
+          setBMIData={setBMIData}
+        />
+      )}
       {activeQuestion === QuestionsData.length + 1 && (
-        <h2>Hello Ths is Test 22</h2>
+        <div>
+          <h2>BMI Report</h2>
+          <p>BMI Score: {BMICalculatedResult.BMIScore}</p>
+          <p>Calorie In Take: {BMICalculatedResult.calorieInTake}</p>
+        </div>
       )}
       <div
         style={{
@@ -119,12 +223,11 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
         )}
         <IconButton
           onClick={() => {
-            if (
-              isCurrentAnswered()
-              // &&
-              // activeQuestion < QuestionsData.length - 1
-            )
-              setActiveQuestion(activeQuestion + 1);
+            if (isFineToMoveToNext()) setActiveQuestion(activeQuestion + 1);
+
+            if (activeQuestion === 3) {
+              calculateBMI();
+            }
           }}
           className={classes.iconBtn}
         >
