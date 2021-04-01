@@ -18,6 +18,7 @@ export default function KitchenReport(){
 
 const getpdf = () => {
 
+
   if(startDate !== ""){
     axios
     .get(
@@ -184,7 +185,6 @@ useEffect(() => {
       <td colSpan="10" class="title_breakfast_text_">{category}</td>
   </tr>
   {renderMenuOrders}
-
   </>    
   )
   })

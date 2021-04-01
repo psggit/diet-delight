@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import NavDrawer from '../Navdrawer'
 import ListofConsultation from '../Admin/Consultations/ListofConsultation'
+import MyConsultation from '../Admin/Consultations/MyConsultations'
 import PostConsultation from '../Admin/Consultations/PostConsultation'
+import { Icon } from "@material-ui/core";
 
 import { elastic as Menu } from 'react-burger-menu'
 
@@ -128,6 +130,20 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  notificationContent: {
+    minWidth: 375,
+  },
+  notificationIconContent: {
+    position: 'fixed',
+    top: 36,
+    right: 36,
+    zIndex: 1000,
+  },
+  pageIcons: {
+    color: '#800080',
+    fontSize: 36,
+    cursor: 'pointer'
+  }
 }))
 
 const menuItems = [
@@ -224,18 +240,35 @@ export default function Consultant() {
                 ))}
               </List>
             </Collapse>
-            <LogoutContainer onClick={handleLogout}>
-              <AccountCircleIcon
-                style={{ fontSize: '56px', margin: '0 12px' }}
-              />
-              <span>LOGOUT</span>
-            </LogoutContainer>
           </div>
         </Menu>
+        <main
+          id="page-wrap"
+          style={{ width: '100%', padding: '16px 32px 0 32px' }}
+        >
+          <div className={classes.drawerHeader} >
+            <div className={classes.notificationIconContent}>
+              <Icon
+                id="notification-icon"
+                className={classes.pageIcons}
+              //onClick={({ currentTarget }) => setNoticationIconrRef(currentTarget)}
+              >
+                notifications
+                </Icon>
+              <Icon
+                className={classes.pageIcons}
+                onClick={handleLogout}
+                style={{ marginLeft: 16 }}
+              >
+                exit_to_app
+                </Icon>
+            </div>
+          </div>
+        </main>
       </div>
-      <div style={{ marginTop: '5rem' }}>
+      <div style={{ marginTop: '1rem' }}>
         {listOfConsultation && <ListofConsultation />}
-        {addNewConsultation && <PostConsultation />}
+        {addNewConsultation && <MyConsultation />}
       </div>
     </>
   )

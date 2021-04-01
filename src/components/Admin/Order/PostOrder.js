@@ -190,100 +190,77 @@ const PostOrder = () => {
 			{loading ? (
 				<CustomSkeleton />
 			) : (
-				<Main>
-					<TableHeader
-						title="List of Consultation Purchase"
-						csvReport={csvReport}
-						addHandler={() => {
-							setMode('Add');
-							setShowForm(true);
-						}}
-						searchHandler={(value) => {
-							setSearch(value);
-						}}
-					/>
-					{show && (
-						<Table
-							dataSource={{
-								columns: [
-									{ id: 'user_id', label: 'User ID', sort: true },
-									{ id: 'customer_name', label: 'Customer Name', sort: true },
-									{ id: 'consultation_package_name', label: 'Consultation Package', sort: true },
-									{ id: 'payment_id', label: 'Payment ID', sort: false },
-									{ id: 'status', label: 'Status', sort: true },
-									{ id: 'billing_address', label: 'Billing Address', sort: false },
-									{ id: 'consultation_mode', label: 'Mode of Consultation', sort: false },
-									{ id: 'amount_paid', label: 'Amount Paid', sort: true },
-									{ id: 'actions', label: '', sort: false },
-								],
-								rows: listoforders.map((order) => {
-									return [
-										order.user_id,
-										`${order?.user?.first_name || ''} ${order?.user?.last_name || ''}`,
-										order.consultation_package_name,
-										order.payment_id,
-										getConsultationPurchaseStatus(order.status),
-										`${order.billing_address_line1 || ''} ${order.billing_address_line2 || ''}`,
-										getConsultationMode((order?.consultations || [])[0]?.consultation_mode || ''),
-										order.amount_paid,
-										<>
-											<Edit
-												onClick={() => {
-													setMode('Update')
-													setCurrentConsultationPurchase({
-														id: order.id,
-														user: order.user_id,
-														consultationPackage: order.consultation_package_id,
-														paymentId: order.payment_id,
-														amountPaid: order.amount_paid,
-														status: order.status,
-														billingAddressLine1: order.billing_address_line1 || '',
-														billingAddressLine2: order.billing_address_line2 || '',
-													});
-													setShowForm(true);
-												}}
-												style={{ margin: '0 6px', cursor: 'pointer' }}
-											/>
-											<Delete onClick={() => {
-												setCurrentConsultationPurchase(order);
-												setIsDelete(true)
-											}} style={{ margin: '0 6px', cursor: 'pointer' }} />
-										</>
-									]
-								})
-							}}
-							order={order}
-							orderBy={sort}
-							onSortClick={(key) => {
-								setOrder(order === 'asc' ? 'desc' : 'asc');
-								setSort(key);
-							}}
-							pagination
-							page={page}
-							totalCount={totalCount}
-							rowsPerPage={rowsPerPage}
-							onChangePage={(_, newPage) => {
-								setPage(newPage);
-							}}
-							onChangeRowsPerPage={(event) => {
-								setRowsPerPage(parseInt(event.target.value, 10));
-								setPage(0);
+					<Main style={{ padding: '0 2rem' }}>
+						<TableHeader
+							title="List of Consultation Purchase"
+							csvReport={csvReport}
+							searchHandler={(value) => {
+								setSearch(value);
 							}}
 						/>
-					)}
-					<Snackbar
-						autoHideDuration={3000}
-						anchorOrigin={{ vertical: "top", horizontal: "center" }}
-						message="Success"
-						open={showNotification}
-						onClose={handleClose}
-					>
-						<Alert onClose={handleClose} severity={notificationType}>
-							{notification}
-						</Alert>
-					</Snackbar>
-				</Main>
-			)}
+						{show && (
+							<Table
+								dataSource={{
+									columns: [
+										{ id: 'user_id', label: 'User ID', sort: true },
+										{ id: 'customer_name', label: 'Customer Name', sort: true },
+										{ id: 'consultation_package_name', label: 'Consultation Package', sort: true },
+										{ id: 'payment_id', label: 'Payment ID', sort: false },
+										{ id: 'status', label: 'Status', sort: true },
+										{ id: 'consultation_mode', label: 'Mode of Consultation', sort: false },
+										{ id: 'amount_paid', label: 'Amount Paid', sort: true },
+										{ id: 'actions', label: '', sort: false },
+									],
+									rows: listoforders.map((order) => {
+										return [
+											order.user_id,
+											`${order?.user?.first_name || ''} ${order?.user?.last_name || ''}`,
+											order.consultation_package_name,
+											order.payment_id,
+											getConsultationPurchaseStatus(order.status),
+											getConsultationMode((order?.consultations || [])[0]?.consultation_mode || ''),
+											order.amount_paid,
+											<>
+												<Delete onClick={() => {
+													setCurrentConsultationPurchase(order);
+													setIsDelete(true)
+												}} style={{ margin: '0 6px', cursor: 'pointer' }} />
+											</>
+										]
+									})
+								}}
+								order={order}
+								orderBy={sort}
+								onSortClick={(key) => {
+									setOrder(order === 'asc' ? 'desc' : 'asc');
+									setSort(key);
+								}}
+								pagination
+								page={page}
+								totalCount={totalCount}
+								rowsPerPage={rowsPerPage}
+								onChangePage={(_, newPage) => {
+									setPage(newPage);
+								}}
+								onChangeRowsPerPage={(event) => {
+									setRowsPerPage(parseInt(event.target.value, 10));
+									setPage(0);
+								}}
+							/>
+						)}
+						<Snackbar
+							autoHideDuration={3000}
+							anchorOrigin={{ vertical: "top", horizontal: "center" }}
+							message="Success"
+							open={showNotification}
+							onClose={handleClose}
+						>
+							<Alert onClose={handleClose} severity={notificationType}>
+								{notification}
+							</Alert>
+						</Snackbar>
+					</Main>
+				)}
 		</>
 	)
 }

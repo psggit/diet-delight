@@ -19,10 +19,13 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core'
+import {
+  DatePicker,
+} from '../../reusable/InputItems'
+import { Formik, Form, Field } from 'formik'
 import { Edit, Delete } from '@material-ui/icons'
 import MuiAlert from '@material-ui/lab/Alert'
 
-import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Table from '../../reusable/Table'
 
@@ -98,6 +101,8 @@ const ListofCoupon = () => {
   const [Issuccess, setIsSuccess] = useState(false)
   const [isdelete, setIsDelete] = useState(false)
   const [isupdate, setISUpdate] = useState(false)
+  const [showForm, setShowForm] = useState(false);
+  const [mode, setMode] = useState('')
 
   let current_date_Time = new Date()
   const csvReport = {
@@ -113,7 +118,7 @@ const ListofCoupon = () => {
     axios
       .get(
         `coupons?pageSize=${rowsPerPage}&page=${
-          page + 1
+        page + 1
         }&search=${search}&sortBy=${sort}&sortOrder=${order}`,
       )
       .then((res) => {
@@ -215,12 +220,12 @@ const ListofCoupon = () => {
         </>
       )}
 
-      {isupdate && (
+      {showForm && (
         <>
           {' '}
           <Dialog
-            open={isupdate}
-            onClose={CloseUpdate}
+            open={showForm}
+            onClose={() => { setShowForm(false) }}
             aria-labelledby="form-dialog-title"
             disableBackdropClick
             disableEscapeKeyDown
@@ -229,40 +234,67 @@ const ListofCoupon = () => {
             <DialogContent>
               <Formik
                 initialValues={{
-                  name: listOfCoupon.name,
-                  code: listOfCoupon.code,
-                  flat_discount: listOfCoupon.flat_discount,
-                  percentage_discount: listOfCoupon.percentage_discount,
-                  expiry_date: listOfCoupon.expiry_date,
-                  times_usable: listOfCoupon.times_usable,
-                  times_used: listOfCoupon.times_used,
-                  menu_item_day: listOfCoupon.menu_item_day,
+                  name: mode === 'update' ? listOfCoupon?.name : '',
+                  code: mode === 'update' ? listOfCoupon?.code : '',
+                  flat_discount: mode === 'update' ? listOfCoupon?.flat_discount : '',
+                  percentage_discount: mode === 'update' ? listOfCoupon?.percentage_discount : '',
+                  expiry_date: mode === 'update' ? listOfCoupon?.expiry_date : '',
+                  times_usable: mode === 'update' ? listOfCoupon?.times_usable : '',
+                  times_used: mode === 'update' ? listOfCoupon?.times_used : '',
+                  menu_item_day: mode === 'update' ? listOfCoupon?.menu_item_day : '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values) => {
-                  axios
-                    .put(`coupons/${listOfCoupon.id}`, {
-                      headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                          'access_token',
-                        )}`,
-                      },
-                      name: values.name,
-                      code: values.code,
-                      flat_discount: values.flat_discount,
-                      percentage_discount: values.percentage_discount,
-                      expiry_date: values.expiry_date,
-                      times_usable: values.times_usable,
-                      times_used: values.times_used,
-                      menu_item_day: values.menu_item_day,
-                    })
-                    .then((res) => {
-                      setIsSuccess(true)
-                      setISUpdate(false)
-                      handleShow()
-                    })
-                    .catch((err) => console.log(err))
-                }}
+                  if (mode === 'update') {
+                    axios
+                      .put(`coupons/${listOfCoupon.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            'access_token',
+                          )}`,
+                        },
+                        name: values.name,
+                        code: values.code,
+                        flat_discount: values.flat_discount,
+                        percentage_discount: values.percentage_discount,
+                        expiry_date: values.expiry_date,
+                        times_usable: values.times_usable,
+                        times_used: values.times_used,
+                        menu_item_day: values.menu_item_day,
+                      })
+                      .then((res) => {
+                        setIsSuccess(true)
+                        setShowForm(false)
+                        handleShow()
+                      })
+                      .catch((err) => console.log(err))
+                  } else {
+                    axios
+                      .post(`coupons`, {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            'access_token',
+                          )}`,
+                        },
+                        name: values.name,
+                        code: values.code,
+                        flat_discount: values.flat_discount,
+                        percentage_discount: values.percentage_discount,
+                        expiry_date: values.expiry_date,
+                        times_usable: values.times_usable,
+                        times_used: values.times_used,
+                        menu_item_day: values.menu_item_day,
+                      })
+                      .then((res) => {
+                        setIsSuccess(true)
+                        setShowForm(false)
+                        handleShow()
+                      })
+                      .catch((err) => console.log(err))
+                  }
+                }
+
+                }
               >
                 {({ handleChange, handleSubmit, errors, touched, values }) => (
                   <>
@@ -375,7 +407,7 @@ const ListofCoupon = () => {
                             background: '#800080',
                           }}
                           color="primary"
-                          onClick={CloseUpdate}
+                          onClick={() => { setShowForm(false) }}
                         >
                           Close
                         </Button>
@@ -391,95 +423,95 @@ const ListofCoupon = () => {
       {loading ? (
         <CustomSkeleton />
       ) : (
-        <>
-          <Main>
-            <TableHeader
-              title="List of Coupons"
-              csvReport={csvReport}
-              addHandler={() => {
-                // TODO: Handle add
-              }}
-              searchHandler={(value) => {
-                setSearch(value)
-              }}
-            />
-            {show && (
-              <Table
-                dataSource={{
-                  columns: [
-                    { id: 'name', label: 'Name', sort: true },
-                    { id: 'code', label: 'Code', sort: true },
-                    { id: 'flat_discount', label: 'Flat Discount', sort: true },
-                    {
-                      id: 'percentage_discount',
-                      label: 'Percentage Discount',
-                      sort: true,
-                    },
-                    { id: 'expiry_date', label: 'Expiry Date', sort: true },
-                    { id: 'times_usable', label: 'Times Usable', sort: true },
-                    { id: 'times_used', label: 'Times Used', sort: true },
-                    { id: 'actions', label: '', sort: false },
-                  ],
-                  rows: listOfCoupons.map((coupon) => {
-                    return [
-                      coupon.name,
-                      coupon.code,
-                      coupon.flat_discount,
-                      coupon.percentage_discount,
-                      coupon.expiry_date,
-                      coupon.times_usable,
-                      coupon.times_used,
-                      <>
-                        <Edit
-                          onClick={() => {
-                            // setMode('Update')
-                            // setCurrentQuestion(coupon);
-                            // handleUpdate(coupon);
-                            // setShowForm(true);
-                          }}
-                          style={{ margin: '0 6px', cursor: 'pointer' }}
-                        />
-                        <Delete
-                          onClick={() => setIsDelete(true)}
-                          style={{ margin: '0 6px', cursor: 'pointer' }}
-                        />
-                      </>,
-                    ]
-                  }),
+          <>
+            <Main>
+              <TableHeader
+                title="List of Coupons"
+                csvReport={csvReport}
+                addHandler={() => {
+                  setShowForm(true)
+                  setMode('add')
                 }}
-                order={order}
-                orderBy={sort}
-                onSortClick={(key) => {
-                  setOrder(order === 'asc' ? 'desc' : 'asc')
-                  setSort(key)
-                }}
-                pagination
-                page={page}
-                totalCount={totalCount}
-                rowsPerPage={rowsPerPage}
-                onChangePage={(_, newPage) => {
-                  setPage(newPage)
-                }}
-                onChangeRowsPerPage={(event) => {
-                  setRowsPerPage(parseInt(event.target.value, 10))
-                  setPage(0)
+                searchHandler={(value) => {
+                  setSearch(value)
                 }}
               />
-            )}
-            <Snackbar
-              autoHideDuration={3000}
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              message="Success"
-              open={Issuccess}
-              onClose={handleClose}
-            >
-              <Alert onClose={handleClose} severity="success">
-                Success Message !
+              {show && (
+                <Table
+                  dataSource={{
+                    columns: [
+                      { id: 'name', label: 'Name', sort: true },
+                      { id: 'code', label: 'Code', sort: true },
+                      { id: 'flat_discount', label: 'Flat Discount', sort: true },
+                      {
+                        id: 'percentage_discount',
+                        label: 'Percentage Discount',
+                        sort: true,
+                      },
+                      { id: 'expiry_date', label: 'Expiry Date', sort: true },
+                      { id: 'times_usable', label: 'Times Usable', sort: true },
+                      { id: 'times_used', label: 'Times Used', sort: true },
+                      { id: 'actions', label: '', sort: false },
+                    ],
+                    rows: listOfCoupons.map((coupon) => {
+                      return [
+                        coupon.name,
+                        coupon.code,
+                        coupon.flat_discount,
+                        coupon.percentage_discount,
+                        coupon.expiry_date,
+                        coupon.times_usable,
+                        coupon.times_used,
+                        <>
+                          <Edit
+                            onClick={() => {
+                              setMode('update')
+                              handleUpdate(coupon);
+                              setShowForm(true);
+                            }}
+                            style={{ margin: '0 6px', cursor: 'pointer' }}
+                          />
+                          <Delete
+                            onClick={() => setIsDelete(true)}
+                            style={{ margin: '0 6px', cursor: 'pointer' }}
+                          />
+                        </>,
+                      ]
+                    }),
+                  }}
+                  order={order}
+                  orderBy={sort}
+                  onSortClick={(key) => {
+                    setOrder(order === 'asc' ? 'desc' : 'asc')
+                    setSort(key)
+                  }}
+                  pagination
+                  page={page}
+                  totalCount={totalCount}
+                  rowsPerPage={rowsPerPage}
+                  onChangePage={(_, newPage) => {
+                    setPage(newPage)
+                  }}
+                  onChangeRowsPerPage={(event) => {
+                    setRowsPerPage(parseInt(event.target.value, 10))
+                    setPage(0)
+                  }}
+                />
+              )}
+              <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                message="Success"
+                open={Issuccess}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity="success">
+                  Success Message !
               </Alert>
-            </Snackbar>
-          </Main>
-        </>
-      )}
+              </Snackbar>
+            </Main>
+          </>
+        )}
     </>
   )
 }

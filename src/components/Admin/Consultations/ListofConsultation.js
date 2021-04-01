@@ -214,6 +214,8 @@ const ListofConsultation = () => {
     [CONSULTATION_STATUS_TYPE.COMPLETED]: 'Completed',
   }
 
+  console.log(consultations)
+
   return (
     <>
       {isdelete && (
@@ -268,153 +270,153 @@ const ListofConsultation = () => {
       {loading ? (
         <CustomSkeleton />
       ) : (
-        <>
-          <Main style={{ padding: '0 2rem' }}>
-            <TableHeader
-              title={`List of ${nameMap[status]} Consultations`}
-              csvReport={csvReport}
-              searchHandler={(value) => {
-                setSearch(value)
-              }}
-            />
-            {show && (
-              <Table
-                dataSource={{
-                  columns: [
-                    { id: 'user_id', label: 'User Id', sort: false },
-                    {
-                      id: 'user_id',
-                      label: 'Customer Name',
-                      sort: true,
-                    },
-                    {
-                      id: 'customer_phone',
-                      label: 'Customer Phone',
-                      sort: false,
-                    },
-                    {
-                      id: 'customer_email',
-                      label: 'Customer Email',
-                      sort: false,
-                    },
-                    {
-                      id: 'consultation_package',
-                      label: 'Consultation Package',
-                      sort: true,
-                    },
-                    {
-                      id: 'consultation_time',
-                      label: 'Consultation Time',
-                      sort: true,
-                    },
-                    {
-                      id: 'consultation_mode',
-                      label: 'Consultation Mode',
-                      sort: false,
-                    },
-                    {
-                      id: 'consultant_name',
-                      label: 'Consultant Name',
-                      sort: true,
-                    },
-                    { id: 'notes', label: 'Notes', sort: false },
-                    { id: 'status', label: 'Status', sort: true },
-                    { id: 'actions', label: '', sort: false },
-                  ],
-                  rows: consultations.map((consultation) => {
-                    return [
-                      consultation.user_id,
-                      `${consultation?.user?.first_name || ''} ${
-                        consultation?.user?.last_name || ''
-                      }`,
-                      consultation.user?.mobile || '',
-                      consultation.user?.email || '',
-                      consultation.consultation_purchase
-                        ?.consultation_package_name || '',
-                      consultation.consultation_time,
-                      consultation.consultation_mode,
-                      consultation.consultant_name,
-                      consultation.consultation_time,
-                      getConsultationMode(consultation.consultation_mode),
-                      consultation.notes,
-                      <div style={{ minWidth: 112 }}>
-                        {status === CONSULTATION_STATUS_TYPE.BOOKED && (
-                          <Tooltip title="Mark as Complete">
-                            <CheckCircleOutline style={{ margin: '0 6px', cursor: 'pointer' }} onClick={() => {
-                              axios.put(`consultations/${consultation.id}`, { status: 2 }).then(() => {
-                                handleShow();
-                                setNotificationConf([true, 'success', 'Consultation Marked as Complete !'])
-                              }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
-                            }} />
-                          </Tooltip>
-                        )}
-                        <Tooltip title="Edit">
-                          <Edit
-                            onClick={() => {
-                              setMode('Update')
-                              setCurrentConsultation({
-                                id: consultation.id,
-                                customer: consultation.user_id,
-                                name: `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
-                                email: consultation?.user?.email || '',
-                                mobile: consultation?.user?.mobile || '',
-                                consultant: consultation.consultant_id,
-                                consultationPackage: consultation.consultation_purchase_id,
-                                status: consultation.status,
-                                mode: consultation.consultation_mode,
-                                appointmentDate: new Date(consultation.consultation_time),
-                                appointmentTime: new Date(consultation.consultation_time),
-                                notes: consultation.notes,
-                              });
-                              setShowForm(true);
-                            }}
-                            style={{ margin: '0 6px', cursor: 'pointer' }}
-                          />
-                        </Tooltip>
-                        <Tooltip title="Delete">
-                          <Delete
-                            onClick={() => {
-                              setIsDelete(true);
-                              setCurrentConsultation(consultation);
-                            }} style={{ margin: '0 6px', cursor: 'pointer' }} />
-                        </Tooltip>
-                      </div>
-                    ]
-                  }),
-                }}
-                order={order}
-                orderBy={sort}
-                onSortClick={(key) => {
-                  setOrder(order === 'asc' ? 'desc' : 'asc')
-                  setSort(key)
-                }}
-                pagination
-                page={page}
-                totalCount={totalCount}
-                rowsPerPage={rowsPerPage}
-                onChangePage={(_, newPage) => {
-                  setPage(newPage)
-                }}
-                onChangeRowsPerPage={(event) => {
-                  setRowsPerPage(parseInt(event.target.value, 10))
-                  setPage(0)
+          <>
+            <Main style={{ padding: '0 2rem' }}>
+              <TableHeader
+                title={`List of ${nameMap[status]} Consultations`}
+                csvReport={csvReport}
+                searchHandler={(value) => {
+                  setSearch(value)
                 }}
               />
-            )}
-            <Snackbar
-              autoHideDuration={3000}
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              message="Success"
-              open={showNotification}
-              onClose={handleClose}
-            >
-              <Alert onClose={handleClose} severity={notificationType}>
-                {notification}
-              </Alert>
-            </Snackbar>
-          </Main>
-        </>
-      )}
+              {show && (
+                <Table
+                  dataSource={{
+                    columns: [
+                      { id: 'user_id', label: 'User Id', sort: false },
+                      {
+                        id: 'user_id',
+                        label: 'Customer Name',
+                        sort: true,
+                      },
+                      {
+                        id: 'customer_phone',
+                        label: 'Customer Phone',
+                        sort: false,
+                      },
+                      {
+                        id: 'customer_email',
+                        label: 'Customer Email',
+                        sort: false,
+                      },
+                      {
+                        id: 'consultation_package',
+                        label: 'Consultation Package',
+                        sort: true,
+                      },
+                      {
+                        id: 'consultation_time',
+                        label: 'Consultation Time',
+                        sort: true,
+                      },
+                      {
+                        id: 'consultation_mode',
+                        label: 'Consultation Mode',
+                        sort: false,
+                      },
+                      {
+                        id: 'consultant_name',
+                        label: 'Consultant Name',
+                        sort: true,
+                      },
+                      { id: 'notes', label: 'Notes', sort: false },
+                      { id: 'status', label: 'Status', sort: true },
+                      { id: 'actions', label: '', sort: false },
+                    ],
+                    rows: consultations.map((consultation) => {
+                      return [
+                        consultation.user_id,
+                        `${consultation?.user?.first_name || ''} ${
+                        consultation?.user?.last_name || ''
+                        }`,
+                        consultation.user?.mobile || '',
+                        consultation.user?.email || '',
+                        consultation.consultation_purchase
+                          ?.consultation_package_name || '',
+                        consultation.consultation_time,
+                        getConsultationMode(consultation.consultation_mode),
+                        consultation.consultant_name,
+                        consultation.consultation_time,
+                        consultation.status == 0 ? 'Booked' : 'Completed',
+                        consultation.notes,
+                        <div style={{ minWidth: 112 }}>
+                          {status === CONSULTATION_STATUS_TYPE.BOOKED && (
+                            <Tooltip title="Mark as Complete">
+                              <CheckCircleOutline style={{ margin: '0 6px', cursor: 'pointer' }} onClick={() => {
+                                axios.put(`consultations/${consultation.id}`, { status: 2 }).then(() => {
+                                  handleShow();
+                                  setNotificationConf([true, 'success', 'Consultation Marked as Complete !'])
+                                }).catch(() => setNotificationConf([true, 'error', 'Something went wrong. Please try again later!']))
+                              }} />
+                            </Tooltip>
+                          )}
+                          <Tooltip title="Edit">
+                            <Edit
+                              onClick={() => {
+                                setMode('Update')
+                                setCurrentConsultation({
+                                  id: consultation.id,
+                                  customer: consultation.user_id,
+                                  name: `${consultation?.user?.first_name || ''} ${consultation?.user?.last_name || ''}`,
+                                  email: consultation?.user?.email || '',
+                                  mobile: consultation?.user?.mobile || '',
+                                  consultant: consultation.consultant_id,
+                                  consultationPackage: consultation.consultation_purchase_id,
+                                  status: consultation.status,
+                                  mode: consultation.consultation_mode,
+                                  appointmentDate: new Date(consultation.consultation_time),
+                                  appointmentTime: new Date(consultation.consultation_time),
+                                  notes: consultation.notes,
+                                });
+                                setShowForm(true);
+                              }}
+                              style={{ margin: '0 6px', cursor: 'pointer' }}
+                            />
+                          </Tooltip>
+                          <Tooltip title="Delete">
+                            <Delete
+                              onClick={() => {
+                                setIsDelete(true);
+                                setCurrentConsultation(consultation);
+                              }} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                          </Tooltip>
+                        </div>
+                      ]
+                    }),
+                  }}
+                  order={order}
+                  orderBy={sort}
+                  onSortClick={(key) => {
+                    setOrder(order === 'asc' ? 'desc' : 'asc')
+                    setSort(key)
+                  }}
+                  pagination
+                  page={page}
+                  totalCount={totalCount}
+                  rowsPerPage={rowsPerPage}
+                  onChangePage={(_, newPage) => {
+                    setPage(newPage)
+                  }}
+                  onChangeRowsPerPage={(event) => {
+                    setRowsPerPage(parseInt(event.target.value, 10))
+                    setPage(0)
+                  }}
+                />
+              )}
+              <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                message="Success"
+                open={showNotification}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity={notificationType}>
+                  {notification}
+                </Alert>
+              </Snackbar>
+            </Main>
+          </>
+        )}
     </>
   )
 }
