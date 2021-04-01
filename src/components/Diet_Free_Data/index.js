@@ -68,7 +68,7 @@ const DietDataDetails = (props) => {
             question: _question,
             options: _options,
             selectedOption: null,
-            answer: null
+            answer: null,
           };
         });
 
@@ -79,14 +79,12 @@ const DietDataDetails = (props) => {
     })();
   }, []);
 
-
-
   return (
     <ThemeProvider theme={theme}>
       <div>
         <Dialog
           open={props.open}
-          onClose={() => props.handleCancel()}
+          // onClose={() => props.handleCancel()}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           classes={{
@@ -100,7 +98,11 @@ const DietDataDetails = (props) => {
               }}
             >
               {questionData.length && (
-                <QuestionCarousel QuestionsData={questionData} setQuestionData={setQuestionData} />
+                <QuestionCarousel
+                  QuestionsData={questionData}
+                  setQuestionData={setQuestionData}
+                  handleDialogClose={props.handleCancel}
+                />
               )}
             </DialogContent>
           </div>

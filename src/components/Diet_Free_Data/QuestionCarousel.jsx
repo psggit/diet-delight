@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core";
 import RenderQuestion from "./RenderQuestion";
 import axios from "../../axiosInstance";
 import BMICalculator from "./BMICalculator";
+import BMIResult from "./BMIResult";
 
 const useStyles = makeStyles({
   iconBtn: {
@@ -21,7 +22,11 @@ const useStyles = makeStyles({
   },
 });
 
-const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
+const QuestionCarousel = ({
+  QuestionsData,
+  setQuestionData,
+  handleDialogClose,
+}) => {
   const classes = useStyles();
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [BMIData, setBMIData] = useState({
@@ -34,6 +39,7 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
   const [BMICalculatedResult, setBMICalculatedResult] = useState({
     BMIScore: 0,
     calorieInTake: 0,
+    category: "",
   });
 
   const submitAnswer = () => {
@@ -143,7 +149,7 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
     }
   };
 
-  const handleNavigation = (
+  const handleNavigation = async (
     BmiScore,
     heightInMeter,
     category,
@@ -157,26 +163,44 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
       ...BMICalculatedResult,
       BMIScore: BmiScore,
       calorieInTake: calorieInTake,
+      category: category,
     });
-    // axios
-    //   .put("user", {
-    //     age: age,
-    //     gender: genderInNumber,
-    //     bmi: bmiInString,
-    //     recommended_calories: calorieInTakeString,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res.status === 200) {
-    //       alert("Updated Successfully");
-    //       // props.toggleReportBMI(
-    //       //   BmiScore,
-    //       //   heightInMeter,
-    //       //   category,
-    //       //   calorieInTake
-    //       // );
-    //     }
-    //   });
+
+    try {
+      // For Question Data
+      for (let _questionData of QuestionsData) {
+        const _currentQuestion = _questionData.question;
+        const _selectedOption = _questionData.selectedOption;
+        const _answerText = _questionData.answer;
+
+        const questionResponse = await axios.post("my-answers", {
+          question_id: _currentQuestion.id,
+          answer_option_id: _selectedOption.id,
+          answer: _answerText || _selectedOption.option,
+          question_question: _currentQuestion.question,
+          question_type: _currentQuestion.type,
+          question_additional_text: _currentQuestion.additional_text,
+          answer_option_option: _selectedOption.option,
+        });
+
+        console.log("Submit Answer Result : ", questionResponse.data.data);
+      }
+
+      // For BMI Result
+      const BMIResponse = await axios.put("user", {
+        age: BMIData.age,
+        gender: genderInNumber,
+        bmi: bmiInString,
+        recommended_calories: calorieInTakeString,
+        questionnaire_status: 1,
+      });
+
+      console.log("BMI Response : ", BMIResponse.data);
+
+      // For updating in User profile
+    } catch (error) {
+      console.log("Submit Answer Error : ", error);
+    }
   };
 
   return (
@@ -199,11 +223,7 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
         />
       )}
       {activeQuestion === QuestionsData.length + 1 && (
-        <div>
-          <h2>BMI Report</h2>
-          <p>BMI Score: {BMICalculatedResult.BMIScore}</p>
-          <p>Calorie In Take: {BMICalculatedResult.calorieInTake}</p>
-        </div>
+        <BMIResult bmiReport={BMICalculatedResult} />
       )}
       <div
         style={{
@@ -227,6 +247,9 @@ const QuestionCarousel = ({ QuestionsData, setQuestionData }) => {
 
             if (activeQuestion === 3) {
               calculateBMI();
+            }
+            if (activeQuestion === 4) {
+              handleDialogClose();
             }
           }}
           className={classes.iconBtn}
