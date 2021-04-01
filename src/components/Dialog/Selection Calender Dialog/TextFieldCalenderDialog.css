@@ -1,5 +1,5 @@
 
-p.textarea_textfield_calender{
+textarea.textarea_textfield_calender{
 	width: 100%;
 	border: none;
 	height:100px;
@@ -18,7 +18,7 @@ p.textarea_textfield_calender{
 
 @media only screen and (max-width: 767px) {
 
-	p.textarea_textfield_calender{
+	textarea.textarea_textfield_calender{
 		width: 100%;
 		border: none;
 		border-radius: 8;
@@ -36,7 +36,7 @@ p.textarea_textfield_calender{
 	div.row_texe_field{
 		display: flex;
 	}
-	p.textarea_textfield_calender{
+	textarea.textarea_textfield_calender{
 
 	}
 	.dialog_textfield_calender_new{
@@ -54,7 +54,7 @@ p.textarea_textfield_calender{
 	div.row_texe_field{
 		display: flex;
 	}
-	p.textarea_textfield_calender{
+	textarea.textarea_textfield_calender{
 
 	}
 	.dialog_textfield_calender_new{
@@ -71,7 +71,7 @@ p.textarea_textfield_calender{
 	div.row_texe_field{
 		display: flex;
 	}
-	p.textarea_textfield_calender{
+	textarea.textarea_textfield_calender{
 
 	}
 	.dialog_textfield_calender_new{

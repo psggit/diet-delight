@@ -1,4 +1,11 @@
+i.close_primary_dialog_icon{
+  cursor: pointer;
+  color: #fff;
+  font-size: 22px;
+  display: flex;
+  justify-content: flex-end;
 
+}
 .react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus {
   background: #979797;
   border-radius: 100%;
