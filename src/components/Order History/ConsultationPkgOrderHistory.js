@@ -6,33 +6,34 @@ import { Link } from "react-router-dom";
 
 export default function ConsultationPkgOrderHistory(props) {
   //let history = useHistory();
+
   const [consultationPurchases, setconsultationPurchases] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  useEffect(() => {
-    console.log(props.timePeriod);
-    if (props.timePeriod < 0) {
-      var dateTime = new Date();
+  // useEffect(() => {
+  //   console.log(props.timePeriod);
+  //   if (props.timePeriod < 0) {
+  //     var dateTime = new Date();
 
-      console.log(dateTime);
-      var fromDate = addMonths(dateTime, props.timePeriod);
-      console.log(fromDate);
-      var toDate = new Date();
-      if (fromDate > toDate) {
-        setStartDate(toDate);
-        setEndDate(fromDate);
-      } else {
-        setStartDate(fromDate);
-        setEndDate(toDate);
-      }
-    }
-  }, [props.timePeriod]);
+  //     console.log(dateTime);
+  //     var fromDate = addMonths(dateTime, props.timePeriod);
+  //     console.log(fromDate);
+  //     var toDate = new Date();
+  //     if (fromDate > toDate) {
+  //       setStartDate(toDate);
+  //       setEndDate(fromDate);
+  //     } else {
+  //       setStartDate(fromDate);
+  //       setEndDate(toDate);
+  //     }
+  //   }
+  // }, [props.timePeriod]);
 
-  function addMonths(date, months) {
-    date.setMonth(date.getMonth() + months);
-    return date;
-  }
+  // function addMonths(date, months) {
+  //   date.setMonth(date.getMonth() + months);
+  //   return date;
+  // }
 
   useEffect(() => {
     axios

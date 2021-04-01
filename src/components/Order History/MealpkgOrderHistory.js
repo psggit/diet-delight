@@ -4,34 +4,35 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "../../axiosInstance";
 
 export default function MealpkgOrderHistory(props) {
-  console.log(props);
-  let history = useHistory();
   const [mealPurchases, setMealPurchases] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
   // const[remainingDay,setRemainingDay] = useState(0)
 
-  useEffect(() => {
-    console.log(props.timePeriod);
-    var dateTime = new Date();
+  // useEffect(() => {
+  //   console.log(props.timePeriod);
+  //   var dateTime = new Date();
 
-    console.log(dateTime);
-    var fromDate = addMonths(dateTime, props.timePeriod);
-    console.log(fromDate);
-    var toDate = new Date();
+  //   console.log(dateTime);
+  //   var fromDate = addMonths(dateTime, props.timePeriod);
+  //   console.log(fromDate);
+  //   var toDate = new Date();
 
-    if (fromDate > toDate) {
-      setStartDate(toDate);
-      setEndDate(fromDate);
-    } else {
-      setStartDate(fromDate);
-      setEndDate(toDate);
-    }
-  }, [props.timePeriod]);
-  function addMonths(date, months) {
-    date.setMonth(date.getMonth() + months);
-    return date;
-  }
+  //   if (fromDate > toDate) {
+  //     setStartDate(toDate);
+  //     setEndDate(fromDate);
+  //   } else {
+  //     setStartDate(fromDate);
+  //     setEndDate(toDate);
+  //   }
+  // }, [props.timePeriod]);
+
+  // function addMonths(date, months) {
+  //   date.setMonth(date.getMonth() + months);
+  //   return date;
+  // }
+
   useEffect(() => {
     axios
       .get(`my-meal-purchases?fromDate=` + startDate + `&toDate=` + endDate, {
@@ -44,6 +45,7 @@ export default function MealpkgOrderHistory(props) {
         setMealPurchases(res.data.data);
       });
   }, []);
+
   function remainingDays(end_date) {
     var currentDate = new Date();
     console.log(currentDate);
@@ -173,14 +175,6 @@ export default function MealpkgOrderHistory(props) {
                   </button>
                 </Link>
                 <br></br>
-                {/* <Link to={{
-            pathname:"/SelectMealPlan",
-            state:{
-                recentPurchase :mealPurchase 
-            }
-        }}>
-        <button className="btn btn-default select_menu_btn" >Select Menu</button>
-        </Link>  */}
               </div>
             </div>
           </div>

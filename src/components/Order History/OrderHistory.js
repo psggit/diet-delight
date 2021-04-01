@@ -27,31 +27,31 @@ export default function OrderHistory() {
   const [isMealPlan, setIsMealPlan] = useState(true);
   const [isConsultation, setIsConsulatation] = useState(false);
 
-  function selectedTimePeriod(timePeriod) {
-    console.log(timePeriod);
-    console.log(typeof timePeriod);
-    switch (timePeriod) {
-      case "-12":
-        console.log(-12);
-        setTimePeriod(-12);
-        break;
+  // function selectedTimePeriod(timePeriod) {
+  //   console.log(timePeriod);
+  //   console.log(typeof timePeriod);
+  //   switch (timePeriod) {
+  //     case "-12":
+  //       console.log(-12);
+  //       setTimePeriod(-12);
+  //       break;
 
-      case "6":
-        console.log(6);
-        setTimePeriod(6);
-        break;
+  //     case "6":
+  //       console.log(6);
+  //       setTimePeriod(6);
+  //       break;
 
-      case "12":
-        console.log(12);
-        setTimePeriod(12);
-        break;
+  //     case "12":
+  //       console.log(12);
+  //       setTimePeriod(12);
+  //       break;
 
-      default:
-        console.log(-6);
-    }
+  //     default:
+  //       console.log(-6);
+  //   }
 
-    // var newDate = new Date(date.setMonth(date.getMonth()+8));
-  }
+  //   // var newDate = new Date(date.setMonth(date.getMonth()+8));
+  // }
 
   const handleMealChange = (e) => {
     setIsMealPlan(!isMealPlan);
