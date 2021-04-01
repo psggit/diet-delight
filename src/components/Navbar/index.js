@@ -140,7 +140,7 @@ const Navbar = ({ toggle }) => {
                         fontWeight: "bold",
                       }}
                     >{`Hello, ${user.first_name}`}</h3>
-                    <NavButton style={{ marginTop: "0" }}>
+                    <NavButton style={{ marginTop: "0", marginBottom: "3px" }}>
                       <NavBtnlink onClick={handleLogout}>Logout</NavBtnlink>
                     </NavButton>
                   </div>

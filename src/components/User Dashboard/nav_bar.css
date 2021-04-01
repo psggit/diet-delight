@@ -1,0 +1,83 @@
+.nav{
+    display: flex;
+    width: 100vw;
+    max-height:100px;
+    background-color: white;
+    color: black;
+    align-items: center;
+    position: fixed;
+    top: 0;
+
+   
+    justify-content: space-between;
+}
+ a.choose_your_meal_text:hover{
+     color: #78288b;
+   }
+.header{
+    display: flex;
+
+    flex-direction: row;
+}
+.link_header{
+     padding: 0.6rem;
+         font-size: 24px;
+      font-size: 10px;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: #78288b;
+      font-family: Roboto;
+     
+}
+.options_btn{
+    display: none;
+    padding-right: 30px;
+    font-size: 24px;
+}
+
+.logo_pro{
+    padding-left:10px;
+    height: 50px;
+
+}
+    @media screen and (max-width: 767px) {
+     div.options{
+         display: none;
+     }   
+     .options_btn{
+         display: block;
+     }
+     .link_header{
+         padding: 0px;
+         font-size: 1.0rem;
+      
+     }
+    .nav{
+        flex-wrap: wrap;
+    }
+    .logo_pro{
+        padding: 0px;
+        margin: 0px;
+    height: 50px;
+    padding-left:10px ;
+    display: flex;
+    align-items: center;
+    
+    }
+  
+    }
+     @media screen and (min-width: 100px) and (max-width: 700){
+    div.options{
+         display: none;
+     }  
+      .logo_pro{
+          padding-left: 2px;
+
+      }  
+      div.header{
+          padding: 0;
+                margin: 0;
+                width: 50px;
+      }
+    
+     }

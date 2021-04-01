@@ -6,7 +6,7 @@ import MealBox from "./MealBox";
 import { Meal, Mealup, Mealdown } from "./MealElements";
 import { Heading, Line } from "../../MainComponents";
 
-const Mealplan = () => {
+const Mealplan = ({setOpenConfirmDialog}) => {
   const [duration, setDuration] = useState([]);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ const Mealplan = () => {
             // selection={durationdata.subtitle}
             // description={durationdata.details}
             duration={durationdata}
+            setOpenConfirmDialog={setOpenConfirmDialog}
           />
         ))}
       </Mealdown>

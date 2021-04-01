@@ -1,3 +1,15 @@
+.example{
+    align-items: center;
+    justify-content: center;
+    background-color: #303960
+}
+#name_male{
+color: #303960;
+}
+#name_female{
+color: #303960;
+}
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
 div.bmi_main_container{
     display: grid;
     place-items: center;
@@ -5,13 +17,21 @@ div.bmi_main_container{
     z-index: 5;
     
 }
+.orient{
+    max-width: 500px;
+}
 div.card_bmi{
-    background-image: url('../../assets/choosemealplan.jpg');
+    /* background-image: url('../../assets/choosemealplan.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-    width: 100%;
+    width: 100%; */
+    height: 200px;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
     
 }
 h6.title_bmi{
@@ -28,9 +48,17 @@ input.bmi_que_textfiled{
 i.icon_bmi{
     color:#303960;
 }
-div.icon_container_bmi:hover{
+div.icon_container_bmi_male:hover{
+  
     color:#fff;
     background: #8BC441;
+    cursor: pointer;
+  
+    
+}
+div.icon_container_bmi_female:hover{
+    color:#fff;
+    background: #78288B;
     cursor: pointer;
     
 }
@@ -38,6 +66,12 @@ div.card_bmi {
     border-radius: 7px;
 }
 div.row_bmi{
+     background-image: url('../../assets/choosemealplan.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
     box-shadow: 15px 19px 15px -6px rgb(0 0 0 / 75%);
     border-radius: 7px; 
 }
@@ -60,7 +94,7 @@ h6.ques_title_bmi{
         background-position: initial;
         background-repeat: no-repeat;
         background-size: cover;
-        height: 100%;
+        height: 100vh;
         width: 100%;
         
     }
@@ -77,6 +111,7 @@ h6.ques_title_bmi{
         align-self: center;
     }
     div.row_bmi{
+        
         margin:4%;
     }
     div.bmi_main_container{
@@ -249,6 +284,7 @@ button.btn_next_bmi{
   background: #8BC441;
   margin-top: 18px;
   font-size: 10px;
+  padding: 10px;
   letter-spacing: 3px;
 }
 div.btn_next_container{
@@ -259,7 +295,11 @@ div.btn_next_container{
 
 }
 
-
+button.btn_next_bmi:hover{
+ background: transparent;
+ border: 2px solid #8BC441;
+ color: #8BC441;
+}
 @media screen and (min-width: 992px) {
     div.col_container{
         position: relative;
@@ -287,7 +327,7 @@ div.btn_next_container{
     div.bmi_main_container{
         display: grid;
         place-items: center;
-        position: absolute;
+        /* position: absolute; */
         top: 16%;
         left: 6%;
     }
@@ -320,7 +360,7 @@ h6.ques_title_bmi{
   margin-top: 23px;
 }
 div.icon_container_bmi{
-    padding: 3%;
+ 
     width: 47px;
     height: 46px;
     text-align: center;
@@ -367,7 +407,7 @@ div.btn_next_container{
 @media screen and (min-width: 1200px) {
     div.col_container{
         position: relative;
-        left: 7%;
+        left: -8px;
     }
     div.icon_container_remove{
         display: flex;
@@ -397,7 +437,7 @@ div.btn_next_container{
 }
 div.card_bmi{
    width: 1300px;
-   padding: 6%;
+   /* padding: 6%; */
    height: 463px;
 }
 h6.title_bmi{
@@ -423,7 +463,7 @@ h6.ques_title_bmi{
    margin-bottom: 11px;
    margin-top: 14px;
 }
-div.icon_container_bmi{
+div.icon_container_bmi_male,div.icon_container_bmi_female {
     padding: 2.5%;
     width: 58px;
     height: 62px;
@@ -436,6 +476,12 @@ div.icon_container_bmi{
 }
 i.icon_bmi{
 
+    margin-top: 0px;
+    font-size: 25px;
+
+}
+i.icon_bmi:hover{
+color: white;
     margin-top: 0px;
     font-size: 25px;
 
@@ -468,6 +514,8 @@ div.row_bmi_bmi{
  width: 59%;
  position: relative;
  left: 18%;
+ display: flex;
+ align-items: center;
 }
 div.que_text_container_div{
 

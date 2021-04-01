@@ -1,6 +1,7 @@
 import React from "react";
 
-import BmiQueandTextfield from "./BmiQueandTextfield";
+import SliderInput from "./SliderInput";
+
 // import "./BMiMain.css";
 
 const BMICalculator = ({ BMIData, setBMIData }) => {
@@ -68,7 +69,7 @@ const BMICalculator = ({ BMIData, setBMIData }) => {
                 );
                 var selectFemale = document.getElementById("female");
                 selectFemale.style.color = "#fff";
-                selectFemaleContainer.style.background = "#8BC441";
+                selectFemaleContainer.style.background = "purple";
                 var selectMaleContainer = document.getElementById(
                   "maleContainer"
                 );
@@ -89,27 +90,32 @@ const BMICalculator = ({ BMIData, setBMIData }) => {
           </div>
         </div>
 
-        <BmiQueandTextfield
-          bmiQuestion="What is your weight? (kg)"
-          id="weight"
-          captureChange={validateOnlyNumeric}
-          userData={BMIData.weight}
-          question="weight"
+        <SliderInput
+          handleOnChange={(e, b) => {
+            validateOnlyNumeric(b.toString(), "weight");
+          }}
+          min={40}
+          max={180}
+          question="What is your weight? (kg)"
+          value={BMIData.weight}
         />
-
-        <BmiQueandTextfield
-          bmiQuestion="What is your height?  (cm)"
-          captureChange={validateOnlyNumeric}
-          userData={BMIData.height}
-          question="height"
+        <SliderInput
+          handleOnChange={(e, b) => {
+            validateOnlyNumeric(b.toString(), "height");
+          }}
+          min={120}
+          max={220}
+          question="What is your height? (cm)"
+          value={BMIData.height}
         />
-
-        <BmiQueandTextfield
-          bmiQuestion="What is your age? "
-          id="age"
-          captureChange={validateOnlyNumeric}
-          userData={BMIData.age}
-          question="age"
+        <SliderInput
+          handleOnChange={(e, b) => {
+            validateOnlyNumeric(b.toString(), "age");
+          }}
+          min={16}
+          max={100}
+          question="What is your age?"
+          value={BMIData.age}
         />
       </div>
     </>

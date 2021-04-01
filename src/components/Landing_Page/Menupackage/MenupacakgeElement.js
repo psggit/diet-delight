@@ -85,7 +85,7 @@ export const Menubtn = styled.button`
   font-weight: bold;
 
   :hover {
-    color: purple;
+    color: rgba(139, 197, 63, 1);
     background-color: white;
     border: 1px solid rgba(139, 197, 63, 1);
   }

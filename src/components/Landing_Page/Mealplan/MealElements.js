@@ -83,21 +83,18 @@ export const Mealbtn = styled(LinkR)`
     border-radius: 10px;
     width: 130px;
     text-align:center;
-    padding-top: 3px;
+    padding-top: 2px;
     font-size: 14px;
-    text-decoration: none;
+    text-decoration: none;  
     background-color: white;
     text-decoration:none;
     color: rgba(139,197,63,1);
     font-family: 'Roboto';
     font-weight: bold;
+    border: 1px solid white;
     
     &:hover{
-        background-color: purple;
-        color: white;
-    }
-    &:active{
-        background-color: purple;
+        background-color: transparent;
         color: white;
     }
 `

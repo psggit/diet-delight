@@ -4,7 +4,7 @@ import banner from '../../../assets/banner.jpg'
 
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import { AiOutlineHeart } from 'react-icons/ai'
-import { TiMessages } from 'react-icons/ti'
+import { FaWhatsapp } from 'react-icons/fa'
 import { BsEnvelope } from 'react-icons/bs'
 import { MdPhoneInTalk } from 'react-icons/md'
 
@@ -152,7 +152,7 @@ export const Call = styled(MdPhoneInTalk)`
     width:30px;
     background:transparent;
 `
-export const Whatsapp = styled(TiMessages)`
+export const Whatsapp = styled(FaWhatsapp)`
     height:30px;
     color: white;
     width:30px;

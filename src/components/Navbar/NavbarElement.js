@@ -101,7 +101,6 @@ export const NavBtnlink = styled(LinkR)`
   background-color: ${(props) => (props.background ? "transparent" : "purple")};
   color: ${(props) => (props.color ? "purple" : "white")};
   margin-left: 10px;
-  padding-top: 2px;
   text-decoration: none;
   height: 25px;
   text-align: center;

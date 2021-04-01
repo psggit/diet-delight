@@ -24,7 +24,7 @@ import { Mealbox, Mealbtn, Mealbtnbox } from "./MealElements";
 import { Heading, Subheading, Para } from "../../MainComponents";
 
 const MealBox = (props) => {
-  console.log(props)
+  // console.log(props)
   return (
     <Mealbox>
       <Heading color="white" length="1px" weight="300">
@@ -41,6 +41,13 @@ const MealBox = (props) => {
           to={{
             pathname: "/MealpkgSubscription",
             state: { duration: props.duration },
+          }}
+          onClick={(e)=>{
+            const ACCESS_TOKEN = localStorage.getItem("access_token");
+            if(!ACCESS_TOKEN){
+              e.preventDefault();
+              props.setOpenConfirmDialog(true);
+            }
           }}
         >
           SUBSCRIPTION
