@@ -220,12 +220,6 @@ const PostOrder = () => {
 											getConsultationPurchaseStatus(order.status),
 											getConsultationMode((order?.consultations || [])[0]?.consultation_mode || ''),
 											order.amount_paid,
-											<>
-												<Delete onClick={() => {
-													setCurrentConsultationPurchase(order);
-													setIsDelete(true)
-												}} style={{ margin: '0 6px', cursor: 'pointer' }} />
-											</>
 										]
 									})
 								}}
