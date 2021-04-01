@@ -38,7 +38,7 @@ const Feature = () => {
                 favourites.push(favourite.menu_item_id);
             });
             setFavouritesList([...favourites]);
-            console.log(setFavouritesList)
+            console.log(setFavouritesList) 
         }).catch((err) => console.log(err))
     }
 
@@ -53,7 +53,7 @@ const Feature = () => {
             key={Math.random() * 100}
             // picture={meal.picture}
             // name={meal.name}
-            meal={meal}
+            meal={meal} 
             favouriteItem={true}
             setOpenConfirmDialog={setOpenConfirmDialog}
            
