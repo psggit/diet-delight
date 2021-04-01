@@ -22,11 +22,11 @@
 		return (
 
 			
-			<textarea className="textarea_textfield_calender" id={props.addressOf}>
+			<p className="textarea_textfield_calender" id={props.addressOf}>
 
 			{props.textareaDialogName}
 
-			</textarea> 
+			</p> 
 			
 			)
 		}

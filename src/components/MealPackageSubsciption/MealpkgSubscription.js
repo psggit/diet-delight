@@ -28,12 +28,12 @@ export default function MealpkgSubscription(props) {
 
   function handleSubscription(meal) {
     console.log(user.length);
-    if (user.length <= 0) {
+    if(!localStorage.getItem('access_token')) {
       console.log("dashboard");
       setOpenConfirmDialog(true)
      
     } else { 
-      console.log("mealaddressmain");
+      console.log("mealaddressmain"); 
       setOpenConfirmDialog(false)
       history.push({
         pathname: "/MealAddressMain",
@@ -44,7 +44,7 @@ export default function MealpkgSubscription(props) {
         },
       });
       
-    }
+    } 
   }
 
   const renderMeal = meals.map((meal) => {
