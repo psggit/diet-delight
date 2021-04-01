@@ -71,20 +71,22 @@ const ListofBlog = () => {
   const [Issuccess, setIsSuccess] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
   const [isupdate, setISUpdate] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [mode, setMode] = useState('')
 
   let current_date_Time = new Date();
   const csvReport = {
     data: listOfBlogs,
     filename: `List_of_Blogs_${current_date_Time}.csv`,
   };
-  
-    useEffect(() => {
-      handleShow();
-    }, [rowsPerPage, page, search, sort, order]);
+
+  useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
 
   const handleShow = () => {
     axios
-      .get(`posts?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
+      .get(`posts?pageSize=${rowsPerPage}&page=${page + 1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setListOfBlogs(res.data.data);
         setLoading(false);
@@ -118,6 +120,7 @@ const ListofBlog = () => {
         featured_image: bloglist.featured_image,
         published_at: bloglist.published_at,
         author_id: bloglist.author_id,
+        id: bloglist.id
       })
     );
 
@@ -182,12 +185,12 @@ const ListofBlog = () => {
         </>
       )}
 
-      {isupdate && (
+      {showForm && (
         <>
           {" "}
           <Dialog
-            open={isupdate}
-            onClose={CloseUpdate}
+            open={showForm}
+            onClose={() => { setShowForm(false) }}
             aria-labelledby="form-dialog-title"
             disableBackdropClick
             disableEscapeKeyDown
@@ -196,48 +199,78 @@ const ListofBlog = () => {
             <DialogContent>
               <Formik
                 initialValues={{
-                  title: listOfBlog.title,
-                  slug: listOfBlog.slug,
-                  content: listOfBlog.content,
-                  featured_image: listOfBlog.featured_image,
-                  published_at: listOfBlog.published_at,
-                  author_id: listOfBlog.author_id,
+                  id: mode === 'update' ? listOfBlog.id : '',
+                  title: mode === 'update' ? listOfBlog.title : '',
+                  slug: mode === 'update' ? listOfBlog.slug : '',
+                  content: mode === 'update' ? listOfBlog.content : '',
+                  featured_image: mode === 'update' ? listOfBlog.featured_image : '',
+                  published_at: mode === 'update' ? listOfBlog.published_at : '',
+                  author_id: mode === 'update' ? listOfBlog.author_id : '',
                 }}
                 onSubmit={(values) => {
-                  axios
-                    .put(`posts/${listOfBlog.id}`, {
-                      headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "access_token"
-                        )}`,
-                      },
-                      title: values.title,
-                      slug: values.slug,
-                      content: values.content,
-                      featured_image: values.featured_image,
-                      published_at: values.published_at,
-                      author_id: values.author_id,
-                    })
-                    .then((res) => {
-                      setIsSuccess(true);
-                      setISUpdate(false);
-                      handleShow();
-                    })
-                    .catch((err) => console.log(err));
-                }}
+                  if (mode === 'update') {
+                    axios
+                      .put(`posts/${listOfBlog.id}`, {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "access_token"
+                          )}`,
+                        },
+                        title: values.title,
+                        slug: values.slug,
+                        content: values.content,
+                        featured_image: values.featured_image,
+                        published_at: values.published_at,
+                        author_id: values.author_id,
+                      })
+                      .then((res) => {
+                        setIsSuccess(true);
+                        setShowForm(false)
+                        handleShow();
+                      })
+                      .catch((err) => console.log(err));
+                  } else {
+                    axios
+                      .post(`posts`, {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "access_token"
+                          )}`,
+                        },
+                        title: values.title,
+                        slug: values.slug,
+                        content: values.content,
+                        featured_image: values.featured_image,
+                        published_at: values.published_at,
+                        author_id: values.author_id,
+                      })
+                      .then((res) => {
+                        setIsSuccess(true);
+                        setShowForm(false)
+                        handleShow();
+                      })
+                      .catch((err) => console.log(err));
+                  }
+                }
+
+                }
               >
                 {({ handleChange, handleSubmit, errors, touched, values }) => (
                   <>
                     <Container>
-                      <Mini>
-                        <Title>ID</Title>
-                        <Input
-                          placeholder="ID"
-                          value={values.id}
-                          onChange={handleChange("id")}
-                        ></Input>
-                      </Mini>
-                      {errors.id && touched && <Info error>{errors.id}</Info>}
+                      {mode === 'add' ?
+                        <>
+                          <Mini>
+                            <Title>ID</Title>
+                            <Input
+                              placeholder="ID"
+                              value={values.id}
+                              onChange={handleChange("id")}
+                            ></Input>
+                          </Mini>
+                          {errors.id && touched && <Info error>{errors.id}</Info>}
+                        </>
+                        : null}
                       <Mini>
                         <Title>Title</Title>
                         <Input
@@ -282,17 +315,21 @@ const ListofBlog = () => {
                       {errors.featured_image && touched && (
                         <Info error>{errors.featured_image}</Info>
                       )}
-                      <Mini>
-                        <Title>Published At</Title>
-                        <Input
-                          placeholder="Published At"
-                          value={values.published_at}
-                          onChange={handleChange("published_at")}
-                        />
-                      </Mini>
-                      {errors.published_at && touched && (
-                        <Info error>{errors.published_at}</Info>
-                      )}
+                      {mode === 'update' ?
+                        <>
+                          <Mini>
+                            <Title>Published At</Title>
+                            <Input
+                              placeholder="Published At"
+                              value={values.published_at}
+                              onChange={handleChange("published_at")}
+                            />
+                          </Mini>
+                          {errors.published_at && touched && (
+                            <Info error>{errors.published_at}</Info>
+                          )}
+                        </> :
+                        null}
                       <Mini>
                         <Title>Author ID</Title>
                         <Input
@@ -326,7 +363,7 @@ const ListofBlog = () => {
                             background: "#800080",
                           }}
                           color="primary"
-                          onClick={CloseUpdate}
+                          onClick={() => { setShowForm(false) }}
                         >
                           Close
                         </Button>
@@ -343,88 +380,88 @@ const ListofBlog = () => {
       {loading ? (
         <CustomSkeleton />
       ) : (
-        <>
-          <Main>
-            <TableHeader
-              title="List of Blogs"
-              csvReport={csvReport}
-              addHandler={() => {
-                // TODO: Handle add
-              }}
-              searchHandler={(value) => {
-                setSearch(value);
-              }}
-            />
-            {show && (
-              <Table
-                dataSource={{
-                  columns: [
-                    { id: 'title', label: 'Title', sort: true },
-                    { id: 'slug', label: 'Slug', sort: true },
-                    { id: 'content', label: 'Content', sort: false },
-                    { id: 'featured_image', label: 'Featured Image', sort: false },
-                    { id: 'published_at', label: 'Published At', sort: true },
-                    { id: 'author_id', label: 'Author', sort: true },
-                    { id: 'actions', label: '', sort: false },
-                  ],
-                  rows: listOfBlogs.map((blog) => {
-                    return [
-                      blog.title,
-                      blog.slug,
-                      blog.content,
-                      <a href={blog.featured_image} target="_blank" rel="noopener noreferrer">
-                        link
-                      </a>,
-                      blog.published_at,
-                      blog.author_id,
-                      <>
-                        <Edit
-                          onClick={() => {
-                            // setMode('Update')
-                            // setCurrentQuestion(q);
-                            // handleUpdate(q);
-                            // setShowForm(true);
-                          }}
-                          style={{ margin: '0 6px', cursor: 'pointer' }}
-                        />
-                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
-                      </>
-                    ]
-                  })
+          <>
+            <Main>
+              <TableHeader
+                title="List of Blogs"
+                csvReport={csvReport}
+                addHandler={() => {
+                  setShowForm(true)
+                  setMode('add')
                 }}
-                order={order}
-                orderBy={sort}
-                onSortClick={(key) => {
-                  setOrder(order === 'asc' ? 'desc' : 'asc');
-                  setSort(key);
-                }}
-                pagination
-                page={page}
-                totalCount={totalCount}
-                rowsPerPage={rowsPerPage}
-                onChangePage={(_, newPage) => {
-                  setPage(newPage);
-                }}
-                onChangeRowsPerPage={(event) => {
-                  setRowsPerPage(parseInt(event.target.value, 10));
-                  setPage(0);
+                searchHandler={(value) => {
+                  setSearch(value);
                 }}
               />
-            )}
-            <Snackbar
-              autoHideDuration={3000}
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
-              message="Success"
-              open={Issuccess}
-              onClose={handleClose}
-            >
-              <Alert onClose={handleClose} severity="success">
-                Success Message !
+              {show && (
+                <Table
+                  dataSource={{
+                    columns: [
+                      { id: 'title', label: 'Title', sort: true },
+                      { id: 'slug', label: 'Slug', sort: true },
+                      { id: 'content', label: 'Content', sort: false },
+                      { id: 'featured_image', label: 'Featured Image', sort: false },
+                      { id: 'published_at', label: 'Published At', sort: true },
+                      { id: 'author_id', label: 'Author', sort: true },
+                      { id: 'actions', label: '', sort: false },
+                    ],
+                    rows: listOfBlogs.map((blog) => {
+                      return [
+                        blog.title,
+                        blog.slug,
+                        blog.content,
+                        <a href={blog.featured_image} target="_blank" rel="noopener noreferrer">
+                          link
+                      </a>,
+                        blog.published_at,
+                        blog.author_id,
+                        <>
+                          <Edit
+                            onClick={() => {
+                              setMode('update')
+                              handleUpdate(blog);
+                              setShowForm(true);
+                            }}
+                            style={{ margin: '0 6px', cursor: 'pointer' }}
+                          />
+                          <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                        </>
+                      ]
+                    })
+                  }}
+                  order={order}
+                  orderBy={sort}
+                  onSortClick={(key) => {
+                    setOrder(order === 'asc' ? 'desc' : 'asc');
+                    setSort(key);
+                  }}
+                  pagination
+                  page={page}
+                  totalCount={totalCount}
+                  rowsPerPage={rowsPerPage}
+                  onChangePage={(_, newPage) => {
+                    setPage(newPage);
+                  }}
+                  onChangeRowsPerPage={(event) => {
+                    setRowsPerPage(parseInt(event.target.value, 10));
+                    setPage(0);
+                  }}
+                />
+              )}
+              <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                message="Success"
+                open={Issuccess}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity="success">
+                  Success Message !
               </Alert>
-            </Snackbar>
-          </Main>
-        </>
-      )}
+              </Snackbar>
+            </Main>
+          </>
+        )}
     </>
   );
 };

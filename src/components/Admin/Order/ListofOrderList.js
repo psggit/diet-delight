@@ -218,119 +218,111 @@ const ListofOrder = () => {
       {loading ? (
         <CustomSkeleton />
       ) : (
-        <>
-          <Main style={{ padding: '0 2rem' }}>
-            <TableHeader
-              title="List of Meal Plan Subscription"
-              csvReport={csvReport}
-              addHandler={() => {
-                setMode('Add');
-                setShowForm(true);
-              }}
-              searchHandler={(value) => {
-                setSearch(value)
-              }}
-            />
-            {show && (
-              <Table
-                dataSource={{
-                  columns: [
-                    { id: 'user_id', label: 'User ID', sort: false },
-                    { id: 'customer_name', label: 'Customer Name', sort: false },
-                    { id: 'meal_plan_name', label: 'Meal Plan', sort: true },
-                    { id: 'meal_plan_id', label: 'Meal Plan Id', sort: false },
-                    { id: 'payment_id', label: 'Payment ID', sort: false },
-                    { id: 'status', label: 'Status', sort: true },
-                    { id: 'billing_address', label: 'Billing Address', sort: false },
-                    { id: 'shipping_address', label: 'Shipping Address', sort: false },
-                    { id: 'amount_paid', label: 'Amount Paid', sort: true },
-                    { id: 'start_date', label: 'Start Date', sort: true },
-                    { id: 'meal_plan_duration', label: 'Duration', sort: true },
-                    { id: 'weekdays', label: 'Weekdays', sort: false },
-                    { id: 'kcal', label: 'Kcal', sort: true },
-                    { id: 'actions', label: '', sort: false },
-                  ],
-                  rows: listoforders.map((order) => {
-                    return [
-                      order.user_id,
-                      `${order?.user?.first_name || ''} ${order?.user?.last_name || ''}`,
-                      order.meal_plan_name,
-                      order.meal_plan_id,
-                      order.payment_id,
-                      getMealPlanPurchaseStatus(order.status),
-                      `${order.billing_address_line1 || ''} ${order.billing_address_line2 || ''}`,
-                      `${order.shipping_address_line1 || ''} ${order.shipping_address_line2 || ''}`,
-                      order.amount_paid,
-                      order.start_date,
-                      order.meal_plan_duration,
-                      getWeekdays(order.weekdays),
-                      order.kcal,
-                      <>
-                        <Edit
-                          onClick={() => {
-                            setMode('Update')
-                            setCurrentMealPlanPurchase({
-                              id: order.id,
-                              user: order.user_id,
-                              mealPlan: order.meal_plan_id,
-                              paymentId: order.payment_id,
-                              amountPaid: order.amount_paid,
-                              status: order.status,
-                              startDate: new Date(order.start_date),
-                              endDate: order.end_date ? new Date(order.end_date) : '',
-                              billingAddressLine1: order.billing_address_line1 || '',
-                              billingAddressLine2: order.billing_address_line2 || '',
-                              shippingAddressLine1: order.shipping_address_line1 || '',
-                              shippingAddressLine2: order.shipping_address_line2 || '',
-                              kcal: order.kcal || '',
-                              portions: order.portions || '',
-                              weekdays: order.weekdays ? JSON.parse(order.weekdays) : [],
-                            });
-                            setShowForm(true);
-                          }}
-                          style={{ margin: '0 6px', cursor: 'pointer' }}
-                        />
-                        <Delete onClick={() => {
-                          setCurrentMealPlanPurchase(order);
-                          setIsDelete(true)
-                        }} style={{ margin: '0 6px', cursor: 'pointer' }} />
-                      </>
-                    ]
-                  }),
+          <>
+            <Main style={{ padding: '0 2rem' }}>
+              <TableHeader
+                title="List of Meal Plan Subscription"
+                csvReport={csvReport}
+                addHandler={() => {
+                  setMode('Add');
+                  setShowForm(true);
                 }}
-                order={order}
-                orderBy={sort}
-                onSortClick={(key) => {
-                  setOrder(order === 'asc' ? 'desc' : 'asc')
-                  setSort(key)
-                }}
-                pagination
-                page={page}
-                totalCount={totalCount}
-                rowsPerPage={rowsPerPage}
-                onChangePage={(_, newPage) => {
-                  setPage(newPage)
-                }}
-                onChangeRowsPerPage={(event) => {
-                  setRowsPerPage(parseInt(event.target.value, 10))
-                  setPage(0)
+                searchHandler={(value) => {
+                  setSearch(value)
                 }}
               />
-            )}
-            <Snackbar
-              autoHideDuration={3000}
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              message="Success"
-              open={showNotification}
-              onClose={handleClose}
-            >
-              <Alert onClose={handleClose} severity={notificationType}>
-                {notification}
-              </Alert>
-            </Snackbar>
-          </Main>
-        </>
-      )}
+              {show && (
+                <Table
+                  dataSource={{
+                    columns: [
+                      { id: 'user_id', label: 'User ID', sort: false },
+                      { id: 'customer_name', label: 'Customer Name', sort: false },
+                      { id: 'meal_plan_name', label: 'Meal Plan Name', sort: true },
+                      { id: 'meal_plan_id', label: 'Meal Plan Id', sort: false },
+                      { id: 'payment_id', label: 'Payment ID', sort: false },
+                      { id: 'status', label: 'Status', sort: true },
+                      { id: 'amount_paid', label: 'Revenue', sort: true },
+                      { id: 'start_date', label: 'Start Date', sort: true },
+                      { id: 'meal_plan_duration', label: 'Duration', sort: true },
+                      { id: 'actions', label: '', sort: false },
+                    ],
+                    rows: listoforders.map((order) => {
+                      return [
+                        order.user_id,
+                        `${order?.user?.first_name || ''} ${order?.user?.last_name || ''}`,
+                        order.meal_plan_name,
+                        order.meal_plan_id,
+                        order.payment_id,
+                        getMealPlanPurchaseStatus(order.status),
+                        order.amount_paid,
+                        order.start_date,
+                        order.meal_plan_duration,
+                        <>
+                          <Edit
+                            onClick={() => {
+                              setMode('Update')
+                              setCurrentMealPlanPurchase({
+                                id: order.id,
+                                user: order.user_id,
+                                mealPlan: order.meal_plan_id,
+                                paymentId: order.payment_id,
+                                amountPaid: order.amount_paid,
+                                status: order.status,
+                                startDate: new Date(order.start_date),
+                                endDate: order.end_date ? new Date(order.end_date) : '',
+                                billingAddressLine1: order.billing_address_line1 || '',
+                                billingAddressLine2: order.billing_address_line2 || '',
+                                shippingAddressLine1: order.shipping_address_line1 || '',
+                                shippingAddressLine2: order.shipping_address_line2 || '',
+                                kcal: order.kcal || '',
+                                portions: order.portions || '',
+                                weekdays: order.weekdays ? JSON.parse(order.weekdays) : [],
+                              });
+                              setShowForm(true);
+                            }}
+                            style={{ margin: '0 6px', cursor: 'pointer' }}
+                          />
+                          <Delete onClick={() => {
+                            setCurrentMealPlanPurchase(order);
+                            setIsDelete(true)
+                          }} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                        </>
+                      ]
+                    }),
+                  }}
+                  order={order}
+                  orderBy={sort}
+                  onSortClick={(key) => {
+                    setOrder(order === 'asc' ? 'desc' : 'asc')
+                    setSort(key)
+                  }}
+                  pagination
+                  page={page}
+                  totalCount={totalCount}
+                  rowsPerPage={rowsPerPage}
+                  onChangePage={(_, newPage) => {
+                    setPage(newPage)
+                  }}
+                  onChangeRowsPerPage={(event) => {
+                    setRowsPerPage(parseInt(event.target.value, 10))
+                    setPage(0)
+                  }}
+                />
+              )}
+              <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                message="Success"
+                open={showNotification}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity={notificationType}>
+                  {notification}
+                </Alert>
+              </Snackbar>
+            </Main>
+          </>
+        )}
     </>
   )
 }

@@ -4,11 +4,11 @@ import * as Yup from 'yup'
 import { Formik, Form, Field } from 'formik'
 
 import {
-  TextField,
-  Select,
-  AutoComplete,
-  DatePicker,
-  TimePicker,
+	TextField,
+	Select,
+	AutoComplete,
+	DatePicker,
+	TimePicker,
 } from '../../reusable/InputItems'
 import Modal from '../../reusable/Modal'
 import { Mini } from '../Elements'
@@ -28,16 +28,20 @@ const validationSchema = Yup.object().shape({
 });
 
 const ConsultationFormModal = (props) => {
-  const {
-    visible,
-    onClose,
-    onSubmit,
-    mode,
-    values = {},
-    customers = [],
-    consultants,
-    consultationPackages,
-  } = props
+	const {
+		visible,
+		onClose,
+		onSubmit,
+		mode,
+		values = {},
+		customers = [],
+		consultants,
+		consultationPackages,
+	} = props
+
+	console.log(consultationPackages)
+	console.log(values)
+	console.log(consultants)
 
 	return (
 		<Modal
