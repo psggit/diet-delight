@@ -63,6 +63,7 @@ const Feature = ({setOpenConfirmDialog}) => {
                         menuItem={meal}
                         notifyAddedFavourite={setOpenConfirmDialog}
                         favouriteItem={true}
+                        setOpenConfirmDialog={setOpenConfirmDialog}
                     />
                 </div>
                 )
@@ -73,6 +74,7 @@ const Feature = ({setOpenConfirmDialog}) => {
                             key={Math.random()}
                             menuItem={meal}
                             notifyAddedFavourite={setOpenConfirmDialog}
+                            setOpenConfirmDialog={setOpenConfirmDialog}
                         />
                     </div>
                     //     <FeatureList
