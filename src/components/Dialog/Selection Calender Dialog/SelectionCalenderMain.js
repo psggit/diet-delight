@@ -16,6 +16,7 @@
 
 
 	export default function SelectionCalenderMain(props) {
+		console.log(props)
 		const [open, setOpen] = React.useState(true);
 		const theme = useTheme();
 		const weekDays = ['Su','Mo','Tu','We', 'Th', 'Fr', 'Sa']
