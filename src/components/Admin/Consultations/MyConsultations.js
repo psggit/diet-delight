@@ -285,10 +285,6 @@ const MyConsultation = () => {
                                 searchHandler={(value) => {
                                     setSearch(value)
                                 }}
-                                addHandler={() => {
-                                    setMode('Add');
-                                    setShowForm(true);
-                                }}
                             />
                             {show && (
                                 <Table

@@ -194,10 +194,6 @@ const PostOrder = () => {
 						<TableHeader
 							title="List of Consultation Purchase"
 							csvReport={csvReport}
-							addHandler={() => {
-								setMode('Add');
-								setShowForm(true);
-							}}
 							searchHandler={(value) => {
 								setSearch(value);
 							}}
@@ -225,23 +221,6 @@ const PostOrder = () => {
 											getConsultationMode((order?.consultations || [])[0]?.consultation_mode || ''),
 											order.amount_paid,
 											<>
-												<Edit
-													onClick={() => {
-														setMode('Update')
-														setCurrentConsultationPurchase({
-															id: order.id,
-															user: order.user_id,
-															consultationPackage: order.consultation_package_id,
-															paymentId: order.payment_id,
-															amountPaid: order.amount_paid,
-															status: order.status,
-															billingAddressLine1: order.billing_address_line1 || '',
-															billingAddressLine2: order.billing_address_line2 || '',
-														});
-														setShowForm(true);
-													}}
-													style={{ margin: '0 6px', cursor: 'pointer' }}
-												/>
 												<Delete onClick={() => {
 													setCurrentConsultationPurchase(order);
 													setIsDelete(true)

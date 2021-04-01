@@ -223,10 +223,6 @@ const ListofOrder = () => {
               <TableHeader
                 title="List of Meal Plan Subscription"
                 csvReport={csvReport}
-                addHandler={() => {
-                  setMode('Add');
-                  setShowForm(true);
-                }}
                 searchHandler={(value) => {
                   setSearch(value)
                 }}
@@ -258,30 +254,6 @@ const ListofOrder = () => {
                         order.start_date,
                         order.meal_plan_duration,
                         <>
-                          <Edit
-                            onClick={() => {
-                              setMode('Update')
-                              setCurrentMealPlanPurchase({
-                                id: order.id,
-                                user: order.user_id,
-                                mealPlan: order.meal_plan_id,
-                                paymentId: order.payment_id,
-                                amountPaid: order.amount_paid,
-                                status: order.status,
-                                startDate: new Date(order.start_date),
-                                endDate: order.end_date ? new Date(order.end_date) : '',
-                                billingAddressLine1: order.billing_address_line1 || '',
-                                billingAddressLine2: order.billing_address_line2 || '',
-                                shippingAddressLine1: order.shipping_address_line1 || '',
-                                shippingAddressLine2: order.shipping_address_line2 || '',
-                                kcal: order.kcal || '',
-                                portions: order.portions || '',
-                                weekdays: order.weekdays ? JSON.parse(order.weekdays) : [],
-                              });
-                              setShowForm(true);
-                            }}
-                            style={{ margin: '0 6px', cursor: 'pointer' }}
-                          />
                           <Delete onClick={() => {
                             setCurrentMealPlanPurchase(order);
                             setIsDelete(true)
