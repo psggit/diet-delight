@@ -81,6 +81,7 @@ export default function AddressAppointmentMain(props) {
 
   const [changeAddressData, setChangeAddressData] = useState(false);
   const [selectAddress, setSelectedAddress] = useState("");
+
   const [selectedPaymentMode, setSelectedPaymentMode] = useState("online");
 
   const [addAddressData, setAddAddressData] = useState(false);
@@ -89,29 +90,29 @@ export default function AddressAppointmentMain(props) {
   function handleAddress(data) {
     console.log(data);
     setSelectedAddress(data);
-    var changeAddress = document.getElementById("w3review");
-    let primaryAddress =
-      user.primary_address_line1 === null || user.primary_address_line1 === ""
-        ? " "
-        : user.primary_address_line1 +
-          " " +
-          (user.primary_address_line2 === null ||
-          user.primary_address_line2 === ""
-            ? " "
-            : user.primary_address_line2);
-    let secondaryAddress =
-      user.secondary_address_line1 === null ||
-      user.secondary_address_line1 === ""
-        ? ""
-        : user.secondary_address_line1 +
-          " " +
-          (user.secondary_address_line2 == null ||
-          user.secondary_address_line2 === ""
-            ? " "
-            : user.secondary_address_line2);
-    let addressValue =
-      data === "primary_address" ? primaryAddress : secondaryAddress;
-    changeAddress.value = addressValue;
+    // var changeAddress = document.getElementById("w3review");
+    // let primaryAddress =
+    //   user.primary_address_line1 === null || user.primary_address_line1 === ""
+    //     ? " "
+    //     : user.primary_address_line1 +
+    //       "\r\n" +
+    //       (user.primary_address_line2 === null ||
+    //       user.primary_address_line2 === ""
+    //         ? " "
+    //         : user.primary_address_line2);
+    // let secondaryAddress =
+    //   user.secondary_address_line1 === null ||
+    //   user.secondary_address_line1 === ""
+    //     ? ""
+    //     : user.secondary_address_line1 +
+    //       "\r\n" +
+    //       (user.secondary_address_line2 == null ||
+    //       user.secondary_address_line2 === ""
+    //         ? " "
+    //         : user.secondary_address_line2);
+    // let addressValue =
+    //   data === "primary_address" ? primaryAddress : secondaryAddress;
+    //changeAddress.value = addressValue;
   }
 
   function handleChangeAdrress(data) {
@@ -139,18 +140,18 @@ export default function AddressAppointmentMain(props) {
 
   console.log(props);
 
-  useEffect(() => {
-    if (props.location.state.packageMode === "online") {
-      var disableOfflineMode = document.getElementById("clinic");
-      console.log(disableOfflineMode);
-      disableOfflineMode.disabled = true;
-      var selectOnlineMode = document.getElementById("online");
-      console.log(selectOnlineMode);
-      selectOnlineMode.checked = "checked";
-      setSelectedPaymentMode("online");
-    }
-    setSelectedPaymentMode("online");
-  }, [props.location.state.packageMode]);
+  // useEffect(() => {
+  //   if (props.location.state.packageMode === "online") {
+  //     var disableOfflineMode = document.getElementById("clinic");
+  //     console.log(disableOfflineMode);
+  //     disableOfflineMode.disabled = true;
+  //     var selectOnlineMode = document.getElementById("online");
+  //     console.log(selectOnlineMode);
+  //     selectOnlineMode.checked = "checked";
+  //     setSelectedPaymentMode("online");
+  //   }
+  //   setSelectedPaymentMode("online");
+  // }, [props.location.state.packageMode]);
 
   useEffect(() => {
     if (changeAddressData) {
@@ -323,7 +324,12 @@ export default function AddressAppointmentMain(props) {
         consultation_package_id: props.location.state.packageId,
         payment_id: selectedPaymentMode === "online" ? 12345 : 0,
         status: 0,
-        billing_address_line1: user.primary_address_line1,
+        billing_address_line1:
+          selectAddress === "primary_address"
+            ? user.primary_address_line1
+            : selectAddress === "secondary_address"
+            ? user.secondary_address_line1
+            : "",
         billing_address_line2: "",
         consultation_package_name: props.location.state.packageName,
         consultation_package_duration: props.location.state.packageDuration,
@@ -337,7 +343,10 @@ export default function AddressAppointmentMain(props) {
             consultant_id: res.data.data.consultation_package_id,
             status: 0,
             consultation_link: "",
-            consultation_time: dateTime,
+            consultation_time:
+              props.location.state.appointmentMode === "offline"
+                ? dateTime
+                : "",
             consultation_mode:
               props.location.state.appointmentMode === "offline" ? 0 : 1,
             consultant_name: "Not Assigned",
@@ -461,16 +470,48 @@ export default function AddressAppointmentMain(props) {
               </div>
               <div className="row">
                 <div className="col-md-8 col-sm-12">
-                  <textarea
-                    id="w3review"
-                    defaultValue={user.primary_address_line1}
+                  <p
+                    //id="w3review"
+                    //defaultValue={user.primary_address_line1}
                     placeholder="Enter Address"
                     disabled
                     name="w3review"
                     rows="2"
                     cols="20"
-                    className="textarea_addressAppoinment"
-                  ></textarea>
+                    className="address_appoinment"
+                  >
+                    {selectAddress === "primary_address" ? (
+                      <>
+                        <p>
+                          {user.primary_address_line1 === null ||
+                          user.primary_address_line1 === ""
+                            ? " "
+                            : user.primary_address_line1}
+                        </p>
+                        <p>
+                          {user.primary_address_line2 === null ||
+                          user.primary_address_line2 === ""
+                            ? " "
+                            : user.primary_address_line2}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p>
+                          {user.secondary_address_line1 === null ||
+                          user.secondary_address_line1 === ""
+                            ? ""
+                            : user.secondary_address_line1}
+                        </p>
+                        <p>
+                          {user.secondary_address_line2 == null ||
+                          user.secondary_address_line2 === ""
+                            ? " "
+                            : user.secondary_address_line2}
+                        </p>
+                      </>
+                    )}
+                  </p>
                 </div>
               </div>
 
