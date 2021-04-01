@@ -13,6 +13,14 @@ h6.title_dialog_name {
 p.text_area_dialog:focus {
   outline: none;
 }
+i.close_primary_dialog_icon{
+  cursor: pointer;
+  color: #fff;
+  font-size: 22px;
+  display: flex;
+  justify-content: flex-end;
+
+}
 
 @media only screen and (max-width: 767px) {
   div.dialog_signup_new {

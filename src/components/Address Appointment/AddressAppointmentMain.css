@@ -79,7 +79,6 @@ div.card_user_addressAppointment
   .change_text_adressAppointment {
   color: #8bc441;
   cursor: pointer;
-  top: 100px;
 }
 
 div.address_appointment_main_container {
@@ -183,7 +182,7 @@ label.online_clinic_text_submeal {
     position: absolute;
     right: 0;
   }
-  textarea.textarea_addressAppoinment {
+  p.address_appoinment {
     width: 95%;
     /* border: 1px solid #0000002e;
     border-radius: 10px; */
@@ -195,6 +194,9 @@ label.online_clinic_text_submeal {
     border: none;
     overflow: auto;
     background-color: transparent;
+  }
+  p.address_appoinment p {
+    padding: 3% 0;
   }
   h4.shipping_title {
     font-size: 25px;
@@ -339,7 +341,7 @@ label.online_clinic_text_submeal {
     width: 83%;
     top: 100px;
   }
-  textarea.textarea_addressAppoinment {
+  p.address_appoinment {
     width: 129%;
     /* border: 1px solid #0000002e;
     border-radius: 10px; */
@@ -351,6 +353,9 @@ label.online_clinic_text_submeal {
     border: none;
     overflow: auto;
     background-color: transparent;
+  }
+  p.address_appoinment p {
+    padding: 3% 0;
   }
   h6.change_text_adressAppointment {
     font-size: 13px;
@@ -478,7 +483,7 @@ label.online_clinic_text_submeal {
     width: 74%;
     top: 100px;
   }
-  textarea.textarea_addressAppoinment {
+  p.address_appoinment {
     width: 129%;
     /* border: 1px solid #0000002e;
     border-radius: 10px; */
@@ -492,6 +497,9 @@ label.online_clinic_text_submeal {
     border: none;
     overflow: auto;
     background-color: transparent;
+  }
+  p.address_appoinment p {
+    padding: 3% 0;
   }
   h6.change_text_adressAppointment {
     font-size: 12px;
@@ -620,7 +628,7 @@ label.online_clinic_text_submeal {
     width: 70%;
     top: 100px;
   }
-  textarea.textarea_addressAppoinment {
+  p.address_appoinment {
     width: 129%;
     /* border: 1px solid #0000002e;
     border-radius: 10px; */
@@ -635,6 +643,9 @@ label.online_clinic_text_submeal {
     border: none;
     overflow: auto;
     background-color: transparent;
+  }
+  p.address_appoinment p {
+    padding: 3% 0;
   }
   h6.change_text_adressAppointment {
     font-size: 14px;

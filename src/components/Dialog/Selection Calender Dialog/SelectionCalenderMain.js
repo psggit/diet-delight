@@ -42,19 +42,19 @@
 					var secondaryAddressDaysList = JSON.parse(orderBreak.secondary_address_dates);
 					console.log(primaryAddressDaysList, secondaryAddressDaysList)
 					if(primaryAddressDaysList != null || secondaryAddressDaysList != null){
-					primaryAddressDaysList.map((primary) => {
-						let dayInfo = getDayDetails(primary)
-						primaryAddressDeliveries.push({"year":dayInfo.year,
-						"month":dayInfo.monthDateWithoutPrefix,
-					"date":dayInfo.dayDateWithoutPrefix});
+						primaryAddressDaysList.map((primary) => {
+							let dayInfo = getDayDetails(primary)
+							primaryAddressDeliveries.push({"year":dayInfo.year,
+								"month":dayInfo.monthDateWithoutPrefix,
+								"date":dayInfo.dayDateWithoutPrefix});
+						})
+						secondaryAddressDaysList.map((secondary) => {
+							let dayInfo = getDayDetails(secondary)
+							secondaryAddressDeliveries.push({"year":dayInfo.year,
+								"month":dayInfo.monthDateWithoutPrefix,
+								"date":dayInfo.dayDateWithoutPrefix});
+						})}
 					})
-					secondaryAddressDaysList.map((secondary) => {
-						let dayInfo = getDayDetails(secondary)
-						secondaryAddressDeliveries.push({"year":dayInfo.year,
-						"month":dayInfo.monthDateWithoutPrefix,
-					"date":dayInfo.dayDateWithoutPrefix});
-					})}
-				})
 				setDaysToDeliverAtPrimaryAddress([...primaryAddressDeliveries]);
 				setDaysToDeliverAtSecondaryAddress([...secondaryAddressDeliveries]);
 				console.log(primaryAddressDeliveries, secondaryAddressDeliveries);
@@ -162,141 +162,148 @@
 
 
 		const renderWeeks = weekDays.map((weekDay) => {
-		
+
 			return(
-			<li key={Math.random()} id={Math.random()}>{weekDay}</li>)
-		})
+				<li key={Math.random()} id={Math.random()}>{weekDay}</li>)
+			})
 
-		const renderMonthDays = totalDays.map((day) => {
-			console.log(day)
-			console.log(props.endDate)
-			console.log(props.startDate)
-			const startDateDay = new Date(props.startDate)
-			const endDateDay = new Date(props.endDate)
-			let startDateDetails = getDayDetails(startDateDay)
-			let endDateDetails = getDayDetails(endDateDay)
-			// var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
-			console.log(startDateDetails, endDateDetails)
-			
-			weekStartsAt.current = weekStartsAt.current - 1;
-			console.log(typeof(weekStartsAt.current))
+			const renderMonthDays = totalDays.map((day) => {
+				console.log(day)
+				console.log(props.endDate)
+				console.log(props.startDate)
+				const startDateDay = new Date(props.startDate)
+				const endDateDay = new Date(props.endDate)
+				let startDateDetails = getDayDetails(startDateDay)
+				let endDateDetails = getDayDetails(endDateDay)
+				// var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
+				console.log(startDateDetails, endDateDetails)
 
-			let daysFromStartDay = [];
-			let daysFromEndDay = [];
+				weekStartsAt.current = weekStartsAt.current - 1;
+				console.log(typeof(weekStartsAt.current))
 
-			var lastDateForStartMonth = getMonthDays(startDateDetails.monthDateWithoutPrefix, startDateDetails.year)
+				let daysFromStartDay = [];
+				let daysFromEndDay = [];
+
+				var lastDateForStartMonth = getMonthDays(startDateDetails.monthDateWithoutPrefix, startDateDetails.year)
 
 
-			if(startDateDetails.monthDateWithoutPrefix != endDateDetails.monthDateWithoutPrefix){
-			for(var i=1; i<=endDateDetails.date; i++){
-					daysFromEndDay.push(i);
-			}	
-			for(var j=startDateDetails.dayDateWithoutPrefix; j<=lastDateForStartMonth; j++){
-				daysFromStartDay.push(j);
-			}
-			}else{		
-			for(var k=startDateDetails.dayDateWithoutPrefix; k<=endDateDetails.dayDateWithoutPrefix; k++){
-				daysFromStartDay.push(k);
-			}
-			}
-			console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay, weekStartsAt.current)
-			console.log(day.month === currentMonthInNumber)
-			if((day.month === currentMonthInNumber) && (currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day.date)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day.date))){
-				let secondaryAddressDate = daysToDeliverAtSecondaryAddress.findIndex(x => x.day === day.date && currentMonthInNumber === x.month && currentYear === x.year)
-				let generatedDate = new Date(currentYear, currentMonthInNumber - 1, day.date)
-				console.log(generatedDate)
-				let dayInfo = getDayDetails(generatedDate)
-				console.log(dayInfo)
-				var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
-				if(secondaryAddressDate >= 0){
-					return (
-						<li><label className="active_violet"><span className="active_number_com">{day.date}</span></label></li>
-					)
+				if(startDateDetails.monthDateWithoutPrefix != endDateDetails.monthDateWithoutPrefix){
+					for(var i=1; i<=endDateDetails.date; i++){
+						daysFromEndDay.push(i);
+					}	
+					for(var j=startDateDetails.dayDateWithoutPrefix; j<=lastDateForStartMonth; j++){
+						daysFromStartDay.push(j);
+					}
+				}else{		
+					for(var k=startDateDetails.dayDateWithoutPrefix; k<=endDateDetails.dayDateWithoutPrefix; k++){
+						daysFromStartDay.push(k);
+					}
 				}
-				if(deliveryDaysIncluded){
-					console.log(dayInfo.weekDay)
-					return(
+				console.log(lastDateForStartMonth, daysFromStartDay, daysFromEndDay, weekStartsAt.current)
+				console.log(day.month === currentMonthInNumber)
+				if((day.month === currentMonthInNumber) && (currentMonthInNumber === startDateDetails.monthDateWithoutPrefix && currentYear === startDateDetails.year && daysFromStartDay.includes(day.date)) || (currentMonthInNumber === endDateDetails.monthDateWithoutPrefix && currentYear === endDateDetails.year && daysFromEndDay.includes(day.date))){
+					let secondaryAddressDate = daysToDeliverAtSecondaryAddress.findIndex(x => x.day === day.date && currentMonthInNumber === x.month && currentYear === x.year)
+					let generatedDate = new Date(currentYear, currentMonthInNumber - 1, day.date)
+					console.log(generatedDate)
+					let dayInfo = getDayDetails(generatedDate)
+					console.log(dayInfo)
+					var deliveryDaysIncluded = deliveryDays.current.includes(dayInfo.weekDay)
+					if(secondaryAddressDate >= 0){
+						return (
+						<li><label className="active_violet"><span className="active_number_com">{day.date}</span></label></li>
+						)
+					}
+					if(deliveryDaysIncluded){
+						console.log(dayInfo.weekDay)
+						return(
 						<li key={Math.random()}  onClick={(e) => handleChangeAddress(e,day.date)}  id={day.date+""+currentMonthInNumber+""+currentYear}><label className="active_com"><span className="active_number_com">{day.date}</span></label></li>
+						)
+					}
+					return(
+					<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear}><label className="light_active_com"><span className="light_active_number_com">{day.date}</span></label></li>
 					)
 				}
 				return(
-					<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear}><label className="light_active_com"><span className="light_active_number_com">{day.date}</span></label></li>
-				)
-			}
-			return(
 				<li key={Math.random()} id={day.date+""+currentMonthInNumber+""+currentYear}>{day.date}</li>
-			)
+				)
 			})	
 
 			if(props.startDate != "" && props.endDate != ''){
-		
-		return (
-			<div>
 
-			
-
-			<Dialog
-			open={open}
-			style={{borderRadius:40}}
-			className="dialog_textfield_calender_new"
-			aria-labelledby="responsive-dialog-title">
-			
-			<DialogTitle className="calender_selection_dialog_bg" id="responsive-dialog-title">
-
-			<div className="row row_texe_field">
-
-			<div className="col-md-6">
-
-			<TextfieldnewComponent addressOf="primaryAddress" textareaDialogName="Primary Address 
-			Jane Doe,
-			3 Newbridge Court 
-			Chino Hills, CA 91709 " />
-
-			</div>
-
-			<div className="col-md-6">
-
-			<TextfieldnewComponent textareaDialogName="Secondary Address 
-			Jane Doe,
-			3 Newbridge Court 
-			Chino Hills, CA 91709 " addressOf="secondaryAddress"/>
-
-			</div>
-
-			</div>
-			
-			<div>
-		<div className="month">      
-		<ul>
-		<li className="prev" onClick={() => handleMonth("prev")}>&#10094;</li>
-		<li className="next" onClick={() => handleMonth("next")}>&#10095;</li>
-		<li className="month_dialog_text">
-		{currentMonth}
-		<span className="year_dialog_text ml-1 mr-1">{currentYear}</span>
-		</li>
-		</ul>
-		</div>
-	
-		<ul className="weekdays">
-		{renderWeeks}
-		</ul>
-	
-		<ul className="days">  
-		{renderMonthDays}
-		</ul>	
-	
-	
-		</div>
-
-			</DialogTitle>
+				return (
+				<div>
 
 
-			</Dialog>
-			</div>
-			);
-		}else{
-			return(
+
+				<Dialog
+				open={open}
+				style={{borderRadius:40}}
+				className="dialog_textfield_calender_new"
+				aria-labelledby="responsive-dialog-title">
+
+				<DialogTitle className="calender_selection_dialog_bg" id="responsive-dialog-title">
+
+				<div>
+
+				<i className="fa fa-times close_primary_dialog_icon" aria-hidden="true"></i>
+
+				</div> 
+				<br></br>
+
+				<div className="row row_texe_field">
+
+				<div className="col-md-6">
+
+				<TextfieldnewComponent addressOf="primaryAddress"  textareaDialogName="Primary Address 
+				Jane Doe,
+				3 Newbridge Court 
+				Chino Hills, CA 91709 " />
+
+				</div>
+
+				<div className="col-md-6">
+
+				<TextfieldnewComponent textareaDialogName="Secondary Address 
+				Jane Doe,
+				3 Newbridge Court 
+				Chino Hills, CA 91709 " addressOf="secondaryAddress"/>
+
+				</div>
+
+				</div>
+
+				<div>
+				<div className="month">      
+				<ul>
+				<li className="prev" onClick={() => handleMonth("prev")}>&#10094;</li>
+				<li className="next" onClick={() => handleMonth("next")}>&#10095;</li>
+				<li className="month_dialog_text">
+				{currentMonth}
+				<span className="year_dialog_text ml-1 mr-1">{currentYear}</span>
+				</li>
+				</ul>
+				</div>
+
+				<ul className="weekdays">
+				{renderWeeks}
+				</ul>
+
+				<ul className="days">  
+				{renderMonthDays}
+				</ul>	
+
+
+				</div>
+
+				</DialogTitle>
+
+
+				</Dialog>
+				</div>
+				);
+			}else{
+				return(
 				<></>
-			)
-		}
+				)
+			}
 		}

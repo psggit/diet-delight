@@ -5,15 +5,17 @@ import Mealchoose from "../Mealchoose.js";
 import { Link, useHistory } from "react-router-dom";
 import axios from "../../axiosInstance";
 import Snackbar from "../Snack bar/Snackbar.js";
+import ConfirmDialog from '../Landing_Page/ConfirmDialog'
 
 export default function MealpkgSubscription(props) {
   console.log(props);
   let history = useHistory();
   const [meals, setMeal] = useState([]);
   const [user, setUser] = useState([]);
+  const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
   useEffect(() => {
     axios
-      .get(`meal-plans?duration_id=` + props.location.state.duration.id, {
+      .get(`meal-plans?duration_id=` +props.location.state.duration.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
@@ -22,17 +24,17 @@ export default function MealpkgSubscription(props) {
         console.log(res);
         setMeal(res.data.data);
       });
-  }, []);
+  }, [props.location.state.duration.id]);
 
   function handleSubscription(meal) {
     console.log(user.length);
     if (user.length <= 0) {
       console.log("dashboard");
-      history.push({
-        pathname: "/",
-      });
-    } else {
+      setOpenConfirmDialog(true)
+     
+    } else { 
       console.log("mealaddressmain");
+      setOpenConfirmDialog(false)
       history.push({
         pathname: "/MealAddressMain",
         state: {
@@ -41,6 +43,7 @@ export default function MealpkgSubscription(props) {
           meal: meal,
         },
       });
+      
     }
   }
 
@@ -97,22 +100,15 @@ export default function MealpkgSubscription(props) {
                 <p className="breakfast_text_mealpkgsub">{meal.subtitle}</p>
 
                 <p className="something_text">- {meal.details}</p>
+                <ConfirmDialog 
+                    open={openConfirmDialog} 
+                    setOpen={setOpenConfirmDialog}  
+                />
 
-                <button className="btn btn-default mealbtn_subscription">
-                  <Link
-                    className="text_subscription_text"
-                    style={{ color: "#fff", textDecoration: "none" }}
-                    to={{
-                      pathname: "/MealAddressMain",
-                      state: {
-                        id: meal.id,
-                        mealType: meal.type,
-                        meal: meal,
-                      },
-                    }}
-                  >
+                <button className="btn btn-default mealbtn_subscription" onClick={() =>handleSubscription(meal)}>
+                
                     Buy Subscription
-                  </Link>
+                
                 </button>
               </div>
             </div>
