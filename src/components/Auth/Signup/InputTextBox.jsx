@@ -10,6 +10,7 @@ const InputTextBox = ({
   handleOnChange,
   handleOnKeyPress,
   placeholder,
+  inputValue,
   inputType = "text",
 }) => {
   return (
@@ -25,6 +26,7 @@ const InputTextBox = ({
       </Para>
       <Input
         type={inputType}
+        value={inputValue}
         placeholder={placeholder}
         onChange={handleOnChange}
         onKeyPress={handleOnKeyPress}

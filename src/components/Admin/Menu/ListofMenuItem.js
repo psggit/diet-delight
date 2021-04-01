@@ -4,7 +4,6 @@ import axios from "../../../axiosInstance";
 
 import {
   makeStyles,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -19,6 +18,7 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
+import { Edit, Delete } from '@material-ui/icons';
 
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -28,6 +28,7 @@ import {
   selectMenuItem,
   resetMenuItem,
 } from "../../../features/adminSlice";
+import Table from '../../reusable/Table';
 
 import {
   Main,
@@ -43,6 +44,7 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { CSVLink } from "react-csv";
+import TableHeader from '../../reusable/TableHeader';
 
 const useStyles = makeStyles({
   root: {
@@ -59,10 +61,12 @@ const ListofMenuItem = () => {
 
   const [menuitems, setMenuItems] = useState([]);
   const menuitem = useSelector(selectMenuItem);
-  const [page, setPage] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(20)
+  const [page, setPage] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
+  const [sort, setSort] = useState('name');
+  const [order, setOrder] = useState('asc');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [Issuccess, setIsSuccess] = useState(false);
@@ -76,36 +80,17 @@ const ListofMenuItem = () => {
   };
 
   useEffect(() => {
+    handleShow();
+  }, [rowsPerPage, page, search, sort, order]);
+
+  const handleShow = () => {
     axios
-      .get(
-        `menu-items?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
+      .get(`menu-items?pageSize=${rowsPerPage}&page=${page+1}&search=${search}&sortBy=${sort}&sortOrder=${order}`)
       .then((res) => {
         setMenuItems(res.data.data);
         setShow(true);
         setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [page, search, sort, order]);
-
-  const handleShow = () => {
-    axios
-      .get(
-        `menu-items?pageSize=${page}&search=${search}&sortBy=${sort}&sortOrder=${order}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setMenuItems(res.data.data);
-        setShow(true);
+        setTotalCount(res.data?.meta?.total || 0);
       })
       .catch((err) => console.log(err));
   };
@@ -377,141 +362,77 @@ const ListofMenuItem = () => {
       ) : (
         <>
           <Main>
-            <h3
-              style={{
-                textAlign: "left",
-                marginLeft: "50px",
-                marginBottom: "20px",
+            <TableHeader
+              title="List of Menu Items"
+              csvReport={csvReport}
+              addHandler={() => {
+                // TODO: Handle add
               }}
-            >
-              List of Menu Item
-            </h3>
-            <HContainer>
-              <Con>
-                <Title>Data per Page</Title>
-                <Input
-                  value={page}
-                  onChange={(e) => setPage(e.target.value)}
-                  placeholder="Page Size"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Search All</Title>
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search all"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort By</Title>
-                <Input
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                  placeholder="Sort by"
-                ></Input>
-              </Con>
-              <Con>
-                <Title>Sort Order</Title>
-                <Input
-                  value={order}
-                  onChange={(e) => setOrder(e.target.value)}
-                  placeholder="asc or desc"
-                ></Input>
-              </Con>
-              <Set>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={handleShow}
-                  color="primary"
-                >
-                  Search
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                  onClick={() => {
-                    setMenuItems([]);
-                    setShow(false);
-                    setPage("");
-                    setSearch("");
-                    setSort("");
-                    setOrder("");
-                  }}
-                  color="primary"
-                >
-                  Reset
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ margin: "10px", background: "#800080" }}
-                >
-                  <CSVLink {...csvReport} style={{ color: "white" }}>
-                    Export CSV
-                  </CSVLink>
-                </Button>
-              </Set>
-            </HContainer>
+              searchHandler={(value) => {
+                setSearch(value);
+              }}
+            />
             {show && (
-              <>
-                <TableContainer style={{ margin: "10px 0" }} component={Paper}>
-                  <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Menu ID</TableCell>
-                        <TableCell>Menu Category ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Picture</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Day</TableCell>
-                        <TableCell>Featured</TableCell>
-                        <TableCell>Veg</TableCell>
-                        <TableCell>Order</TableCell>
-                        <TableCell>Update</TableCell>
-                        <TableCell>Delete</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {menuitems.map((menuitem) => (
-                        <TableRow key={menuitem.id}>
-                          <TableCell component="th" scope="row">
-                            {menuitem.id}
-                          </TableCell>
-                          <TableCell>{menuitem.menu_id}</TableCell>
-                          <TableCell>{menuitem.menu_category_id}</TableCell>
-                          <TableCell>{menuitem.name}</TableCell>
-                          <TableCell>{menuitem.picture}</TableCell>
-                          <TableCell>{menuitem.date}</TableCell>
-                          <TableCell>{menuitem.day}</TableCell>
-                          <TableCell>{menuitem.featured}</TableCell>
-                          <TableCell>{menuitem.veg}</TableCell>
-                          <TableCell>{menuitem.order}</TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              onClick={() => handleUpdate(menuitem)}
-                            >
-                              Update
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              onClick={() => handleDelete(menuitem)}
-                            >
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </>
+              <Table
+                dataSource={{
+                  columns: [
+                    { id: 'name', label: 'Name', sort: true },
+                    { id: 'menu_id', label: 'Menu ID', sort: true },
+                    { id: 'menu_category_id', label: 'Menu Category', sort: true },
+                    { id: 'picture', label: 'Picture', sort: false },
+                    { id: 'date', label: 'Date', sort: true },
+                    { id: 'day', label: 'Day', sort: true },
+                    { id: 'featured', label: 'Featured', sort: true },
+                    { id: 'veg', label: 'Veg', sort: false },
+                    { id: 'order', label: 'Order', sort: true },
+                    { id: 'actions', label: '', sort: false },
+                  ],
+                  rows: menuitems.map((item) => {
+                    return [
+                      item.name,
+                      item.menu_id,
+                      item.menu_category_id,
+                      <a href={item.picture} target="_blank" rel="noopener noreferrer">
+                        link
+                      </a>,
+                      item.date,
+                      item.day,
+                      item.featured,
+                      item.veg,
+                      item.order,
+                      <>
+                        <Edit
+                          onClick={() => {
+                            // setMode('Update')
+                            // setCurrentQuestion(item);
+                            // handleUpdate(item);
+                            // setShowForm(true);
+                          }}
+                          style={{ margin: '0 6px', cursor: 'pointer' }}
+                        />
+                        <Delete onClick={() => setIsDelete(true)} style={{ margin: '0 6px', cursor: 'pointer' }} />
+                      </>
+                    ]
+                  })
+                }}
+                order={order}
+                orderBy={sort}
+                onSortClick={(key) => {
+                  setOrder(order === 'asc' ? 'desc' : 'asc');
+                  setSort(key);
+                }}
+                pagination
+                page={page}
+                totalCount={totalCount}
+                rowsPerPage={rowsPerPage}
+                onChangePage={(_, newPage) => {
+                  setPage(newPage);
+                }}
+                onChangeRowsPerPage={(event) => {
+                  setRowsPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
+              />
             )}
             <Snackbar
               autoHideDuration={3000}

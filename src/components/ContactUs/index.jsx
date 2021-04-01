@@ -6,7 +6,7 @@ import envelop from "../../assets/envelope.png";
 import Navbar from "../Navbar/index";
 import ContactUsForm from "./ContactUsForm";
 
-export default function ConatctUsMain() {
+export default function ContactUs() {
   return (
     <>
       <Navbar />

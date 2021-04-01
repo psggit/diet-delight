@@ -56,6 +56,16 @@ const SignInForm = ({
                 }
               }}
             />
+            <Para
+              style={{
+                fontSize: "0.8rem",
+                textAlign: "left",
+                margin: "0",
+                color: "#909090",
+              }}
+            >
+              If Phone include country code as well.
+            </Para>
             <InputTextBox
               label="ENTER PASSWORD"
               error={errors.password}

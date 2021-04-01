@@ -19,7 +19,7 @@ import signInWithFaceBook from "../SignInMethods/FaceBookSignIn";
 import SelectCountryCode from "./SelectCountryCode";
 import InputTextBox from "./InputTextBox";
 
-const SignUpForm = ({ phoneAuth, handleSignUp }) => {
+const SignUpForm = ({ formValues, phoneAuth, handleSignUp }) => {
   const ValidateSchema = Yup.object().shape({
     fname: Yup.string().required().label("First Name"),
     lname: Yup.string().required().label("Last Name"),
@@ -27,13 +27,15 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
     countryCode: Yup.string().required().label("Country Code"),
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(6).label("Password"),
-    check: Yup.string().required("Confirm Password is a required field").when("password", {
-      is: (val) => (val && val.length > 0 ? true : false),
-      then: Yup.string().oneOf(
-        [Yup.ref("password")],
-        "Both password need to be the same"
-      ),
-    }),
+    check: Yup.string()
+      .required("Confirm Password is a required field")
+      .when("password", {
+        is: (val) => (val && val.length > 0 ? true : false),
+        then: Yup.string().oneOf(
+          [Yup.ref("password")],
+          "Both password need to be the same"
+        ),
+      }),
   });
 
   return (
@@ -47,14 +49,7 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
     >
       <Formik
         initialValues={{
-          countryCode: "",
-          phone: "",
-          fname: "",
-          lname: "",
-          email: "",
-          password: "",
-          check: "",
-          firebase_uid: "",
+          ...formValues,
         }}
         validationSchema={ValidateSchema}
         onSubmit={(values) => {
@@ -62,7 +57,7 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
           phoneAuth(values);
         }}
       >
-        {({ handleChange, handleSubmit, errors, touched }) => (
+        {({ handleChange, handleSubmit, errors, touched, values }) => (
           <>
             <Para
               color="rgba(137,197,63,1)"
@@ -73,9 +68,10 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
               PHONE NUMBER
             </Para>
             <div>
-              <SelectCountryCode handleOnChange={handleChange("countryCode")} />
+              <SelectCountryCode inputValue={values.countryCode} handleOnChange={handleChange("countryCode")} />
               <Phone
                 type="number"
+                value={values.phone}
                 onChange={handleChange("phone")}
                 onKeyPress={(e) => {
                   if (e.code === "Enter") {
@@ -95,17 +91,19 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
               label="FIRST NAME"
               error={errors.fname}
               isTouched={touched.fname}
+              inputValue={values.fname}
               handleOnChange={handleChange("fname")}
               handleOnKeyPress={(e) => {
                 if (e.code === "Enter") {
                   handleSubmit();
                 }
               }}
-            />
+              />
             <InputTextBox
               label="LAST NAME"
               error={errors.lname}
               isTouched={touched.lname}
+              inputValue={values.lname}
               handleOnChange={handleChange("lname")}
               handleOnKeyPress={(e) => {
                 if (e.code === "Enter") {
@@ -118,6 +116,7 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
               error={errors.email}
               inputType="email"
               isTouched={touched.email}
+              inputValue={values.email}
               handleOnChange={handleChange("email")}
               handleOnKeyPress={(e) => {
                 if (e.code === "Enter") {
@@ -130,6 +129,7 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
               error={errors.password}
               inputType="password"
               isTouched={touched.password}
+              inputValue={values.password}
               handleOnChange={handleChange("password")}
               handleOnKeyPress={(e) => {
                 if (e.code === "Enter") {
@@ -142,6 +142,7 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
               error={errors.check}
               isTouched={touched.check}
               inputType="password"
+              inputValue={values.check}
               handleOnChange={handleChange("check")}
               handleOnKeyPress={(e) => {
                 if (e.code === "Enter") {
@@ -150,7 +151,12 @@ const SignUpForm = ({ phoneAuth, handleSignUp }) => {
               }}
             />
 
-            <CustomButton style={{marginTop: "1.5rem"}} id="sign-up" type="submit" onClick={handleSubmit}>
+            <CustomButton
+              style={{ marginTop: "1.5rem" }}
+              id="sign-up"
+              type="submit"
+              onClick={handleSubmit}
+            >
               SIGN UP
             </CustomButton>
 

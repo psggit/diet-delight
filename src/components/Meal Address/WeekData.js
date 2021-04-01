@@ -27,7 +27,7 @@ import React,{useState, useEffect, useMemo, useRef} from 'react'
             console.log(color)
             if(props.mealType === 1 && selectedWeekDays.current.length >= 5 && color === '#fafafa'){
                 console.log(selectedWeekDays)
-                props.handleMaximumSelection("you already have selected 5 days per week, Please Unselect one weekDay");
+                props.handleMaximumSelection("You have already selected 5 days per week, please unselect one weekday.");
                 // alert('you already have selected 5 days per week')
                 // alert('Please unselect one weekDay')
             }else{

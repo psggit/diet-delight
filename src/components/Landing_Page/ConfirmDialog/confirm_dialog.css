@@ -1,0 +1,12 @@
+.confirm_dialog_bg {
+  background-image: url("../../../assets/popup_background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 350px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-end;
+  max-width: 500px;
+}

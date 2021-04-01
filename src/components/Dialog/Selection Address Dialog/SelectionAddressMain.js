@@ -51,7 +51,7 @@ export default function PrimaryaddDialog(props) {
 
           <div className="row">
             <input
-              className="selction_input_dialog"
+              className="selction_input_dialog disabled"
               type="text"
               value={props.addressType.split("_")[0]}
               disabled
