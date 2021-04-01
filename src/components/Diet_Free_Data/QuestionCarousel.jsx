@@ -30,9 +30,9 @@ const QuestionCarousel = ({
   const classes = useStyles();
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [BMIData, setBMIData] = useState({
-    height: 0,
-    weight: 0,
-    age: 0,
+    height: 120,
+    weight: 40,
+    age: 16,
     gender: 0,
   });
 
@@ -41,31 +41,6 @@ const QuestionCarousel = ({
     calorieInTake: 0,
     category: "",
   });
-
-  const submitAnswer = () => {
-    const _currentQuestion = QuestionsData[activeQuestion].question;
-    const _selectedOption = QuestionsData[activeQuestion].selectedOption;
-    const _answerText = QuestionsData[activeQuestion].answer;
-    console.log("Question : ", _currentQuestion);
-    console.log("selectedOption : ", _selectedOption);
-    console.log("selectedOption : ", _answerText);
-    // axios
-    //   .post("my-answers", {
-    //     question_id: _currentQuestion.id,
-    //     answer_option_id: _selectedOption.id,
-    //     answer: _answerText || _selectedOption.option,
-    //     question_question: _currentQuestion.question,
-    //     question_type: _currentQuestion.type,
-    //     question_additional_text: _currentQuestion.additional_text,
-    //     answer_option_option: _selectedOption.option,
-    //   })
-    //   .then((res) => {
-    //     console.log("Submit Answer Result : ", res.data.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log("Submit Answer Error : ", err);
-    //   });
-  };
 
   const updateSelectedOption = (_selectedOption) => {
     setQuestionData((prev) => {
