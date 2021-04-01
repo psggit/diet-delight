@@ -6,6 +6,10 @@ import { Icon, Popover, Card, CardContent } from "@material-ui/core";
 import logo from "../../assets/logo.png";
 import './CustomDrawer.css';
 import { ExitToApp } from '@material-ui/icons';
+import { Link as RouterLink } from "react-router-dom";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 import CustomNavList from "./components/CustomNavList";
 import { USER_TYPE, CONSULTATION_STATUS_TYPE, CONSULTATION_MODE } from './Constants';
@@ -329,7 +333,17 @@ export default function PersistentDrawerLeft() {
                 },
               ]}
             />
-            <CustomNavList
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                className={classes.nested}
+                component={RouterLink}
+                to={"/admin/couponlist"}
+              >
+                <ListItemText className='list-item-text' primary={'Offers'} />
+              </ListItem>
+            </List>
+            {/* <CustomNavList
               name="coupon"
               open={listKey === 'coupon'}
               handleClick={handleMenuOpen}
@@ -338,7 +352,7 @@ export default function PersistentDrawerLeft() {
                 { label: "List of Coupon", link: "couponlist" },
                 { label: "Add Coupon", link: "addcoupon" },
               ]}
-            />
+            /> */}
             <CustomNavList
               name="blog"
               open={listKey === 'blog'}
@@ -486,8 +500,8 @@ export default function PersistentDrawerLeft() {
           </main>
         </div>
       ) : (
-        <div>YOU ARE NOT AUTHORIZE</div>
-      )}
+          <div>YOU ARE NOT AUTHORIZE</div>
+        )}
     </>
   )
 }
