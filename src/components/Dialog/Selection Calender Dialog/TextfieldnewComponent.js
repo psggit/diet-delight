@@ -1,7 +1,6 @@
 	import React,{useEffect} from 'react';
 	import 'react-calendar/dist/Calendar.css';
-import './TextFieldCalenderDialog.css'
-
+	import './TextFieldCalenderDialog.css'
 
 
 	export default function TextfieldnewComponent(props) {
@@ -23,9 +22,11 @@ import './TextFieldCalenderDialog.css'
 		return (
 
 			
-			<p className="textarea_textfield_calender" id={props.addressOf}>
+			<textarea className="textarea_textfield_calender" id={props.addressOf}>
+
 			{props.textareaDialogName}
-			</p> 
+
+			</textarea> 
 			
 			)
 		}
