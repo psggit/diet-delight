@@ -108,7 +108,9 @@ export default function MealpkgSubscription(props) {
                   </div>
 
                   <a href="#" className="link_text">
+                    <Link to ="/">
                   View Menu
+                  </Link>
                   </a>
                   </div>
                   </div>
