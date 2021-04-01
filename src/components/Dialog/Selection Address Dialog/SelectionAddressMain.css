@@ -4,6 +4,20 @@ select.selction_bar_dialog:focus {
 input.selction_input_dialog:focus {
   outline: none;
 }
+
+input.selction_input_dialog.disabled {
+  width: 100%;
+  /* background: #77838f52; */
+  background: none;
+  text-transform: capitalize;
+  border: none;
+  border-radius: 4px;
+  margin: 3%;
+  font-size: 19px;
+  padding: 5%;
+  color: #fff;
+  margin-top: 20px;
+}
 ::placeholder {
   color: #fff;
   opacity: 1; /* Firefox */
@@ -58,6 +72,21 @@ button.add_btn_dialog:focus {
     color: #fff;
     margin-top: 20px;
   }
+
+  input.selction_input_dialog.disabled {
+    width: 100%;
+    /* background: #77838f52; */
+    background: none;
+    text-transform: capitalize;
+    border: none;
+    border-radius: 4px;
+    margin: 3%;
+    font-size: 19px;
+    padding: 5%;
+    color: #fff;
+    margin-top: 20px;
+  }
+
   button.add_btn_dialog {
     background-color: #77838f59;
     color: #fff;
@@ -92,6 +121,20 @@ button.add_btn_dialog:focus {
     width: 100%;
     background: #77838f52;
     border: none;
+    border-radius: 4px;
+    margin: 3%;
+    font-size: 19px;
+    padding: 5%;
+    color: #fff;
+    margin-top: 20px;
+  }
+
+  input.selction_input_dialog.disabled {
+    width: 100%;
+    /* background: #77838f52; */
+    border: none;
+    text-transform: capitalize;
+    background: none;
     border-radius: 4px;
     margin: 3%;
     font-size: 19px;

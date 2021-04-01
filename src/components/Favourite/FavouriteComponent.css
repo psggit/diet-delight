@@ -31,7 +31,14 @@
 }
 
 #FavWrapper .note .icon i.heart_menu_pkg_fill {
-  color: red;
+  color: purple;
+  cursor: pointer;
+  position: relative;
+  margin-top: 0;
+}
+
+#FavWrapper .note .icon i.heart_menu_pkg {
+  color: purple;
   cursor: pointer;
   position: relative;
   margin-top: 0;

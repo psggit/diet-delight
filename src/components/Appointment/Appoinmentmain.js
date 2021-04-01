@@ -3,9 +3,20 @@ import "./Appointmentmain.css";
 import { useHistory } from "react-router-dom";
 import SelectdatePicker from "../SelectdatePicker";
 import TimeSlotByShift from "./TimeSlotByShift";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import "./toggle.css";
 import axios from "../../axiosInstance";
+import { Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import Mealchoose from "../Mealchoose.js";
+import Moment from "moment";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import purple from "@material-ui/core/colors/purple";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import {
   Radio,
   RadioGroup,
@@ -45,8 +56,28 @@ const useStyles = makeStyles((theme) =>
     radioRoot: {
       color: "#8BC441",
     },
+    shiftWithColor: {
+      backgroundColor: "#8BC441",
+      color: "#ffffff",
+      border: "none",
+    },
+    shiftWithoutColor: {
+      backgroundColor: "#fbfbfb",
+      color: "#212121",
+    },
   })
 );
+
+export const customTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: purple[800],
+    },
+    secondary: {
+      main: purple[800],
+    },
+  },
+});
 
 export default function Appointmentmain(props) {
   console.log(props);
@@ -54,30 +85,25 @@ export default function Appointmentmain(props) {
   const classes = useStyles();
 
   const [date, setDate] = useState("");
-  const [minDate, setMinDate] = useState("");
-  const [renderShift, setRenderShift] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
+  //const [minDate, setMinDate] = useState(Moment().format("YYYY-MM-DD"));
+  const [renderShift, setRenderShift] = useState("morning");
   const [timeSlot, setTimeSlot] = useState("");
   const [appointmentMode, setAppointmentMode] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [checked, setChecked] = useState();
   const [consultationType, setConsultationType] = useState(
-    DEFAULT_CONSULTATION_TYPE
+    props.location.state.appointmentMode
+      ? props.location.state.appointmentMode
+      : DEFAULT_CONSULTATION_TYPE
   );
   const [packageDetails, setPackageDetails] = useState({});
 
   useEffect(() => {
     var todayDate = new Date();
-    var getDate = todayDate.getDate();
-    var getYear = todayDate.getFullYear();
-    var getMonth = todayDate.getMonth();
-    var formatedDate =
-      getYear +
-      "-" +
-      (getMonth < 9 ? "0" + (getMonth + 1) : getMonth + 1) +
-      "-" +
-      (getDate < 10 ? "0" + getDate : getDate);
-    setMinDate(formatedDate);
-    console.log(formatedDate);
+    todayDate.setTime(todayDate.getTime() + 48 * 60 * 60 * 1000);
+    setDate(new Date(todayDate));
   }, []);
 
   useEffect(() => {
@@ -95,11 +121,16 @@ export default function Appointmentmain(props) {
   }, []);
 
   function handleDateChange(date) {
+    console.log("date", date);
     setDate(date);
-    var errorMessage = document.getElementById("successDate");
-    errorMessage.innerHTML = "";
-    console.log(errorMessage);
+    // var errorMessage = document.getElementById("successDate");
+    // errorMessage.innerHTML = "";
+    // console.log(errorMessage);
   }
+
+  // function Alert(props) {
+  //   return <MuiAlert elevation={6} variant="filled" {...props} />;
+  // }
 
   function handleRadioChange(e) {
     setConsultationType(e.target.value);
@@ -113,51 +144,72 @@ export default function Appointmentmain(props) {
   function handleSelectedTimeSlot(selectedTimeSlot) {
     console.log(selectedTimeSlot);
     setTimeSlot(selectedTimeSlot);
-    var errorMessage = document.getElementById("successTime");
-    errorMessage.innerHTML = "";
-    console.log(errorMessage);
+    // var errorMessage = document.getElementById("successTime");
+    // errorMessage.innerHTML = "";
+    // console.log(errorMessage);
   }
 
   function handleColorTheme(period) {
-    var fetchUnselected = document.getElementsByClassName(
-      "appoinment_tab_subcontainer"
-    );
-    console.log(typeof fetchUnselected);
-    console.log(fetchUnselected);
-    for (var i = 0; i < fetchUnselected.length; i++) {
-      console.log(fetchUnselected[i].id);
-      if (fetchUnselected[i].id != period) {
-        fetchUnselected[i].style.background = "#fbfbfb";
-        fetchUnselected[i].style.color = "#212121";
-      } else {
-        fetchUnselected[i].style.background = "#8BC441";
-        fetchUnselected[i].style.color = "#fff";
-        fetchUnselected[i].style.border = "none";
-      }
-    }
+    // var fetchUnselected = document.getElementsByClassName(
+    //   "appoinment_tab_subcontainer"
+    // );
+    // console.log(typeof fetchUnselected);
+    // console.log(fetchUnselected);
+    // for (var i = 0; i < fetchUnselected.length; i++) {
+    //   console.log(fetchUnselected[i].id);
+    //   if (fetchUnselected[i].id != period) {
+    //     fetchUnselected[i].style.background = "#fbfbfb";
+    //     fetchUnselected[i].style.color = "#212121";
+    //   } else {
+    //     fetchUnselected[i].style.background = "#8BC441";
+    //     fetchUnselected[i].style.color = "#fff";
+    //     fetchUnselected[i].style.border = "none";
+    //   }
+    // }
     setRenderShift(period);
   }
 
+  const handleNotificationClose = () => {
+    setShowNotification(false);
+    setErrorMsg("");
+  };
+
   function handleDate() {
+    console.log("appointment type", consultationType);
     if (consultationType === "offline") {
       if (date !== "" && timeSlot != "") {
+        // history.push({
+        //   pathname: "/AddressAppointmentMain",
+        //   state: {
+        //     packageId: props.location.state.packageId,
+        //     date: date,
+        //     time: timeSlot,
+        //     appointmentMode: consultationType,
+        //     picture: props.location.state.packagePicture,
+        //     packageDetails: packageDetails.details,
+        //   },
+        // });
         history.push({
-          pathname: "/GrandtotalAppointmentmain",
+          pathname: "/AddressAppointmentMain",
           state: {
             packageId: props.location.state.packageId,
             date: date,
             time: timeSlot,
             appointmentMode: consultationType,
-            picture: props.location.state.packagePicture,
-            packageDetails: packageDetails.details,
+            picture: props.location.state.packagePicture
+              ? props.location.state.packagePicture
+              : packageDetails.picture,
+            packageName: packageDetails.name,
+            packagePrice: packageDetails.price,
+            packageDuration: packageDetails.duration,
           },
         });
       } else if (date === "") {
-        var errorMessage = document.getElementById("successDate");
-        errorMessage.innerHTML = "please enter date";
+        setErrorMsg("please enter date");
+        setShowNotification(true);
       } else {
-        var errorMessage = document.getElementById("successTime");
-        errorMessage.innerHTML = "please enter time ";
+        setErrorMsg("please enter time");
+        setShowNotification(true);
       }
     } else {
       history.push({
@@ -167,7 +219,9 @@ export default function Appointmentmain(props) {
           date: date,
           time: timeSlot,
           appointmentMode: consultationType,
-          picture: props.location.state.packagePicture,
+          picture: props.location.state.packagePicture
+            ? props.location.state.packagePicture
+            : packageDetails.picture,
           packageName: packageDetails.name,
           packagePrice: packageDetails.price,
           packageDuration: packageDetails.duration,
@@ -206,16 +260,22 @@ export default function Appointmentmain(props) {
           <div className="row">
             <div className="col-md-5 col-sm-12 silver_container">
               <img
-                src={props.location.state.packagePicture}
+                src={
+                  props.location.state.packagePicture
+                    ? props.location.state.packagePicture
+                    : packageDetails.picture
+                }
                 alt="silver"
                 className="silver_img_appointment"
               ></img>
 
               <p className="silver_subtitle">
-                {props.location.state.packageDetails}
+                {props.location.state.packageDetails
+                  ? props.location.state.packageDetails
+                  : packageDetails.details}
               </p>
 
-              {consultationType !== DEFAULT_CONSULTATION_TYPE && (
+              {/* {consultationType !== DEFAULT_CONSULTATION_TYPE && (
                 <>
                   <h6 className="appointmentdate_title">
                     Select Appointment date
@@ -231,7 +291,7 @@ export default function Appointmentmain(props) {
                 id="successDate"
                 className="enter_text_red_alert"
                 style={{ color: "red", fontWeight: 800 }}
-              ></span>
+              ></span> */}
               {/*         
             <div className="row toggle_container">
             <h6 className="online_text">Online</h6>
@@ -332,7 +392,27 @@ export default function Appointmentmain(props) {
             <div className="vertical_line_appointment"></div>
 
             <div className="col-md-6 col-sm-6 right_side_container_appointmentmain">
-              <h5 className="timeslot_title">Select Prefered Timeslot</h5>
+              <h5 className="timeslot_title">Select Appointment Date & Time</h5>
+              {consultationType !== DEFAULT_CONSULTATION_TYPE && (
+                <MuiThemeProvider theme={customTheme}>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      margin="normal"
+                      id="date-picker-dialog"
+                      //label="Date picker dialog"
+                      format="dd MMM yyyy"
+                      //defaultValue={minDate}
+                      value={date}
+                      onChange={handleDateChange}
+                      KeyboardButtonProps={{
+                        "aria-label": "change date",
+                      }}
+                    />
+                  </MuiPickersUtilsProvider>
+                </MuiThemeProvider>
+              )}
+
+              {/* <h6 className="appointmentdate_title">Select Appointment date</h6> */}
 
               {/* tabs start */}
               {consultationType === DEFAULT_CONSULTATION_TYPE ? (
@@ -353,8 +433,14 @@ export default function Appointmentmain(props) {
                   <ul className="nav nav-pills appoinment_tab_container mt-3">
                     <li className="active  mb-1">
                       <button
-                        className="appoinment_tab_subcontainer"
+                        //className="appoinment_tab_subcontainer"
                         id="morning"
+                        className={clsx(
+                          "appoinment_tab_subcontainer",
+                          renderShift === "morning"
+                            ? classes.shiftWithColor
+                            : classes.shiftWithoutColor
+                        )}
                         disabled={disabled}
                         onClick={() => handleDayPeriod("morning")}
                       >
@@ -365,9 +451,15 @@ export default function Appointmentmain(props) {
 
                     <li>
                       <button
-                        className="appoinment_tab_subcontainer"
+                        //className=""
                         id="afternoon"
                         disabled={disabled}
+                        className={clsx(
+                          "appoinment_tab_subcontainer",
+                          renderShift === "afternoon"
+                            ? classes.shiftWithColor
+                            : classes.shiftWithoutColor
+                        )}
                         onClick={() => handleDayPeriod("afternoon")}
                       >
                         Afternoon
@@ -377,8 +469,14 @@ export default function Appointmentmain(props) {
 
                     <li>
                       <button
-                        className="appoinment_tab_subcontainer"
+                        //className="appoinment_tab_subcontainer"
                         id="evening"
+                        className={clsx(
+                          "appoinment_tab_subcontainer",
+                          renderShift === "evening"
+                            ? classes.shiftWithColor
+                            : classes.shiftWithoutColor
+                        )}
                         disabled={disabled}
                         onClick={() => handleDayPeriod("evening")}
                       >
@@ -428,6 +526,19 @@ export default function Appointmentmain(props) {
           </div>
         </div>
       </div>
+      {
+        <Snackbar
+          open={showNotification}
+          autoHideDuration={6000}
+          onClose={handleNotificationClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          message="Warning"
+        >
+          <Alert onClose={handleNotificationClose} severity="warning">
+            {errorMsg}
+          </Alert>
+        </Snackbar>
+      }
     </div>
   );
 }

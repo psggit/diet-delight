@@ -6,21 +6,76 @@ import payment_img from "../../assets/master.jpg";
 import axios from "../../axiosInstance";
 import { Link, useHistory } from "react-router-dom";
 import Mealchoose from "../Mealchoose.js";
+import { Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import AddressDialogBox from "../Address Appointment/AddressDialogBox";
 import AddAddress from "../Dialog/Selection Address Dialog/SelectionAddressMain";
 import PrimaryaddDialog from "../Dialog/Primary address Dialog/PrimaryaddDialog";
+import {
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+} from "@material-ui/core";
+import Moment from "moment";
+import clsx from "clsx";
+import { makeStyles, createStyles } from "@material-ui/core";
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    formLabel: {
+      fontSize: 19,
+      color: "#303960",
+      fontWeight: 700,
+      marginBottom: 30,
+    },
+    radioGroupRoot: {
+      "& .Mui-checked": {
+        color: "#8BC441",
+      },
+    },
+    formLabelRootWithBorder: {
+      border: "2px solid #8BC441",
+    },
+    formLabelRoot: {
+      padding: "10px 20px",
+      marginBottom: 10,
+      textAlign: "left",
+      background: "#ffffff",
+      color: "black",
+      marginLeft: 0,
+    },
+    radioRoot: {
+      color: "#8BC441",
+    },
+    shiftWithColor: {
+      backgroundColor: "#8BC441",
+      color: "#fff",
+      border: "none",
+    },
+    shiftWithoutColor: {
+      backgroundColor: "#fbfbfb",
+      color: "#212121",
+    },
+  })
+);
 export default function AddressAppointmentMain(props) {
   console.log(props);
   let history = useHistory();
+  const classes = useStyles();
   const [address, setAddress] = useState("");
   const [user, setUser] = useState([]);
   const [coupon, setCoupon] = useState("");
   const [couponScheme, setCouponScheme] = useState({});
   const [discountAmount, setDiscountAmount] = useState(0);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
+  const [messageType, setMessageType] = useState("");
   const [taxAmount, setTaxAmount] = useState(0);
   const [totalCharge, setTotalCharge] = useState(0);
   const [extraCharge, setExtraCharge] = useState(0);
+  const [isProceedingPayment, setIsProceedingPayment] = useState(false);
   const [toggleTextarea, setToggleTextarea] = useState(true);
   const [dateTime, setDateTime] = useState([]);
 
@@ -172,11 +227,8 @@ export default function AddressAppointmentMain(props) {
   }
 
   useEffect(() => {
-    console.log(
-      props.location.state.packageDate,
-      props.location.state.packageTime
-    );
-    var dateTime = new Date(props.location.state.packageDate);
+    console.log(props, props.location.state.date, props.location.state.time);
+    var dateTime = new Date(props.location.state.date);
     var hour = "";
     var minutes = "";
     console.log(dateTime);
@@ -187,8 +239,8 @@ export default function AddressAppointmentMain(props) {
 
     console.log(year, month, date);
 
-    if (props.location.state.packageTime) {
-      var time = props.location.state.packageTime;
+    if (props.location.state.time) {
+      var time = props.location.state.time;
 
       var timeFormated = time.split(" ");
       if (timeFormated[1] === "AM") {
@@ -211,11 +263,11 @@ export default function AddressAppointmentMain(props) {
 
     var newDate = new Date(year, month - 1, date, hour, minutes);
     console.log(newDate);
-  }, [props.location.state.packageDate, props.location.state.packageTime]);
+  }, [props.location.state.date, props.location.state.time]);
 
-  const handlePayment = () => {
-    history.push("/orderHistory");
-  };
+  // const handlePayment = () => {
+  //   history.push("/orderHistory");
+  // };
 
   const makeAddAddress = (addressData) => {
     let payload;
@@ -242,25 +294,36 @@ export default function AddressAppointmentMain(props) {
       })
       .catch((error) => {
         setAddingAddress(false);
+        setShowNotification(true);
+        setMessageType("error");
+        setErrorMsg("Something went wrong, try againg later");
         console.log("error in adding address", error);
       });
     //}
   };
 
+  const handleNotificationClose = () => {
+    setShowNotification(false);
+    setErrorMsg("");
+    setMessageType("");
+  };
+
   const proceedPayment = () => {
     console.log(
+      props,
       props.location.state.packageId,
       props.location.state.packageName,
       props.location.state.packageDuration,
       props.location.state.packagePrice
     );
+    setIsProceedingPayment(true);
     axios
       .post(`my-consultation-purchases`, {
         user_id: user.user_id,
         consultation_package_id: props.location.state.packageId,
         payment_id: selectedPaymentMode === "online" ? 12345 : 0,
         status: 0,
-        billing_address_line1: address,
+        billing_address_line1: user.primary_address_line1,
         billing_address_line2: "",
         consultation_package_name: props.location.state.packageName,
         consultation_package_duration: props.location.state.packageDuration,
@@ -271,22 +334,44 @@ export default function AddressAppointmentMain(props) {
         axios
           .post("my-consultations", {
             consultation_purchase_id: res.data.data.id,
-            consultant_id: 0,
+            consultant_id: res.data.data.consultation_package_id,
             status: 0,
             consultation_link: "",
             consultation_time: dateTime,
             consultation_mode:
-              props.location.state.packageMode === "offline" ? 0 : 1,
+              props.location.state.appointmentMode === "offline" ? 0 : 1,
             consultant_name: "Not Assigned",
             notes: "",
           })
           .then((res) => {
             console.log(res);
+            setIsProceedingPayment(false);
+            setShowNotification(true);
+            setErrorMsg("Consultation package purchased successfully");
+            setMessageType("success");
+            setTimeout(() => {
+              history.push("/orderHistory");
+            }, 2000);
           })
-          .catch((err) => console.log(err));
-        history.push("/");
+          .catch((err) => {
+            console.log(err);
+            setIsProceedingPayment(false);
+            setShowNotification(true);
+            setErrorMsg("Something went wrong");
+            setMessageType("error");
+          });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setShowNotification(true);
+        setIsProceedingPayment(false);
+        setErrorMsg("Something went wrong");
+        setMessageType("error");
+      });
+  };
+
+  const handlePaymentModeChange = (e) => {
+    setSelectedPaymentMode(e.target.value);
   };
 
   const applyCoupon = () => {
@@ -328,6 +413,8 @@ export default function AddressAppointmentMain(props) {
   //     setPrimaryAddress()
   // }
 
+  console.log("props", props);
+
   return (
     <div className="address_appointment_container">
       {changeAddressData && (
@@ -363,14 +450,14 @@ export default function AddressAppointmentMain(props) {
           <div className="row">
             <div className="col-md-5 col-sm-12 silver_container">
               <div className="title">
-                <h5 className="shipping_title">Billing Address</h5>
-                <h4
+                <h4 className="shipping_title">Billing Address</h4>
+                <h6
                   className="change_text_adressAppointment"
                   // onClick={() => setToggleTextarea(!toggleTextarea)}
                   onClick={handleUserData}
                 >
                   Change
-                </h4>
+                </h6>
               </div>
               <div className="row">
                 <div className="col-md-8 col-sm-12">
@@ -414,11 +501,48 @@ export default function AddressAppointmentMain(props) {
                 </div>
               </div>
 
-              <h5 className="payment_text_title">Payment</h5>
-
               {props.location.state.appointmentMode !== "online" && (
-                <div className="online_clinic_container ">
-                  <label
+                <div>
+                  <h5 className="payment_text_title">Payment</h5>
+                  <FormControl component="fieldset">
+                    <RadioGroup
+                      name="controlled-radio-buttons-group"
+                      value={selectedPaymentMode}
+                      onChange={handlePaymentModeChange}
+                      classes={{ root: classes.radioGroupRoot }}
+                    >
+                      <FormControlLabel
+                        value="online"
+                        control={
+                          <Radio classes={{ root: classes.radioRoot }} />
+                        }
+                        label="Pay online"
+                        labelPlacement="start"
+                        className={clsx(
+                          classes.formLabelRoot,
+                          selectedPaymentMode === "online"
+                            ? classes.formLabelRootWithBorder
+                            : ""
+                        )}
+                      />
+                      <FormControlLabel
+                        value="offline"
+                        control={
+                          <Radio classes={{ root: classes.radioRoot }} />
+                        }
+                        label="Pay at clinic"
+                        labelPlacement="start"
+                        //classes={{ root: classes.formLabelRoot }}
+                        className={clsx(
+                          classes.formLabelRoot,
+                          selectedPaymentMode === "offline"
+                            ? classes.formLabelRootWithBorder
+                            : ""
+                        )}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                  {/* <label
                     htmlFor="online"
                     className="online_clinic_text_submeal"
                   >
@@ -449,10 +573,14 @@ export default function AddressAppointmentMain(props) {
                     style={{ cursor: "pointer" }}
                     onClick={() => setSelectedPaymentMode("online")}
                   ></input>
-                  <span className="checkmark"></span>
+                  <span className="checkmark"></span> */}
                 </div>
               )}
+            </div>
 
+            <div className="vertical_line_addressAppointment"></div>
+
+            <div className="col-md-6 col-sm-6">
               <div className="card_payment_container">
                 <div className="card payment_card">
                   <img
@@ -463,11 +591,7 @@ export default function AddressAppointmentMain(props) {
                 </div>
                 <h6 className="change_in_title_payment">Change</h6>
               </div>
-            </div>
 
-            <div className="vertical_line_addressAppointment"></div>
-
-            <div className="col-md-6 col-sm-6">
               <h6 className="cost_breakdown_totalappointment_title">
                 Cost Breakdown
               </h6>
@@ -480,10 +604,13 @@ export default function AddressAppointmentMain(props) {
                   {props.location.state.packagePrice} BHD
                 </h5>
               </div>
-              {/* <h6 className="appointment_subtitle_text_date">
-                First Appointment - {props.location.state.packageTime} ,{" "}
-                {props.location.state.packageDate}
-              </h6> */}
+
+              {props.location.state.appointmentMode !== "online" && (
+                <h6 className="appointment_subtitle_text_date">
+                  <b>First Appointment - </b> {props.location.state.time} ,{" "}
+                  {Moment(props.location.state.date).format("DD MMM YYYY")}
+                </h6>
+              )}
 
               <div className="extra_totalappointment_container">
                 <p className="extra_totalappointment_title">Extras</p>
@@ -520,15 +647,31 @@ export default function AddressAppointmentMain(props) {
               <div className="row btn_payonline_container">
                 <button
                   className="payOnline_btn_address"
-                  onClick={handlePayment}
+                  onClick={proceedPayment}
+                  disabled={isProceedingPayment}
                 >
-                  PAY ONLINE
+                  {selectedPaymentMode === "online"
+                    ? "PAY ONLINE"
+                    : "BOOK APPOINTMENT"}
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {
+        <Snackbar
+          open={showNotification}
+          autoHideDuration={6000}
+          onClose={handleNotificationClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          message={messageType}
+        >
+          <Alert onClose={handleNotificationClose} severity={messageType}>
+            {errorMsg}
+          </Alert>
+        </Snackbar>
+      }
     </div>
   );
 }

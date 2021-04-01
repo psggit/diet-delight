@@ -38,7 +38,7 @@ const Navbar = ({ toggle }) => {
   const dispatch = useDispatch();
   const cookie = new Cookies();
   const user = useSelector(selectUser);
-
+ 
   const [nav, setNav] = useState(false);
 
   useEffect(() => {
@@ -162,7 +162,7 @@ const Navbar = ({ toggle }) => {
                       Sign Up
                     </NavBtnlink>
                   </NavButton>
-                </>
+                </> 
               )}
             </NavMenuUp>
             <NavMenuDown>
@@ -219,7 +219,7 @@ const Navbar = ({ toggle }) => {
               </NavItem>
               <NavItem>
                 <NavLinks style={{ textDecoration: "none" }}>
-                  <Link to="ConatctUsMain" style={{ color: "inherit" }}>
+                  <Link to="contact" style={{ color: "inherit" }}>
                     Contact Us
                   </Link>
                 </NavLinks>

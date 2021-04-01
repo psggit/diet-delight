@@ -4,10 +4,15 @@ import './Icon.css'
 import { Image, Subheading } from '../../MainComponents'
 import axios from '../../../axiosInstance';
 const FeatureList = (props) => {
-    console.log(props)
+    // console.log(props)
     const [likeColor,setLikeColor] = useState("fa fa-heart-o heart_fav_pkg")
 
     function colorHandle(menu_item_id){
+        if(!localStorage.getItem('access_token')){
+            props.setOpenConfirmDialog(true);
+            return
+        }
+
          likeColor === "fa fa-heart-o heart_fav_pkg" ? setLikeColor("fa fa-heart heart_fav_pkg_fill") : setLikeColor("fa fa-heart-o heart_fav_pkg")
          handleLike(menu_item_id)
     }

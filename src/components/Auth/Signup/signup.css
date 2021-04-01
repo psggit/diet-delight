@@ -1,0 +1,9 @@
+i.back_icon {
+  font-size: 18px;
+  color: #8bc53f;
+  cursor: pointer;
+}
+
+i.back_icon:hover {
+  color: purple;
+}
