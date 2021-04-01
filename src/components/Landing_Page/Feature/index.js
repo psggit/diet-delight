@@ -5,18 +5,16 @@ import { Heading, Line, Para } from '../../MainComponents'
 import axios from '../../../axiosInstance'
 
 import FeatureList from './FeatureList'
-import ConfirmDialog from './../ConfirmDialog'
 import { callOnMobile, messageOnWhatsAppWeb } from '../utils'
 import { useHistory } from 'react-router'
 
 
 
-const Feature = () => {
+const Feature = ({setOpenConfirmDialog}) => {
     const history = useHistory();
 
     const [feature, setFeature] = useState([]);
     const [favouritesList, setFavouritesList] = useState([]);
-    const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
 
     useEffect(() => {
 
@@ -82,10 +80,7 @@ const Feature = () => {
                     FEATURED MENU OF THE WEEK
                 </Heading>
                 <Line back="rgba(137,197,63,1)" />
-                <ConfirmDialog 
-                    open={openConfirmDialog} 
-                    setOpen={setOpenConfirmDialog} 
-                />
+                
                 <Set>
                     {renderFavourites}
                 </Set>

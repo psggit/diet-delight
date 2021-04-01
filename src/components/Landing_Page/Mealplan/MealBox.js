@@ -42,6 +42,13 @@ const MealBox = (props) => {
             pathname: "/MealpkgSubscription",
             state: { duration: props.duration },
           }}
+          onClick={(e)=>{
+            const ACCESS_TOKEN = localStorage.getItem("access_token");
+            if(!ACCESS_TOKEN){
+              e.preventDefault();
+              props.setOpenConfirmDialog(true);
+            }
+          }}
         >
           SUBSCRIPTION
         </Mealbtn> 

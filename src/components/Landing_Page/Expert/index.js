@@ -8,7 +8,7 @@ import { Heading, Subheading, Para, Line, Image } from "../../MainComponents";
 
 import Expertpack from "./Expertpack";
 
-const Expert = () => {
+const Expert = ({setOpenConfirmDialog}) => {
   const [experts, setExperts] = useState([]);
 
   useEffect(() => {
@@ -70,6 +70,7 @@ const Expert = () => {
               data={expert.details}
               type={expert.price}
               id={expert.id}
+              setOpenConfirmDialog={setOpenConfirmDialog}
               // color={expert.color}
             />
           ))}

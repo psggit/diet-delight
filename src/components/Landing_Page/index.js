@@ -14,12 +14,15 @@ import DietDataDetails from "../Diet_Free_Data";
 import BmiMain from "../BMI/BmiMain";
 import Bmireport from "../BMI Report/Bmireport";
 
+import ConfirmDialog from "./ConfirmDialog";
+
 const LandingPage = () => {
   const [showQuestion, setShowQuestion] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [bmiReport, setBMIReport] = useState({});
   const [toggleBMI, setToggleBMI] = useState(false);
   const [toggleBMIReport, setToggleBMIReport] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const toggleBMIReportVisibility = (
     BmiScore,
@@ -80,7 +83,11 @@ const LandingPage = () => {
   return (
     <>
       {showQuestion && (
-        <DietDataDetails open={showQuestion} handleCancel={handleCancel} closeBMI={closeBMI} />
+        <DietDataDetails
+          open={showQuestion}
+          handleCancel={handleCancel}
+          closeBMI={closeBMI}
+        />
       )}
       {/* {toggleBMI && (
         <BmiMain
@@ -93,13 +100,14 @@ const LandingPage = () => {
       )} */}
       <Home />
       <MealPackage />
-      <Mealplan />
-      <Feature />
-      <Expert />
+      <Mealplan setOpenConfirmDialog={setOpenConfirmDialog} />
+      <Feature setOpenConfirmDialog={setOpenConfirmDialog} />
+      <Expert setOpenConfirmDialog={setOpenConfirmDialog} />
       <Work />
       <Rating />
       <Downlaod />
       <Footer />
+      <ConfirmDialog open={openConfirmDialog} setOpen={setOpenConfirmDialog} />
     </>
   );
 };
