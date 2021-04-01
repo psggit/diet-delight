@@ -139,7 +139,7 @@ button.mealbtn_subscription {
   border: 1px solid #808080bf;
 }
 button.mealbtn_subscription:hover {
-  color: black;
+  color:white;
   background: #6e9a34;
 }
 button.mealbtn_subscription:focus {
