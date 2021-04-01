@@ -6,11 +6,13 @@ import axios from '../../../axiosInstance'
 
 import FeatureList from './FeatureList'
 import ConfirmDialog from './../ConfirmDialog'
+import { callOnMobile, messageOnWhatsAppWeb } from '../utils'
+import { useHistory } from 'react-router'
 
 
 
 const Feature = () => {
-    
+    const history = useHistory();
 
     const [feature, setFeature] = useState([]);
     const [favouritesList, setFavouritesList] = useState([]);
@@ -121,13 +123,13 @@ const Feature = () => {
                     </Para>
                     <FeatIcons>
                         <IconBox>
-                            <Call />
+                            <Call onClick={callOnMobile} />
                         </IconBox>
                         <IconBox>
-                            <Whatsapp />
+                            <Whatsapp  onClick={messageOnWhatsAppWeb} />
                         </IconBox>
                         <IconBox>
-                            <Message />
+                            <Message onClick={()=> history.push("/contact")} />
                         </IconBox>
                     </FeatIcons>
                 </Bannerdown>

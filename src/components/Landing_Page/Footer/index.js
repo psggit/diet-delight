@@ -9,6 +9,7 @@ import pay2 from '../../../assets/pay2.png';
 import pay3 from '../../../assets/pay3.jpeg';
 import { Link } from "react-router-dom";
 import { ImportExportOutlined } from '@material-ui/icons';
+import { messageOnWhatsAppWeb } from '../utils';
 
 const url = "https://gmail.us1.list-manage.com/subscribe/post?u=41bf26d4dc3702886e2411792&amp;id=3bb3679fe6";
 
@@ -183,7 +184,7 @@ const Footer = () => {
                                     <Twitter />
                                 </Anchor>
                                 <Anchor>
-                                    <Whatsapp />
+                                    <Whatsapp  onClick={messageOnWhatsAppWeb} />
                                 </Anchor>
                             </SetDownDown>
                         </SetDown>
