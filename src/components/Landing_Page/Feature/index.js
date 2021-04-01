@@ -57,9 +57,8 @@ const Feature = ({setOpenConfirmDialog}) => {
                 //     favouriteItem={true}
                 //     setOpenConfirmDialog={setOpenConfirmDialog}
                 // />
-                <div className="col-10 col-md-6 col-lg-4 my-2 row" style={{justifyContent: "center"}}>
+                <div key={Math.random()} className="col-10 col-md-6 col-lg-4 my-2 row" style={{justifyContent: "center"}}>
                     <MainCourse 
-                        key={Math.random()}
                         menuItem={meal}
                         notifyAddedFavourite={setOpenConfirmDialog}
                         favouriteItem={true}
@@ -69,9 +68,8 @@ const Feature = ({setOpenConfirmDialog}) => {
                 )
             }else{
                 return(
-                    <div className="col-10 col-md-6 col-lg-4 my-2 row" style={{justifyContent: "center"}}>
+                    <div key={Math.random()} className="col-10 col-md-6 col-lg-4 my-2 row" style={{justifyContent: "center"}}>
                         <MainCourse 
-                            key={Math.random()}
                             menuItem={meal}
                             notifyAddedFavourite={setOpenConfirmDialog}
                             setOpenConfirmDialog={setOpenConfirmDialog}

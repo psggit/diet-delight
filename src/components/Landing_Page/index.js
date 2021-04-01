@@ -15,7 +15,7 @@ import DietDataDetails from "../Diet_Free_Data";
 import ConfirmDialog from "./ConfirmDialog";
 
 const LandingPage = () => {
-  const [showQuestion, setShowQuestion] = useState(true);
+  const [showQuestion, setShowQuestion] = useState(false);
   // const [userInfo, setUserInfo] = useState({});
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
