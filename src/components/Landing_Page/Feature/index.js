@@ -4,9 +4,9 @@ import { Feat, FeatIcons, Set, Banner, Bannerup, Left, Right, Bannermid, Bannerd
 import { Heading, Line, Para } from '../../MainComponents'
 import axios from '../../../axiosInstance'
 
-import FeatureList from './FeatureList'
 import { callOnMobile, messageOnWhatsAppWeb } from '../utils'
 import { useHistory } from 'react-router'
+import MainCourse from '../../Menu Package/MainCourse'
 
 
 
@@ -49,25 +49,40 @@ const Feature = ({setOpenConfirmDialog}) => {
         var ifFavourite = favouritesList.includes(meal.id)
         if(ifFavourite){ 
             return(
-        <FeatureList
-            key={Math.random() * 100}
-            // picture={meal.picture}
-            // name={meal.name}
-            meal={meal} 
-            favouriteItem={true}
-            setOpenConfirmDialog={setOpenConfirmDialog}
-           
-        />)}else{
-            return(
-                <FeatureList
-                key={Math.random() * 100}
-                meal={meal}
-                setOpenConfirmDialog={setOpenConfirmDialog}
-                // picture={meal.picture}
-                // name={meal.name}
-               
-            />
-
+                // <FeatureList
+                //     key={Math.random() * 100}
+                //     // picture={meal.picture}
+                //     // name={meal.name}
+                //     meal={meal} 
+                //     favouriteItem={true}
+                //     setOpenConfirmDialog={setOpenConfirmDialog}
+                // />
+                <div className="col-10 col-md-6 col-lg-4 my-2 row" style={{justifyContent: "center"}}>
+                    <MainCourse 
+                        key={Math.random()}
+                        menuItem={meal}
+                        notifyAddedFavourite={setOpenConfirmDialog}
+                        favouriteItem={true}
+                    />
+                </div>
+                )
+            }else{
+                return(
+                    <div className="col-10 col-md-6 col-lg-4 my-2 row" style={{justifyContent: "center"}}>
+                        <MainCourse 
+                            key={Math.random()}
+                            menuItem={meal}
+                            notifyAddedFavourite={setOpenConfirmDialog}
+                        />
+                    </div>
+                    //     <FeatureList
+                    //     key={Math.random() * 100}
+                    //     meal={meal}
+                    //     setOpenConfirmDialog={setOpenConfirmDialog}
+                    //     // picture={meal.picture}
+                    //     // name={meal.name}
+                    
+                    // />
             )
         }
     })
@@ -81,7 +96,7 @@ const Feature = ({setOpenConfirmDialog}) => {
                 </Heading>
                 <Line back="rgba(137,197,63,1)" />
                 
-                <Set>
+                <Set style={{margin: "3rem 0"}}>
                     {renderFavourites}
                 </Set>
             </Feat>
