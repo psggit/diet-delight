@@ -380,13 +380,6 @@ const MyConsultation = () => {
                                                             style={{ margin: '0 6px', cursor: 'pointer' }}
                                                         />
                                                     </Tooltip>
-                                                    <Tooltip title="Delete">
-                                                        <Delete
-                                                            onClick={() => {
-                                                                setIsDelete(true);
-                                                                setCurrentConsultation(consultation);
-                                                            }} style={{ margin: '0 6px', cursor: 'pointer' }} />
-                                                    </Tooltip>
                                                 </div>
                                             ]
                                         }),

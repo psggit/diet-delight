@@ -253,12 +253,6 @@ const ListofOrder = () => {
                         order.amount_paid,
                         order.start_date,
                         order.meal_plan_duration,
-                        <>
-                          <Delete onClick={() => {
-                            setCurrentMealPlanPurchase(order);
-                            setIsDelete(true)
-                          }} style={{ margin: '0 6px', cursor: 'pointer' }} />
-                        </>
                       ]
                     }),
                   }}
