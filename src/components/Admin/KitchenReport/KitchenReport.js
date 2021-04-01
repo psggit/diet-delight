@@ -13,12 +13,14 @@ export default function KitchenReport(){
   const [categoryName,setCategoryName] = useState("");
   const [dayCount, setDayCount] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [calories, setCalories] = useState([]);
 
 
-const getPdf = () => {
+const getpdf = () => {
 
 
   console.log(startDate)
+
 
   if(startDate !== ""){
     axios
@@ -28,14 +30,33 @@ const getPdf = () => {
       console.log(res.data.data);
       let menuOrders = [];
       let categories = [];
+      let calorieOption = [];
       res.data.data.map((order) => {
-            menuOrders.push(order);
+      menuOrders.push(order);
             let ifPresent = categories.includes(order.menu_category.name);
             if(!ifPresent) categories.push(order.menu_category.name);
+
+            axios.get(`menus/`+order.menu_category.menu_id)
+            .then((response) => {
+              console.log(response)
+              let caloriesGiven = JSON.parse(response.data.data.calorie_options)
+              caloriesGiven.map((calorie) => {
+                let checkIfCalorieIncluded = calorieOption.includes(parseInt(calorie))
+                if(!checkIfCalorieIncluded){
+                  calorieOption.push(parseInt(calorie));
+                }
+              })
+              console.log(calorieOption)
+              let sortCalories = calorieOption.sort(function(a, b){return a - b});;
+              console.log(sortCalories)
+              setCalories([...sortCalories]);
+            }).catch((err) => {
+              console.log(err)
+            })
       })
       setMenuCategory([...categories]);
       setMenuOrder([...menuOrders]);
-      console.log(categories, menuOrders)
+      console.log(categories, menuOrders, calorieOption)
     }).catch((err) => console.log(err))
 
   }
@@ -49,13 +70,110 @@ const getPdf = () => {
 
   } 
 
+
+  const renderCalories = calories.map((calorie) => {
+    // const totalCalories = calories.length;
+    let centerCalorie = (Math.floor(calories.length / 2)) - 1;
+    let regularCalorie = calories[centerCalorie];
+
+    
+
+    
+    if(calorie === regularCalorie){
+    return(
+      <th class="under_data_col_style">R</th>
+      )}else{
+        let indexOfCalorie = calories.indexOf(calorie);
+        let indexDiff = centerCalorie - indexOfCalorie;
+        console.log(indexDiff)
+        if(indexOfCalorie < centerCalorie){
+          if(indexDiff === 1){
+            return(
+            <th class="under_data_col_style">-</th>
+          )}
+          let stringToReplace = '-';
+          for(let i=0; i<indexOfCalorie; i++){
+            let concatString = '-';
+            stringToReplace = stringToReplace.concat(concatString);
+          }
+          return(
+            <th class="under_data_col_style">{stringToReplace}</th>
+          )
+        }
+        indexDiff = Math.abs(indexDiff);
+        if(indexDiff === 1){
+          return(
+            <th class="under_data_col_style">+</th>
+          )
+        }
+        let stringToReplace = '+';
+        let ReplacedString = '';
+        for(let i=0; i<indexOfCalorie; i++){
+          let concatString = '+';
+          ReplacedString = stringToReplace.concat(concatString);
+        }
+        return(
+          <th class="under_data_col_style">{ReplacedString}</th>
+        )
+    }
+  })
+
+
+
+  const renderCategory = menuCategory.map((category) => {
+    let renderedMenuOrders = [];
+    const renderMenuOrders = menuOrder.map((order) => {
+      let ifRenderedMenuOrders = renderedMenuOrders.findIndex(x => x.category === category && order.menu_item_name === x.name && x.count >= 1);
+      if(ifRenderedMenuOrders >= 0){
+        let changeCounter = renderedMenuOrders[ifRenderedMenuOrders]
+        changeCounter.count = changeCounter.count + 1;
+      }
+      console.log(ifRenderedMenuOrders)
+      let ifCategoryIncluded = menuCategory.includes(order.menu_category.name);
+
+      // const renderTotalOrders = calories.map((calorie) => {
+      //   if(ifCategoryIncluded && order.menu_category.name === category){ 
+      //     return(
+      //       <td class="total_text_kitchen">{renderedMenuOrders[ifRenderedMenuOrders]}</td>
+      //     )
+      //   }
+      // })
+
+
+      if(ifCategoryIncluded  && ifRenderedMenuOrders < 0 && order.menu_category.name === category){ 
+        renderedMenuOrders.push({
+          "category": category,
+          "name":order.menu_item_name,
+          "count": 1
+        });
+        return(
+          <tr>
+              <td class="sec_column">{order.menu_item_name}</td>
+              <td class="total_text_kitchen">0</td>
+              <td class="under_data_col_style"></td>
+          </tr>
+        )
+      }
+      
+    })
+    console.log(renderedMenuOrders)
+  return(
+    <>
+  <tr>
+      <td colSpan="10" class="title_breakfast_text_">{category}</td>
+  </tr>
+  {renderMenuOrders}
+  </>    
+  )
+  })
+
   return(
     <>
     <span>Start Date</span>
   <input type="date" name="startDate" id="startDate" onChange={(e) => selectStartDate(e)}/>
   <span style={{color:"red"}} id="successErrorMessage"></span>
 
-  <button id="btn" className="btn btn-primary" onClick={() => getPdf()}>Go</button>
+  <button id="btn" className="btn btn-primary" onClick={() => getpdf()}>Go</button>
 
   <div className="App">
       <Pdf targetRef={ref} filename="report.pdf">
@@ -88,7 +206,7 @@ const getPdf = () => {
             
             <div class="col-3">
                 
-                <h6 class="title_header_data">DATE :  06/10/2020</h6>
+                <h6 class="title_header_data">DATE : {startDate}</h6>
                 
                 
             </div>
@@ -112,47 +230,11 @@ const getPdf = () => {
             <tr>
                 <th class="first_column"></th>
                 <th class="total_text_kitchen">Total</th>
-                <th class="under_data_col_style">--</th>
-                <th class="under_data_col_style">-</th>
-                <th class="under_data_col_style">R</th>
-                <th class="under_data_col_style">+</th>
-                <th class="under_data_col_style">++</th>
-                <th class="under_data_col_style">+++</th>
-                <th class="under_data_col_style">++++</th>
-                <th class="under_data_col_style">Special Notes</th>
+                {renderCalories}
+                <th class="total_text_kitchen">Special Notes</th>
             </tr>
             
-            <tr>
-                <td colSpan="10" class="title_breakfast_text_">BreakFast</td>
-                
-            </tr>
-            
-            <tr>
-                <td class="sec_column">Foul & Arabic bread* </td>
-                <td class="total_text_kitchen">14</td>
-                <td class="under_data_col_style">0</td>
-                <td class="under_data_col_style">4</td>
-                <td class="under_data_col_style">4</td>
-                <td class="under_data_col_style">4</td>
-                <td class="under_data_col_style">2</td>
-                <td class="under_data_col_style">0</td>
-                <td class="under_data_col_style">0</td>
-                <td class="under_data_col_style"></td>
-            </tr>
-            
-            <tr>
-                <td class="sec_column">Croissant Zaatar*  </td>
-                <td class="total_text_kitchen">38</td>
-                <td class="under_data_col_style">0</td>
-                <td class="under_data_col_style">5</td>
-                <td class="under_data_col_style">19</td>
-                <td class="under_data_col_style">6</td>
-                <td class="under_data_col_style">6</td>
-                <td class="under_data_col_style">1</td>
-                <td class="under_data_col_style">1</td>
-                <td class="under_data_col_style">1 R : extra care</td>
-            </tr>
-            
+     {renderCategory}            
         </table>
         
       </div>
@@ -161,4 +243,4 @@ const getPdf = () => {
   )
 }
 const rootElement = document.getElementById("root");
-ReactDOM.render(<getPdf />, rootElement);
+ReactDOM.render(<getpdf />, rootElement);
