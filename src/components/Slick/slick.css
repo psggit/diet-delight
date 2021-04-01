@@ -7,6 +7,10 @@
   cursor: pointer;
 }
 
+#slick .slick-list {
+  border-radius: 20px;
+}
+
 #slick .slick-slide .active {
   cursor: pointer;
   text-decoration: underline;
