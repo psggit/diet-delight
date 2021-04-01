@@ -24,10 +24,10 @@ export default function MealPlansMenuItems(props){
     function handleChangeSnackbar(data){
         if(data === true){
             setChangeSnackbar(true)
-            }else{
+        }else{
             setChangeSnackbar(false) 
         }
-         
+
     } 
 
 
@@ -158,11 +158,11 @@ export default function MealPlansMenuItems(props){
 
 
     function handleSelect(e,menuItem){
-       
-        
+
+
         // console.log(e)
 
-    var buttonText = e.target.innerHTML;
+        var buttonText = e.target.innerHTML;
     // console.log(buttonText);
     var buttonElement = document.getElementById(e.target.id)
     // console.log(buttonElement);
@@ -193,7 +193,7 @@ export default function MealPlansMenuItems(props){
                 notes: "" 
             }).then((res) => {
                 console.log(res.data.data)  
-               
+
 
             }) .catch((err) => console.log(err));
         }else{
@@ -238,7 +238,7 @@ export default function MealPlansMenuItems(props){
 
 
 const renderMenuDatas = menuItems.map((menuItem) =>{
- 
+
 
   if(menuItem.day  === props.selectedDay){
     var ifFavourite = favouritesList.includes(menuItem.id)
@@ -352,7 +352,8 @@ const renderMenuDatas = menuItems.map((menuItem) =>{
 
 
 
-    <p id="w3review" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}></p>
+    <textarea className="textarea_container_selectmeal" id="w3review" name="w3review" rows="3" placeholder="Enter your notes here" cols="20">
+    </textarea>
 
     </div>
     <div className="col-md-3 col-sm-12 col_grid_selectmeal">
@@ -423,7 +424,8 @@ const renderMenuDatas = menuItems.map((menuItem) =>{
 
 
 
-    <p id="w3review" style={{background:'#fff', height:'80px', width:'100%', paddingLeft:'5px', fontSize:'0.8em', borderRadius:'5px'}}></p>
+    <textarea className="textarea_container_selectmeal" id="w3review" name="w3review" rows="3" placeholder="Enter your notes here" cols="20">
+    </textarea>
 
     </div>
     <div className="col-md-3 col-sm-12 col_grid_selectmeal">
