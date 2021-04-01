@@ -470,7 +470,7 @@ export default function UserDashboardMain() {
           </Button>
         </Modal.Footer> */}
               </Modal>
-              <Button
+              {/* <Button
                 className="final_button"
                 onClick={(e) => {
                   e.preventDefault();
@@ -478,7 +478,7 @@ export default function UserDashboardMain() {
                 }}
               >
                 CHANGE PASSWORD{" "}
-              </Button>
+              </Button> */}
               <Modal
                 show={show1}
                 onHide={handleClose1}
@@ -493,7 +493,7 @@ export default function UserDashboardMain() {
                   <Modal.Title>Change Password</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Change_pro />
+                  <Change_pro email={user?user.email:""} firebaseUid={user ? user.firebase_uid:""}  />
 
                   {/* <Forms firstname={user.first_name} lastname={ user.last_name } phone={phone} email={ user.email } addline1={ user.primary_address_line1  } sedline1={user.secondary_address_line2} sedline2={user.secondary_address_line2} addline2={ user.primary_address_line2  } age={ user.age } gender= { userGender }  bmi= { parseFloat(user.bmi).toFixed(1) } cal= { user.recommended_calories } */}
                 </Modal.Body>

@@ -14,11 +14,11 @@ function Change_pro(props) {
 
   useEffect(() => {
     if (props.ChangePassword) {
-      // document.getElementById("oldPassword").style.visibility = "visible";
-      // document.getElementById("oldPassword").style.display = "block";
+    //   document.getElementById("oldPassword").style.visibility = "visible";
+    //   document.getElementById("oldPassword").style.display = "block";
     } else {
-      // document.getElementById("oldPassword").style.visibility = "hidden";
-      // document.getElementById("oldPassword").style.display = "none";
+    //   document.getElementById("oldPassword").style.visibility = "hidden";
+    //   document.getElementById("oldPassword").style.display = "none";
     }
   }, [props.ChangePassword]);
 
