@@ -17,8 +17,7 @@ export default function ChangePassword(props){
 
 
     useEffect(() => {
-        console.log(props.changePassword)
-        if(props.changePassword){
+        if(props.ChangePassword){
             document.getElementById("oldPassword").style.visibility = "visible";
             document.getElementById("oldPassword").style.display = "block";
         }else{
@@ -27,8 +26,6 @@ export default function ChangePassword(props){
         }
     },[props.ChangePassword])
 
-
-  
 
     const handlePasswordCheck = (e) => {
         var getMessageBox = document.getElementById('successErrorMessage');

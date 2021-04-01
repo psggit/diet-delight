@@ -8,7 +8,7 @@ const ref = React.createRef();
 
 export default function KitchenReport(){
   const [menuOrder,setMenuOrder] = useState([])
-  const [startDate,setStartDate] = useState("")
+  const [startDate,setStartDate] = useState("2021-03-23")
   const [menuCategory, setMenuCategory] = useState([])
   const [categoryName,setCategoryName] = useState("");
   const [dayCount, setDayCount] = useState([]);
@@ -17,9 +17,6 @@ export default function KitchenReport(){
 
 
 const getpdf = () => {
-
-
-  console.log(startDate)
 
 
   if(startDate !== ""){
@@ -46,21 +43,57 @@ const getpdf = () => {
                   calorieOption.push(parseInt(calorie));
                 }
               })
-              console.log(calorieOption)
               let sortCalories = calorieOption.sort(function(a, b){return a - b});;
-              console.log(sortCalories)
               setCalories([...sortCalories]);
             }).catch((err) => {
               console.log(err)
             })
       })
+      let renderedMenuOrders = [];
+      categories.map((category) => {
+          menuOrders.map((order) => {
+            // let calorieNote = "";
+            // let centerCalorie = (Math.floor(calories.length / 2)) - 1;
+            // let regularCalorie = calories[centerCalorie];
+            // let indexOfCalorie = calories.indexOf(order.kcal);
+            // let indexDiff = centerCalorie - indexOfCalorie;
+            // if(order.kcal === regularCalorie && (order.notes != null || order.notes != '')){
+            //   calorieNote = "R:"+ order.notes;
+            // }
+            let ifRenderedMenuOrders = renderedMenuOrders.findIndex(x => x.category === category && order.menu_item_name === x.name && x.count >= 1 && order.menu_category.name === x.category);
+
+            if(ifRenderedMenuOrders >= 0){
+              let changeCounter = renderedMenuOrders[ifRenderedMenuOrders]
+              changeCounter.count = changeCounter.count + 1;
+              changeCounter.calories.push(order.kcal);
+            }      
+            if(ifRenderedMenuOrders < 0 && order.menu_category.name === category){
+              renderedMenuOrders.push({
+                "category": category,
+                "name":order.menu_item_name,
+                "count": 1,
+                "calories":[order.kcal],
+                "notes":[]
+              });
+            }
+          })
+          console.log(renderedMenuOrders)
+      })
+      setMenuOrder([...renderedMenuOrders]);
       setMenuCategory([...categories]);
-      setMenuOrder([...menuOrders]);
-      console.log(categories, menuOrders, calorieOption)
     }).catch((err) => console.log(err))
 
   }
+
+
+  console.log(startDate)
+
+  
 }
+
+useEffect(() => {
+  getpdf();
+},[startDate])
 
 
   const selectStartDate = (e) => {
@@ -69,6 +102,16 @@ const getpdf = () => {
     document.getElementById('successErrorMessage').innerHTML = "";
 
   } 
+
+  const replaceCalories = (indexOfCalorie, stringToReplace) => {
+
+    let replacedString = '';
+    for(let i=0; i<indexOfCalorie; i++){
+      let concatString = stringToReplace;
+      replacedString = stringToReplace.concat(concatString);
+    }
+    return replacedString
+  }
 
 
   const renderCalories = calories.map((calorie) => {
@@ -85,17 +128,13 @@ const getpdf = () => {
       )}else{
         let indexOfCalorie = calories.indexOf(calorie);
         let indexDiff = centerCalorie - indexOfCalorie;
-        console.log(indexDiff)
         if(indexOfCalorie < centerCalorie){
           if(indexDiff === 1){
             return(
             <th class="under_data_col_style">-</th>
           )}
-          let stringToReplace = '-';
-          for(let i=0; i<indexOfCalorie; i++){
-            let concatString = '-';
-            stringToReplace = stringToReplace.concat(concatString);
-          }
+          let stringToReplace = replaceCalories(indexOfCalorie, '-');
+          
           return(
             <th class="under_data_col_style">{stringToReplace}</th>
           )
@@ -106,14 +145,9 @@ const getpdf = () => {
             <th class="under_data_col_style">+</th>
           )
         }
-        let stringToReplace = '+';
-        let ReplacedString = '';
-        for(let i=0; i<indexOfCalorie; i++){
-          let concatString = '+';
-          ReplacedString = stringToReplace.concat(concatString);
-        }
+        let stringToReplace = replaceCalories(indexOfCalorie, '+');
         return(
-          <th class="under_data_col_style">{ReplacedString}</th>
+          <th class="under_data_col_style">{stringToReplace}</th>
         )
     }
   })
@@ -121,42 +155,30 @@ const getpdf = () => {
 
 
   const renderCategory = menuCategory.map((category) => {
-    let renderedMenuOrders = [];
     const renderMenuOrders = menuOrder.map((order) => {
-      let ifRenderedMenuOrders = renderedMenuOrders.findIndex(x => x.category === category && order.menu_item_name === x.name && x.count >= 1);
-      if(ifRenderedMenuOrders >= 0){
-        let changeCounter = renderedMenuOrders[ifRenderedMenuOrders]
-        changeCounter.count = changeCounter.count + 1;
-      }
-      console.log(ifRenderedMenuOrders)
-      let ifCategoryIncluded = menuCategory.includes(order.menu_category.name);
-
-      // const renderTotalOrders = calories.map((calorie) => {
-      //   if(ifCategoryIncluded && order.menu_category.name === category){ 
-      //     return(
-      //       <td class="total_text_kitchen">{renderedMenuOrders[ifRenderedMenuOrders]}</td>
-      //     )
-      //   }
-      // })
-
-
-      if(ifCategoryIncluded  && ifRenderedMenuOrders < 0 && order.menu_category.name === category){ 
-        renderedMenuOrders.push({
-          "category": category,
-          "name":order.menu_item_name,
-          "count": 1
-        });
+      console.log(order)
+      if(order.category === category){ 
         return(
           <tr>
-              <td class="sec_column">{order.menu_item_name}</td>
-              <td class="total_text_kitchen">0</td>
-              <td class="under_data_col_style"></td>
-          </tr>
+            <td class="sec_column">{order.name}</td>
+            <td class="total_text_kitchen">{order.count}</td>
+              {calories.map((calorie) => {
+                let calorieCount = 0;
+                for(var i=0; i<=order.calories.length; i++){
+                  if(order.calories[i] === calorie){
+                    calorieCount = calorieCount + 1;
+                  }
+                }
+                return (
+                  <td class="under_data_col_style">{calorieCount}</td>
+                  )
+              }
+              )}
+            <td class="under_data_col_style"></td>
+        </tr>
         )
       }
-      
     })
-    console.log(renderedMenuOrders)
   return(
     <>
   <tr>
@@ -233,8 +255,7 @@ const getpdf = () => {
                 {renderCalories}
                 <th class="total_text_kitchen">Special Notes</th>
             </tr>
-            
-     {renderCategory}            
+            {renderCategory}         
         </table>
         
       </div>

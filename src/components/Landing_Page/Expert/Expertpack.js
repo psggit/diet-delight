@@ -4,7 +4,7 @@ import { Container, Btnbox, Btn } from "./ExpertElements";
 import { Heading, Para } from "../../MainComponents";
 import { Link } from "react-router-dom";
 
-const Expertpack = ({ imagepackage, title, data, type, color, id }) => {
+const Expertpack = ({ imagepackage, title, data, type, color, id, setOpenConfirmDialog }) => {
   return (
     <>
       <Container>
@@ -39,6 +39,13 @@ const Expertpack = ({ imagepackage, title, data, type, color, id }) => {
                 packageDetails: data,
                 packageType: type,
               },
+            }}
+            onClick={(e)=>{
+              const ACCESS_TOKEN = localStorage.getItem("access_token");
+              if(!ACCESS_TOKEN){
+                e.preventDefault();
+                setOpenConfirmDialog(true);
+              }
             }}
           >
             <Btn>BOOK YOUR APPOINTMENT</Btn>

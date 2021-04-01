@@ -20,6 +20,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+margin-top: 4rem;
 `
 export const Heading = styled.h2`
 color:purple;
@@ -120,7 +121,7 @@ export const NavLinks = styled(LinkS)`
     cursor:pointer;
     width:max-content;
     height: 32px;
-    padding: 0px 25px;
+    padding: 3px 25px;
     background-color: transparent;
     color: purple !important;
     border: 1px solid purple;

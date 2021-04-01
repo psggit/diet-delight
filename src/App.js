@@ -15,6 +15,7 @@ import AdminDash from "./components/Admin";
 import Consultant from "./components/Consultant";
 import Accountant from "./components/Accountant";
 import Kitchen from "./components/Kitchen";
+import KitchenReport from "./components/Admin/KitchenReport/KitchenReport.js";
 
 import { login } from "./features/userSlice";
 import { setToken } from "./features/tokenSlice";
@@ -120,7 +121,7 @@ function App() {
           <Route path="/consultant" exact component={Consultant} />
           <Route path="/kitchen" exact component={Kitchen} />
           <Route path="/accountant" exact component={Accountant} />
-
+          <Route path="/kitchenReport" exact component={KitchenReport} />
           {/* <Route path="/DietDataDetails" exact component={DietDataDetails} /> */}
           <Route
             path="/MealpkgSubscription"

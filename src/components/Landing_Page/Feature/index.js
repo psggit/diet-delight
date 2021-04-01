@@ -4,17 +4,17 @@ import { Feat, FeatIcons, Set, Banner, Bannerup, Left, Right, Bannermid, Bannerd
 import { Heading, Line, Para } from '../../MainComponents'
 import axios from '../../../axiosInstance'
 
-import FeatureList from './FeatureList'
-import ConfirmDialog from './../ConfirmDialog'
+import { callOnMobile, messageOnWhatsAppWeb } from '../utils'
+import { useHistory } from 'react-router'
+import MainCourse from '../../Menu Package/MainCourse'
 
 
 
-const Feature = () => {
-    
+const Feature = ({setOpenConfirmDialog}) => {
+    const history = useHistory();
 
     const [feature, setFeature] = useState([]);
     const [favouritesList, setFavouritesList] = useState([]);
-    const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
 
     useEffect(() => {
 
@@ -49,25 +49,40 @@ const Feature = () => {
         var ifFavourite = favouritesList.includes(meal.id)
         if(ifFavourite){ 
             return(
-        <FeatureList
-            key={Math.random() * 100}
-            // picture={meal.picture}
-            // name={meal.name}
-            meal={meal} 
-            favouriteItem={true}
-            setOpenConfirmDialog={setOpenConfirmDialog}
-           
-        />)}else{
-            return(
-                <FeatureList
-                key={Math.random() * 100}
-                meal={meal}
-                setOpenConfirmDialog={setOpenConfirmDialog}
-                // picture={meal.picture}
-                // name={meal.name}
-               
-            />
-
+                // <FeatureList
+                //     key={Math.random() * 100}
+                //     // picture={meal.picture}
+                //     // name={meal.name}
+                //     meal={meal} 
+                //     favouriteItem={true}
+                //     setOpenConfirmDialog={setOpenConfirmDialog}
+                // />
+                <div key={Math.random()} className="col-10 col-md-6 col-lg-4 my-2 row" style={{justifyContent: "center"}}>
+                    <MainCourse 
+                        menuItem={meal}
+                        notifyAddedFavourite={setOpenConfirmDialog}
+                        favouriteItem={true}
+                        setOpenConfirmDialog={setOpenConfirmDialog}
+                    />
+                </div>
+                )
+            }else{
+                return(
+                    <div key={Math.random()} className="col-10 col-md-6 col-lg-4 my-2 row" style={{justifyContent: "center"}}>
+                        <MainCourse 
+                            menuItem={meal}
+                            notifyAddedFavourite={setOpenConfirmDialog}
+                            setOpenConfirmDialog={setOpenConfirmDialog}
+                        />
+                    </div>
+                    //     <FeatureList
+                    //     key={Math.random() * 100}
+                    //     meal={meal}
+                    //     setOpenConfirmDialog={setOpenConfirmDialog}
+                    //     // picture={meal.picture}
+                    //     // name={meal.name}
+                    
+                    // />
             )
         }
     })
@@ -80,11 +95,8 @@ const Feature = () => {
                     FEATURED MENU OF THE WEEK
                 </Heading>
                 <Line back="rgba(137,197,63,1)" />
-                <ConfirmDialog 
-                    open={openConfirmDialog} 
-                    setOpen={setOpenConfirmDialog} 
-                />
-                <Set>
+                
+                <Set style={{margin: "3rem 0"}}>
                     {renderFavourites}
                 </Set>
             </Feat>
@@ -121,13 +133,13 @@ const Feature = () => {
                     </Para>
                     <FeatIcons>
                         <IconBox>
-                            <Call />
+                            <Call onClick={callOnMobile} />
                         </IconBox>
                         <IconBox>
-                            <Whatsapp />
+                            <Whatsapp  onClick={messageOnWhatsAppWeb} />
                         </IconBox>
                         <IconBox>
-                            <Message />
+                            <Message onClick={()=> history.push("/contact")} />
                         </IconBox>
                     </FeatIcons>
                 </Bannerdown>

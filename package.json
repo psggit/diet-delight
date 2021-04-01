@@ -23,6 +23,7 @@
     "draft-js": "^0.11.7",
     "firebase": "^8.2.9",
     "formik": "^2.2.6",
+    "react-bootstrap": "^1.5.2",
     "i": "^0.3.6",
     "lodash.get": "4.4.2",
     "moment": "^2.29.1",

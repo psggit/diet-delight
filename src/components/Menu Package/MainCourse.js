@@ -14,6 +14,12 @@ export default function MainCourse(props) {
   const [isLoadingFav, setIsLoadingFav] = useState(false);
 
   function colorHandle(menu_item_id) {
+    if(!localStorage.getItem('access_token')){
+      if(props.setOpenConfirmDialog)
+        props.setOpenConfirmDialog(true);
+      return
+    }
+
     likeColor === "fa fa-heart-o heart_menu_pkg"
       ? setLikeColor("fa fa-heart heart_menu_pkg_fill")
       : setLikeColor("fa fa-heart-o heart_menu_pkg");

@@ -9,6 +9,7 @@ import pay2 from '../../../assets/pay2.png';
 import pay3 from '../../../assets/pay3.jpeg';
 import { Link } from "react-router-dom";
 import { ImportExportOutlined } from '@material-ui/icons';
+import { messageOnWhatsAppWeb } from '../utils';
 
 const url = "https://gmail.us1.list-manage.com/subscribe/post?u=41bf26d4dc3702886e2411792&amp;id=3bb3679fe6";
 
@@ -173,17 +174,17 @@ const Footer = () => {
                         </Subheading>
                             <Line back="white" width="50px" height="2px" />
                             <SetDownDown>
-                                <Anchor>
+                                <Anchor href="https://m.facebook.com/DietDeligh.BH/" target="_blank">
                                     <Facebook />
                                 </Anchor>
-                                <Anchor>
+                                <Anchor href="https://instagram.com/dietdelightbh?igshid=93ubathsq1zq" target="_blank">
                                     <Instagram />
                                 </Anchor>
-                                <Anchor>
+                                <Anchor href="https://twitter.com/DietDelightBH?s=08" target="_blank">
                                     <Twitter />
                                 </Anchor>
                                 <Anchor>
-                                    <Whatsapp />
+                                    <Whatsapp  onClick={messageOnWhatsAppWeb} />
                                 </Anchor>
                             </SetDownDown>
                         </SetDown>

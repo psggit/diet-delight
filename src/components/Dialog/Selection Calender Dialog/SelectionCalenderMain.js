@@ -16,6 +16,7 @@
 
 
 	export default function SelectionCalenderMain(props) {
+		console.log(props)
 		const [open, setOpen] = React.useState(true);
 		const theme = useTheme();
 		const weekDays = ['Su','Mo','Tu','We', 'Th', 'Fr', 'Sa']
@@ -254,10 +255,7 @@
 
 				<div className="col-md-6">
 
-				<TextfieldnewComponent addressOf="primaryAddress"  textareaDialogName="Primary Address 
-				Jane Doe,
-				3 Newbridge Court 
-				Chino Hills, CA 91709 " />
+				<TextfieldnewComponent addressOf="primaryAddress"  textareaDialogName={props.recentPurchase.billing_address_line1} />
 
 				</div>
 

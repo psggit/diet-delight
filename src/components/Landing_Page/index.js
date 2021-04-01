@@ -11,45 +11,13 @@ import Downlaod from "./download";
 import Footer from "./Footer";
 import axios from "../../axiosInstance";
 import DietDataDetails from "../Diet_Free_Data";
-import BmiMain from "../BMI/BmiMain";
-import Bmireport from "../BMI Report/Bmireport";
+
+import ConfirmDialog from "./ConfirmDialog";
 
 const LandingPage = () => {
   const [showQuestion, setShowQuestion] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
-  const [bmiReport, setBMIReport] = useState({});
-  const [toggleBMI, setToggleBMI] = useState(false);
-  const [toggleBMIReport, setToggleBMIReport] = useState(false);
-
-  const toggleBMIReportVisibility = (
-    BmiScore,
-    heightInMeter,
-    category,
-    calorieInTake
-  ) => {
-    setToggleBMI(false);
-    setBMIReport({
-      BmiScore: BmiScore,
-      heightInMeter: heightInMeter,
-      category: category,
-      calorieInTake: calorieInTake,
-    });
-    setToggleBMIReport(true);
-  };
-  const toggleReport = () => {
-    setToggleBMI(false);
-    setToggleBMIReport(false);
-  };
-
-  const closeBMI = () => {
-    setShowQuestion(false);
-    console.log("handled update");
-    if (toggleBMI === true) {
-      setToggleBMI(false);
-    } else {
-      setToggleBMI(true);
-    }
-  };
+  // const [userInfo, setUserInfo] = useState({});
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   useEffect(() => {
     const ACCESS_TOKEN = localStorage.getItem("access_token");
@@ -61,9 +29,9 @@ const LandingPage = () => {
         },
       })
       .then((res) => {
-        console.log("Response : ", res);
-        console.log(res.data);
-        setUserInfo(res.data);
+        console.log("Response : ", res.data);
+        // console.log(res.data);
+        // setUserInfo(res.data);
         if (res.data.questionnaire_status === 0) {
           setShowQuestion(true);
         }
@@ -73,33 +41,24 @@ const LandingPage = () => {
       });
   }, []);
 
-  function handleCancel() {
-    console.log("meet");
-    setShowQuestion(false);
-  }
   return (
     <>
       {showQuestion && (
-        <DietDataDetails open={showQuestion} handleCancel={handleCancel} closeBMI={closeBMI} />
-      )}
-      {/* {toggleBMI && (
-        <BmiMain
-          closeBMI={closeBMI}
-          toggleReportBMI={toggleBMIReportVisibility}
+        <DietDataDetails
+          open={showQuestion}
+          handleCancel={() => setShowQuestion(false)}
         />
-      )} */}
-      {/* {toggleBMIReport && (
-        <Bmireport bmiReport={bmiReport} toggleReport={toggleReport} />
-      )} */}
+      )}
       <Home />
       <MealPackage />
-      <Mealplan />
-      <Feature />
-      <Expert />
+      <Mealplan setOpenConfirmDialog={setOpenConfirmDialog} />
+      <Feature setOpenConfirmDialog={setOpenConfirmDialog} />
+      <Expert setOpenConfirmDialog={setOpenConfirmDialog} />
       <Work />
       <Rating />
       <Downlaod />
       <Footer />
+      <ConfirmDialog open={openConfirmDialog} setOpen={setOpenConfirmDialog} />
     </>
   );
 };
