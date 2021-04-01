@@ -174,13 +174,13 @@ const Footer = () => {
                         </Subheading>
                             <Line back="white" width="50px" height="2px" />
                             <SetDownDown>
-                                <Anchor>
+                                <Anchor href="https://m.facebook.com/DietDeligh.BH/" target="_blank">
                                     <Facebook />
                                 </Anchor>
-                                <Anchor>
+                                <Anchor href="https://instagram.com/dietdelightbh?igshid=93ubathsq1zq" target="_blank">
                                     <Instagram />
                                 </Anchor>
-                                <Anchor>
+                                <Anchor href="https://twitter.com/DietDelightBH?s=08" target="_blank">
                                     <Twitter />
                                 </Anchor>
                                 <Anchor>

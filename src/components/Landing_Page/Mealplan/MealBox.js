@@ -24,7 +24,7 @@ import { Mealbox, Mealbtn, Mealbtnbox } from "./MealElements";
 import { Heading, Subheading, Para } from "../../MainComponents";
 
 const MealBox = (props) => {
-  console.log(props)
+  // console.log(props)
   return (
     <Mealbox>
       <Heading color="white" length="1px" weight="300">
