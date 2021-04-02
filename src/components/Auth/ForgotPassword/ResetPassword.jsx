@@ -3,8 +3,6 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { Para } from "../../MainComponents";
-import logo_img from "../../../assets/logoweb.png";
 import { CustomButton } from "./../Signup/SignupElements";
 import InputTextBox from "./../Signup/InputTextBox";
 
@@ -27,28 +25,11 @@ const ResetPassword = ({ formValues, handleNewPassword }) => {
       style={{
         display: "flex",
         maxWidth: "340px",
-        height: "350px",
+        height: "250px",
         flexWrap: "wrap",
         justifyContent: "center",
       }}
     >
-      <div className="row dialog_signup_new">
-        <div className="col-10">
-          <div className="img_container_dialog">
-            <img src={logo_img} className="logo_dialog_signup" alt="logo"></img>
-          </div>
-        </div>
-      </div>
-      <div>
-        <Para
-          color="rgba(137,197,63,1)"
-          size="1.5rem"
-          weight="700"
-          align="center"
-        >
-          RESET PASSWORD
-        </Para>
-      </div>
       <Formik
         initialValues={{
           ...formValues,

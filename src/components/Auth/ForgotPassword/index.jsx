@@ -9,20 +9,29 @@ import {
   Main,
   BackgroundImageContainer,
   SetBg,
+  Route,
+  RouteContainer,
+  Container,
 } from "./../Signin/SignInElements";
 import MobileNumberForm from "./MobileNumberForm";
-// import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.png";
 
-import { Image } from "../../MainComponents";
+import { Image, Subheading, Line } from "../../MainComponents";
 import firebase from "../SignInMethods/firebaseConfig";
-import VerifyOTP from "./../Signup/VerifyOTP";
 import ResetPassword from "./ResetPassword";
+import VerifyOTPForgotPassword from "./VerifyOTPForgotPassword";
+
+const LABELS = {
+  form: "FORGOT PASSWORD",
+  otp: "VERIFY OTP",
+  reset: "RESET PASSWORD",
+};
 
 const ForgotPassword = () => {
   const { enqueueSnackbar } = useSnackbar();
   const reCaptcha = useRef("");
   const verificationOTP = useRef("");
-  const history = useHistory()
+  const history = useHistory();
 
   const [formValues, setFormValues] = useState({
     countryCode: "",
@@ -36,8 +45,8 @@ const ForgotPassword = () => {
 
   const [userValues, setUserValues] = useState({
     phoneNumber: "",
-    firebaseUID: ""
-  })
+    firebaseUID: "",
+  });
 
   //   1- form 2-otp 3-reset
   const [stepName, setStepName] = useState("form");
@@ -63,7 +72,11 @@ const ForgotPassword = () => {
           const user = result.user;
           console.log("User : ", user);
           console.log(user.phoneNumber);
-          setUserValues({...userValues, phoneNumber: user.phoneNumber, firebaseUID: user.uid })
+          setUserValues({
+            ...userValues,
+            phoneNumber: user.phoneNumber,
+            firebaseUID: user.uid,
+          });
 
           enqueueSnackbar("Otp Verification Completed");
 
@@ -111,7 +124,7 @@ const ForgotPassword = () => {
         console.log("Result : ", res);
         if (res.status === 200) {
           enqueueSnackbar("Password Changed Successfully");
-          history.push("/signin")
+          history.push("/signin");
         }
       })
       .catch((err) => {
@@ -141,33 +154,39 @@ const ForgotPassword = () => {
     <div>
       <BackgroundImageContainer>
         <Main>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              height: "inherit",
-              alignItems: "center",
-            }}
-          >
+          <div>
+            <Route to="/">
+              <Image src={logo} alt="logo" height="80px" mar="10px 0 0 0" />
+            </Route>
+            <RouteContainer>
+              <Route>
+                <Subheading weight="600" pad="0" color="rgba(137,197,63,1)">
+                  {LABELS[stepName]}
+                </Subheading>
+                <Line back="rgba(137,197,63,1)" top="0" height="3px" />
+              </Route>
+            </RouteContainer>
             <SetBg>
-              {stepName === "form" && (
-                <MobileNumberForm
-                  formValues={formValues}
-                  phoneAuth={phoneAuth}
-                />
-              )}
-              {stepName === "otp" && (
-                <VerifyOTP
-                  resendOtp={resendOtp}
-                  verificationOTP={verificationOTP}
-                />
-              )}
-              {stepName === "reset" && (
-                <ResetPassword
-                  formValues={formValuesResetPassword}
-                  handleNewPassword={handleNewPassword}
-                />
-              )}
+              <Container>
+                {stepName === "form" && (
+                  <MobileNumberForm
+                    formValues={formValues}
+                    phoneAuth={phoneAuth}
+                  />
+                )}
+                {stepName === "otp" && (
+                  <VerifyOTPForgotPassword
+                    resendOtp={resendOtp}
+                    verificationOTP={verificationOTP}
+                  />
+                )}
+                {stepName === "reset" && (
+                  <ResetPassword
+                    formValues={formValuesResetPassword}
+                    handleNewPassword={handleNewPassword}
+                  />
+                )}
+              </Container>
             </SetBg>
           </div>
         </Main>
