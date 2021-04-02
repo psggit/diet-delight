@@ -10,8 +10,8 @@ export default function CustomSlicker(props) {
     arrows: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 4,
+    slidesToShow: props.categories.length >= 3 ? 3 : 1,
+    // slidesToScroll: 4,
     initialSlide: 0,
     nextArrow: <NextButton />,
 

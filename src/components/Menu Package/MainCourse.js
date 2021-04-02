@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import veg_icon from "../../assets/vegicon.png";
 import "./TabMenuPkg.css";
 import "./../Favourite/FavouriteComponent.css";
+import ConfirmDialog from "./ConfirmDialog";
 
 import axios from "../../axiosInstance";
 import VegComponent from "../veg non veg component/VegComponent.js";
@@ -12,18 +13,18 @@ export default function MainCourse(props) {
   const [likeColor, setLikeColor] = useState("fa fa-heart-o heart_menu_pkg");
   const [isMarking, setIsMarking] = useState(false);
   const [isLoadingFav, setIsLoadingFav] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
+  const isUserLoggedIn = localStorage.getItem("access_token");
 
   function colorHandle(menu_item_id) {
-    if(!localStorage.getItem('access_token')){
-      if(props.setOpenConfirmDialog)
-        props.setOpenConfirmDialog(true);
-      return
+    if (isUserLoggedIn) {
+      likeColor === "fa fa-heart-o heart_menu_pkg"
+        ? setLikeColor("fa fa-heart heart_menu_pkg_fill")
+        : setLikeColor("fa fa-heart-o heart_menu_pkg");
+      handleLike(menu_item_id);
+    } else {
+      setOpenConfirmDialog(true);
     }
-
-    likeColor === "fa fa-heart-o heart_menu_pkg"
-      ? setLikeColor("fa fa-heart heart_menu_pkg_fill")
-      : setLikeColor("fa fa-heart-o heart_menu_pkg");
-    handleLike(menu_item_id);
   }
 
   useEffect(() => {
@@ -115,7 +116,7 @@ export default function MainCourse(props) {
                   aria-hidden="true"
                 ></i>
               )}
-              {!isMarking && !props.isLoadingFav && (
+              {!isMarking && !isLoadingFav && (
                 <i
                   className={likeColor}
                   aria-hidden="true"
@@ -127,6 +128,12 @@ export default function MainCourse(props) {
           </div>
         </div>
       </div>
+      {!isUserLoggedIn && (
+        <ConfirmDialog
+          open={openConfirmDialog}
+          setOpen={setOpenConfirmDialog}
+        />
+      )}
     </>
     //     <div className="col-md-6 col-xs-12">
 

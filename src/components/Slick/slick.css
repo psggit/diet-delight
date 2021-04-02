@@ -7,6 +7,17 @@
   cursor: pointer;
 }
 
+#slick {
+  width: 100%;
+
+  /* overflow: hidden; */
+}
+
+#slick .container {
+  width: 100%;
+  overflow: unset;
+}
+
 #slick .slick-list {
   border-radius: 20px;
 }
