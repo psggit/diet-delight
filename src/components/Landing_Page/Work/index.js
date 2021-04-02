@@ -9,7 +9,7 @@ import WorkMap from './WorkMap'
 import { Working, Head, Tail } from './WorkElement'
 import { Heading, Line } from '../../MainComponents'
 
-const Work = () => {
+const Work = ({openBMICalculator}) => {
 
     const items = [
         {
@@ -58,6 +58,7 @@ const Work = () => {
                                 descript={item.descript}
                                 btn={item.btn}
                                 to={item.to}
+                                openBMICalculator={openBMICalculator}
                             />
                         ))
                     }

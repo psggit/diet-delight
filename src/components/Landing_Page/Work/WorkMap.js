@@ -5,7 +5,7 @@ import { Work, WorkImage, Btnbox, Btn, NavLinks } from './WorkElement'
 import { Heading, Subheading, Para } from '../../MainComponents'
 
 
-const WorkMap = ({ image, title, down, descript, btn, to }) => {
+const WorkMap = ({ image, title, down, descript, btn, to,openBMICalculator }) => {
     return (
         <Work>
             <WorkImage alt="work" src={image} />
@@ -28,6 +28,11 @@ const WorkMap = ({ image, title, down, descript, btn, to }) => {
                   smooth={true}
                   offset={-80}
                   duration={200}
+                  onClick={()=>{
+                      if(!to){
+                        openBMICalculator()
+                      }
+                  }}
                 >
                   {btn}
                 </NavLinks>

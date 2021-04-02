@@ -42,7 +42,7 @@ const BMIResult = ({ bmiReport }) => {
       <div className="row text-center justify-content-center">
         <div className="col-md-8">
           <h6 className="please_bmi_report">
-            Please consult a medical practitioner if you{" "}
+            Please consult a medical practitioner if you
           </h6>
           <ul
             style={{
@@ -52,12 +52,18 @@ const BMIResult = ({ bmiReport }) => {
               opacity: "0.8",
               listStyle: "disc",
               textAlign: "left",
-              marginLeft: "3rem"
+              marginLeft: "3rem",
             }}
           >
-            <li>Have a pre-existing medical condition</li>
-            <li>Are less than 18 or more than 60 years of age</li>
-            <li>Are trying to gain weight, are an athlete or a body-builder</li>
+            <li style={{ listStyle: "disc" }}>
+              Have a pre-existing medical condition
+            </li>
+            <li style={{ listStyle: "disc" }}>
+              Are less than 18 or more than 60 years of age
+            </li>
+            <li style={{ listStyle: "disc" }}>
+              Are trying to gain weight, are an athlete or a body-builder
+            </li>
           </ul>
         </div>
       </div>
