@@ -80,7 +80,7 @@ export default function AddressAppointmentMain(props) {
   const [dateTime, setDateTime] = useState([]);
 
   const [changeAddressData, setChangeAddressData] = useState(false);
-  const [selectAddress, setSelectedAddress] = useState("");
+  const [selectAddress, setSelectedAddress] = useState("primary_address");
 
   const [selectedPaymentMode, setSelectedPaymentMode] = useState("online");
 
