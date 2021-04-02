@@ -25,7 +25,7 @@ export default function DietOnlySelectItem({
         {options.map((value, index) => (
           <SelectOptionBtn
             key={index}
-            btnClassName={Math.floor(options.length / 4) === 0 ? "col-6 mx-2" : "col-5"}
+            btnClassName={Math.floor(options.length / 4) === 0 ? "col-10 col-sm-6 mx-2" : "col-5"}
             isSelected={selectedOption && selectedOption.id === value.id}
             label={value.option}
             handleOnClick={() => updateSelectedOption(value)}

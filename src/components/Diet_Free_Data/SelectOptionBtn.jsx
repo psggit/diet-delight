@@ -16,7 +16,6 @@ const SelectOptionBtn = ({ handleOnClick, label, isSelected, btnClassName }) => 
 
   return (
     <Button
-      
       variant={isSelected ? "contained" : "outlined"}
       color="primary"
       onClick={handleOnClick}
