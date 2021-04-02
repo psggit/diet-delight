@@ -33,7 +33,7 @@ const QuestionCarousel = ({
     height: 120,
     weight: 40,
     age: 16,
-    gender: 0,
+    gender: "",
   });
   const [showValidationMessage, setShowValidationMessage] = useState(false);
 

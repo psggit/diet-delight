@@ -10,11 +10,18 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 450px;
+    height: 530px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
+@media screen and (min-width: 767px) {
+    .questions_dialog_bg {
+        height: 450px;
+    }
+}
+
 
 div.main_container{
     height:fit-content;
