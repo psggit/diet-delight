@@ -103,6 +103,11 @@ export const Button = styled.button`
     outline: none;
     border: none;
   }
+  :hover{
+    color: rgba(137,197,63,1);
+    background-color: transparent;
+    border: 1px solid rgba(137, 197, 63, 1);
+  }
 `;
 
 export const ForgotPasswordPara = styled(Para)`

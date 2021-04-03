@@ -148,6 +148,7 @@ export const CustomButton = styled.button`
   :hover{
     color: rgba(137,197,63,1);
     background-color: transparent;
+    border: 1px solid rgba(137, 197, 63, 1);
   }
 `;
 
@@ -162,7 +163,7 @@ export const ErrorPara = styled(Para)`
 `;
 
 export const ResendOTPBtn = styled.button`
-  color: #000000b5;
+  color: #8BC53F;
   cursor: pointer;
   border: none;
   outline: none;

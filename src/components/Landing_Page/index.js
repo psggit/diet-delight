@@ -11,11 +11,13 @@ import Downlaod from "./download";
 import Footer from "./Footer";
 import axios from "../../axiosInstance";
 import DietDataDetails from "../Diet_Free_Data";
+import BMICalculatorDialog from "./BMICalculatorDialog";
 
 import ConfirmDialog from "./ConfirmDialog";
 
 const LandingPage = () => {
   const [showQuestion, setShowQuestion] = useState(false);
+  const [showBMICalculator, setShowBMICalculator] = useState(false);
   // const [userInfo, setUserInfo] = useState({});
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
@@ -54,11 +56,17 @@ const LandingPage = () => {
       <Mealplan setOpenConfirmDialog={setOpenConfirmDialog} />
       <Feature setOpenConfirmDialog={setOpenConfirmDialog} />
       <Expert setOpenConfirmDialog={setOpenConfirmDialog} />
-      <Work />
+      <Work openBMICalculator={() => setShowBMICalculator(true)} />
       <Rating />
       <Downlaod />
       <Footer />
       <ConfirmDialog open={openConfirmDialog} setOpen={setOpenConfirmDialog} />
+      {showBMICalculator && (
+        <BMICalculatorDialog
+          open={showBMICalculator}
+          handleClose={() => setShowBMICalculator(false)}
+        />
+      )}
     </>
   );
 };

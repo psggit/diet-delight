@@ -1,6 +1,6 @@
 import React from "react";
 
-import PrettoSlider from "../PrettoSlider";
+import { PrettoSliderGreen, PrettoSliderPurple } from "./PrettoSlider";
 
 export default function SliderInput({
   handleOnChange,
@@ -8,26 +8,55 @@ export default function SliderInput({
   min,
   max,
   question,
+  isMale,
 }) {
   return (
-    <div className="col-md-6 col-sm-12 que_text_container_div">
-      <div
-        className="text_field_container_bmi"
-        style={{ flexDirection: "column" }}
+    <div className="col-10 col-sm-5">
+      <p
+        style={{
+          color: "#303960",
+          textAlign: "center",
+          fontSize: "14px",
+          letterSpacing: "1px",
+          marginBottom: "8px",
+          marginTop: "23px",
+        }}
       >
-        <p style={{ textAlign: "center" }}>{value}</p>
-        <PrettoSlider
-          style={{ display: "flex" }}
+        {value}
+      </p>
+      {isMale ? (
+        <PrettoSliderGreen
           min={min}
           max={max}
           onChange={handleOnChange}
-          valueLabelDisplay="active"
+          valueLabelDisplay="auto"
           aria-labelledby="range-slider"
           orientation="horizontal"
           value={value}
         />
-        <h6 className="ques_title_bmi">{question}</h6>
-      </div>
+      ) : (
+        <PrettoSliderPurple
+          min={min}
+          max={max}
+          onChange={handleOnChange}
+          valueLabelDisplay="auto"
+          aria-labelledby="range-slider"
+          orientation="horizontal"
+          value={value}
+        />
+      )}
+      <h6
+        style={{
+          color: "#303960",
+          textAlign: "center",
+          fontSize: "14px",
+          letterSpacing: "1px",
+          marginBottom: "8px",
+          marginTop: "23px",
+        }}
+      >
+        {question}
+      </h6>
     </div>
   );
 }

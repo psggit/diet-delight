@@ -97,7 +97,7 @@ const DietDataDetails = (props) => {
                 root: classes.contentRoot,
               }}
             >
-              {questionData.length && (
+              {!!questionData.length && (
                 <QuestionCarousel
                   QuestionsData={questionData}
                   setQuestionData={setQuestionData}

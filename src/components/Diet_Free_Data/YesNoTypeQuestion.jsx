@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     color: "#727272",
     fontSize: "1.2rem",
     fontWeight: "500",
+    width: "18rem",
     "&::placeholder": {
       color: "#909090",
     },
@@ -42,13 +43,18 @@ export default function DietYesNoComponent({
     >
       <h1>{question.question}</h1>
 
-      <div className="row">
+      <div className="row" style={{ justifyContent: "center" }}>
         {options.map((value, index) => (
-          <div key={index} className="col-6">
+          <div
+            key={index}
+            className="col-6 row"
+            style={{ justifyContent: "center" }}
+          >
             <SelectOptionBtn
               isSelected={selectedOption && selectedOption.id === value.id}
               label={value.option}
               handleOnClick={() => updateSelectedOption(value)}
+              btnClassName="col-7"
             />
           </div>
         ))}

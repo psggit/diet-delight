@@ -33,8 +33,9 @@ const QuestionCarousel = ({
     height: 120,
     weight: 40,
     age: 16,
-    gender: 0,
+    gender: "",
   });
+  const [showValidationMessage, setShowValidationMessage] = useState(false);
 
   const [BMICalculatedResult, setBMICalculatedResult] = useState({
     BMIScore: 0,
@@ -65,16 +66,27 @@ const QuestionCarousel = ({
   };
 
   const isFineToMoveToNext = () => {
+    let rv = true;
     if (activeQuestion < QuestionsData.length) {
       const _currentQuestion = QuestionsData[activeQuestion];
       const _a = !!_currentQuestion.selectedOption;
-      const _b =
-        _currentQuestion.question.type === 1 ? !!_currentQuestion.answer : true;
+      // const _b =
+      // _currentQuestion.question.type === 1 ? !!_currentQuestion.answer : true;
 
-      return _a && _b;
-    } else {
-      return true;
+      rv = _a;
     }
+
+    if (!rv) {
+      // alert("Please Select the Option first.")
+      setShowValidationMessage(true);
+      setTimeout(() => {
+        setShowValidationMessage(false);
+      }, 3000);
+    } else {
+      setShowValidationMessage(false);
+    }
+
+    return rv;
   };
 
   const calculateBMI = () => {
@@ -215,6 +227,20 @@ const QuestionCarousel = ({
           >
             <ArrowBackIcon />
           </IconButton>
+        )}
+        {showValidationMessage && (
+          <div
+            style={{
+              position: "absolute",
+              right: "6rem",
+              bottom: "1.2rem",
+              color: "purple",
+              fontWeight: "bold",
+              fontSize: ".9rem",
+            }}
+          >
+            Please Select the Option first.
+          </div>
         )}
         <IconButton
           onClick={() => {

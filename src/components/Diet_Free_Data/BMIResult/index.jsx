@@ -24,8 +24,13 @@ const BMIResult = ({ bmiReport }) => {
         </div>
 
         <div className="col-md-4 number_text_container">
-          <div className="outerer">
-            <h6 className="ten_number">{bmiReport.BMIScore}</h6>
+          <div
+            className="outerer"
+            style={{ borderColor: "#ac83f7", backgroundColor: "#6f42c1" }}
+          >
+            <h6 className="ten_number" style={{ color: "white" }}>
+              {bmiReport.BMIScore}
+            </h6>
           </div>
         </div>
 
@@ -34,23 +39,33 @@ const BMIResult = ({ bmiReport }) => {
         </div>
       </div>
 
-      <div className="row text-center">
-        <div className="col-md-2"></div>
+      <div className="row text-center justify-content-center">
         <div className="col-md-8">
           <h6 className="please_bmi_report">
-            Please consult a medical practitioner if you{" "}
+            Please consult a medical practitioner if you
           </h6>
-          <h6 className="text_bmi_report">
-            have a pre-existing medical condition
-          </h6>
-          <h6 className="text_bmi_report">
-            are less than 18 or more than 60 years of age
-          </h6>
-          <h6 className="text_bmi_report">
-            are trying to gain weight, are an athlete or a body-builder
-          </h6>
+          <ul
+            style={{
+              color: "#303960",
+              fontFamily: "Roboto",
+              fontSize: "14px",
+              opacity: "0.8",
+              listStyle: "disc",
+              textAlign: "left",
+              marginLeft: "3rem",
+            }}
+          >
+            <li style={{ listStyle: "disc" }}>
+              Have a pre-existing medical condition
+            </li>
+            <li style={{ listStyle: "disc" }}>
+              Are less than 18 or more than 60 years of age
+            </li>
+            <li style={{ listStyle: "disc" }}>
+              Are trying to gain weight, are an athlete or a body-builder
+            </li>
+          </ul>
         </div>
-        <div className="col-md-2"></div>
       </div>
     </>
   );

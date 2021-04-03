@@ -3,14 +3,18 @@ import React from "react";
 import SliderInput from "./SliderInput";
 
 // import "./BMiMain.css";
+import GenderInputContainer from "./GenderInputContainer";
 
 const BMICalculator = ({ BMIData, setBMIData }) => {
   const validateOnlyNumeric = (data, relatedTo) => {
-    console.log(data, relatedTo);
     var numeric = "^[0-9]*$";
     if (data.match(numeric)) {
       setBMIData({ ...BMIData, [relatedTo]: data });
     }
+  };
+
+  const handleGenderChange = (value) => {
+    setBMIData({ ...BMIData, gender: value });
   };
 
   return (
@@ -27,78 +31,20 @@ const BMICalculator = ({ BMIData, setBMIData }) => {
         Let's calculate your BMI
       </h6>
 
-      <div className="row row_bmi_bmi">
-        <div className="col-md-6 col-sm-12 col_container">
-          <h6 className="ques_title_bmi">What is your gender?</h6>
-
-          <div className="row icon_container_main_bmi">
-            <div
-              className="icon_container_bmi"
-              id="maleContainer"
-              onClick={() => {
-                var selectMaleContainer = document.getElementById(
-                  "maleContainer"
-                );
-                var selectMale = document.getElementById("male");
-                selectMale.style.color = "#fff";
-                selectMaleContainer.style.background = "#8BC441";
-                var selectFemaleContainer = document.getElementById(
-                  "femaleContainer"
-                );
-                var selectFemale = document.getElementById("female");
-                selectFemale.style.color = "#000";
-                selectFemaleContainer.style.background = "#fff";
-                setBMIData({ ...BMIData, gender: "male" });
-                console.log("male");
-              }}
-            >
-              <i
-                className="fa fa-mars icon_bmi"
-                id="male"
-                aria-hidden="true"
-              ></i>
-              <h6 className="male_text_btn_bmi">Male</h6>
-            </div>
-
-            <div
-              className="icon_container_bmi"
-              id="femaleContainer"
-              onClick={() => {
-                var selectFemaleContainer = document.getElementById(
-                  "femaleContainer"
-                );
-                var selectFemale = document.getElementById("female");
-                selectFemale.style.color = "#fff";
-                selectFemaleContainer.style.background = "purple";
-                var selectMaleContainer = document.getElementById(
-                  "maleContainer"
-                );
-                var selectMale = document.getElementById("male");
-                selectMale.style.color = "#000";
-                selectMaleContainer.style.background = "#fff";
-                setBMIData({ ...BMIData, gender: "female" });
-                console.log("female");
-              }}
-            >
-              <i
-                className="fa fa-venus icon_bmi"
-                aria-hidden="true"
-                id="female"
-              ></i>
-              <h6 className="male_text_btn_bmi">Female</h6>
-            </div>
-          </div>
-        </div>
-
-        <SliderInput
-          handleOnChange={(e, b) => {
-            validateOnlyNumeric(b.toString(), "weight");
-          }}
-          min={40}
-          max={180}
-          question="What is your weight? (kg)"
-          value={BMIData.weight}
+      <div
+        className="row"
+        style={{
+          maxHeight: "20rem",
+          overflowY: "auto",
+          justifyContent: "space-around",
+          alignItems: "center",
+        }}
+      >
+        <GenderInputContainer
+          handleGenderChange={handleGenderChange}
+          selectedGender={BMIData.gender}
         />
+
         <SliderInput
           handleOnChange={(e, b) => {
             validateOnlyNumeric(b.toString(), "height");
@@ -107,6 +53,7 @@ const BMICalculator = ({ BMIData, setBMIData }) => {
           max={220}
           question="What is your height? (cm)"
           value={BMIData.height}
+          isMale={BMIData.gender === "" || BMIData.gender === "male"}
         />
         <SliderInput
           handleOnChange={(e, b) => {
@@ -116,6 +63,17 @@ const BMICalculator = ({ BMIData, setBMIData }) => {
           max={100}
           question="What is your age?"
           value={BMIData.age}
+          isMale={BMIData.gender === "" || BMIData.gender === "male"}
+        />
+        <SliderInput
+          handleOnChange={(e, b) => {
+            validateOnlyNumeric(b.toString(), "weight");
+          }}
+          min={40}
+          max={180}
+          question="What is your weight? (kg)"
+          value={BMIData.weight}
+          isMale={BMIData.gender === "" || BMIData.gender === "male"}
         />
       </div>
     </>

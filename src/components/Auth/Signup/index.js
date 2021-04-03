@@ -1,6 +1,6 @@
 /* global grecaptcha */
 
-import React, { useState, forwardRef, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Main,
   Route,
@@ -13,7 +13,6 @@ import {
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
 import { Cookies } from "react-cookie";
-import { Slide } from "@material-ui/core";
 
 import "./signup.css";
 import axios from "../../../axiosInstance";
@@ -25,10 +24,6 @@ import { setNew } from "../../../features/userSlice";
 import firebase from "../SignInMethods/firebaseConfig";
 import SignUpForm from "./SignUpForm";
 import VerifyOTP from "./VerifyOTP";
-
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 const Signup = () => {
   const history = useHistory();
@@ -63,12 +58,6 @@ const Signup = () => {
       token.refresh_token ? token.refresh_token : ""
     );
   }, [token]);
-
-  useEffect(() => {
-    if (!verifyingOTP) {
-      renderCaptcha();
-    }
-  }, [verifyingOTP]);
 
   const resendOtp = () => {
     // grecaptcha.reset();
@@ -204,6 +193,10 @@ const Signup = () => {
         });
     }
   };
+
+  useEffect(() => {
+      renderCaptcha();
+  }, []);
 
   return (
     <BackgroundImageContainer>
