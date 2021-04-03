@@ -105,7 +105,7 @@ export default function ConsultationPkgOrderHistory(props) {
                         <h6 className="subscriptionplan_subtitle_cons">
                           {Moment(
                             consultationPur.consultations["0"].consultation_time
-                          ).format("dd-mm-yyyy hh:mm a")}
+                          ).format("DD-MM-YYYY hh:mm a")}
                         </h6>
                       </div>
                       <div className="menu_booster_container">
