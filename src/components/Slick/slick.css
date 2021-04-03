@@ -5,6 +5,7 @@
   padding: 10px 0;
   font-size: 18px;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 #slick {
@@ -20,6 +21,7 @@
 
 #slick .slick-list {
   border-radius: 20px;
+  margin: 0 3%;
 }
 
 #slick .slick-slide .active {

@@ -148,7 +148,6 @@ export default function MenuPkg(props) {
             />
           )}
 
-          <h4>{categoryName}</h4>
           <div className="container">
             <div className="menuPckg-container">{renderCategory}</div>
           </div>
